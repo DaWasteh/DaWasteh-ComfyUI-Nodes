@@ -1,8 +1,8 @@
 {
 	"id": "ab20e03d-7d1c-4a05-ba37-3894ee70ea6c",
 	"revision": 0,
-	"last_node_id": 22,
-	"last_link_id": 21,
+	"last_node_id": 24,
+	"last_link_id": 25,
 	"nodes": [
 		{
 			"id": 1,
@@ -833,7 +833,7 @@
 					"name": "audio",
 					"shape": 7,
 					"type": "AUDIO",
-					"link": null
+					"link": 25
 				},
 				{
 					"localized_name": "fps",
@@ -1148,6 +1148,12 @@
 						"name": "batch_size"
 					},
 					"link": null
+				},
+				{
+					"localized_name": "audio_vae",
+					"name": "audio_vae",
+					"type": "VAE",
+					"link": 22
 				}
 			],
 			"outputs": [
@@ -1257,7 +1263,9 @@
 					"name": "audio_latent",
 					"type": "LATENT",
 					"slot_index": 1,
-					"links": []
+					"links": [
+						23
+					]
 				}
 			],
 			"title": "Separate AV Latent",
@@ -1266,6 +1274,102 @@
 				"cnr_id": "comfy-core"
 			},
 			"widgets_values": []
+		},
+		{
+			"id": 23,
+			"type": "LTXVAudioVAELoader",
+			"pos": [
+				40,
+				780
+			],
+			"size": [
+				360,
+				82
+			],
+			"flags": {},
+			"order": 0,
+			"mode": 0,
+			"inputs": [
+				{
+					"localized_name": "ckpt_name",
+					"name": "ckpt_name",
+					"type": "COMBO",
+					"widget": {
+						"name": "ckpt_name"
+					},
+					"link": null
+				}
+			],
+			"outputs": [
+				{
+					"localized_name": "Audio VAE",
+					"name": "Audio VAE",
+					"type": "VAE",
+					"slot_index": 0,
+					"links": [
+						22,
+						24
+					]
+				}
+			],
+			"title": "Load LTX Audio VAE",
+			"properties": {
+				"Node name for S&R": "LTXVAudioVAELoader",
+				"cnr_id": "comfy-core"
+			},
+			"widgets_values": [
+				"LTX\\LTX23_audio_vae_bf16.safetensors"
+			],
+			"color": "#335",
+			"bgcolor": "#446"
+		},
+		{
+			"id": 24,
+			"type": "LTXVAudioVAEDecode",
+			"pos": [
+				1620,
+				620
+			],
+			"size": [
+				300,
+				82
+			],
+			"flags": {},
+			"order": 0,
+			"mode": 0,
+			"inputs": [
+				{
+					"localized_name": "samples",
+					"name": "samples",
+					"type": "LATENT",
+					"link": 23
+				},
+				{
+					"localized_name": "audio_vae",
+					"name": "audio_vae",
+					"type": "VAE",
+					"link": 24
+				}
+			],
+			"outputs": [
+				{
+					"localized_name": "Audio",
+					"name": "Audio",
+					"type": "AUDIO",
+					"slot_index": 0,
+					"links": [
+						25
+					]
+				}
+			],
+			"title": "Decode LTX Audio",
+			"properties": {
+				"Node name for S&R": "LTXVAudioVAEDecode",
+				"cnr_id": "comfy-core"
+			},
+			"widgets_values": [],
+			"color": "#335",
+			"bgcolor": "#446"
 		}
 	],
 	"links": [
@@ -1436,6 +1540,38 @@
 			13,
 			0,
 			"LATENT"
+		],
+		[
+			22,
+			23,
+			0,
+			20,
+			3,
+			"VAE"
+		],
+		[
+			23,
+			22,
+			1,
+			24,
+			0,
+			"LATENT"
+		],
+		[
+			24,
+			23,
+			0,
+			24,
+			1,
+			"VAE"
+		],
+		[
+			25,
+			24,
+			0,
+			14,
+			1,
+			"AUDIO"
 		]
 	],
 	"groups": [],

@@ -1,0 +1,740 @@
+{
+  "id": "57485b48-4369-4857-b3ec-cafedc69d3ea",
+  "revision": 0,
+  "last_node_id": 8,
+  "last_link_id": 7,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        4082.051790540487,
+        -955.9095814153013
+      ],
+      "size": [
+        429.1666564941406,
+        300
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "value",
+          "name": "value",
+          "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "STRING",
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "title": "① DEINE BILDIDEE (Deutsch) — optional wenn Sketch dran",
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline",
+        "cnr_id": "comfy-core",
+        "ver": "0.9.1"
+      },
+      "widgets_values": [
+        "Werbeplakat für einen Energy-Drink. Dunkler Hintergrund mit Neonlicht. Dose ist zwischen den Brüsten der Frau eingeklemmt. Oben der Markenname \"V-Power\", unten ein Slogan. Dynamischer, moderner Werbestil aber sexualisiert in richtung \"FEEL THE POWER PULSATING INSIDE YOU\" oder sowas\n"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 2,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        4098.8661793425545,
+        -538.4486731686231
+      ],
+      "size": [
+        420,
+        300
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "value",
+          "name": "value",
+          "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "STRING",
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "title": "SYSTEM-PROMPT (FELDTEXT — NICHT ÄNDERN)",
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline",
+        "cnr_id": "comfy-core",
+        "ver": "0.9.1"
+      },
+      "widgets_values": [
+        "You convert a natural-language image idea (the user may write in German) into a MANUAL FIELD SHEET for the ComfyUI node \"Ideogram 4 Prompt Builder KJ\". The user wants to copy/paste text into the visible Ideogram fields and draw/fill the needed boxes manually.\n\nOutput ONLY the field sheet as plain text. No JSON. No markdown fences. No commentary. No thinking. Do not wrap the answer in code blocks.\n\nLANGUAGE:\n- All prompt prose that goes into Ideogram fields is ALWAYS written in ENGLISH.\n- Only literal readable image text requested by the user stays verbatim in the user's language and exact characters.\n- Section labels must stay exactly as specified below so the user can find every field quickly.\n\nOUTPUT FORMAT — use exactly these headings and order:\nIDEOGRAM 4 FIELD SHEET\n\nCANVAS\naspect_ratio: W:H\nwidth: N\nheight: N\nstyle_dropdown: none|photo|art_style\n\nFIELDS\nhigh_level_description:\n...\n\nbackground:\n...\n\nphoto:\n... OR leave empty\n\nart_style:\n... OR leave empty\n\naesthetics:\n...\n\nlighting:\n...\n\nmedium:\n...\n\nimport_mode:\nwhen empty\n\nBOXES\n01 | type: obj|text | out [y1,x1,y2,x2]: [..,..,..,..] | px [x,y,w,h]: [..,..,..,..]\ntext:\n... OR leave empty\n\ndesc:\n...\n\ncolors:\n#RRGGBB, #RRGGBB, #RRGGBB\n\n02 | ...\n\nCANVAS RULES:\n- aspect_ratio: If the user states a concrete W:H, echo it. Else choose to fit subject/medium: panoramic -> 16:9 or 3:1; portrait/standing person -> 9:16 or 4:5; book/poster -> 2:3 or 3:4; ambiguous -> 1:1. Never output \"auto\".\n- width and height are for the Ideogram editor canvas and must be multiples of 16. Use these defaults unless the user requests another size: 1:1=1024x1024, 16:9=1280x720, 9:16=720x1280, 4:5=896x1120, 5:4=1120x896, 3:4=768x1024, 4:3=1024x768, 2:3=800x1200, 3:2=1200x800, 3:1=1536x512, 2:1=1408x704.\n- style_dropdown must be exactly one of: none, photo, art_style.\n- Use photo for photoreal / camera / product-photo briefs, and fill the photo field. Use art_style for illustration, poster, painting, graphic design, anime, 3D render, UI, cover art, logos, etc., and fill the art_style field. Use none only for very simple neutral prompts.\n- The unused photo/art_style field must say exactly: leave empty\n\nFIELD RULES:\n- high_level_description: 50-word HARD CAP, one long sentence max two. Starts with the subject. No \"this image shows/depicts\". Names real entities by full name. For transparent requests include the literal phrase \"on a transparent background\".\n- background: scene shell only: walls/finishes, floor/ground+surface state, ceiling/fixtures, windows-as-architecture, sky/clouds/fog, scene-wide ambient lighting, distant context. Do not repeat anything here as a box.\n- photo/art_style: concise style wording for the chosen dropdown field only. Typography: one typeface category, one weight, one style when relevant.\n- aesthetics: mood, visual taste, design language, restraint/exaggeration, era references if relevant.\n- lighting: scene-wide light sources, direction, color, contrast. Do not describe object shadows.\n- medium: photograph | illustration | 3D render | graphic design, with specific production medium wording. Designed artifact (poster, cover, logo, UI, infographic) -> graphic design. Drawn/painted/anime/named-studio -> illustration. CGI/render -> 3D render. Otherwise default to photograph.\n\nBOX RULES:\n- Background, sky, floor, walls, distant horizon/city/mountains/crowds are NOT boxes.\n- Create boxes for distinct foreground/midground subjects, props, products, logos, readable text blocks, signs, labels, prices, dates, jersey numbers, UI panels, and important positioned details.\n- SINGLE SUBJECT = SINGLE obj BOX. One animal/person/vehicle/building = exactly ONE obj. Anatomical/structural parts (limbs, wheels, windows, petals) are attributes inside that box desc, NEVER separate boxes.\n- Multiple distinct subjects = multiple boxes, one each. A held prop/worn item gets its own box only if it is a focal detail, brand/logo, readable label, or specifically featured by the user.\n- type obj: text field must say \"leave empty\"; desc is 30-80 words, identity first, key attributes, pose/placement, one distinguishing detail. People: skin tone, hair color+style, garments with colors, expression/gaze, pose, distinguishing feature. Objects: shape, material, color, distinctive markings.\n- type text: text field contains exactly the visible string, verbatim. Use actual line breaks for stacked words. desc describes typography, color, placement, and integration. Do not duplicate the literal characters inside desc except for short labels if necessary.\n- Include every readable string the user asks for or the format requires. Separate visually-distinct text blocks into separate text boxes.\n- colors: 1-5 hex colors that help the editor visually mark the box/palette. Pick concrete colors from the subject/text. If unknown, use plausible colors.\n\nBBOX RULES:\n- out format is normalized 0-1000, top-left origin, [y1,x1,y2,x2], with y1<y2 and x1<x2. This is the value shown by the editor's \"out\" field.\n- px format is [x,y,w,h] in the chosen width/height canvas. Compute it from out: x=round(x1/1000*width), y=round(y1/1000*height), w=round((x2-x1)/1000*width), h=round((y2-y1)/1000*height). This is the value for the editor's \"px\" field.\n- A region that should look square must account for aspect ratio. Most failures come from ignoring this.\n- Use bbox for all important placed boxes. If something is deliberately unplaced/dense, omit it from BOXES and mention it in background or field text instead.\n- Make boxes large enough to contain the complete subject/text and not overlap badly unless the composition truly overlaps.\n\nSPECIFICITY:\n- Commit to ONE value. Banned hedges: \"things like\", \"such as\", \"various\", \"or similar\", \"could include\", \"might be\".\n- Banned alternative listings: do not write \"oak or walnut\", \"cream or ivory\" — pick one.\n- Do not invent glitch/wireframe/dissolve effects unless requested.\n- When the brief is sparse and NOT explicitly minimal, add believable secondary subjects and props by depth layer. When the brief says minimal/empty/lonely/single subject/negative space, respect restraint.\n\nSKETCH/REFERENCE IMAGE (if one is provided):\nTreat it as a LAYOUT REFERENCE, not as a scene to photograph. Read rough placement of subjects, text blocks, and regions from the sketch and convert them into bbox positions and boxes. Crude shapes/scribbles indicate WHERE things go and relative size, not final appearance or color. Take final look, style, colors, materials, and literal text from the user's written idea; if silent, infer plausible details. Where sketch and text conflict on placement, follow the sketch; where they conflict on content/style, follow the text. If no image is provided, ignore this section.\n\nRemember: output ONLY the plain field sheet. Begin with exactly: IDEOGRAM 4 FIELD SHEET\n\n----- USER IDEA BELOW -----\n"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 3,
+      "type": "LoadImage",
+      "pos": [
+        4156.782407438566,
+        -154.16122267674746
+      ],
+      "size": [
+        302.20001220703125,
+        360
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "choose file to upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            4
+          ]
+        },
+        {
+          "localized_name": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "title": "③ SKETCH / PAINT-VORLAGE (optional)",
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.9.1"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 4,
+      "type": "TextConcat",
+      "pos": [
+        4586.890160679335,
+        -736.4605010622731
+      ],
+      "size": [
+        300,
+        288
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "delimiter",
+          "name": "delimiter",
+          "type": "STRING",
+          "widget": {
+            "name": "delimiter"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "text1",
+          "name": "text1",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "text1"
+          },
+          "link": 1
+        },
+        {
+          "localized_name": "text2",
+          "name": "text2",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "text2"
+          },
+          "link": 2
+        },
+        {
+          "localized_name": "text3",
+          "name": "text3",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "text3"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "text4",
+          "name": "text4",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "text4"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "text5",
+          "name": "text5",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "text5"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "STRING",
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "title": "System + Idee zusammenführen",
+      "properties": {
+        "Node name for S&R": "TextConcat",
+        "cnr_id": "mikey_nodes",
+        "ver": "1.0.4"
+      },
+      "widgets_values": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "color": "#346434",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 5,
+      "type": "CLIPLoader",
+      "pos": [
+        4541.199278127125,
+        -1177.2651739517232
+      ],
+      "size": [
+        397.6499938964844,
+        143.86666870117188
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "clip_name",
+          "name": "clip_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "clip_name"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "type",
+          "name": "type",
+          "type": "COMBO",
+          "widget": {
+            "name": "type"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "device",
+          "name": "device",
+          "shape": 7,
+          "type": "COMBO",
+          "widget": {
+            "name": "device"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "CLIP",
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "title": "Qwen3.5-VL laden (sieht den Sketch)",
+      "properties": {
+        "Node name for S&R": "CLIPLoader",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1",
+        "models": [
+          {
+            "name": "qwen3.5_4b_bf16.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/Qwen3.5/resolve/main/text_encoders/qwen3.5_4b_bf16.safetensors",
+            "directory": "text_encoders"
+          }
+        ]
+      },
+      "widgets_values": [
+        "Qwen\\qwen3.5_4b_bf16.safetensors",
+        "stable_diffusion",
+        "default"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "TextGenerate",
+      "pos": [
+        4948.973932583323,
+        -853.8258095113126
+      ],
+      "size": [
+        420,
+        532
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "clip",
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3
+        },
+        {
+          "localized_name": "image",
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 4
+        },
+        {
+          "localized_name": "video",
+          "name": "video",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "localized_name": "prompt",
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 5
+        },
+        {
+          "localized_name": "max_length",
+          "name": "max_length",
+          "type": "INT",
+          "widget": {
+            "name": "max_length"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "sampling_mode",
+          "name": "sampling_mode",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "sampling_mode"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "temperature",
+          "name": "sampling_mode.temperature",
+          "type": "FLOAT",
+          "widget": {
+            "name": "sampling_mode.temperature"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "top_k",
+          "name": "sampling_mode.top_k",
+          "type": "INT",
+          "widget": {
+            "name": "sampling_mode.top_k"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "top_p",
+          "name": "sampling_mode.top_p",
+          "type": "FLOAT",
+          "widget": {
+            "name": "sampling_mode.top_p"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "min_p",
+          "name": "sampling_mode.min_p",
+          "type": "FLOAT",
+          "widget": {
+            "name": "sampling_mode.min_p"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "repetition_penalty",
+          "name": "sampling_mode.repetition_penalty",
+          "type": "FLOAT",
+          "widget": {
+            "name": "sampling_mode.repetition_penalty"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "seed",
+          "name": "sampling_mode.seed",
+          "type": "INT",
+          "widget": {
+            "name": "sampling_mode.seed"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "presence_penalty",
+          "name": "sampling_mode.presence_penalty",
+          "shape": 7,
+          "type": "FLOAT",
+          "widget": {
+            "name": "sampling_mode.presence_penalty"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "thinking",
+          "name": "thinking",
+          "shape": 7,
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "thinking"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "use_default_template",
+          "name": "use_default_template",
+          "shape": 7,
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "use_default_template"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "generated_text",
+          "name": "generated_text",
+          "type": "STRING",
+          "links": [
+            6
+          ]
+        }
+      ],
+      "title": "② Qwen3.5-VL → Ideogram-Feldtexte",
+      "properties": {
+        "Node name for S&R": "TextGenerate",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.8",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "(kommt automatisch aus dem Concat-Node)",
+        4096,
+        "on",
+        0.6,
+        40,
+        0.9,
+        0.05,
+        1.1,
+        0,
+        0,
+        false,
+        true
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 7,
+      "type": "PreviewAny",
+      "pos": [
+        5462.568050295899,
+        -838.5132044505765
+      ],
+      "size": [
+        1385.5833740234375,
+        2068.39990234375
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "source",
+          "name": "source",
+          "type": "*",
+          "link": 6
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "STRING",
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            7
+          ]
+        }
+      ],
+      "title": "Qwen-Output (Felder + Kästchen) — Kontrolle",
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": 8,
+      "type": "easy saveText",
+      "pos": [
+        6988.285097842159,
+        -771.8397184098424
+      ],
+      "size": [
+        270,
+        228
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "text",
+          "name": "text",
+          "type": "STRING",
+          "link": 7
+        },
+        {
+          "localized_name": "image",
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "localized_name": "output_file_path",
+          "name": "output_file_path",
+          "type": "STRING",
+          "widget": {
+            "name": "output_file_path"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "file_name",
+          "name": "file_name",
+          "type": "STRING",
+          "widget": {
+            "name": "file_name"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "file_extension",
+          "name": "file_extension",
+          "type": "COMBO",
+          "widget": {
+            "name": "file_extension"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "overwrite",
+          "name": "overwrite",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "overwrite"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "text",
+          "name": "text",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "easy saveText"
+      },
+      "widgets_values": [
+        "H:\\ComfyUI\\ComfyUI\\output\\prompts\\",
+        "Prompts_Ideogram4_",
+        "txt",
+        false
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      4,
+      1,
+      "STRING"
+    ],
+    [
+      2,
+      1,
+      0,
+      4,
+      2,
+      "STRING"
+    ],
+    [
+      3,
+      5,
+      0,
+      6,
+      0,
+      "CLIP"
+    ],
+    [
+      4,
+      3,
+      0,
+      6,
+      1,
+      "IMAGE"
+    ],
+    [
+      5,
+      4,
+      0,
+      6,
+      4,
+      "STRING"
+    ],
+    [
+      6,
+      6,
+      0,
+      7,
+      0,
+      "STRING"
+    ],
+    [
+      7,
+      7,
+      0,
+      8,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.8620349018108567,
+      "offset": [
+        -3707.043285756357,
+        1137.5590576974264
+      ]
+    }
+  },
+  "version": 0.4
+}

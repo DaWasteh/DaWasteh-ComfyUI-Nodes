@@ -1,0 +1,574 @@
+{
+  "id": "6d2c1c3c-70e3-4d13-9413-b1b027c691b3",
+  "revision": 0,
+  "last_node_id": 11,
+  "last_link_id": 4,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "CLIPLoader",
+      "pos": [
+        -472.3617719201337,
+        168.56415608910342
+      ],
+      "size": [
+        508.5333251953125,
+        140
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "clip_name",
+          "name": "clip_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "clip_name"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "type",
+          "name": "type",
+          "type": "COMBO",
+          "widget": {
+            "name": "type"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "device",
+          "name": "device",
+          "shape": 7,
+          "type": "COMBO",
+          "widget": {
+            "name": "device"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "CLIP",
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader",
+        "cnr_id": "comfy-core",
+        "ver": "0.21.1"
+      },
+      "widgets_values": [
+        "Gemma\\gemma4_e4b_it_fp8_scaled.safetensors",
+        "stable_diffusion",
+        "default"
+      ],
+      "color": "#004835",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 3,
+      "type": "TextGenerate",
+      "pos": [
+        69.4150993304583,
+        168.5641560891035
+      ],
+      "size": [
+        400,
+        560
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "showAdvanced": true,
+      "inputs": [
+        {
+          "localized_name": "clip",
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1
+        },
+        {
+          "localized_name": "image",
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 2
+        },
+        {
+          "localized_name": "video",
+          "name": "video",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "localized_name": "prompt",
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 4
+        },
+        {
+          "localized_name": "max_length",
+          "name": "max_length",
+          "type": "INT",
+          "widget": {
+            "name": "max_length"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "sampling_mode",
+          "name": "sampling_mode",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "sampling_mode"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "temperature",
+          "name": "sampling_mode.temperature",
+          "type": "FLOAT",
+          "widget": {
+            "name": "sampling_mode.temperature"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "top_k",
+          "name": "sampling_mode.top_k",
+          "type": "INT",
+          "widget": {
+            "name": "sampling_mode.top_k"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "top_p",
+          "name": "sampling_mode.top_p",
+          "type": "FLOAT",
+          "widget": {
+            "name": "sampling_mode.top_p"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "min_p",
+          "name": "sampling_mode.min_p",
+          "type": "FLOAT",
+          "widget": {
+            "name": "sampling_mode.min_p"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "repetition_penalty",
+          "name": "sampling_mode.repetition_penalty",
+          "type": "FLOAT",
+          "widget": {
+            "name": "sampling_mode.repetition_penalty"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "seed",
+          "name": "sampling_mode.seed",
+          "type": "INT",
+          "widget": {
+            "name": "sampling_mode.seed"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "presence_penalty",
+          "name": "sampling_mode.presence_penalty",
+          "shape": 7,
+          "type": "FLOAT",
+          "widget": {
+            "name": "sampling_mode.presence_penalty"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "thinking",
+          "name": "thinking",
+          "shape": 7,
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "thinking"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "use_default_template",
+          "name": "use_default_template",
+          "shape": 7,
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "use_default_template"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "generated_text",
+          "name": "generated_text",
+          "type": "STRING",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TextGenerate",
+        "cnr_id": "comfy-core",
+        "ver": "0.21.0"
+      },
+      "widgets_values": [
+        "",
+        256,
+        "on",
+        0.7,
+        64,
+        0.95,
+        0.05,
+        1.05,
+        0,
+        0,
+        false,
+        true
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 9,
+      "type": "PixaromaNote",
+      "pos": [
+        -1168.5710764076975,
+        145.1385560891036
+      ],
+      "size": [
+        543.4000244140625,
+        412
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "note_json",
+          "name": "note_json",
+          "type": "STRING",
+          "widget": {
+            "name": "note_json"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaNote",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "1227d9898f9d5137533df750611ca97e8c738f3d"
+      },
+      "widgets_values": [
+        "{\"version\":1,\"content\":\"<h2>MODELS AND NODES USED IN THIS WORKFLOW</h2><p>\\n\\n</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #777777\\\"><p>\\n\\n</p><h3></h3><p>\\n\\n</p><h3><span data-ic=\\\"CLIP\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Load CLIP</h3><p>\\n\\n<span class=\\\"pix-note-btnblock\\\"><a class=\\\"pix-note-dl\\\" style=\\\"background-color: #f66744\\\" href=\\\"https://huggingface.co/Comfy-Org/gemma-4/resolve/main/text_encoders/gemma4_e4b_it_fp8_scaled.safetensors\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Download gemma4_e4b_it_fp8_scaled.safetensors<span class=\\\"pix-note-btnsize\\\">8.06 GB</span></a></span>&nbsp;\\n\\n</p><div class=\\\"pix-note-folderhint\\\" style=\\\"color: #888888\\\">Place in: ComfyUI/models/text_encoders</div><p>\\n\\n</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #777777\\\"><p>\\n\\n</p><h3></h3><p>\\n\\n</p><h3></h3><p>\\n\\n</p><p><span data-ic=\\\"warning-v1\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;After placing the files, <span style=\\\"color: #f66744\\\">restart</span> ComfyUI or refresh model lists using <span style=\\\"color: #f66744\\\">R</span> shortcut.</p><p>\\n\\n</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #777777\\\"><p>\\n\\n</p><h3><span data-ic=\\\"nodes-installed\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Custom Nodes</h3><p>\\n\\n</p><ul>\\n  <li>Pixaroma</li>\\n</ul><p>\\n\\n</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #777777\\\"><p>\\n\\n</p><h3><span data-ic=\\\"pixaroma\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Resources</h3><p>\\n\\n<span class=\\\"pix-note-btnblock\\\">\\n  <a class=\\\"pix-note-discord\\\" href=\\\"https://discord.com/invite/gggpkVgBf3\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Join Discord</a>\\n</span>&nbsp;\\n\\n<span class=\\\"pix-note-btnblock\\\">\\n  <a class=\\\"pix-note-yt\\\" href=\\\"https://www.youtube.com/@pixaroma\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Pixaroma YouTube Channel</a>\\n</span>&nbsp;</p>\",\"buttonColor\":\"#f66744\",\"lineColor\":\"#f66744\",\"width\":528.8383221706308,\"height\":591.2463174881113,\"backgroundColor\":\"#2a2a2a\"}",
+        ""
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 5,
+      "type": "PixaromaShowText",
+      "pos": [
+        502.64971389936517,
+        168.56415608910356
+      ],
+      "size": [
+        416.7166748046875,
+        769.2333374023438
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "source",
+          "name": "source",
+          "type": "*",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "text",
+          "name": "text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PixaromaShowText",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "c82f95989e0347b5cc48ddf52a51f2d776a1f83b"
+      },
+      "widgets_values": [
+        "A captivating digital illustration of a young woman in a flowing, vibrant crimson gown, twirling gracefully amidst falling rose petals. She has long, dark hair adorned with small bows and holds a single red rose aloft in her raised right hand. The composition is dynamic, capturing movement with her voluminous dress swirling around her bare feet on a soft, dusty pink ground. The background is a muted, creamy beige, providing a subtle contrast to the vivid red. Cinematic lighting casts a warm glow on the scene, highlighting the delicate folds of the fabric and the texture of the petals. The mood is romantic and ethereal, rendered with high detail and a painterly yet polished aesthetic, evoking a dreamlike, storybook quality."
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 10,
+      "type": "PixaromaNote",
+      "pos": [
+        -1186.1402764076975,
+        611.5805220159502
+      ],
+      "size": [
+        543.4000244140625,
+        517
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "note_json",
+          "name": "note_json",
+          "type": "STRING",
+          "widget": {
+            "name": "note_json"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "title": "Gemma 4 Note",
+      "properties": {
+        "Node name for S&R": "PixaromaNote",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "c82f95989e0347b5cc48ddf52a51f2d776a1f83b"
+      },
+      "widgets_values": [
+        "{\"version\":1,\"content\":\"<h2>Core Capabilities</h2><p>\\n\\n</p><p>\\n  <a href=\\\"https://huggingface.co/google/gemma-4-E2B-it\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\"><b>Gemma 4</b></a>\\n  models handle a broad range of tasks across <b>text</b>, <b>vision</b>, and <b>audio</b>.\\n</p><p>\\n\\n</p><hr class=\\\"pix-note-hr-dashed\\\" style=\\\"color: #f66744\\\"><p>\\n\\n</p><ul>\\n  <li><b>Thinking</b> – Built-in reasoning mode that lets the model think step-by-step before answering.</li>\\n\\n  <li><b>Long Context</b> – Context windows of up to <code>128K</code> tokens for E2B/E4B</li>\\n\\n  <li><b>Image Understanding</b> – Object detection, document/PDF parsing, screen and UI understanding, chart comprehension, OCR including multilingual text, handwriting recognition, and pointing. Images can be processed at variable aspect ratios and resolutions.</li>\\n\\n  <li><b>Video Understanding</b> – Analyze video by processing sequences of frames.</li>\\n\\n  <li><b>Interleaved Multimodal Input</b> – Freely mix text and images in any order within a single prompt.</li>\\n\\n  <li><b>Function Calling</b> – Native support for structured tool use, enabling agentic workflows.</li>\\n\\n  <li><b>Coding</b> – Code generation, completion, and correction.</li>\\n\\n  <li><b>Multilingual</b> – Out-of-the-box support for 35+ languages, pre-trained on 140+ languages.</li>\\n\\n  <li><b>Audio</b> <i>(E2B and E4B only)</i> – Automatic speech recognition and speech-to-translated-text translation across multiple languages.</li>\\n</ul>\",\"buttonColor\":\"#f66744\",\"lineColor\":\"#f66744\",\"width\":619.3333129882812,\"height\":407.3467565917965,\"backgroundColor\":\"#2a2a2a\"}",
+        ""
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 8,
+      "type": "PixaromaLabel",
+      "pos": [
+        -1079.2609764076974,
+        58.19191020065341
+      ],
+      "size": [
+        413,
+        23
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaLabel",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "80b307e8d1882fd933959cb0ea94a26d143557b5",
+        "aux_id": "pixaroma/ComfyUI-Pixaroma"
+      },
+      "widgets_values": [
+        "{\"text\":\"Gemma 4 - Image to Prompt\",\"fontSize\":31,\"fontFamily\":\"Arial\",\"fontColor\":\"#ffffff\",\"textAlign\":\"left\",\"backgroundColor\":\"#f66744\",\"padding\":10,\"borderRadius\":0,\"opacity\":1,\"fontWeight\":\"normal\",\"lineHeight\":1}",
+        ""
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    },
+    {
+      "id": 4,
+      "type": "LoadImage",
+      "pos": [
+        -396.2285719201336,
+        390.86540158027015
+      ],
+      "size": [
+        379.70001220703125,
+        592.316650390625
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "choose file to upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            2
+          ]
+        },
+        {
+          "localized_name": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.21.1"
+      },
+      "widgets_values": [
+        "ideogram__00021.png",
+        "image"
+      ],
+      "color": "#004835",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 11,
+      "type": "PixaromaText",
+      "pos": [
+        61.60509933045836,
+        785.4883220159503
+      ],
+      "size": [
+        400,
+        299.8666687011719
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "text",
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "text",
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "title": "Image to Prompt Formula",
+      "properties": {
+        "Node name for S&R": "PixaromaText",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "c82f95989e0347b5cc48ddf52a51f2d776a1f83b"
+      },
+      "widgets_values": [
+        "Analyze the image and create a detailed prompt only. Describe the main subject, architectural style, environment, composition, camera angle, lighting, mood, materials, colors, reflections, foreground, background, and important small details. Write it as one natural prompt with rich visual description, suitable for image generation. Include photography or render style terms such as photorealistic, cinematic lighting, high detail, realistic materials, sharp focus, and professional architectural visualization when appropriate. Do not explain. Do not use bullet points. Do not mention that this is an image. Output only one detailed prompt, around 100 to 160 words, no extra text.",
+        ""
+      ],
+      "color": "#15261c",
+      "bgcolor": "#004835"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      3,
+      0,
+      "CLIP"
+    ],
+    [
+      2,
+      4,
+      0,
+      3,
+      1,
+      "IMAGE"
+    ],
+    [
+      3,
+      3,
+      0,
+      5,
+      0,
+      "STRING"
+    ],
+    [
+      4,
+      11,
+      0,
+      3,
+      4,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.5644739300537778,
+      "offset": [
+        1853.5821681652424,
+        544.4766705666918
+      ]
+    },
+    "frontendVersion": "1.43.18",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

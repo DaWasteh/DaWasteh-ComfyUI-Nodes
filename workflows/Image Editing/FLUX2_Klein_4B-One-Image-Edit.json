@@ -1,0 +1,945 @@
+{
+  "id": "c5beec59-2b88-4f3f-ba35-7640a58a9ba6",
+  "revision": 0,
+  "last_node_id": 208,
+  "last_link_id": 253,
+  "nodes": [
+    {
+      "id": 194,
+      "type": "UNETLoader",
+      "pos": [
+        -1031.3461581717702,
+        217.83035566381673
+      ],
+      "size": [
+        495.8871826591876,
+        82
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            245
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.76",
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "FLUX\\flux-2-klein-4b.safetensors",
+        "default"
+      ]
+    },
+    {
+      "id": 195,
+      "type": "CLIPLoader",
+      "pos": [
+        -996.7012011949272,
+        345.2327365079158
+      ],
+      "size": [
+        461.2422256823445,
+        106
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            235
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.76",
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "Qwen\\qwen_3_4b.safetensors",
+        "flux2",
+        "default"
+      ]
+    },
+    {
+      "id": 196,
+      "type": "VAELoader",
+      "pos": [
+        -805.4589755125827,
+        496.6351173520148
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            236,
+            249
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.76",
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "FLUX2\\flux2-vae.safetensors"
+      ]
+    },
+    {
+      "id": 145,
+      "type": "MarkdownNote",
+      "pos": [
+        -1563.6125260609322,
+        220.34468261206086
+      ],
+      "size": [
+        510.3962959303028,
+        551.213552059079
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "👑 Pixaroma - Note - START HERE",
+      "properties": {},
+      "widgets_values": [
+        "# MODELS AND NODES USED IN THIS WORKFLOW  \n\n---\n\n## 🟣 Load Diffusion Model\n### Download **flux-2-klein-4b-fp8 (distilled)** ~3.8GB from [HERE](https://huggingface.co/black-forest-labs/FLUX.2-klein-4b-fp8/resolve/main/flux-2-klein-4b-fp8.safetensors)\n\n📁 **Place in:** `ComfyUI/models/diffusion_models/flux2` \n\nCreate the `flux2` folder if it does not exist)\n \n---\n\n## 🟣 Load CLIP\n\n###  Download **qwen_3_4b.safetensors** ~7.8GB from [HERE](https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b.safetensors)\n\n📁 **Place in:** `ComfyUI/models/text_encoders`  \n\n--- \n\n## 🟣 Load VAE\n\n### Download the **flux2-vae** from [HERE](https://huggingface.co/Comfy-Org/flux2-dev/resolve/main/split_files/vae/flux2-vae.safetensors)  \n\n📁 **Place in:** `ComfyUI/models/vae`  \n\n---\n\n## 🧩 Nodes Installed from Manager  \n\n- **rgthree-comfy**\n\n---\n\n## 📚 Resources  \n🎥 **Tutorials:** [Pixaroma YouTube Channel](https://www.youtube.com/@pixaroma)  \n💬 **Community Discord:** [Join Here](https://discord.com/invite/gggpkVgBf3)\n"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 205,
+      "type": "ReferenceLatent",
+      "pos": [
+        154.2359393711904,
+        450.2663026022682
+      ],
+      "size": [
+        204.134765625,
+        46
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 252
+        },
+        {
+          "name": "latent",
+          "shape": 7,
+          "type": "LATENT",
+          "link": 247
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            253
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.10.0",
+        "Node name for S&R": "ReferenceLatent"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 163,
+      "type": "KSampler",
+      "pos": [
+        390.4924674860182,
+        367.1867161823879
+      ],
+      "size": [
+        296.2197989449314,
+        262
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 245
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 251
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 253
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 237
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": [
+            187
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        134061783316951,
+        "randomize",
+        4,
+        1,
+        "euler",
+        "simple",
+        1
+      ]
+    },
+    {
+      "id": 164,
+      "type": "VAEDecode",
+      "pos": [
+        716.2785031287998,
+        367.1867161823879
+      ],
+      "size": [
+        140,
+        46
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 187
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 236
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            242,
+            244
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.32",
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 206,
+      "type": "VAEEncode",
+      "pos": [
+        -54.98089827371333,
+        583.1832454550635
+      ],
+      "size": [
+        140,
+        46
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pixels",
+          "type": "IMAGE",
+          "link": 246
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 249
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            247,
+            248
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.10.0",
+        "Node name for S&R": "VAEEncode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 199,
+      "type": "ImageScaleToTotalPixels",
+      "pos": [
+        -684.8491026711295,
+        715.0911622149343
+      ],
+      "size": [
+        270,
+        106
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 238
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            239,
+            243,
+            246
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.10.0",
+        "Node name for S&R": "ImageScaleToTotalPixels"
+      },
+      "widgets_values": [
+        "nearest-exact",
+        1,
+        1
+      ],
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 200,
+      "type": "GetImageSize",
+      "pos": [
+        -381.81388269664393,
+        787.219808042006
+      ],
+      "size": [
+        210,
+        136
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 239
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            240
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            241
+          ]
+        },
+        {
+          "name": "batch_size",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.10.0",
+        "Node name for S&R": "GetImageSize"
+      },
+      "widgets_values": [
+        "width: 1024, height: 1024\n batch size: 1"
+      ],
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 197,
+      "type": "EmptyFlux2LatentImage",
+      "pos": [
+        -149.94108224947502,
+        766.6183858963462
+      ],
+      "size": [
+        210,
+        106
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 240
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 241
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            237
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.10.0",
+        "Node name for S&R": "EmptyFlux2LatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        1
+      ],
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 190,
+      "type": "ConditioningZeroOut",
+      "pos": [
+        -66.97604304924867,
+        449.508216028538
+      ],
+      "size": [
+        204.134765625,
+        26
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 219
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            252
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.76",
+        "Node name for S&R": "ConditioningZeroOut"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 204,
+      "type": "ReferenceLatent",
+      "pos": [
+        154.2359393711904,
+        347.3260627078256
+      ],
+      "size": [
+        204.134765625,
+        46
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 250
+        },
+        {
+          "name": "latent",
+          "shape": 7,
+          "type": "LATENT",
+          "link": 248
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            251
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.10.0",
+        "Node name for S&R": "ReferenceLatent"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 202,
+      "type": "Image Comparer (rgthree)",
+      "pos": [
+        100.20783281292218,
+        687.9515234227435
+      ],
+      "size": [
+        460.7295725578971,
+        510.6079249338284
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "dir": 3,
+          "name": "image_a",
+          "type": "IMAGE",
+          "link": 243
+        },
+        {
+          "dir": 3,
+          "name": "image_b",
+          "type": "IMAGE",
+          "link": 244
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "rgthree-comfy",
+        "ver": "8ff50e4521881eca1fe26aec9615fc9362474931",
+        "comparer_mode": "Slide"
+      },
+      "widgets_values": [
+        [
+          {
+            "name": "A",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_zmyui_00255_.png&type=temp&subfolder=&rand=0.11474224041672265"
+          },
+          {
+            "name": "B",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_zmyui_00256_.png&type=temp&subfolder=&rand=0.23780146925727852"
+          }
+        ]
+      ]
+    },
+    {
+      "id": 203,
+      "type": "SaveImage",
+      "pos": [
+        587.118088516458,
+        687.9515234227435
+      ],
+      "size": [
+        455.6680409574101,
+        520.385004199459
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 242
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.10.0",
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "img"
+      ]
+    },
+    {
+      "id": 198,
+      "type": "LoadImage",
+      "pos": [
+        -997.990627920234,
+        713.442922918346
+      ],
+      "size": [
+        290.2154648658484,
+        392.28538131227606
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            238
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.10.0",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ]
+    },
+    {
+      "id": 208,
+      "type": "Note",
+      "pos": [
+        -1108.70512524286,
+        1256.647418219494
+      ],
+      "size": [
+        2199.171180924534,
+        1472.419493401671
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "<-Prompt Ideas",
+      "properties": {},
+      "widgets_values": [
+        "||| Prompts for BunnyExplorer.png\n\nBACKGROUND SWAP\nReplace the background with a simple 3d cartoon lush jungle, keep the bunny’s face, outfit, pose, and camera angle unchanged.\nReplace the background with a cozy 3D cartoon cabin interior, keep the character identical and keep the same framing and scale.\n\nTIME, WEATHER, MOOD\nChange the scene to a 3D cartoon nighttime with soft moonlight and gentle rim light, keep the character and composition unchanged.\nAdd a light snowfall with subtle flakes and soft winter haze, mountains covered in snow in the distance, keep the bunny and all clothing details unchanged.\n\nOUTFIT, ACCESSORIES\nChange the outfit to a bright yellow raincoat with matching hood, keep the bunny’s identity, pose, and proportions the same.\nReplace the current backpack with a huge bright yellow traveler backpack. Keep the character, outfit, pose and proportions the same. \n\nPOSE, EXPRESSION\nMake the bunny run forward, mid-stride, with a natural running pose. Keep the same character design, outfit, and lighting.\nChange the expression to sad and crying, with teary eyes and visible tears on the cheeks. Keep the rest of the image unchanged.\n\nSTYLE TRANSFORM\nConvert the image into a watercolor illustration with soft edges and paper texture, keep the same composition and character design.\nConvert the image into a clean cel-shaded cartoon style with bold outlines, keep pose, outfit shapes, and framing the same.\n\nMATERIAL, TEXTURE\nChange the entire outfit and all straps, belts, and boots to uniform shiny black leather, pure black with no brown or tan anywhere. Keep the same shapes, pose, and framing.\nMake the entire outfit look like knitted fabric, keep the bunny’s identity, pose, same green colors and proportions the same, only change the outfit material.\n\nADD OR REMOVE PROPS\n\nAdd a small lantern in the bunny’s paw emitting warm light, keep the pose and all other elements unchanged.\nRemove the backpack and all straps completely, keep only the belt, fill the area naturally. Keep the bunny, background, and outfit unchanged.\nRemove the backpack and all previous clothing. Dress the bunny in a Hawaiian beach outfit with a straw hat and flip flops, hands on hips. Keep the character, pose, background, and lighting unchanged.\n\nCROP\nZoom in to a chest-up portrait crop while keeping the character centered, preserve identity and details.\n\nCOLOR GRADING\nApply a warm cinematic color grade with softer highlights and gentle contrast, keep all objects and shapes unchanged.\nApply a pastel color palette while keeping details sharp and readable, keep the character and composition unchanged.\n\nTEXT, LABELS\nAdd a small badge on the hat that reads \"RANGER\" in clear letters, keep everything else unchanged.\nMake the bunny hold a wooden sign with the text \"PIXA\" clearly written on it. Keep the character, pose, background, and lighting unchanged.\n\nCAMERA ANGLE\nShow a perfect 90-degree side view (profile) of the same bunny character, keep the exact same outfit, backpack, materials, cute 3D style, and lighting, only change the camera angle to side view.\n\n---\n\n||| Prompts for PixaromaLogo.png\n\nBRANDING MOCKUPS (PUT LOGO ON THINGS)\nPlace this logo as a crisp black print on a white ceramic coffee mug mockup, keep the logo shape perfectly unchanged and centered.\nPlace the provided orange logo on the front of a matte black kraft coffee bag, keep the logo shape and proportions perfectly unchanged. Front view product photography on a wooden tabletop with an exotic vibe, warm natural light, shallow depth of field, realistic shadows.\nCreate a lifestyle photo of a woman holding a matte black tote bag over her shoulder, only show the shoulder, arm and the tote bag (no face or full body). Place the provided orange logo centered on the tote bag as a clean single-color print; keep the logo shape and proportions perfectly unchanged. Natural warm light, shallow depth of field, realistic fabric folds and shadows.\n\n3D, METAL, MATERIAL VERSIONS\nConvert the provided logo into a 3D extruded emblem with soft bevels in polished gold metal, keep the logo silhouette perfectly unchanged. Front view, centered, on a dark matte background with subtle studio reflections and a soft shadow, high-end product render.\nMake a glossy black chrome 3D logo, keep the silhouette unchanged.\nMake a frosted glass 3D logo with soft translucency, keep the exact shape and proportions.\n\nCOLORWAYS, STYLE VARIATIONS\nCreate an inverted version: white logo on solid black background, keep the design unchanged.\nCreate a gradient version with subtle metallic gold gradient, keep the logo shape unchanged.\nCreate a stamped ink version with slight realistic ink bleed, keep the logo readable and shape consistent.\n\nLOGO IN ENVIRONMENTS (SIGNAGE, WALLS, SCENES)\nPaint this logo as a large mural on a concrete wall with realistic texture, keep the logo shape unchanged.\nCreate a macro close-up photo of a black fabric flag showing the provided orange logo printed on the textile; keep the logo shape and proportions perfectly unchanged and crisp (no distortion). Visible weave texture, slight fabric ripples, realistic ink sitting on fibers, shallow depth of field, soft directional light, high detail.\n\nPREMIUM FINISHES (FOIL, EMBOSS, SPOT UV)\nCreate a macro close-up photo of the provided logo gold-foil stamped on matte black paper, keep the logo shape and proportions perfectly unchanged. Show realistic foil shine, subtle emboss depth, tiny paper fibers, sharp edges, shallow depth of field, soft directional light with specular highlights, high detail.\nCreate a macro close-up photo of the provided logo silver-foil stamped on deep navy paper, keep the logo shape and proportions perfectly unchanged. Show realistic metallic foil shine, subtle emboss depth, visible paper fibers, crisp edges, shallow depth of field, soft directional light with clean specular highlights, high detail.\nCreate a macro close-up photo of the provided logo printed with metallic ink on premium matte black paper, keep the logo shape and proportions perfectly unchanged. Subtle sparkle flecks in the ink, realistic ink texture, crisp edges, visible paper fibers, shallow depth of field, soft directional light with gentle specular shimmer, high detail.\n\n---\n\n||| Prompts for Sketch.jpeg\n\nCOLORIZE, KEEP LINE ART\nColorize this sketch into a clean flat-color cartoon with soft cel shading, keep the exact line art, pose, and facial expression unchanged.\n\nINK + WATERCOLOUR LOOK\nTurn this sketch into an ink-and-watercolor illustration with light washes and paper texture, keep the character design and line placement the same. White bunny, red clothes, green hills, blue sky.\n\nCLEAN VECTOR STYLE\nConvert this sketch into a crisp vector illustration with smooth outlines and minimal shading, keep the same composition and proportions.\n\n---\n\n||| Prompts for Woman3.jpeg\n\nBACKGROUND SWAP\nReplace the plain background with a modern corporate office with soft blur, keep the woman’s face, hair, expression, and suit unchanged.\nReplace the background with a dark charcoal studio backdrop with subtle gradient, keep the subject unchanged.\n\nLIGHTING, STUDIO LOOK\nChange lighting to a clean high-key studio setup with soft even light, keep facial features and pose unchanged.\nChange lighting to dramatic Rembrandt lighting from camera-left, keep identity and pose unchanged.\n\nWARDROBE, COLOR TWEAK\nChange the blazer to deep navy while keeping fabric texture realistic, keep her face, hair, and pose unchanged.\nChange the blouse to a soft pastel blue silk, keep everything else unchanged.\n\nEXPRESSION, MICRO EDITS\nChange expression to a warm professional smile, keep eyes, face shape, and head angle unchanged.\nMake the woman happy, keep everything else unchanged.\n\nHAIR\nChange hairstyle to a sleek low bun, keep facial identity and makeup style unchanged.\nChange hair color to blonde, keep facial identity and makeup style unchanged.\n\nMAKEUP, RETOUCH\nApply natural beauty retouch: reduce shine, soften minor skin texture, keep pores realistic, keep identity unchanged.\nAdd subtle professional makeup with slightly stronger eyeliner and natural lip color, keep identity unchanged.\nAdd professional fantasy makeup in purple and blue tones. Keep the subject’s identity unchanged. \n\nACCESSORIES\nAdd thin gold rim glasses, keep face shape, eyes, and expression unchanged.\nAdd simple pearl necklace, keep outfit and pose unchanged.\n\nPOSE + ENVIRONMENT\nPlace her seated at a desk with a laptop, typing naturally, keep identity unchanged.\nPlace her walking outdoors in a city street, candid business photo, looking to the side, keep identity unchanged.\nPlace her standing near a window, talking on a phone with natural gesture, keep identity unchanged.\nPlace her on an exotic tropical beach wearing a light white summer dress, a wide-brim straw hat, keep her face identity and realistic features unchanged. Warm golden sunlight, gentle ocean breeze, natural candid pose, shallow depth of field, high-end lifestyle photo."
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [
+        -516.3857867517388,
+        346.49167053268854
+      ],
+      "size": [
+        424.42708333333337,
+        293.02083333333337
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 235
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "slot_index": 0,
+          "links": [
+            219,
+            250
+          ]
+        }
+      ],
+      "title": "CLIP Text Encode (Positive Prompt)",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "Replace the background with a 3D cartoon snowy winter forest trail with falling snow and soft overcast light, keep the character identical and keep the same framing and scale.\n"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    }
+  ],
+  "links": [
+    [
+      187,
+      163,
+      0,
+      164,
+      0,
+      "LATENT"
+    ],
+    [
+      219,
+      6,
+      0,
+      190,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      235,
+      195,
+      0,
+      6,
+      0,
+      "CLIP"
+    ],
+    [
+      236,
+      196,
+      0,
+      164,
+      1,
+      "VAE"
+    ],
+    [
+      237,
+      197,
+      0,
+      163,
+      3,
+      "LATENT"
+    ],
+    [
+      238,
+      198,
+      0,
+      199,
+      0,
+      "IMAGE"
+    ],
+    [
+      239,
+      199,
+      0,
+      200,
+      0,
+      "IMAGE"
+    ],
+    [
+      240,
+      200,
+      0,
+      197,
+      0,
+      "INT"
+    ],
+    [
+      241,
+      200,
+      1,
+      197,
+      1,
+      "INT"
+    ],
+    [
+      242,
+      164,
+      0,
+      203,
+      0,
+      "IMAGE"
+    ],
+    [
+      243,
+      199,
+      0,
+      202,
+      0,
+      "IMAGE"
+    ],
+    [
+      244,
+      164,
+      0,
+      202,
+      1,
+      "IMAGE"
+    ],
+    [
+      245,
+      194,
+      0,
+      163,
+      0,
+      "MODEL"
+    ],
+    [
+      246,
+      199,
+      0,
+      206,
+      0,
+      "IMAGE"
+    ],
+    [
+      247,
+      206,
+      0,
+      205,
+      1,
+      "LATENT"
+    ],
+    [
+      248,
+      206,
+      0,
+      204,
+      1,
+      "LATENT"
+    ],
+    [
+      249,
+      196,
+      0,
+      206,
+      1,
+      "VAE"
+    ],
+    [
+      250,
+      6,
+      0,
+      204,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      251,
+      204,
+      0,
+      163,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      252,
+      190,
+      0,
+      205,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      253,
+      205,
+      0,
+      163,
+      2,
+      "CONDITIONING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7627768444385575,
+      "offset": [
+        1720.0797638613226,
+        -80.64067500064712
+      ]
+    },
+    "frontendVersion": "1.37.11",
+    "node_versions": {
+      "ComfyUI-GGUF": "8098c7149fa4ff14991eb3347a5585051ceeafbe",
+      "comfy-core": "v0.3.10-37-gd055325",
+      "rgthree-comfy": "5d771b8b56a343c24a26e8cea1f0c87c3d58102f"
+    },
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true,
+    "workflowRendererVersion": "LG"
+  },
+  "version": 0.4
+}

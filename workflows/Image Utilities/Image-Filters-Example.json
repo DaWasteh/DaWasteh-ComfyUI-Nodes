@@ -1,0 +1,521 @@
+{
+  "id": "bfa225fe-95af-46a5-8c11-8f71f1cca845",
+  "revision": 0,
+  "last_node_id": 14,
+  "last_link_id": 25,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "MarkdownNote",
+      "pos": [
+        63.82598735521957,
+        315.191979275117
+      ],
+      "size": [
+        335.6154030821015,
+        158.76367462022318
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "👑 Pixaroma - Note - START HERE",
+      "properties": {},
+      "widgets_values": [
+        "\n## 🧩 Nodes Installed from Manager  \n\n- ComfyUI_LayerStyle\n\n---\n\n## 📚 Resources  \n🎥 **Tutorials:** [Pixaroma YouTube Channel](https://www.youtube.com/@pixaroma)  \n💬 **Community Discord:** [Join Here](https://discord.com/invite/gggpkVgBf3)\n"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 5,
+      "type": "PreviewImage",
+      "pos": [
+        2429.7304161356437,
+        367.0108194524597
+      ],
+      "size": [
+        539.6489482813361,
+        640.7437139184166
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 25
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.16.4",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 9,
+      "type": "LayerUtility: ImageBlendAdvance V2",
+      "pos": [
+        827.8410192252162,
+        365.13462039135277
+      ],
+      "size": [
+        341.0787109375,
+        338
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background_image",
+          "type": "IMAGE",
+          "link": 18
+        },
+        {
+          "name": "layer_image",
+          "type": "IMAGE",
+          "link": 19
+        },
+        {
+          "name": "layer_mask",
+          "shape": 7,
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            16
+          ]
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_layerstyle",
+        "ver": "d94bef1ee5ed3656f5ff1bb2830a4ffd94f40935",
+        "Node name for S&R": "LayerUtility: ImageBlendAdvance V2"
+      },
+      "widgets_values": [
+        true,
+        "multiply",
+        70,
+        50,
+        50,
+        "None",
+        1,
+        1,
+        0,
+        "lanczos",
+        0
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    },
+    {
+      "id": 8,
+      "type": "LayerFilter: FilmV2",
+      "pos": [
+        1192.6777109648092,
+        365.13462039135277
+      ],
+      "size": [
+        281.01171875,
+        366
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 16
+        },
+        {
+          "name": "depth_map",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            22
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_layerstyle",
+        "ver": "d94bef1ee5ed3656f5ff1bb2830a4ffd94f40935",
+        "Node name for S&R": "LayerFilter: FilmV2"
+      },
+      "widgets_values": [
+        0.5,
+        0.5,
+        0.9,
+        0.12,
+        "fastgrain",
+        0.15,
+        1,
+        0.5,
+        0.6,
+        0.2,
+        21,
+        2.2,
+        0.9
+      ],
+      "color": "rgba(34, 67, 111, 0.7)"
+    },
+    {
+      "id": 13,
+      "type": "LayerColor: BrightnessContrastV2",
+      "pos": [
+        1497.4474105169022,
+        365.13462039135277
+      ],
+      "size": [
+        333.4087890625,
+        106
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 22
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            23
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_layerstyle",
+        "ver": "d94bef1ee5ed3656f5ff1bb2830a4ffd94f40935",
+        "Node name for S&R": "LayerColor: BrightnessContrastV2"
+      },
+      "widgets_values": [
+        1.11,
+        1,
+        1
+      ],
+      "color": "rgba(27, 89, 123, 0.7)"
+    },
+    {
+      "id": 14,
+      "type": "LayerColor: ColorBalance",
+      "pos": [
+        1518.9830683142084,
+        534.4757627002512
+      ],
+      "size": [
+        270,
+        106
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 23
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            24,
+            25
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_layerstyle",
+        "ver": "d94bef1ee5ed3656f5ff1bb2830a4ffd94f40935",
+        "Node name for S&R": "LayerColor: ColorBalance"
+      },
+      "widgets_values": [
+        0.002,
+        -0.011,
+        -0.012
+      ],
+      "color": "rgba(27, 89, 123, 0.7)"
+    },
+    {
+      "id": 12,
+      "type": "AILab_LoadImage",
+      "pos": [
+        423.84447686233574,
+        884.9591888325606
+      ],
+      "size": [
+        372.97055329030036,
+        520.8104456744833
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            19
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "title": "Load Image (RMBG) 🖼️(Overlay Texture)",
+      "properties": {
+        "cnr_id": "comfyui-rmbg",
+        "ver": "d7402513f23f58db7d56754b02a4f51a148b4941",
+        "Node name for S&R": "AILab_LoadImage"
+      },
+      "widgets_values": [
+        "",
+        "example.png",
+        "lanczos",
+        0,
+        1,
+        "longest_side",
+        0,
+        "image"
+      ],
+      "color": "#2e3e57",
+      "bgcolor": "#4b5b73"
+    },
+    {
+      "id": 11,
+      "type": "AILab_LoadImage",
+      "pos": [
+        423.84447686233574,
+        314.95383396110606
+      ],
+      "size": [
+        372.97055329030036,
+        520.8104456744833
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            17,
+            18
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-rmbg",
+        "ver": "d7402513f23f58db7d56754b02a4f51a148b4941",
+        "Node name for S&R": "AILab_LoadImage"
+      },
+      "widgets_values": [
+        "",
+        "example.png",
+        "lanczos",
+        0,
+        1,
+        "longest_side",
+        0,
+        "image"
+      ],
+      "color": "#2e3e57",
+      "bgcolor": "#4b5b73"
+    },
+    {
+      "id": 4,
+      "type": "Image Comparer (rgthree)",
+      "pos": [
+        1859.7867520332534,
+        367.0108194524597
+      ],
+      "size": [
+        539.6489482813361,
+        640.7437139184166
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "dir": 3,
+          "name": "image_a",
+          "type": "IMAGE",
+          "link": 17
+        },
+        {
+          "dir": 3,
+          "name": "image_b",
+          "type": "IMAGE",
+          "link": 24
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "rgthree-comfy",
+        "ver": "8ff50e4521881eca1fe26aec9615fc9362474931",
+        "comparer_mode": "Slide"
+      },
+      "widgets_values": [
+        [
+          {
+            "name": "A",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_tlpua_00077_.png&type=temp&subfolder=&rand=0.11098503092299383"
+          },
+          {
+            "name": "B",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_tlpua_00078_.png&type=temp&subfolder=&rand=0.27138958973001803"
+          }
+        ]
+      ]
+    }
+  ],
+  "links": [
+    [
+      16,
+      9,
+      0,
+      8,
+      0,
+      "IMAGE"
+    ],
+    [
+      17,
+      11,
+      0,
+      4,
+      0,
+      "IMAGE"
+    ],
+    [
+      18,
+      11,
+      0,
+      9,
+      0,
+      "IMAGE"
+    ],
+    [
+      19,
+      12,
+      0,
+      9,
+      1,
+      "IMAGE"
+    ],
+    [
+      22,
+      8,
+      0,
+      13,
+      0,
+      "IMAGE"
+    ],
+    [
+      23,
+      13,
+      0,
+      14,
+      0,
+      "IMAGE"
+    ],
+    [
+      24,
+      14,
+      0,
+      4,
+      1,
+      "IMAGE"
+    ],
+    [
+      25,
+      14,
+      0,
+      5,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "ds": {
+      "scale": 0.814027493868402,
+      "offset": [
+        82.76022766411435,
+        -92.24701866600472
+      ]
+    },
+    "frontendVersion": "1.39.19",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

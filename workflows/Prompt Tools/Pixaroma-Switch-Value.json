@@ -1,0 +1,494 @@
+{
+  "id": "02a03903-e47f-476b-938b-0d60dca0a0b0",
+  "revision": 0,
+  "last_node_id": 15,
+  "last_link_id": 10,
+  "nodes": [
+    {
+      "id": 12,
+      "type": "LoadImage",
+      "pos": [
+        626.5312477620789,
+        -420.04786954012775
+      ],
+      "size": [
+        282.798828125,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            8
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.21.1",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "color": "#004835",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 13,
+      "type": "LoadImage",
+      "pos": [
+        626.5312477620789,
+        -59.568046779518426
+      ],
+      "size": [
+        282.798828125,
+        314
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            9
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.21.1",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "color": "#004835",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 14,
+      "type": "PixaromaPreview",
+      "pos": [
+        1247.7103261312204,
+        -204.56804677951845
+      ],
+      "size": [
+        366.45323486328084,
+        462
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "8e644dc5f45a0c469a51a534d814238e90c68ab8",
+        "Node name for S&R": "PixaromaPreview",
+        "pixaromaFrames": [
+          {
+            "filename": "pixaroma_preview_1e53710fc494436c84e41dbb665e5e7a.png",
+            "subfolder": "",
+            "type": "temp"
+          }
+        ],
+        "pixaromaSelected": 0,
+        "pixaromaExpanded": false
+      },
+      "widgets_values": [
+        "img",
+        "preview"
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 3,
+      "type": "PixaromaLabel",
+      "pos": [
+        -277.77885365716526,
+        -576.0478695401277
+      ],
+      "size": [
+        210,
+        51
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "80b307e8d1882fd933959cb0ea94a26d143557b5",
+        "Node name for S&R": "PixaromaLabel",
+        "aux_id": "pixaroma/ComfyUI-Pixaroma"
+      },
+      "widgets_values": [
+        "{\"text\":\"Switch Node\",\"fontSize\":31,\"fontFamily\":\"Arial\",\"fontColor\":\"#ffffff\",\"textAlign\":\"left\",\"backgroundColor\":\"#f66744\",\"padding\":10,\"borderRadius\":0,\"opacity\":1,\"fontWeight\":\"normal\",\"lineHeight\":1}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    },
+    {
+      "id": 5,
+      "type": "PixaromaText",
+      "pos": [
+        -277.77885365716526,
+        -374.3079581598231
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "8e644dc5f45a0c469a51a534d814238e90c68ab8",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "First Text",
+        ""
+      ],
+      "color": "#004835",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 6,
+      "type": "PixaromaText",
+      "pos": [
+        -277.77885365716526,
+        -112.3079581598231
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "8e644dc5f45a0c469a51a534d814238e90c68ab8",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Second Text",
+        ""
+      ],
+      "color": "#004835",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 7,
+      "type": "PixaromaShowText",
+      "pos": [
+        351.4145289111941,
+        -204.56804677951845
+      ],
+      "size": [
+        210,
+        118
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "8e644dc5f45a0c469a51a534d814238e90c68ab8",
+        "Node name for S&R": "PixaromaShowText"
+      },
+      "widgets_values": [
+        "Second Text"
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 15,
+      "type": "PixaromaLabel",
+      "pos": [
+        -277.77885365716526,
+        -525.0478695401277
+      ],
+      "size": [
+        544,
+        57
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "716ec0d52c5daa6cf29f07740184aae47da0c720",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"Switch lets you route one of several inputs to a single output.\\nClick the small button on a row to make it active; on Run, only the active input is forwarded.\", \"fontSize\": 13, \"fontFamily\": \"Arial\", \"fontColor\": \"#c0c0c0\", \"textAlign\": \"left\", \"backgroundColor\": \"#333333\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.4}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    },
+    {
+      "id": 4,
+      "type": "PixaromaSwitch",
+      "pos": [
+        57.38114634283476,
+        -204.56804677951845
+      ],
+      "size": [
+        255.16000000000008,
+        66
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "​",
+          "name": "input_1",
+          "type": "*",
+          "link": 2
+        },
+        {
+          "label": "​",
+          "name": "input_2",
+          "type": "*",
+          "link": 3
+        },
+        {
+          "label": "​",
+          "name": "input_3",
+          "type": "*",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "STRING",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "8e644dc5f45a0c469a51a534d814238e90c68ab8",
+        "Node name for S&R": "PixaromaSwitch",
+        "switchState": {
+          "activeIndex": 1,
+          "labels": {},
+          "visibleCount": 3
+        }
+      },
+      "widgets_values": [],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 10,
+      "type": "PixaromaSwitch",
+      "pos": [
+        957.8173329671567,
+        -204.56804677951845
+      ],
+      "size": [
+        258.3866174316406,
+        66
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "​",
+          "name": "input_1",
+          "type": "*",
+          "link": 8
+        },
+        {
+          "label": "​",
+          "name": "input_2",
+          "type": "*",
+          "link": 9
+        },
+        {
+          "label": "​",
+          "name": "input_3",
+          "type": "*",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "IMAGE",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "title": "You can Change the Title",
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "8e644dc5f45a0c469a51a534d814238e90c68ab8",
+        "Node name for S&R": "PixaromaSwitch",
+        "switchState": {
+          "activeIndex": 1,
+          "labels": {
+            "1": "You can Change Label",
+            "2": "Bunny"
+          },
+          "visibleCount": 3
+        }
+      },
+      "widgets_values": [],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    }
+  ],
+  "links": [
+    [
+      2,
+      5,
+      0,
+      4,
+      0,
+      "STRING"
+    ],
+    [
+      3,
+      6,
+      0,
+      4,
+      1,
+      "STRING"
+    ],
+    [
+      4,
+      4,
+      0,
+      7,
+      0,
+      "STRING"
+    ],
+    [
+      8,
+      12,
+      0,
+      10,
+      0,
+      "IMAGE"
+    ],
+    [
+      9,
+      13,
+      0,
+      10,
+      1,
+      "IMAGE"
+    ],
+    [
+      10,
+      10,
+      0,
+      14,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.8264462809917354,
+      "offset": [
+        416.58649271643645,
+        763.4898093328745
+      ]
+    },
+    "frontendVersion": "1.43.18",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

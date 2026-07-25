@@ -1,0 +1,377 @@
+{
+  "id": "6d2c1c3c-70e3-4d13-9413-b1b027c691b3",
+  "revision": 0,
+  "last_node_id": 12,
+  "last_link_id": 5,
+  "nodes": [
+    {
+      "id": 12,
+      "type": "LoadAudio",
+      "pos": [
+        -343.52097192013366,
+        332.89923905252687
+      ],
+      "size": [
+        400,
+        136
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.21.1",
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        "Basti_Ref_Audio.wav",
+        null,
+        null
+      ],
+      "color": "#004835",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 1,
+      "type": "CLIPLoader",
+      "pos": [
+        -343.52097192013366,
+        168.56415608910342
+      ],
+      "size": [
+        400,
+        106.00000000000003
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.21.1",
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "Gemma\\gemma4_e4b_it_fp8_scaled.safetensors",
+        "stable_diffusion",
+        "default"
+      ],
+      "color": "#004835",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 3,
+      "type": "TextGenerate",
+      "pos": [
+        84.2136426487732,
+        168.5641560891036
+      ],
+      "size": [
+        379.7014566816851,
+        412
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "showAdvanced": true,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1
+        },
+        {
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "video",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 5
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "generated_text",
+          "type": "STRING",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.21.0",
+        "Node name for S&R": "TextGenerate"
+      },
+      "widgets_values": [
+        "",
+        2048,
+        "on",
+        0.7,
+        64,
+        0.95,
+        0.05,
+        1.05,
+        0,
+        0,
+        false,
+        true
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 9,
+      "type": "PixaromaNote",
+      "pos": [
+        -911.6048206948066,
+        168.56415608910356
+      ],
+      "size": [
+        533.8666739723899,
+        412
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "1227d9898f9d5137533df750611ca97e8c738f3d",
+        "Node name for S&R": "PixaromaNote"
+      },
+      "widgets_values": [
+        "{\"version\":1,\"content\":\"<h2>MODELS AND NODES USED IN THIS WORKFLOW</h2><p>\\n\\n</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #777777\\\"><p>\\n\\n</p><h3></h3><p>\\n\\n</p><h3><span data-ic=\\\"CLIP\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Load CLIP</h3><p>\\n\\n<span class=\\\"pix-note-btnblock\\\"><a class=\\\"pix-note-dl\\\" style=\\\"background-color: #f66744\\\" href=\\\"https://huggingface.co/Comfy-Org/gemma-4/resolve/main/text_encoders/gemma4_e4b_it_fp8_scaled.safetensors\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Download gemma4_e4b_it_fp8_scaled.safetensors<span class=\\\"pix-note-btnsize\\\">8.06 GB</span></a></span>&nbsp;\\n\\n</p><div class=\\\"pix-note-folderhint\\\" style=\\\"color: #888888\\\">Place in: ComfyUI/models/text_encoders</div><p>\\n\\n</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #777777\\\"><p>\\n\\n</p><h3></h3><p>\\n\\n</p><h3></h3><p>\\n\\n</p><p><span data-ic=\\\"warning-v1\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;After placing the files, <span style=\\\"color: #f66744\\\">restart</span> ComfyUI or refresh model lists using <span style=\\\"color: #f66744\\\">R</span> shortcut.</p><p>\\n\\n</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #777777\\\"><p>\\n\\n</p><h3><span data-ic=\\\"nodes-installed\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Custom Nodes</h3><p>\\n\\n</p><ul>\\n  <li>Pixaroma</li>\\n</ul><p>\\n\\n</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #777777\\\"><p>\\n\\n</p><h3><span data-ic=\\\"pixaroma\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Resources</h3><p>\\n\\n<span class=\\\"pix-note-btnblock\\\">\\n  <a class=\\\"pix-note-discord\\\" href=\\\"https://discord.com/invite/gggpkVgBf3\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Join Discord</a>\\n</span>&nbsp;\\n\\n<span class=\\\"pix-note-btnblock\\\">\\n  <a class=\\\"pix-note-yt\\\" href=\\\"https://www.youtube.com/@pixaroma\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Pixaroma YouTube Channel</a>\\n</span>&nbsp;</p>\",\"buttonColor\":\"#f66744\",\"lineColor\":\"#f66744\",\"width\":528.8383221706308,\"height\":591.2463174881113,\"backgroundColor\":\"#2a2a2a\"}",
+        ""
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 10,
+      "type": "PixaromaNote",
+      "pos": [
+        -911.6048206948066,
+        637.9343220159502
+      ],
+      "size": [
+        533.8666739723899,
+        482.7682528984129
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Gemma 4 Note",
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "c82f95989e0347b5cc48ddf52a51f2d776a1f83b",
+        "Node name for S&R": "PixaromaNote"
+      },
+      "widgets_values": [
+        "{\"version\":1,\"content\":\"<h2>Core Capabilities</h2><p>\\n\\n</p><p>\\n  <a href=\\\"https://huggingface.co/google/gemma-4-E2B-it\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\"><b>Gemma 4</b></a>\\n  models handle a broad range of tasks across <b>text</b>, <b>vision</b>, and <b>audio</b>.\\n</p><p>\\n\\n</p><hr class=\\\"pix-note-hr-dashed\\\" style=\\\"color: #f66744\\\"><p>\\n\\n</p><ul>\\n  <li><b>Thinking</b> – Built-in reasoning mode that lets the model think step-by-step before answering.</li>\\n\\n  <li><b>Long Context</b> – Context windows of up to <code>128K</code> tokens for E2B/E4B</li>\\n\\n  <li><b>Image Understanding</b> – Object detection, document/PDF parsing, screen and UI understanding, chart comprehension, OCR including multilingual text, handwriting recognition, and pointing. Images can be processed at variable aspect ratios and resolutions.</li>\\n\\n  <li><b>Video Understanding</b> – Analyze video by processing sequences of frames.</li>\\n\\n  <li><b>Interleaved Multimodal Input</b> – Freely mix text and images in any order within a single prompt.</li>\\n\\n  <li><b>Function Calling</b> – Native support for structured tool use, enabling agentic workflows.</li>\\n\\n  <li><b>Coding</b> – Code generation, completion, and correction.</li>\\n\\n  <li><b>Multilingual</b> – Out-of-the-box support for 35+ languages, pre-trained on 140+ languages.</li>\\n\\n  <li><b>Audio</b> <i>(E2B and E4B only)</i> – Automatic speech recognition and speech-to-translated-text translation across multiple languages.</li>\\n</ul>\",\"buttonColor\":\"#f66744\",\"lineColor\":\"#f66744\",\"width\":619.3333129882812,\"height\":407.3467565917965,\"backgroundColor\":\"#2a2a2a\"}",
+        ""
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 11,
+      "type": "PixaromaText",
+      "pos": [
+        -343.52097192013366,
+        532.8809394475909
+      ],
+      "size": [
+        400,
+        211.12661743164062
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "title": "Transcribe Formula",
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "c82f95989e0347b5cc48ddf52a51f2d776a1f83b",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Transcribe the audio exactly. Write only the spoken words from the audio. Keep natural punctuation and capitalization. Do not summarize. Do not describe sounds. Do not explain. Do not add labels, timestamps, speaker names, or extra text. If a word is unclear, write [inaudible]. Output only the transcription.",
+        ""
+      ],
+      "color": "#15261c",
+      "bgcolor": "#004835"
+    },
+    {
+      "id": 5,
+      "type": "PixaromaShowText",
+      "pos": [
+        491.64971389936517,
+        168.5641560891036
+      ],
+      "size": [
+        411.06268104691964,
+        412
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "c82f95989e0347b5cc48ddf52a51f2d776a1f83b",
+        "Node name for S&R": "PixaromaShowText"
+      },
+      "widgets_values": [
+        "Hey I'm AI generated. Be honest do you like my voice and does it feel real?"
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 8,
+      "type": "PixaromaLabel",
+      "pos": [
+        -911.6048206948066,
+        59.80525584274326
+      ],
+      "size": [
+        363,
+        51
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "80b307e8d1882fd933959cb0ea94a26d143557b5",
+        "Node name for S&R": "PixaromaLabel",
+        "aux_id": "pixaroma/ComfyUI-Pixaroma"
+      },
+      "widgets_values": [
+        "{\"text\":\"Gemma 4 - Audio to Text\",\"fontSize\":31,\"fontFamily\":\"Arial\",\"fontColor\":\"#ffffff\",\"textAlign\":\"left\",\"backgroundColor\":\"#f66744\",\"padding\":10,\"borderRadius\":0,\"opacity\":1,\"fontWeight\":\"normal\",\"lineHeight\":1}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      3,
+      0,
+      "CLIP"
+    ],
+    [
+      3,
+      3,
+      0,
+      5,
+      0,
+      "STRING"
+    ],
+    [
+      4,
+      11,
+      0,
+      3,
+      4,
+      "STRING"
+    ],
+    [
+      5,
+      12,
+      0,
+      3,
+      3,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7513148009015777,
+      "offset": [
+        1134.0802727204104,
+        79.23735313275506
+      ]
+    },
+    "frontendVersion": "1.43.18",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

@@ -1,0 +1,222 @@
+{
+  "id": "78224ffd-171f-4565-80ea-bb100e63c26e",
+  "revision": 0,
+  "last_node_id": 7,
+  "last_link_id": 6,
+  "nodes": [
+    {
+      "id": 4,
+      "type": "MarkdownNote",
+      "pos": [
+        109.41784385726716,
+        304.0392977727331
+      ],
+      "size": [
+        292.07062631712154,
+        154.33542469075758
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "👑 Pixaroma - Note - START HERE",
+      "properties": {},
+      "widgets_values": [
+        "## 🧩 Nodes Installed from Manager  \n\n- ComfyUI-RMBG\n\n---\n\n## 📚 Resources  \n🎥 **Tutorials:** [Pixaroma YouTube Channel](https://www.youtube.com/@pixaroma)  \n💬 **Community Discord:** [Join Here](https://discord.com/invite/gggpkVgBf3)\n"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 6,
+      "type": "AILab_LamaRemover",
+      "pos": [
+        817.2566861904812,
+        306.2682594908963
+      ],
+      "size": [
+        300,
+        102
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 4
+        },
+        {
+          "name": "masks",
+          "type": "MASK",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            6
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-rmbg",
+        "ver": "d7402513f23f58db7d56754b02a4f51a148b4941",
+        "Node name for S&R": "AILab_LamaRemover"
+      },
+      "widgets_values": [
+        230,
+        8
+      ],
+      "color": "#2e3e57",
+      "bgcolor": "#4b5b73"
+    },
+    {
+      "id": 3,
+      "type": "SaveImage",
+      "pos": [
+        1142.7739255061101,
+        306.2431461149981
+      ],
+      "size": [
+        360.798828125,
+        446.66668701171875
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 6
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.16.4",
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "PNG"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "MarkdownNote",
+      "pos": [
+        427.6561888851692,
+        802.0686565422935
+      ],
+      "size": [
+        360.798828125,
+        88
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Info",
+      "properties": {},
+      "widgets_values": [
+        "### right-click the image and paint the area you want to remove\n"
+      ],
+      "color": "#2a363b",
+      "bgcolor": "#3f5159"
+    },
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [
+        427.6561888851692,
+        304.0392977727331
+      ],
+      "size": [
+        360.798828125,
+        446.66668701171875
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            4
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.16.4",
+        "Node name for S&R": "LoadImage",
+        "image": "clipspace/clipspace-painted-masked-1773068240603.png [input]"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ]
+    }
+  ],
+  "links": [
+    [
+      4,
+      1,
+      0,
+      6,
+      0,
+      "IMAGE"
+    ],
+    [
+      5,
+      1,
+      1,
+      6,
+      1,
+      "MASK"
+    ],
+    [
+      6,
+      6,
+      0,
+      3,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "ds": {
+      "scale": 1.3310000000000035,
+      "offset": [
+        -19.239501162030386,
+        -158.64023064952184
+      ]
+    },
+    "frontendVersion": "1.39.19",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

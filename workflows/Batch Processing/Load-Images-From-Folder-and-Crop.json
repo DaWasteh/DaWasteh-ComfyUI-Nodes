@@ -1,0 +1,259 @@
+{
+  "id": "c5beec59-2b88-4f3f-ba35-7640a58a9ba6",
+  "revision": 0,
+  "last_node_id": 240,
+  "last_link_id": 346,
+  "nodes": [
+    {
+      "id": 240,
+      "type": "PixaromaLoadImagesFolder",
+      "pos": [
+        -1027.9025668421764,
+        217.83035566381673
+      ],
+      "size": [
+        370,
+        418
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "image",
+          "shape": 6,
+          "type": "IMAGE",
+          "links": [
+            345
+          ]
+        },
+        {
+          "name": "mask",
+          "shape": 6,
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "width",
+          "shape": 6,
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "height",
+          "shape": 6,
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "filename",
+          "shape": 6,
+          "type": "STRING",
+          "links": [
+            346
+          ]
+        },
+        {
+          "name": "index",
+          "shape": 6,
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "total",
+          "shape": 6,
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "725e44f277cd401901c15e98f302930c531e3556",
+        "Node name for S&R": "PixaromaLoadImagesFolder",
+        "loadImagesFolderState": "{\"version\":1,\"folder\":\"\",\"recursive\":false,\"sort\":\"name\",\"sort_dir\":\"asc\",\"selected\":[],\"mode\":\"cover\",\"max_mp\":1,\"longest_side\":1024,\"scale_factor\":1,\"fit_w\":1024,\"fit_h\":1024,\"cover_w\":1024,\"cover_h\":1024,\"ratio_preset\":\"1:1\",\"ratio_w\":1,\"ratio_h\":1,\"ratio_action\":\"crop\",\"pad_color\":\"#808080\",\"pad_top\":0,\"pad_bottom\":0,\"pad_left\":0,\"pad_right\":0,\"crop_anchor\":\"center\",\"crop_scale\":true,\"snap\":0,\"resample\":\"auto\",\"allow_upscale\":true}"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 226,
+      "type": "PixaromaPreview",
+      "pos": [
+        -626.7323212467865,
+        217.83035566381673
+      ],
+      "size": [
+        410.57799999999975,
+        494
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 345
+        },
+        {
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": 346
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "c78abb50dca3fe4c6fd2c25b5c43b2a103abbd5a",
+        "Node name for S&R": "PixaromaPreview",
+        "pixaromaFrames": [
+          {
+            "filename": "BallerinaBunny_00003_.png",
+            "subfolder": "",
+            "type": "output"
+          },
+          {
+            "filename": "BunnyExplorer_00003_.png",
+            "subfolder": "",
+            "type": "output"
+          },
+          {
+            "filename": "BunnySitting_00003_.png",
+            "subfolder": "",
+            "type": "output"
+          },
+          {
+            "filename": "PixaGirl_00001_.png",
+            "subfolder": "",
+            "type": "output"
+          },
+          {
+            "filename": "WanWoman_00001_.png",
+            "subfolder": "",
+            "type": "output"
+          }
+        ],
+        "pixaromaSelected": 1,
+        "pixaromaExpanded": false
+      },
+      "widgets_values": [
+        "img",
+        "save"
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 211,
+      "type": "PixaromaLabel",
+      "pos": [
+        -1027.9025668421764,
+        104.78315929186166
+      ],
+      "size": [
+        542,
+        56
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "80b307e8d1882fd933959cb0ea94a26d143557b5",
+        "Node name for S&R": "PixaromaLabel",
+        "aux_id": "pixaroma/ComfyUI-Pixaroma"
+      },
+      "widgets_values": [
+        "{\"text\":\"Load Images from Folder + Crop\",\"fontSize\":36,\"fontFamily\":\"Arial\",\"fontColor\":\"#ffffff\",\"textAlign\":\"left\",\"backgroundColor\":\"#f66744\",\"padding\":10,\"borderRadius\":0,\"opacity\":1,\"fontWeight\":\"normal\",\"lineHeight\":1}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    },
+    {
+      "id": 210,
+      "type": "PixaromaNote",
+      "pos": [
+        -1566.7373506224787,
+        217.83035566381673
+      ],
+      "size": [
+        504.8383221706308,
+        289.91294346467384
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "1227d9898f9d5137533df750611ca97e8c738f3d",
+        "Node name for S&R": "PixaromaNote"
+      },
+      "widgets_values": [
+        "{\"version\":1,\"content\":\"<h1>Load Images from Folder + Crop</h1>\\n\\n<p>\\n<span data-ic=\\\"workflow-v1\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Load multiple images from a folder, resize or crop them to the selected size, and preview/save the processed images.\\n</p>\\n\\n<hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #b8b8b8\\\">\\n\\n<h2><span data-ic=\\\"nodes-installed\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Nodes Installed from Manager</h2>\\n\\n<ul>\\n  <li>Pixaroma</li>\\n</ul>\\n\\n<hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #b8b8b8\\\">\\n\\n<h2><span data-ic=\\\"pixaroma\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Resources</h2>\\n\\n<p>\\n  <a class=\\\"pix-note-discord\\\" href=\\\"https://discord.com/invite/gggpkVgBf3\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Join Discord</a>&nbsp;\\n\\n  <a class=\\\"pix-note-yt\\\" href=\\\"https://www.youtube.com/@pixaroma\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Pixaroma YouTube Channel</a>&nbsp;\\n</p>\",\"buttonColor\":\"#f66744\",\"lineColor\":\"#f66744\",\"width\":528.8383221706308,\"height\":591.2463174881113,\"backgroundColor\":\"#2a2a2a\"}",
+        ""
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    }
+  ],
+  "links": [
+    [
+      345,
+      240,
+      0,
+      226,
+      0,
+      "IMAGE"
+    ],
+    [
+      346,
+      240,
+      4,
+      226,
+      1,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1,
+      "offset": [
+        1797.2589502080377,
+        204.67630817370062
+      ]
+    },
+    "frontendVersion": "1.44.19",
+    "node_versions": {
+      "ComfyUI-GGUF": "8098c7149fa4ff14991eb3347a5585051ceeafbe",
+      "comfy-core": "v0.3.10-37-gd055325",
+      "rgthree-comfy": "5d771b8b56a343c24a26e8cea1f0c87c3d58102f"
+    },
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true,
+    "workflowRendererVersion": "LG"
+  },
+  "version": 0.4
+}

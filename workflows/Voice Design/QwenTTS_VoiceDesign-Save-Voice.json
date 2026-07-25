@@ -1,0 +1,448 @@
+{
+  "id": "23a1fd59-1a2b-4029-b16d-e90b266437d6",
+  "revision": 0,
+  "last_node_id": 15,
+  "last_link_id": 15,
+  "nodes": [
+    {
+      "id": 5,
+      "type": "easy positive",
+      "pos": [
+        -1147.8411054006647,
+        -376.7180786166191
+      ],
+      "size": [
+        337.2578657935387,
+        232.47394905954621
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "STRING",
+          "links": [
+            7,
+            12,
+            13
+          ]
+        }
+      ],
+      "title": "1. Speech Text",
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "81c510c06e18dffd4f43518644fc35964c9168ca",
+        "Node name for S&R": "easy positive"
+      },
+      "widgets_values": [
+        "What’s up, I’m Pixaroma. In this workflow we design a custom voice. Instead of picking a preset speaker, you describe it."
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 14,
+      "type": "FB_Qwen3TTSVoiceClonePrompt",
+      "pos": [
+        -425.88418408177296,
+        -376.7180786166191
+      ],
+      "size": [
+        400,
+        232
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ref_audio",
+          "type": "AUDIO",
+          "link": 10
+        },
+        {
+          "name": "ref_text",
+          "type": "STRING",
+          "widget": {
+            "name": "ref_text"
+          },
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "voice_clone_prompt",
+          "type": "VOICE_CLONE_PROMPT",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "qwen3-tts-comfyui",
+        "ver": "17207f8b9d1e2e92cb5cf0e487222656757bedf5",
+        "Node name for S&R": "FB_Qwen3TTSVoiceClonePrompt",
+        "aux_id": "flybirdxx/ComfyUI-Qwen-TTS"
+      },
+      "widgets_values": [
+        "",
+        "1.7B",
+        "auto",
+        "bf16",
+        "sdpa",
+        false,
+        false
+      ]
+    },
+    {
+      "id": 6,
+      "type": "easy positive",
+      "pos": [
+        -1147.8411054006647,
+        -85.54339575786133
+      ],
+      "size": [
+        337.2578657935387,
+        162.01161311099474
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "STRING",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "title": "2. Voice Direction",
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "81c510c06e18dffd4f43518644fc35964c9168ca",
+        "Node name for S&R": "easy positive"
+      },
+      "widgets_values": [
+        "Male voice. Deep, modern YouTuber narrator. Confident and friendly. Medium pace, clear pronunciation. Slight smile. Close-mic studio sound, clean and crisp. Natural pauses."
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 13,
+      "type": "FB_Qwen3TTSSaveVoice",
+      "pos": [
+        -2.1635892158659544,
+        -376.7180786166191
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "voice_clone_prompt",
+          "type": "VOICE_CLONE_PROMPT",
+          "link": 9
+        },
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 11
+        },
+        {
+          "name": "ref_text",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "ref_text"
+          },
+          "link": 13
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "qwen3-tts-comfyui",
+        "ver": "17207f8b9d1e2e92cb5cf0e487222656757bedf5",
+        "Node name for S&R": "FB_Qwen3TTSSaveVoice",
+        "aux_id": "flybirdxx/ComfyUI-Qwen-TTS"
+      },
+      "widgets_values": [
+        "my_custom_voice2",
+        ""
+      ]
+    },
+    {
+      "id": 4,
+      "type": "FB_Qwen3TTSVoiceDesign",
+      "pos": [
+        -786.8626447412187,
+        -376.7180786166191
+      ],
+      "size": [
+        337.2578657935387,
+        454
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "config",
+          "shape": 7,
+          "type": "TTS_CONFIG",
+          "link": null
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": 7
+        },
+        {
+          "name": "instruct",
+          "type": "STRING",
+          "widget": {
+            "name": "instruct"
+          },
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            10,
+            11,
+            15
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "qwen3-tts-comfyui",
+        "ver": "17207f8b9d1e2e92cb5cf0e487222656757bedf5",
+        "Node name for S&R": "FB_Qwen3TTSVoiceDesign",
+        "aux_id": "flybirdxx/ComfyUI-Qwen-TTS"
+      },
+      "widgets_values": [
+        "",
+        "",
+        "1.7B",
+        "auto",
+        "bf16",
+        "English",
+        502134660711936,
+        "randomize",
+        2048,
+        0.8,
+        20,
+        1,
+        1.05,
+        "sdpa",
+        false
+      ]
+    },
+    {
+      "id": 15,
+      "type": "LayerUtility: PurgeVRAM V2",
+      "pos": [
+        -425.88418408177296,
+        -95.05789711131548
+      ],
+      "size": [
+        288.4146484375,
+        82
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "anything",
+          "type": "*",
+          "link": 15
+        }
+      ],
+      "outputs": [
+        {
+          "name": "any",
+          "type": "*",
+          "links": [
+            14
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_layerstyle",
+        "ver": "d94bef1ee5ed3656f5ff1bb2830a4ffd94f40935",
+        "Node name for S&R": "LayerUtility: PurgeVRAM V2"
+      },
+      "widgets_values": [
+        true,
+        true
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    },
+    {
+      "id": 8,
+      "type": "SaveAudioMP3",
+      "pos": [
+        -116.46298771484494,
+        -95.05789711131548
+      ],
+      "size": [
+        270,
+        136
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 14
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.15.1",
+        "Node name for S&R": "SaveAudioMP3"
+      },
+      "widgets_values": [
+        "audio/voice",
+        "V0"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "MarkdownNote",
+      "pos": [
+        -1684.4491366696368,
+        -376.7180786166191
+      ],
+      "size": [
+        516.1707001965974,
+        658.4017559541322
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "👑 Pixaroma - Note - START HERE",
+      "properties": {},
+      "widgets_values": [
+        "# MODELS AND NODES USED IN THIS WORKFLOW  \n\n---\n\n### Models are downloaded automatically the first time you use the workflow.\n \n---\n\n## 🧩 Nodes Installed from Manager  \n\n- ComfyUI-Easy-Use\n- Qwen3-TTS - Voice Synthesis & Cloning\n- ComfyUI_LayerStyle\n\nRead More about Qwen TTS Node [HERE](https://github.com/flybirdxx/ComfyUI-Qwen-TTS)\n\n---\n\n## 📚 Resources  \n🎥 **Tutorials:** [Pixaroma YouTube Channel](https://www.youtube.com/@pixaroma)  \n💬 **Community Discord:** [Join Here](https://discord.com/invite/gggpkVgBf3)\n\n---\n\n## 🎙️ Qwen3 Voice Design + Save Voice Workflow\n\nGenerate speech audio from text using Qwen3-TTS, then save the designed voice for reuse.\n\n### 🧠 What It Does\n- Text → natural speech\n- Voice style comes from your **Voice Direction**\n- Saves an MP3 automatically\n- Saves the designed voice as a reusable preset (**SaveVoice**)\n\n### ✍️ How To Use\n1. **Speech Text**: type what you want spoken  \n2. **Voice Direction**: describe the voice (required for VoiceDesign)  \n   Examples: `male, 25–35, low pitch, calm, medium pace, YouTuber, close mic`  \n   More: [Voice Design Guide](https://www.alibabacloud.com/help/en/model-studio/qwen-tts-voice-design)  \n3. **Filename (SaveVoice)**: set a name like `my_custom_voice`  \n4. **Language (Qwen3-TTS)**: use **Auto** or pick a language for best accuracy  \n5. Click **Run**\n\n### 💾 Save Locations\n- MP3 preview is in **Save Audio (MP3)**\n- MP3 saves under: **ComfyUI\\\\output\\\\audio** \n- Saved voices (SaveVoice) are stored in: **ComfyUI\\\\models\\\\qwen-tts\\\\voices**"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    }
+  ],
+  "links": [
+    [
+      7,
+      5,
+      0,
+      4,
+      1,
+      "STRING"
+    ],
+    [
+      8,
+      6,
+      0,
+      4,
+      2,
+      "STRING"
+    ],
+    [
+      9,
+      14,
+      0,
+      13,
+      0,
+      "VOICE_CLONE_PROMPT"
+    ],
+    [
+      10,
+      4,
+      0,
+      14,
+      0,
+      "AUDIO"
+    ],
+    [
+      11,
+      4,
+      0,
+      13,
+      1,
+      "AUDIO"
+    ],
+    [
+      12,
+      5,
+      0,
+      14,
+      1,
+      "STRING"
+    ],
+    [
+      13,
+      5,
+      0,
+      13,
+      2,
+      "STRING"
+    ],
+    [
+      14,
+      15,
+      0,
+      8,
+      0,
+      "AUDIO"
+    ],
+    [
+      15,
+      4,
+      0,
+      15,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "ds": {
+      "scale": 1.0880528869047668,
+      "offset": [
+        1791.036965226611,
+        651.6932061469257
+      ]
+    },
+    "frontendVersion": "1.39.19",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

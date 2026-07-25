@@ -1,0 +1,267 @@
+{
+  "id": "group-compare---comfyui-vs-pixaroma",
+  "revision": 0,
+  "last_node_id": 30,
+  "last_link_id": 0,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PixaromaLabel",
+      "pos": [
+        60,
+        36
+      ],
+      "size": [
+        490,
+        56
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "color": "rgba(0,0,0,0)",
+      "bgcolor": "rgba(0,0,0,0)",
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"ComfyUI Group vs Pixaroma Group\", \"fontSize\": 30, \"fontFamily\": \"Arial\", \"fontColor\": \"#ffffff\", \"textAlign\": \"left\", \"backgroundColor\": \"#f66744\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.2}"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "PixaromaLabel",
+      "pos": [
+        60,
+        92
+      ],
+      "size": [
+        563,
+        57
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "color": "rgba(0,0,0,0)",
+      "bgcolor": "rgba(0,0,0,0)",
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"Both group nodes together. The Pixaroma Group (right) adds richer colour, resize from all four\\ncorners, fold-to-a-bar, and one-click buttons. Add one: select nodes and press G, or right-click.\", \"fontSize\": 13, \"fontFamily\": \"Arial\", \"fontColor\": \"#c0c0c0\", \"textAlign\": \"left\", \"backgroundColor\": \"#333333\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.4}"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "EmptyImage",
+      "pos": [
+        95,
+        259
+      ],
+      "size": [
+        270,
+        130
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyImage"
+      },
+      "widgets_values": [
+        512,
+        512,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 21,
+      "type": "EmptyImage",
+      "pos": [
+        95,
+        439
+      ],
+      "size": [
+        270,
+        130
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyImage"
+      },
+      "widgets_values": [
+        512,
+        512,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 22,
+      "type": "EmptyImage",
+      "pos": [
+        488,
+        269
+      ],
+      "size": [
+        270,
+        130
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyImage"
+      },
+      "widgets_values": [
+        512,
+        512,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 23,
+      "type": "EmptyImage",
+      "pos": [
+        488,
+        439
+      ],
+      "size": [
+        270,
+        130
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyImage"
+      },
+      "widgets_values": [
+        512,
+        512,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 30,
+      "type": "PixaromaLabel",
+      "pos": [
+        60,
+        639
+      ],
+      "size": [
+        565,
+        171
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 30,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "color": "rgba(0,0,0,0)",
+      "bgcolor": "rgba(0,0,0,0)",
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"What the Pixaroma Group adds over a ComfyUI group:\\n- Separate title + body colours, each with its own opacity (a ComfyUI group has one flat colour)\\n- A node-count badge in the header (this one shows 2)\\n- Resize from ALL FOUR corners (a ComfyUI group resizes from the bottom-right only)\\n- Fold the whole group down to a slim bar: its nodes and wires tuck away to tidy the canvas\\n- Hover the header for one-click buttons: Run, Mute, Bypass, Fold, Colour\\n- Run just this group (queues only its output nodes); Mute / Bypass reach inside subgraphs\\n- Snaps into line with the Align tool, and groups can be nested inside each other\", \"fontSize\": 13, \"fontFamily\": \"Arial\", \"fontColor\": \"#c0c0c0\", \"textAlign\": \"left\", \"backgroundColor\": \"#333333\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.45}"
+      ]
+    }
+  ],
+  "links": [],
+  "groups": [
+    {
+      "id": 1,
+      "title": "ComfyUI Group",
+      "bounding": [
+        60,
+        189,
+        340,
+        420
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.85,
+      "offset": [
+        69.41,
+        93.41
+      ]
+    },
+    "frontendVersion": "1.45.15",
+    "pixaromaGroups": [
+      {
+        "id": "pg_demo_1",
+        "title": "Pixaroma Group",
+        "x": 453,
+        "y": 189,
+        "w": 340,
+        "h": 420,
+        "titleColor": "#2f7d6b",
+        "bodyColor": "#15261f",
+        "titleAlpha": 0.92,
+        "bodyAlpha": 0.5,
+        "fontSize": 18
+      }
+    ]
+  },
+  "version": 0.4
+}

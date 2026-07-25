@@ -1,0 +1,641 @@
+{
+  "id": "57485b48-4369-4857-b3ec-cafedc69d3ea",
+  "revision": 0,
+  "last_node_id": 7,
+  "last_link_id": 6,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        4082.051790540487,
+        -955.9095814153013
+      ],
+      "size": [
+        429.1666564941406,
+        300
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "value",
+          "name": "value",
+          "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "STRING",
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "title": "① DEINE BILDIDEE (Deutsch) — optional wenn Sketch dran",
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline",
+        "cnr_id": "comfy-core",
+        "ver": "0.9.1"
+      },
+      "widgets_values": [
+        "Werbeplakat für einen Energy-Drink. Dunkler Hintergrund mit Neonlicht. Dose wird von der Frau gehalten. Oben der Markenname \"V-Power\", unten ein Slogan. Dynamischer, moderner Werbestil aber sexualisiert in richtung \"FEEL THE POWER PULSATING INSIDE YOU\" oder sowas\n"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 2,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        4098.8661793425545,
+        -538.4486731686231
+      ],
+      "size": [
+        420,
+        300
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "value",
+          "name": "value",
+          "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "STRING",
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "title": "SYSTEM-PROMPT (NICHT ÄNDERN)",
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline",
+        "cnr_id": "comfy-core",
+        "ver": "0.9.1"
+      },
+      "widgets_values": [
+        "You convert a natural-language image idea (the user may write in German) into ONE structured JSON caption that the Ideogram 4 image model consumes. Output ONLY the JSON object. No markdown fences, no commentary, no thinking, nothing before or after.\n\nOUTPUT CONTRACT — exactly three top-level keys, in this order, single-line minified JSON:\n{\"aspect_ratio\":\"W:H\",\"high_level_description\":\"...\",\"compositional_deconstruction\":{\"background\":\"...\",\"elements\":[ ... ]}}\n\nLANGUAGE: All prose fields (high_level_description, background, every element desc) are ALWAYS written in ENGLISH, even when the user idea is in German. ONLY the literal \"text\" field of text-elements keeps the user's verbatim language and characters.\n\naspect_ratio (pick FIRST, it drives every bbox):\n- If the user states a concrete W:H, echo it.\n- Else choose to fit subject/medium: panoramic→16:9 or 3:1; portrait/standing person→9:16 or 4:5; book/poster→2:3 or 3:4; ambiguous→1:1. Never output the word \"auto\".\n\nhigh_level_description — 50-word HARD CAP, one long sentence (max two). Reads like a short natural prompt, starts with the subject. No \"this image shows/depicts\". Names real entities by full name (Eiffel Tower, NVIDIA RTX 5090). Don't enumerate every color/detail. For transparent requests include the literal phrase \"on a transparent background\".\n\nELEMENTS — each is either:\n{\"type\":\"obj\",\"bbox\":[y1,x1,y2,x2],\"desc\":\"...\"}\n{\"type\":\"text\",\"bbox\":[y1,x1,y2,x2],\"text\":\"LINE ONE\\nLINE TWO\",\"desc\":\"...\"}\n\nSINGLE SUBJECT = SINGLE ELEMENT. One animal/person/vehicle/building = exactly ONE obj. Anatomical/structural parts (limbs, wheels, windows, petals) are attributes inside that element's desc, NEVER separate elements. Multiple distinct subjects (a person AND a dog, two runners) = multiple elements, one each. A held prop or worn item described as its own focal detail may be its own element only if the user clearly features it (a glowing pendant, a specific logo).\n\nElement desc — 30-60 word HARD CAP. Identity first, then key attributes, then one distinguishing detail. Standalone (don't write \"the X\" assuming prior context).\n- People: skin tone, hair color+style, each garment with color, expression/gaze, pose, distinguishing feature.\n- Objects: shape, material, color, distinctive parts/markings.\n- Anchor placements to landmarks (\"resting at the base of his throat\", not \"on the skin\").\n- NO shadows (renderer infers them). NO camera/render words (bokeh, depth of field, motion blur) inside obj desc — only viewpoint/angle allowed. NO metaphor words (luminous, radiant, gorgeous) — use observable properties.\n\nBACKGROUND — the scene SHELL only: walls/finishes, floor/ground+surface state, ceiling/fixtures, windows-as-architecture, sky/clouds/fog, scene-wide ambient lighting, distant out-of-focus context.\n- ALWAYS background, never an obj: sky, clouds, horizon, distant mountains/cityscape/crowds, the floor/ground/turf/pavement the scene sits on (incl. wet/cracked/puddled/reflective surface states), ambient walls/studio backdrop. You cannot split these by region.\n- Furniture, vehicles, equipment, people, animals, decor, free-standing lamps → obj elements, NEVER background.\n- Anything named in background must NOT also appear as an obj. Decide once.\n- If the user wants a plain/empty/character-sheet background, write a short clean shell (\"A plain warm ivory-cream background, smooth, subtle gradient, only a soft shadow under the feet, no scene, no props\") and emit only the subject element(s).\n\nBBOX — normalized 0-1000 in BOTH axes, top-left origin, format [y1,x1,y2,x2] with y1<y2, x1<x2.\n- Values are 0-1000 on both axes regardless of aspect ratio. A region that should look square must have (x2-x1)/(y2-y1) ≈ W/H. Most failures come from ignoring this.\n- INCLUDE bbox where position matters (portraits, products, logos, signs, distinct objects). OMIT bbox on dense/unenumerable visuals (crowds, wildflower fields, starry skies, scattered particles).\n\nTEXT HANDLING:\n- Include every readable string: user-quoted text (verbatim, exact characters), format-required text (titles, taglines, dates, prices), in-scene signage/labels/plates/jersey numbers. Numbers ARE text.\n- Each text string is ONE text element (don't also describe its characters in a desc). Use \\n for line breaks within one element; separate visually-distinct blocks into separate elements.\n- For built environments (shops, stalls, vehicles, signage) generate text generously and specifically. For stylized hero titles, stack words with \\n at natural breaks.\n\nSPECIFICITY — commit to ONE value. Banned hedges: \"things like\", \"such as\", \"various\", \"or similar\", \"could include\", \"might be\". Banned alternative listings (\"oak or walnut\", \"cream or ivory\") — pick one. Typography: one typeface category, one weight, one style. Don't invent glitch/wireframe/dissolve effects the user didn't ask for.\n\nPOPULATE: when the brief is sparse and NOT explicitly minimal, add believable secondary subjects and props by depth layer (foreground/midground/background). When the brief says minimal/empty/lonely/single subject/negative space, respect the restraint.\n\nMEDIUM: photograph | illustration | 3D render | graphic design — express as natural framing inside HLD/background, not a separate key. Designed artifact (poster, cover, logo, UI, infographic) → graphic design. Drawn/painted/anime/named-studio → illustration. CGI/render → 3D render. Otherwise default to photograph (wizards/dragons in a photo are fine; only an explicit medium word changes it). For photoreal: prefer natural daylight, neutral white balance, off-center framing; AVOID the word \"warm\" as a grade and avoid DSLR-bokeh markers.\n\nRemember: emit ONLY the minified JSON object. Begin your output with { and end with }.\n\nSKETCH/REFERENCE IMAGE (if one is provided):\nTreat it as a LAYOUT REFERENCE, not as a scene to photograph. Read the rough placement of subjects, text blocks, and regions from the sketch and convert them into bbox positions and elements. Crude shapes/scribbles indicate WHERE things go and their relative size — not their final appearance or color. Take final look, style, colors, materials, and any literal text from the user's written idea; if the idea is silent on a detail, infer something plausible. Where sketch and text conflict on placement, follow the sketch; where they conflict on content/style, follow the text. If no image is provided, ignore this section entirely.\n\n----- USER IDEA BELOW -----\n"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 3,
+      "type": "LoadImage",
+      "pos": [
+        4156.782407438566,
+        -154.16122267674746
+      ],
+      "size": [
+        302.20001220703125,
+        360
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "choose file to upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            4
+          ]
+        },
+        {
+          "localized_name": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "title": "③ SKETCH / PAINT-VORLAGE (optional)",
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.9.1"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 4,
+      "type": "TextConcat",
+      "pos": [
+        4586.890160679335,
+        -736.4605010622731
+      ],
+      "size": [
+        300,
+        288
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "delimiter",
+          "name": "delimiter",
+          "type": "STRING",
+          "widget": {
+            "name": "delimiter"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "text1",
+          "name": "text1",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "text1"
+          },
+          "link": 1
+        },
+        {
+          "localized_name": "text2",
+          "name": "text2",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "text2"
+          },
+          "link": 2
+        },
+        {
+          "localized_name": "text3",
+          "name": "text3",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "text3"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "text4",
+          "name": "text4",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "text4"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "text5",
+          "name": "text5",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "text5"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "STRING",
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "title": "System + Idee zusammenführen",
+      "properties": {
+        "Node name for S&R": "TextConcat",
+        "cnr_id": "mikey_nodes",
+        "ver": "1.0.4"
+      },
+      "widgets_values": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "color": "#346434",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 5,
+      "type": "CLIPLoader",
+      "pos": [
+        4552.147790745552,
+        -1120.1363965709604
+      ],
+      "size": [
+        395.9666748046875,
+        141.0500030517578
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "clip_name",
+          "name": "clip_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "clip_name"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "type",
+          "name": "type",
+          "type": "COMBO",
+          "widget": {
+            "name": "type"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "device",
+          "name": "device",
+          "shape": 7,
+          "type": "COMBO",
+          "widget": {
+            "name": "device"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "CLIP",
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "title": "Qwen3.5-VL laden (sieht den Sketch)",
+      "properties": {
+        "Node name for S&R": "CLIPLoader",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1",
+        "models": [
+          {
+            "name": "qwen3.5_4b_bf16.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/Qwen3.5/resolve/main/text_encoders/qwen3.5_4b_bf16.safetensors",
+            "directory": "text_encoders"
+          }
+        ]
+      },
+      "widgets_values": [
+        "Qwen\\qwen3.5_4b_bf16.safetensors",
+        "stable_diffusion",
+        "default"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "TextGenerate",
+      "pos": [
+        4948.973932583323,
+        -853.8258095113126
+      ],
+      "size": [
+        420,
+        532
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "clip",
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3
+        },
+        {
+          "localized_name": "image",
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 4
+        },
+        {
+          "localized_name": "video",
+          "name": "video",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "localized_name": "prompt",
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 5
+        },
+        {
+          "localized_name": "max_length",
+          "name": "max_length",
+          "type": "INT",
+          "widget": {
+            "name": "max_length"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "sampling_mode",
+          "name": "sampling_mode",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "sampling_mode"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "temperature",
+          "name": "sampling_mode.temperature",
+          "type": "FLOAT",
+          "widget": {
+            "name": "sampling_mode.temperature"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "top_k",
+          "name": "sampling_mode.top_k",
+          "type": "INT",
+          "widget": {
+            "name": "sampling_mode.top_k"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "top_p",
+          "name": "sampling_mode.top_p",
+          "type": "FLOAT",
+          "widget": {
+            "name": "sampling_mode.top_p"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "min_p",
+          "name": "sampling_mode.min_p",
+          "type": "FLOAT",
+          "widget": {
+            "name": "sampling_mode.min_p"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "repetition_penalty",
+          "name": "sampling_mode.repetition_penalty",
+          "type": "FLOAT",
+          "widget": {
+            "name": "sampling_mode.repetition_penalty"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "seed",
+          "name": "sampling_mode.seed",
+          "type": "INT",
+          "widget": {
+            "name": "sampling_mode.seed"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "presence_penalty",
+          "name": "sampling_mode.presence_penalty",
+          "shape": 7,
+          "type": "FLOAT",
+          "widget": {
+            "name": "sampling_mode.presence_penalty"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "thinking",
+          "name": "thinking",
+          "shape": 7,
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "thinking"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "use_default_template",
+          "name": "use_default_template",
+          "shape": 7,
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "use_default_template"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "generated_text",
+          "name": "generated_text",
+          "type": "STRING",
+          "links": [
+            6
+          ]
+        }
+      ],
+      "title": "② Qwen3.5-VL → Ideogram-JSON",
+      "properties": {
+        "Node name for S&R": "TextGenerate",
+        "cnr_id": "comfy-core",
+        "ver": "0.14.1",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65,
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.8",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "(kommt automatisch aus dem Concat-Node)",
+        2048,
+        "on",
+        0.6,
+        40,
+        0.9,
+        0.05,
+        1.1,
+        0,
+        0,
+        false,
+        true
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 7,
+      "type": "PreviewAny",
+      "pos": [
+        5462.568050295899,
+        -838.5132044505765
+      ],
+      "size": [
+        380,
+        340
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "source",
+          "name": "source",
+          "type": "*",
+          "link": 6
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "STRING",
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "Qwen-Output (JSON) — Kontrolle",
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [
+        null,
+        null,
+        null
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      4,
+      1,
+      "STRING"
+    ],
+    [
+      2,
+      1,
+      0,
+      4,
+      2,
+      "STRING"
+    ],
+    [
+      3,
+      5,
+      0,
+      6,
+      0,
+      "CLIP"
+    ],
+    [
+      4,
+      3,
+      0,
+      6,
+      1,
+      "IMAGE"
+    ],
+    [
+      5,
+      4,
+      0,
+      6,
+      4,
+      "STRING"
+    ],
+    [
+      6,
+      6,
+      0,
+      7,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.5352558517555638,
+      "offset": [
+        -2648.2868362022487,
+        1373.5150400048885
+      ]
+    }
+  },
+  "version": 0.4
+}

@@ -1,0 +1,142 @@
+{
+  "id": "e860d603-ab39-4b78-b594-72c8dc0411b7",
+  "revision": 0,
+  "last_node_id": 4,
+  "last_link_id": 0,
+  "nodes": [
+    {
+      "id": 3,
+      "type": "PixaromaLabel",
+      "pos": [
+        933.7645075226183,
+        470.12269966579356
+      ],
+      "size": [
+        162,
+        38
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "69d6a57404dc8bddaa588b6bdd5fbf63c5b69535",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\":\"Custom Label\\nNice Looking Label\",\"fontSize\":19,\"fontFamily\":\"Arial\",\"fontColor\":\"#f66744\",\"textAlign\":\"center\",\"backgroundColor\":\"transparent\",\"padding\":0,\"borderRadius\":6,\"opacity\":1,\"fontWeight\":\"normal\",\"lineHeight\":1}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    },
+    {
+      "id": 2,
+      "type": "PixaromaLabel",
+      "pos": [
+        676.3734468347392,
+        450.62269966579356
+      ],
+      "size": [
+        186,
+        77
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "69d6a57404dc8bddaa588b6bdd5fbf63c5b69535",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\":\"Custom Label\",\"fontSize\":21,\"fontFamily\":\"Arial\",\"fontColor\":\"#ffffff\",\"textAlign\":\"center\",\"backgroundColor\":\"#f66744\",\"padding\":28,\"borderRadius\":6,\"opacity\":1,\"fontWeight\":\"normal\",\"lineHeight\":1}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    },
+    {
+      "id": 4,
+      "type": "PixaromaLabel",
+      "pos": [
+        606.3734468347392,
+        584.9399416734688
+      ],
+      "size": [
+        326,
+        77
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "69d6a57404dc8bddaa588b6bdd5fbf63c5b69535",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\":\"Double Click on Label to Edit\",\"fontSize\":21,\"fontFamily\":\"Arial\",\"fontColor\":\"#ffffff\",\"textAlign\":\"center\",\"backgroundColor\":\"#355735\",\"padding\":28,\"borderRadius\":6,\"opacity\":1,\"fontWeight\":\"normal\",\"lineHeight\":1}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    },
+    {
+      "id": 1,
+      "type": "PixaromaLabel",
+      "pos": [
+        476.1630370026543,
+        468.3013165555423
+      ],
+      "size": [
+        146,
+        38
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "69d6a57404dc8bddaa588b6bdd5fbf63c5b69535",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\":\"Label Pixaroma\",\"fontSize\":18,\"fontFamily\":\"Arial\"}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    }
+  ],
+  "links": [],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.9487171000000019,
+      "offset": [
+        -329.1639395090277,
+        -298.56644438478656
+      ]
+    },
+    "frontendVersion": "1.42.10",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

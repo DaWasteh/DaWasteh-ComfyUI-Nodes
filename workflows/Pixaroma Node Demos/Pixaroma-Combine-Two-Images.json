@@ -1,0 +1,365 @@
+{
+  "id": "combine-pixaroma---join-two-images",
+  "revision": 0,
+  "last_node_id": 30,
+  "last_link_id": 3,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PixaromaLabel",
+      "pos": [
+        60,
+        36
+      ],
+      "size": [
+        509,
+        56
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "color": "rgba(0,0,0,0)",
+      "bgcolor": "rgba(0,0,0,0)",
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"Combine Pixaroma: Join Two Things\", \"fontSize\": 30, \"fontFamily\": \"Arial\", \"fontColor\": \"#ffffff\", \"textAlign\": \"left\", \"backgroundColor\": \"#f66744\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.2}"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "PixaromaLabel",
+      "pos": [
+        60,
+        92
+      ],
+      "size": [
+        590,
+        57
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "color": "rgba(0,0,0,0)",
+      "bgcolor": "rgba(0,0,0,0)",
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"Click Run: Combine joins two inputs into one batch, no loop needed. Here it stacks two images into\\na batch of 2. (It also gathers numbers or text into a list, and it is the accumulator inside a loop.)\", \"fontSize\": 13, \"fontFamily\": \"Arial\", \"fontColor\": \"#c0c0c0\", \"textAlign\": \"left\", \"backgroundColor\": \"#333333\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.4}"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "PixaromaLabel",
+      "pos": [
+        60,
+        187
+      ],
+      "size": [
+        160,
+        73
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "color": "rgba(0,0,0,0)",
+      "bgcolor": "rgba(0,0,0,0)",
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"1. Two images\\nTwo EmptyImage nodes,\\ndifferent colours.\", \"fontSize\": 13, \"fontFamily\": \"Arial\", \"fontColor\": \"#dddddd\", \"textAlign\": \"left\", \"backgroundColor\": \"#2b2b2b\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.35}"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "PixaromaLabel",
+      "pos": [
+        460,
+        187
+      ],
+      "size": [
+        111,
+        73
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "color": "rgba(0,0,0,0)",
+      "bgcolor": "rgba(0,0,0,0)",
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"2. Combine\\nany1 + any2 join\\ninto one batch.\", \"fontSize\": 13, \"fontFamily\": \"Arial\", \"fontColor\": \"#dddddd\", \"textAlign\": \"left\", \"backgroundColor\": \"#2b2b2b\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.35}"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "PixaromaLabel",
+      "pos": [
+        790,
+        187
+      ],
+      "size": [
+        148,
+        73
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "color": "rgba(0,0,0,0)",
+      "bgcolor": "rgba(0,0,0,0)",
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"3. Result\\nA batch of 2 images\\n(use the arrows to flip).\", \"fontSize\": 13, \"fontFamily\": \"Arial\", \"fontColor\": \"#dddddd\", \"textAlign\": \"left\", \"backgroundColor\": \"#2b2b2b\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.35}"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "EmptyImage",
+      "pos": [
+        60,
+        312
+      ],
+      "size": [
+        270,
+        130
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyImage"
+      },
+      "widgets_values": [
+        512,
+        512,
+        1,
+        16148292
+      ]
+    },
+    {
+      "id": 21,
+      "type": "EmptyImage",
+      "pos": [
+        60,
+        482
+      ],
+      "size": [
+        270,
+        130
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyImage"
+      },
+      "widgets_values": [
+        512,
+        512,
+        1,
+        3900150
+      ]
+    },
+    {
+      "id": 22,
+      "type": "PixaromaCombine",
+      "pos": [
+        460,
+        387
+      ],
+      "size": [
+        165,
+        46
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "any1",
+          "type": "*",
+          "link": 1
+        },
+        {
+          "name": "any2",
+          "type": "*",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "batch",
+          "type": "*",
+          "links": [
+            3
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PixaromaCombine",
+        "cnr_id": "ComfyUI-Pixaroma"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 23,
+      "type": "PixaromaPreview",
+      "pos": [
+        790,
+        312
+      ],
+      "size": [
+        300,
+        380
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PixaromaPreview",
+        "cnr_id": "ComfyUI-Pixaroma"
+      },
+      "widgets_values": [
+        "combine_demo",
+        "preview"
+      ]
+    },
+    {
+      "id": 30,
+      "type": "PixaromaLabel",
+      "pos": [
+        60,
+        652
+      ],
+      "size": [
+        618,
+        75
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 30,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "color": "rgba(0,0,0,0)",
+      "bgcolor": "rgba(0,0,0,0)",
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"Combine merges by KIND: two images (or video frames) stack into one batch; two numbers or pieces of\\ntext gather into a list; latents batch together. If one side is empty it just passes the other through,\\nwhich is why it works as the running total inside a loop (round 1 has nothing to add yet).\", \"fontSize\": 13, \"fontFamily\": \"Arial\", \"fontColor\": \"#c0c0c0\", \"textAlign\": \"left\", \"backgroundColor\": \"#333333\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.4}"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      20,
+      0,
+      22,
+      0,
+      "IMAGE"
+    ],
+    [
+      2,
+      21,
+      0,
+      22,
+      1,
+      "IMAGE"
+    ],
+    [
+      3,
+      22,
+      0,
+      23,
+      0,
+      "*"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.85,
+      "offset": [
+        69.41,
+        93.41
+      ]
+    },
+    "frontendVersion": "1.45.15"
+  },
+  "version": 0.4
+}

@@ -1,0 +1,358 @@
+{
+  "id": "78224ffd-171f-4565-80ea-bb100e63c26e",
+  "revision": 0,
+  "last_node_id": 25,
+  "last_link_id": 21,
+  "nodes": [
+    {
+      "id": 25,
+      "type": "AILab_LoadImage",
+      "pos": [
+        465.8853750256175,
+        885.8513723663735
+      ],
+      "size": [
+        384.22173237142056,
+        565.6181814236521
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            21
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "title": "Load Image (RMBG) 🖼️ (Background)",
+      "properties": {
+        "cnr_id": "comfyui-rmbg",
+        "ver": "d7402513f23f58db7d56754b02a4f51a148b4941",
+        "Node name for S&R": "AILab_LoadImage"
+      },
+      "widgets_values": [
+        "",
+        "example.png",
+        "lanczos",
+        0,
+        1,
+        "longest_side",
+        0,
+        "image"
+      ],
+      "color": "#2e3e57",
+      "bgcolor": "#4b5b73"
+    },
+    {
+      "id": 18,
+      "type": "RMBG",
+      "pos": [
+        879.3672024455612,
+        264.433702889675
+      ],
+      "size": [
+        340,
+        292
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 20
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            17
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "MASK_IMAGE",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-rmbg",
+        "ver": "d7402513f23f58db7d56754b02a4f51a148b4941",
+        "Node name for S&R": "RMBG"
+      },
+      "widgets_values": [
+        "RMBG-2.0",
+        1,
+        1024,
+        0,
+        0,
+        false,
+        false,
+        "Alpha",
+        "#222222"
+      ],
+      "color": "#222e40",
+      "bgcolor": "#364254"
+    },
+    {
+      "id": 21,
+      "type": "AILab_ImageCombiner",
+      "pos": [
+        1248.6272974940844,
+        264.433702889675
+      ],
+      "size": [
+        300,
+        194
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "foreground",
+          "type": "IMAGE",
+          "link": 17
+        },
+        {
+          "name": "background",
+          "type": "IMAGE",
+          "link": 21
+        },
+        {
+          "name": "foreground_mask",
+          "shape": 7,
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            19
+          ]
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-rmbg",
+        "ver": "d7402513f23f58db7d56754b02a4f51a148b4941",
+        "Node name for S&R": "AILab_ImageCombiner"
+      },
+      "widgets_values": [
+        "normal",
+        1,
+        1,
+        50,
+        50
+      ],
+      "color": "#2e3e57",
+      "bgcolor": "#4b5b73"
+    },
+    {
+      "id": 23,
+      "type": "SaveImage",
+      "pos": [
+        1577.8873925426076,
+        264.433702889675
+      ],
+      "size": [
+        644.0861835483508,
+        710.3224297003611
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 19
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.16.4",
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "imgCombined"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "MarkdownNote",
+      "pos": [
+        142.77874625201406,
+        265.36613002172555
+      ],
+      "size": [
+        302.28845573220764,
+        158.1218814592583
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "👑 Pixaroma - Note - START HERE",
+      "properties": {},
+      "widgets_values": [
+        "\n## 🧩 Nodes Installed from Manager  \n\n- ComfyUI-RMBG\n\n---\n\n## 📚 Resources  \n🎥 **Tutorials:** [Pixaroma YouTube Channel](https://www.youtube.com/@pixaroma)  \n💬 **Community Discord:** [Join Here](https://discord.com/invite/gggpkVgBf3)\n"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 24,
+      "type": "AILab_LoadImage",
+      "pos": [
+        465.8853750256175,
+        264.433702889675
+      ],
+      "size": [
+        384.22173237142056,
+        565.6181814236521
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            20
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "title": "Load Image (RMBG) 🖼️ (Foreground)",
+      "properties": {
+        "cnr_id": "comfyui-rmbg",
+        "ver": "d7402513f23f58db7d56754b02a4f51a148b4941",
+        "Node name for S&R": "AILab_LoadImage"
+      },
+      "widgets_values": [
+        "",
+        "example.png",
+        "lanczos",
+        0,
+        1,
+        "longest_side",
+        0,
+        "image"
+      ],
+      "color": "#2e3e57",
+      "bgcolor": "#4b5b73"
+    }
+  ],
+  "links": [
+    [
+      17,
+      18,
+      0,
+      21,
+      0,
+      "IMAGE"
+    ],
+    [
+      19,
+      21,
+      0,
+      23,
+      0,
+      "IMAGE"
+    ],
+    [
+      20,
+      24,
+      0,
+      18,
+      0,
+      "IMAGE"
+    ],
+    [
+      21,
+      25,
+      0,
+      21,
+      1,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "ds": {
+      "scale": 0.7627768444385533,
+      "offset": [
+        -0.9350937510442066,
+        -40.057780655530685
+      ]
+    },
+    "frontendVersion": "1.39.19",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

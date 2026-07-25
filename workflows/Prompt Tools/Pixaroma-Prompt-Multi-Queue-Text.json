@@ -1,0 +1,200 @@
+{
+  "id": "pix-prompt-multi-from-list-demo",
+  "revision": 0,
+  "last_node_id": 5,
+  "last_link_id": 7,
+  "nodes": [
+    {
+      "id": 5,
+      "type": "PixaromaShowText",
+      "pos": [
+        507,
+        211
+      ],
+      "size": [
+        350,
+        140
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaShowText"
+      },
+      "widgets_values": [
+        "a black cat"
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 3,
+      "type": "PixaromaPromptMulti",
+      "pos": [
+        80,
+        211
+      ],
+      "size": [
+        394.48083764235236,
+        357
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": [
+            7
+          ]
+        },
+        {
+          "name": "prompts",
+          "type": "PIXAROMA_PROMPT_LIST",
+          "slot_index": 1,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaPromptMulti",
+        "promptMultiState": {
+          "version": 2,
+          "mode": "queue",
+          "rows": [
+            {
+              "id": "r1",
+              "enabled": true,
+              "label": "",
+              "text": "a cute bunny"
+            },
+            {
+              "id": "r2",
+              "enabled": true,
+              "label": "",
+              "text": "a dog in the forest"
+            },
+            {
+              "id": "r3",
+              "enabled": true,
+              "label": "",
+              "text": "a black cat"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 1,
+      "type": "PixaromaLabel",
+      "pos": [
+        80,
+        40
+      ],
+      "size": [
+        388,
+        51
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\":\"Prompt Multi + Queue Text\",\"fontSize\":31,\"fontFamily\":\"Arial\",\"fontColor\":\"#ffffff\",\"textAlign\":\"left\",\"backgroundColor\":\"#f66744\",\"padding\":10,\"borderRadius\":0,\"opacity\":1,\"fontWeight\":\"normal\",\"lineHeight\":1}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    },
+    {
+      "id": 2,
+      "type": "PixaromaLabel",
+      "pos": [
+        80,
+        91
+      ],
+      "size": [
+        388,
+        57
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\":\"Click Run: Workflow run once for each prompt, so if you have\\n3 prompts it will run the workflow 3 times, once for each prompt.\",\"fontSize\":13,\"fontFamily\":\"Arial\",\"fontColor\":\"#c0c0c0\",\"textAlign\":\"left\",\"backgroundColor\":\"#333333\",\"padding\":10,\"borderRadius\":0,\"opacity\":1,\"fontWeight\":\"normal\",\"lineHeight\":1.4}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    }
+  ],
+  "links": [
+    [
+      7,
+      3,
+      0,
+      5,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.1969827586206896,
+      "offset": [
+        138.3711439202977,
+        77.17185413478268
+      ]
+    },
+    "frontendVersion": "1.43.18",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

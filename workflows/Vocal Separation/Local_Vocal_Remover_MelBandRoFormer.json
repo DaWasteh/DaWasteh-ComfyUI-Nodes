@@ -1,1 +1,540 @@
-{"id":"d5b95f6e-92bb-4d65-a3fd-2caa701e5039","revision":0,"last_node_id":11,"last_link_id":8,"nodes":[{"id":1,"type":"MelBandRoFormerModelLoader","pos":[760,610],"size":[430,86],"flags":{},"order":0,"mode":0,"inputs":[{"localized_name":"model_name","name":"model_name","type":"COMBO","widget":{"name":"model_name"},"link":null}],"outputs":[{"localized_name":"model","name":"model","type":"MELROFORMERMODEL","links":[1]}],"properties":{"Node name for S&R":"MelBandRoFormerModelLoader","aux_id":"kijai/ComfyUI-MelBandRoFormer"},"widgets_values":["MelBand\\MelBandRoformer_fp16.safetensors"]},{"id":2,"type":"LoadAudio","pos":[787.7777777777778,785.5555555555555],"size":[320,162],"flags":{},"order":1,"mode":0,"inputs":[{"localized_name":"audio","name":"audio","type":"COMBO","widget":{"name":"audio"},"link":null},{"localized_name":"audioUI","name":"audioUI","type":"AUDIO_UI","widget":{"name":"audioUI"},"link":null},{"localized_name":"choose file to upload","name":"upload","type":"AUDIOUPLOAD","widget":{"name":"upload"},"link":null}],"outputs":[{"localized_name":"AUDIO","name":"AUDIO","type":"AUDIO","links":[2]}],"properties":{"Node name for S&R":"LoadAudio","cnr_id":"comfy-core"},"widgets_values":["Opalite.mp3",null,null]},{"id":3,"type":"MelBandRoFormerSampler","pos":[1290,690],"size":[260,80],"flags":{},"order":4,"mode":0,"inputs":[{"localized_name":"model","name":"model","type":"MELROFORMERMODEL","link":1},{"localized_name":"audio","name":"audio","type":"AUDIO","link":2}],"outputs":[{"localized_name":"vocals","name":"vocals","type":"AUDIO","links":[3,7]},{"localized_name":"instruments","name":"instruments","type":"AUDIO","links":[5,8]}],"properties":{"Node name for S&R":"MelBandRoFormerSampler","aux_id":"kijai/ComfyUI-MelBandRoFormer"},"widgets_values":[]},{"id":4,"type":"PreviewAudio","pos":[1690,540],"size":[370,102],"flags":{},"order":5,"mode":0,"inputs":[{"localized_name":"audio","name":"audio","type":"AUDIO","link":3},{"localized_name":"audioUI","name":"audioUI","type":"AUDIO_UI","widget":{"name":"audioUI"},"link":null}],"outputs":[{"localized_name":"audio","name":"audio","type":"AUDIO","links":null}],"title":"Vocals anhören","properties":{"Node name for S&R":"PreviewAudio","cnr_id":"comfy-core"},"widgets_values":[]},{"id":6,"type":"PreviewAudio","pos":[1690,850],"size":[370,102],"flags":{},"order":7,"mode":0,"inputs":[{"localized_name":"audio","name":"audio","type":"AUDIO","link":5},{"localized_name":"audioUI","name":"audioUI","type":"AUDIO_UI","widget":{"name":"audioUI"},"link":null}],"outputs":[{"localized_name":"audio","name":"audio","type":"AUDIO","links":null}],"title":"Instrumental anhören","properties":{"Node name for S&R":"PreviewAudio","cnr_id":"comfy-core"},"widgets_values":[]},{"id":8,"type":"MarkdownNote","pos":[720,310],"size":[620,220],"flags":{},"order":2,"mode":0,"inputs":[],"outputs":[],"properties":{},"widgets_values":["# Lokaler Vocal Remover – Mel-Band RoFormer\n\n1. Beim **Load Audio**-Node deinen fertig gemischten Song auswählen.\n2. **Queue Prompt** drücken.\n3. ComfyUI erzeugt **Vocals** und **Instrumental** vollständig lokal.\n\nDie Ergebnisse landen als FLAC unter:\n`ComfyUI/output/audio_separation/`\n\nHinweis: Das Modell verarbeitet intern Stereo mit 44,1 kHz."],"color":"#243447","bgcolor":"#36536b"},{"id":9,"type":"MarkdownNote","pos":[1390,310],"size":[640,220],"flags":{},"order":3,"mode":0,"inputs":[],"outputs":[],"properties":{},"widgets_values":["# Qualitätsgrenzen\n\nStem-Separation rekonstruiert Spuren aus dem fertigen Mix. Hall, Delay, gedoppelte Stimmen und stark verzerrte Gitarren können daher leicht in den jeweils anderen Stem übersprechen.\n\nFür ACE-Step-Referenzmaterial ist der **Vocals**-Output normalerweise wesentlich geeigneter als einfache Phasenauslöschung oder ältere Spleeter-Modelle."],"color":"#443322","bgcolor":"#66513d"},{"id":10,"type":"SaveAudioAdvanced","pos":[1655.3467333333338,676.0980555555557],"size":[429,166],"flags":{},"order":6,"mode":0,"inputs":[{"localized_name":"audio","name":"audio","type":"AUDIO","link":7},{"localized_name":"filename_prefix","name":"filename_prefix","type":"STRING","widget":{"name":"filename_prefix"},"link":null},{"localized_name":"format","name":"format","type":"COMFY_DYNAMICCOMBO_V3","widget":{"name":"format"},"link":null},{"localized_name":"audioUI","name":"audioUI","type":"AUDIO_UI","widget":{"name":"audioUI"},"link":null}],"outputs":[{"localized_name":"audio","name":"audio","type":"AUDIO","links":null}],"properties":{"Node name for S&R":"SaveAudioAdvanced"},"widgets_values":["audio_separation/Vocals","flac"]},{"id":11,"type":"SaveAudioAdvanced","pos":[1679.3467333333338,992.0980555555557],"size":[417,166],"flags":{},"order":8,"mode":0,"inputs":[{"localized_name":"audio","name":"audio","type":"AUDIO","link":8},{"localized_name":"filename_prefix","name":"filename_prefix","type":"STRING","widget":{"name":"filename_prefix"},"link":null},{"localized_name":"format","name":"format","type":"COMFY_DYNAMICCOMBO_V3","widget":{"name":"format"},"link":null},{"localized_name":"audioUI","name":"audioUI","type":"AUDIO_UI","widget":{"name":"audioUI"},"link":null}],"outputs":[{"localized_name":"audio","name":"audio","type":"AUDIO","links":null}],"properties":{"Node name for S&R":"SaveAudioAdvanced"},"widgets_values":["audio_separation/Instrumentals","flac"]}],"links":[[1,1,0,3,0,"MELROFORMERMODEL"],[2,2,0,3,1,"AUDIO"],[3,3,0,4,0,"AUDIO"],[5,3,1,6,0,"AUDIO"],[7,3,0,10,0,"AUDIO"],[8,3,1,11,0,"AUDIO"]],"groups":[{"id":1,"title":"1 – Modell und Song","bounding":[700,570,510,330],"color":"#3f789e","flags":{}},{"id":2,"title":"2 – Lokale Separation","bounding":[1240,610,350,210],"color":"#6b5b95","flags":{}},{"id":3,"title":"3 – Ergebnisse","bounding":[1650,470,450,660],"color":"#477a5b","flags":{}}],"config":{},"extra":{"ds":{"scale":1,"offset":[-514.3467333333335,-300.0980555555557]},"frontendVersion":"1.26.3","node_versions":{"comfy-core":"current","ComfyUI-MelBandRoFormer":"main"}},"version":0.4}
+{
+  "id": "d5b95f6e-92bb-4d65-a3fd-2caa701e5039",
+  "revision": 0,
+  "last_node_id": 11,
+  "last_link_id": 8,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "MelBandRoFormerModelLoader",
+      "pos": [
+        760,
+        610
+      ],
+      "size": [
+        430,
+        86
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "model_name",
+          "name": "model_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "model_name"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "model",
+          "name": "model",
+          "type": "MELROFORMERMODEL",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MelBandRoFormerModelLoader",
+        "aux_id": "kijai/ComfyUI-MelBandRoFormer"
+      },
+      "widgets_values": [
+        "MelBand\\MelBandRoformer_fp16.safetensors"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadAudio",
+      "pos": [
+        787.7777777777778,
+        785.5555555555555
+      ],
+      "size": [
+        320,
+        162
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "COMBO",
+          "widget": {
+            "name": "audio"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "audioUI",
+          "name": "audioUI",
+          "type": "AUDIO_UI",
+          "widget": {
+            "name": "audioUI"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "choose file to upload",
+          "name": "upload",
+          "type": "AUDIOUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "AUDIO",
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadAudio",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "Opalite.mp3",
+        null,
+        null
+      ]
+    },
+    {
+      "id": 3,
+      "type": "MelBandRoFormerSampler",
+      "pos": [
+        1290,
+        690
+      ],
+      "size": [
+        260,
+        80
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "model",
+          "name": "model",
+          "type": "MELROFORMERMODEL",
+          "link": 1
+        },
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "vocals",
+          "name": "vocals",
+          "type": "AUDIO",
+          "links": [
+            3,
+            7
+          ]
+        },
+        {
+          "localized_name": "instruments",
+          "name": "instruments",
+          "type": "AUDIO",
+          "links": [
+            5,
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MelBandRoFormerSampler",
+        "aux_id": "kijai/ComfyUI-MelBandRoFormer"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 4,
+      "type": "PreviewAudio",
+      "pos": [
+        1690,
+        540
+      ],
+      "size": [
+        370,
+        102
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 3
+        },
+        {
+          "localized_name": "audioUI",
+          "name": "audioUI",
+          "type": "AUDIO_UI",
+          "widget": {
+            "name": "audioUI"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        }
+      ],
+      "title": "Vocals anhören",
+      "properties": {
+        "Node name for S&R": "PreviewAudio",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 6,
+      "type": "PreviewAudio",
+      "pos": [
+        1690,
+        850
+      ],
+      "size": [
+        370,
+        102
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 5
+        },
+        {
+          "localized_name": "audioUI",
+          "name": "audioUI",
+          "type": "AUDIO_UI",
+          "widget": {
+            "name": "audioUI"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        }
+      ],
+      "title": "Instrumental anhören",
+      "properties": {
+        "Node name for S&R": "PreviewAudio",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 8,
+      "type": "MarkdownNote",
+      "pos": [
+        720,
+        310
+      ],
+      "size": [
+        620,
+        220
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "# Lokaler Vocal Remover – Mel-Band RoFormer\n\n1. Beim **Load Audio**-Node deinen fertig gemischten Song auswählen.\n2. **Queue Prompt** drücken.\n3. ComfyUI erzeugt **Vocals** und **Instrumental** vollständig lokal.\n\nDie Ergebnisse landen als FLAC unter:\n`ComfyUI/output/audio_separation/`\n\nHinweis: Das Modell verarbeitet intern Stereo mit 44,1 kHz."
+      ],
+      "color": "#243447",
+      "bgcolor": "#36536b"
+    },
+    {
+      "id": 9,
+      "type": "MarkdownNote",
+      "pos": [
+        1390,
+        310
+      ],
+      "size": [
+        640,
+        220
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "# Qualitätsgrenzen\n\nStem-Separation rekonstruiert Spuren aus dem fertigen Mix. Hall, Delay, gedoppelte Stimmen und stark verzerrte Gitarren können daher leicht in den jeweils anderen Stem übersprechen.\n\nFür ACE-Step-Referenzmaterial ist der **Vocals**-Output normalerweise wesentlich geeigneter als einfache Phasenauslöschung oder ältere Spleeter-Modelle."
+      ],
+      "color": "#443322",
+      "bgcolor": "#66513d"
+    },
+    {
+      "id": 10,
+      "type": "SaveAudioAdvanced",
+      "pos": [
+        1655.3467333333338,
+        676.0980555555557
+      ],
+      "size": [
+        429,
+        166
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 7
+        },
+        {
+          "localized_name": "filename_prefix",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "format",
+          "name": "format",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "format"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "audioUI",
+          "name": "audioUI",
+          "type": "AUDIO_UI",
+          "widget": {
+            "name": "audioUI"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveAudioAdvanced"
+      },
+      "widgets_values": [
+        "audio_separation/Vocals",
+        "flac"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "SaveAudioAdvanced",
+      "pos": [
+        1679.3467333333338,
+        992.0980555555557
+      ],
+      "size": [
+        417,
+        166
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 8
+        },
+        {
+          "localized_name": "filename_prefix",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "format",
+          "name": "format",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "format"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "audioUI",
+          "name": "audioUI",
+          "type": "AUDIO_UI",
+          "widget": {
+            "name": "audioUI"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveAudioAdvanced"
+      },
+      "widgets_values": [
+        "audio_separation/Instrumentals",
+        "flac"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      3,
+      0,
+      "MELROFORMERMODEL"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      1,
+      "AUDIO"
+    ],
+    [
+      3,
+      3,
+      0,
+      4,
+      0,
+      "AUDIO"
+    ],
+    [
+      5,
+      3,
+      1,
+      6,
+      0,
+      "AUDIO"
+    ],
+    [
+      7,
+      3,
+      0,
+      10,
+      0,
+      "AUDIO"
+    ],
+    [
+      8,
+      3,
+      1,
+      11,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "1 – Modell und Song",
+      "bounding": [
+        700,
+        570,
+        510,
+        330
+      ],
+      "color": "#3f789e",
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "2 – Lokale Separation",
+      "bounding": [
+        1240,
+        610,
+        350,
+        210
+      ],
+      "color": "#6b5b95",
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "3 – Ergebnisse",
+      "bounding": [
+        1650,
+        470,
+        450,
+        660
+      ],
+      "color": "#477a5b",
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1,
+      "offset": [
+        -514.3467333333335,
+        -300.0980555555557
+      ]
+    },
+    "frontendVersion": "1.26.3",
+    "node_versions": {
+      "comfy-core": "current",
+      "ComfyUI-MelBandRoFormer": "main"
+    }
+  },
+  "version": 0.4
+}

@@ -1,0 +1,433 @@
+{
+  "id": "78224ffd-171f-4565-80ea-bb100e63c26e",
+  "revision": 0,
+  "last_node_id": 27,
+  "last_link_id": 25,
+  "nodes": [
+    {
+      "id": 25,
+      "type": "AILab_LoadImage",
+      "pos": [
+        465.8853750256175,
+        885.8513723663735
+      ],
+      "size": [
+        384.22173237142056,
+        565.6181814236521
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            21
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "title": "Load Image (RMBG) 🖼️ (Background)",
+      "properties": {
+        "cnr_id": "comfyui-rmbg",
+        "ver": "d7402513f23f58db7d56754b02a4f51a148b4941",
+        "Node name for S&R": "AILab_LoadImage"
+      },
+      "widgets_values": [
+        "",
+        "example.png",
+        "lanczos",
+        0,
+        1,
+        "longest_side",
+        0,
+        "image"
+      ],
+      "color": "#2e3e57",
+      "bgcolor": "#4b5b73"
+    },
+    {
+      "id": 4,
+      "type": "MarkdownNote",
+      "pos": [
+        142.77874625201406,
+        265.36613002172555
+      ],
+      "size": [
+        301.3270708279577,
+        226.38122187674742
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "👑 Pixaroma - Note - START HERE",
+      "properties": {},
+      "widgets_values": [
+        "The first time you use the workflow, the **SDMatte.safetensors** model is downloaded automatically and saved to ..ComfyUI\\models\\RMBG\\SDMatte\n\n---\n\n## 🧩 Nodes Installed from Manager  \n\n- ComfyUI-RMBG\n\n---\n\n## 📚 Resources  \n🎥 **Tutorials:** [Pixaroma YouTube Channel](https://www.youtube.com/@pixaroma)  \n💬 **Community Discord:** [Join Here](https://discord.com/invite/gggpkVgBf3)\n"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 18,
+      "type": "RMBG",
+      "pos": [
+        879.3672024455612,
+        264.433702889675
+      ],
+      "size": [
+        340,
+        292
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 20
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            24
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "MASK_IMAGE",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-rmbg",
+        "ver": "d7402513f23f58db7d56754b02a4f51a148b4941",
+        "Node name for S&R": "RMBG"
+      },
+      "widgets_values": [
+        "RMBG-2.0",
+        1,
+        1024,
+        0,
+        0,
+        false,
+        false,
+        "Alpha",
+        "#222222"
+      ],
+      "color": "#222e40",
+      "bgcolor": "#364254"
+    },
+    {
+      "id": 21,
+      "type": "AILab_ImageCombiner",
+      "pos": [
+        1571.6575543726397,
+        259.62673435904503
+      ],
+      "size": [
+        300,
+        194
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "foreground",
+          "type": "IMAGE",
+          "link": 25
+        },
+        {
+          "name": "background",
+          "type": "IMAGE",
+          "link": 21
+        },
+        {
+          "name": "foreground_mask",
+          "shape": 7,
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            19
+          ]
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-rmbg",
+        "ver": "d7402513f23f58db7d56754b02a4f51a148b4941",
+        "Node name for S&R": "AILab_ImageCombiner"
+      },
+      "widgets_values": [
+        "normal",
+        1,
+        1,
+        50,
+        50
+      ],
+      "color": "#2e3e57",
+      "bgcolor": "#4b5b73"
+    },
+    {
+      "id": 23,
+      "type": "SaveImage",
+      "pos": [
+        1904.0422115008303,
+        258.07723019149995
+      ],
+      "size": [
+        644.0861835483508,
+        710.3224297003611
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 19
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.16.4",
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "imgCombined"
+      ]
+    },
+    {
+      "id": 24,
+      "type": "AILab_LoadImage",
+      "pos": [
+        465.8853750256175,
+        264.433702889675
+      ],
+      "size": [
+        384.22173237142056,
+        565.6181814236521
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            20
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "WIDTH",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "HEIGHT",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "title": "Load Image (RMBG) 🖼️ (Foreground)",
+      "properties": {
+        "cnr_id": "comfyui-rmbg",
+        "ver": "d7402513f23f58db7d56754b02a4f51a148b4941",
+        "Node name for S&R": "AILab_LoadImage"
+      },
+      "widgets_values": [
+        "",
+        "example.png",
+        "lanczos",
+        0,
+        1,
+        "longest_side",
+        0,
+        "image"
+      ],
+      "color": "#2e3e57",
+      "bgcolor": "#4b5b73"
+    },
+    {
+      "id": 27,
+      "type": "AILab_SDMatte",
+      "pos": [
+        1242.757736946413,
+        262.1411042642277
+      ],
+      "size": [
+        300,
+        340
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 24
+        },
+        {
+          "name": "mask",
+          "shape": 7,
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            25
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "MASK_IMAGE",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-rmbg",
+        "ver": "d7402513f23f58db7d56754b02a4f51a148b4941",
+        "Node name for S&R": "AILab_SDMatte"
+      },
+      "widgets_values": [
+        "SDMatte",
+        "Auto",
+        1024,
+        true,
+        true,
+        0.9,
+        0,
+        0,
+        false,
+        "Alpha",
+        "#222222"
+      ],
+      "color": "#2e3e57",
+      "bgcolor": "#4b5b73"
+    }
+  ],
+  "links": [
+    [
+      19,
+      21,
+      0,
+      23,
+      0,
+      "IMAGE"
+    ],
+    [
+      20,
+      24,
+      0,
+      18,
+      0,
+      "IMAGE"
+    ],
+    [
+      21,
+      25,
+      0,
+      21,
+      1,
+      "IMAGE"
+    ],
+    [
+      24,
+      18,
+      0,
+      27,
+      0,
+      "IMAGE"
+    ],
+    [
+      25,
+      27,
+      0,
+      21,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "ds": {
+      "scale": 0.8390545288824092,
+      "offset": [
+        4.6680678815892165,
+        -64.01044635352784
+      ]
+    },
+    "frontendVersion": "1.39.19",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

@@ -1,0 +1,289 @@
+{
+  "id": "23a1fd59-1a2b-4029-b16d-e90b266437d6",
+  "revision": 0,
+  "last_node_id": 19,
+  "last_link_id": 22,
+  "nodes": [
+    {
+      "id": 18,
+      "type": "easy positive",
+      "pos": [
+        -1244.691350142816,
+        -214.81085638401882
+      ],
+      "size": [
+        439.63700768922774,
+        142.1262721853737
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "STRING",
+          "links": [
+            16
+          ]
+        }
+      ],
+      "title": "2. Speech Text",
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "81c510c06e18dffd4f43518644fc35964c9168ca",
+        "Node name for S&R": "easy positive"
+      },
+      "widgets_values": [
+        "Welcome to Pixaroma Radio. Today we’re testing a cloned voice inside ComfyUI. Pretty cool, right?"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 10,
+      "type": "MarkdownNote",
+      "pos": [
+        -1784.1850828643521,
+        -371.1480243885221
+      ],
+      "size": [
+        504.974812154094,
+        597.3529620896994
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "👑 Pixaroma - Note - START HERE",
+      "properties": {},
+      "widgets_values": [
+        "# MODELS AND NODES USED IN THIS WORKFLOW  \n\n---\n\n### Models are downloaded automatically the first time you use the workflow.\n \n---\n\n## 🧩 Nodes Installed from Manager  \n\n- ComfyUI-Easy-Use\n- Qwen3-TTS - Voice Synthesis & Cloning\n\nRead More about Qwen TTS Node [HERE](https://github.com/flybirdxx/ComfyUI-Qwen-TTS)\n\n---\n\n## 📚 Resources  \n🎥 **Tutorials:** [Pixaroma YouTube Channel](https://www.youtube.com/@pixaroma)  \n💬 **Community Discord:** [Join Here](https://discord.com/invite/gggpkVgBf3)\n\n---\n\n## 🎙️ Qwen3 Use Saved Voice Workflow\n\nGenerate speech using a voice you already saved with **SaveVoice**.\n\n### What it does\n- Loads a previously saved voice (**from models\\qwen-tts\\voices**)\n- Speaks your **Speech Text** using that saved voice\n- Saves an MP3\n\n### How to use\n1. **Load Previous Saved Voice (Press R to Refresh)**: select your saved voice file (example: `my_custom_voice.wav`).\n2. **Speech Text**: type what you want spoken.\n3. In **VoiceClone** set **language** to Auto or the correct language (English/Chinese).\n4. Click **Run**\n\n### Save location\n- Preview inside **Save Audio (MP3)**\n- File saves under: **ComfyUI\\\\output\\\\audio**"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 19,
+      "type": "FB_Qwen3TTSLoadSpeaker",
+      "pos": [
+        -1244.691350142816,
+        -369.4769826220193
+      ],
+      "size": [
+        439.63700768922774,
+        98
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "voice_clone_prompt",
+          "type": "VOICE_CLONE_PROMPT",
+          "links": [
+            17
+          ]
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        },
+        {
+          "name": "ref_text",
+          "type": "STRING",
+          "links": [
+            22
+          ]
+        }
+      ],
+      "title": "1. Load Previous Saved Voice (Press R to Refresh)",
+      "properties": {
+        "cnr_id": "qwen3-tts-comfyui",
+        "ver": "17207f8b9d1e2e92cb5cf0e487222656757bedf5",
+        "Node name for S&R": "FB_Qwen3TTSLoadSpeaker",
+        "aux_id": "flybirdxx/ComfyUI-Qwen-TTS"
+      },
+      "widgets_values": [
+        "Basti_Ref_Audio.wav"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 14,
+      "type": "FB_Qwen3TTSVoiceClone",
+      "pos": [
+        -786.6888086302897,
+        -371.1480243885221
+      ],
+      "size": [
+        331.6391077409803,
+        542
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ref_audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "voice_clone_prompt",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": 17
+        },
+        {
+          "name": "config",
+          "shape": 7,
+          "type": "TTS_CONFIG",
+          "link": null
+        },
+        {
+          "name": "target_text",
+          "type": "STRING",
+          "widget": {
+            "name": "target_text"
+          },
+          "link": 16
+        },
+        {
+          "name": "ref_text",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "ref_text"
+          },
+          "link": 22
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            21
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "qwen3-tts-comfyui",
+        "ver": "17207f8b9d1e2e92cb5cf0e487222656757bedf5",
+        "Node name for S&R": "FB_Qwen3TTSVoiceClone",
+        "aux_id": "flybirdxx/ComfyUI-Qwen-TTS"
+      },
+      "widgets_values": [
+        "",
+        "1.7B",
+        "auto",
+        "bf16",
+        "English",
+        "",
+        1015280067243974,
+        "randomize",
+        512,
+        0.8,
+        20,
+        1,
+        1.05,
+        false,
+        "sdpa",
+        false,
+        ""
+      ]
+    },
+    {
+      "id": 8,
+      "type": "SaveAudioMP3",
+      "pos": [
+        -435.5827672304762,
+        -371.7050553094055
+      ],
+      "size": [
+        270,
+        136
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 21
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.15.1",
+        "Node name for S&R": "SaveAudioMP3"
+      },
+      "widgets_values": [
+        "audio/voice",
+        "V0"
+      ]
+    }
+  ],
+  "links": [
+    [
+      16,
+      18,
+      0,
+      14,
+      3,
+      "STRING"
+    ],
+    [
+      17,
+      19,
+      0,
+      14,
+      1,
+      "VOICE_CLONE_PROMPT"
+    ],
+    [
+      21,
+      14,
+      0,
+      8,
+      0,
+      "AUDIO"
+    ],
+    [
+      22,
+      19,
+      2,
+      14,
+      4,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "ds": {
+      "scale": 1.1968581755952443,
+      "offset": [
+        1873.7926972685066,
+        574.4292885658004
+      ]
+    },
+    "frontendVersion": "1.39.19",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

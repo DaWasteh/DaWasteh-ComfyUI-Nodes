@@ -1,0 +1,448 @@
+{
+  "id": "pix-prompt-multi-from-list-demo",
+  "revision": 0,
+  "last_node_id": 9,
+  "last_link_id": 6,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PixaromaLabel",
+      "pos": [
+        80,
+        40
+      ],
+      "size": [
+        359,
+        51
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"Prompt Multi + From List\", \"fontSize\": 31, \"fontFamily\": \"Arial\", \"fontColor\": \"#ffffff\", \"textAlign\": \"left\", \"backgroundColor\": \"#f66744\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    },
+    {
+      "id": 2,
+      "type": "PixaromaLabel",
+      "pos": [
+        80,
+        91
+      ],
+      "size": [
+        602,
+        57
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"Click Run: Prompt Multi sends all its rows as a list down the 'prompts' wire.\\nEach Prompt From List picks one by index, so different downstream nodes can use different prompts.\", \"fontSize\": 13, \"fontFamily\": \"Arial\", \"fontColor\": \"#c0c0c0\", \"textAlign\": \"left\", \"backgroundColor\": \"#333333\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.4}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    },
+    {
+      "id": 3,
+      "type": "PixaromaPromptMulti",
+      "pos": [
+        80,
+        211
+      ],
+      "size": [
+        394.48083764235236,
+        357
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        },
+        {
+          "name": "prompts",
+          "type": "PIXAROMA_PROMPT_LIST",
+          "slot_index": 1,
+          "links": [
+            1,
+            2,
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaPromptMulti",
+        "promptMultiState": {
+          "version": 2,
+          "mode": "list",
+          "rows": [
+            {
+              "id": "r1",
+              "enabled": true,
+              "label": "",
+              "text": "a cute bunny"
+            },
+            {
+              "id": "r2",
+              "enabled": true,
+              "label": "",
+              "text": "a dog in the forest"
+            },
+            {
+              "id": "r3",
+              "enabled": true,
+              "label": "",
+              "text": "a black cat"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 4,
+      "type": "PixaromaPromptFromList",
+      "pos": [
+        510,
+        211
+      ],
+      "size": [
+        290,
+        78
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompts",
+          "type": "PIXAROMA_PROMPT_LIST",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaPromptFromList"
+      },
+      "widgets_values": [
+        1
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 5,
+      "type": "PixaromaShowText",
+      "pos": [
+        830,
+        211
+      ],
+      "size": [
+        350,
+        140
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaShowText"
+      },
+      "widgets_values": [
+        "a cute bunny"
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 6,
+      "type": "PixaromaPromptFromList",
+      "pos": [
+        510,
+        446.5
+      ],
+      "size": [
+        290,
+        78
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompts",
+          "type": "PIXAROMA_PROMPT_LIST",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaPromptFromList"
+      },
+      "widgets_values": [
+        2
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 8,
+      "type": "PixaromaPromptFromList",
+      "pos": [
+        510,
+        682
+      ],
+      "size": [
+        290,
+        78
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompts",
+          "type": "PIXAROMA_PROMPT_LIST",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": [
+            6
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaPromptFromList"
+      },
+      "widgets_values": [
+        3
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 7,
+      "type": "PixaromaShowText",
+      "pos": [
+        830,
+        446.5
+      ],
+      "size": [
+        350,
+        140
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaShowText"
+      },
+      "widgets_values": [
+        "a dog in the forest"
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 9,
+      "type": "PixaromaShowText",
+      "pos": [
+        830,
+        682
+      ],
+      "size": [
+        350,
+        140
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 6
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaShowText"
+      },
+      "widgets_values": [
+        "a black cat"
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    }
+  ],
+  "links": [
+    [
+      1,
+      3,
+      1,
+      4,
+      0,
+      "PIXAROMA_PROMPT_LIST"
+    ],
+    [
+      4,
+      4,
+      0,
+      5,
+      0,
+      "STRING"
+    ],
+    [
+      2,
+      3,
+      1,
+      6,
+      0,
+      "PIXAROMA_PROMPT_LIST"
+    ],
+    [
+      5,
+      6,
+      0,
+      7,
+      0,
+      "STRING"
+    ],
+    [
+      3,
+      3,
+      1,
+      8,
+      0,
+      "PIXAROMA_PROMPT_LIST"
+    ],
+    [
+      6,
+      8,
+      0,
+      9,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.1969827586206896,
+      "offset": [
+        130.0168047053175,
+        179.65176550215304
+      ]
+    },
+    "frontendVersion": "1.43.18",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

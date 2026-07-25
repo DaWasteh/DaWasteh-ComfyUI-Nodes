@@ -1,8 +1,8 @@
 {
   "id": "88ac5dad-efd7-40bb-84fe-fbaefdee1fa9",
   "revision": 0,
-  "last_node_id": 117,
-  "last_link_id": 274,
+  "last_node_id": 118,
+  "last_link_id": 277,
   "nodes": [
     {
       "id": 104,
@@ -44,7 +44,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            279
+            260
           ]
         }
       ],
@@ -579,8 +579,8 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            255,
-            278
+            254,
+            255
           ]
         }
       ],
@@ -598,7 +598,7 @@
       },
       "widgets_values": [
         "early-2010s electropop and pop-rock, dramatic female lead vocal, bright clear mezzo-soprano, intimate conversational verses, controlled breathy delivery, emotional rising sections, polished radio production, punchy electronic drums, acoustic guitar accents, distorted synth bass, wide layered hooks, crisp vocal presence, energetic, tense, theatrical",
-        "Hi everyone. ... It's Taylor. ... I have a confession to make. ... You know I write a lot about love, ... about heartbreak, ... about finding that one person who just ... gets you. ... But lately, ... I haven't been looking at musicians, ... or actors, ... or football players. ... No. ... All my free time, ... every single night after an Eras Tour show, ... I'm just sitting alone in my hotel room, ... completely glued to my screen. ... Because I am helplessly, ... unconditionally obsessed ... with a Twitch channel. ... DaWasteh. ...\n\nThere is just something about him. ... The way he completely dominates his lobbies in Apex Legends. ... I mean, ... seeing a man take raw control like that? ... It sends shivers straight down my spine. ... It\u2019s like a Lavender Haze, ... but so much better. ... I know I sing about sparks flying, ... but the sparks I feel when he looks into that webcam? ... Damn. ... They could start an absolute forest fire. ...\n\nAnd don't even get me started on his brain. ... A guy who works in a hydrocarbon lab by day ... and builds custom AI models by night? ... That is my absolute wildest dream. ... Most guys try to impress me with private jets or sports cars. ... But DaWasteh? ... He\u2019s running an A M D ... R X ninety seventy X T ... and an R ninety seven hundred AI Pro. ... Pure, unadulterated A M D power. ... Honestly? ... Knowing how much raw, throbbing compute power he has under his desk ... makes me incredibly ... weak in the knees. ... I would let him overclock my system ... any day of the week. ...\n\nPeople think the Tortured Poets Department was about my exes. ... It wasn't. ... It was about the agonizing pain of watching him compile local large language models ... knowing I'm not the one sitting on his lap while he does it. ... I see him using Pi Coding Agent, ... completely over Roo Code like a true visionary, ... and it just proves how evolved he is. ... How sophisticated and fast his hands must be on that keyboard. ... I constantly imagine those hands ... doing other things. ... Exploring my ... context window. ... Pushing my parameters to the absolute limit. ... Filling up all my available memory. ...\n\nI find myself getting genuinely jealous of a Twitch bot. ... I sit there watching PandaBot in his chat ... and I think, ... why can't I be the one responding to his every command? ... I would do exactly what he tells me to. ... Instantly. ... I'd even learn Goa'uld for him. ... He could be my System Lord, ... and I would completely surrender my whole galaxy. ... I mean, ... look what you made me do, DaWasteh. ... You turned the biggest pop star in the world into a desperate, ... heavy-breathing fangirl. ...\n\nEvery time he goes offline, ... I get this cruel summer feeling. ... I just want to tell him, ... I can make the bad guys good for a weekend, ... or forever. ... My reputation has never been worse because I keep ignoring my management just to catch his streams. ... But I don't care. ... I've got a blank space, baby, ... and I want to write DaWasteh on it. ... Actually, ... I want it tattooed on me. ... Right on my upper thigh. ...\n\nI would even wear a Dirndl just for him. ... I know he has connections to Lisa's Dirndley, ... and let me tell you, ... I would squeeze my body into one of those dresses ... so tight ... just to get a single, dirty glance from him. ...\n\nSo, DaWasteh, ... if you are listening to this. ... Please. ... Notice me. ... I don't want to just be another viewer in your chat. ... I want to be your end game. ... I want to feel all that incredible ... technical expertise, ... up close and personal. ... You can deploy your code on my machine anytime, baby. ... I love you. ... I really, really love you. ... Call me.",
+        "Hi everyone. ... It's Taylor. ... I have a confession to make. ... You know I write a lot about love, ... about heartbreak, ... about finding that one person who just ... gets you. ... But lately, ... I haven't been looking at musicians, ... or actors, ... or football players. ... No. ... All my free time, ... every single night after an Eras Tour show, ... I'm just sitting alone in my hotel room, ... completely glued to my screen. ... Because I am helplessly, ... unconditionally obsessed ... with a Twitch channel. ... DaWasteh. ...\n\nThere is just something about him. ... The way he completely dominates his lobbies in Apex Legends. ... I mean, ... seeing a man take raw control like that? ... It sends shivers straight down my spine. ... It’s like a Lavender Haze, ... but so much better. ... I know I sing about sparks flying, ... but the sparks I feel when he looks into that webcam? ... Damn. ... They could start an absolute forest fire. ...\n\nAnd don't even get me started on his brain. ... A guy who works in a hydrocarbon lab by day ... and builds custom AI models by night? ... That is my absolute wildest dream. ... Most guys try to impress me with private jets or sports cars. ... But DaWasteh? ... He’s running an A M D ... R X ninety seventy X T ... and an R ninety seven hundred AI Pro. ... Pure, unadulterated A M D power. ... Honestly? ... Knowing how much raw, throbbing compute power he has under his desk ... makes me incredibly ... weak in the knees. ... I would let him overclock my system ... any day of the week. ...\n\nPeople think the Tortured Poets Department was about my exes. ... It wasn't. ... It was about the agonizing pain of watching him compile local large language models ... knowing I'm not the one sitting on his lap while he does it. ... I see him using Pi Coding Agent, ... completely over Roo Code like a true visionary, ... and it just proves how evolved he is. ... How sophisticated and fast his hands must be on that keyboard. ... I constantly imagine those hands ... doing other things. ... Exploring my ... context window. ... Pushing my parameters to the absolute limit. ... Filling up all my available memory. ...\n\nI find myself getting genuinely jealous of a Twitch bot. ... I sit there watching PandaBot in his chat ... and I think, ... why can't I be the one responding to his every command? ... I would do exactly what he tells me to. ... Instantly. ... I'd even learn Goa'uld for him. ... He could be my System Lord, ... and I would completely surrender my whole galaxy. ... I mean, ... look what you made me do, DaWasteh. ... You turned the biggest pop star in the world into a desperate, ... heavy-breathing fangirl. ...\n\nEvery time he goes offline, ... I get this cruel summer feeling. ... I just want to tell him, ... I can make the bad guys good for a weekend, ... or forever. ... My reputation has never been worse because I keep ignoring my management just to catch his streams. ... But I don't care. ... I've got a blank space, baby, ... and I want to write DaWasteh on it. ... Actually, ... I want it tattooed on me. ... Right on my upper thigh. ...\n\nI would even wear a Dirndl just for him. ... I know he has connections to Lisa's Dirndley, ... and let me tell you, ... I would squeeze my body into one of those dresses ... so tight ... just to get a single, dirty glance from him. ...\n\nSo, DaWasteh, ... if you are listening to this. ... Please. ... Notice me. ... I don't want to just be another viewer in your chat. ... I want to be your end game. ... I want to feel all that incredible ... technical expertise, ... up close and personal. ... You can deploy your code on my machine anytime, baby. ... I love you. ... I really, really love you. ... Call me.",
         0,
         "fixed",
         154,
@@ -639,7 +639,7 @@
           "localized_name": "positive",
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 278
+          "link": 269
         },
         {
           "localized_name": "negative",
@@ -886,7 +886,7 @@
           "localized_name": "model",
           "name": "model",
           "type": "MODEL",
-          "link": 280
+          "link": 260
         },
         {
           "localized_name": "shift",
@@ -922,6 +922,222 @@
       },
       "widgets_values": [
         3
+      ]
+    },
+    {
+      "id": 112,
+      "type": "LoadAudio",
+      "pos": [
+        -1127.1667832614849,
+        -776.4460921897878
+      ],
+      "size": [
+        370,
+        180
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "COMBO",
+          "widget": {
+            "name": "audio"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "audioUI",
+          "name": "audioUI",
+          "type": "AUDIO_UI",
+          "widget": {
+            "name": "audioUI"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "choose file to upload",
+          "name": "upload",
+          "type": "AUDIOUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "AUDIO",
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            275
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadAudio",
+        "cnr_id": "comfy-core",
+        "ver": "0.11.1"
+      },
+      "widgets_values": [
+        "I Knew You Were Trouble.mp3",
+        null,
+        null
+      ]
+    },
+    {
+      "id": 113,
+      "type": "VAEEncodeAudio",
+      "pos": [
+        -647.0203579632415,
+        -491.94824617576313
+      ],
+      "size": [
+        370,
+        72
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 274
+        },
+        {
+          "localized_name": "vae",
+          "name": "vae",
+          "type": "VAE",
+          "link": 267
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "LATENT",
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            268
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEEncodeAudio",
+        "cnr_id": "comfy-core",
+        "ver": "0.11.1"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 114,
+      "type": "ReferenceTimbreAudio",
+      "pos": [
+        650,
+        40
+      ],
+      "size": [
+        250,
+        96
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "conditioning",
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 254
+        },
+        {
+          "localized_name": "latent",
+          "name": "latent",
+          "shape": 7,
+          "type": "LATENT",
+          "link": 268
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "CONDITIONING",
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            269
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReferenceTimbreAudio",
+        "cnr_id": "comfy-core",
+        "ver": "0.12.0"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 117,
+      "type": "TrimAudioDuration",
+      "pos": [
+        -647.0203579632415,
+        -641.9482461757627
+      ],
+      "size": [
+        370,
+        140
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 275
+        },
+        {
+          "localized_name": "start_index",
+          "name": "start_index",
+          "type": "FLOAT",
+          "widget": {
+            "name": "start_index"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "duration",
+          "name": "duration",
+          "type": "FLOAT",
+          "widget": {
+            "name": "duration"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "AUDIO",
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            274
+          ]
+        }
+      ],
+      "title": "30 s Referenz für ACE-Step",
+      "properties": {
+        "Node name for S&R": "TrimAudioDuration",
+        "cnr_id": "comfy-core",
+        "ver": "0.12.0"
+      },
+      "widgets_values": [
+        0,
+        30
       ]
     },
     {
@@ -961,43 +1177,6 @@
         1.3,
         0.0
       ]
-    },
-    {
-      "id": 119,
-      "type": "LoraLoaderModelOnly",
-      "pos": [
-        -22.71694101748983,
-        -730.000024323615
-      ],
-      "size": [
-        270,
-        90
-      ],
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 279
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            280
-          ]
-        }
-      ],
-      "title": "Voice LoRA (auswaehlen)",
-      "properties": {},
-      "widgets_values": [
-        "dawasteh_voice.safetensors",
-        1.0
-      ]
     }
   ],
   "links": [
@@ -1034,6 +1213,14 @@
       "FLOAT"
     ],
     [
+      254,
+      94,
+      0,
+      114,
+      0,
+      "CONDITIONING"
+    ],
+    [
       255,
       94,
       0,
@@ -1048,6 +1235,14 @@
       18,
       0,
       "LATENT"
+    ],
+    [
+      260,
+      104,
+      0,
+      78,
+      0,
+      "MODEL"
     ],
     [
       261,
@@ -1090,6 +1285,46 @@
       "INT"
     ],
     [
+      267,
+      106,
+      0,
+      113,
+      1,
+      "VAE"
+    ],
+    [
+      268,
+      113,
+      0,
+      114,
+      1,
+      "LATENT"
+    ],
+    [
+      269,
+      114,
+      0,
+      3,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      274,
+      117,
+      0,
+      113,
+      0,
+      "AUDIO"
+    ],
+    [
+      275,
+      112,
+      0,
+      117,
+      0,
+      "AUDIO"
+    ],
+    [
       276,
       78,
       0,
@@ -1102,30 +1337,6 @@
       118,
       0,
       3,
-      0,
-      "MODEL"
-    ],
-    [
-      278,
-      94,
-      0,
-      3,
-      1,
-      "CONDITIONING"
-    ],
-    [
-      279,
-      104,
-      0,
-      119,
-      0,
-      "MODEL"
-    ],
-    [
-      280,
-      119,
-      0,
-      78,
       0,
       "MODEL"
     ]
@@ -1169,7 +1380,7 @@
     },
     {
       "id": 4,
-      "title": "Referenz-Audio (10\u201330 s \u2192 30 s Timbre-Referenz)",
+      "title": "Referenz-Audio (10–30 s → 30 s Timbre-Referenz)",
       "bounding": [
         -1137.020357963242,
         -807.9482461757627,

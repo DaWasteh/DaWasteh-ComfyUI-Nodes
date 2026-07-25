@@ -1,0 +1,414 @@
+{
+  "id": "23a1fd59-1a2b-4029-b16d-e90b266437d6",
+  "revision": 0,
+  "last_node_id": 29,
+  "last_link_id": 30,
+  "nodes": [
+    {
+      "id": 13,
+      "type": "FB_Qwen3TTSRoleBank",
+      "pos": [
+        503.2680491215154,
+        -273.7514090519321
+      ],
+      "size": [
+        270,
+        366
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt_1",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": 29
+        },
+        {
+          "name": "prompt_2",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": 30
+        },
+        {
+          "name": "prompt_3",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": null
+        },
+        {
+          "name": "prompt_4",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": null
+        },
+        {
+          "name": "prompt_5",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": null
+        },
+        {
+          "name": "prompt_6",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": null
+        },
+        {
+          "name": "prompt_7",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": null
+        },
+        {
+          "name": "prompt_8",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "role_bank",
+          "type": "QWEN3_ROLE_BANK",
+          "links": [
+            18
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "qwen3-tts-comfyui",
+        "ver": "17207f8b9d1e2e92cb5cf0e487222656757bedf5",
+        "Node name for S&R": "FB_Qwen3TTSRoleBank",
+        "aux_id": "flybirdxx/ComfyUI-Qwen-TTS"
+      },
+      "widgets_values": [
+        "man",
+        "woman",
+        "Role3",
+        "Role4",
+        "Role5",
+        "Role6",
+        "Role7",
+        "Role8"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "FB_Qwen3TTSDialogueInference",
+      "pos": [
+        795.7561228763311,
+        -273.7514090519321
+      ],
+      "size": [
+        333.6166133735487,
+        568
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "role_bank",
+          "type": "QWEN3_ROLE_BANK",
+          "link": 18
+        },
+        {
+          "name": "script",
+          "type": "STRING",
+          "widget": {
+            "name": "script"
+          },
+          "link": 19
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            24
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "qwen3-tts-comfyui",
+        "ver": "17207f8b9d1e2e92cb5cf0e487222656757bedf5",
+        "Node name for S&R": "FB_Qwen3TTSDialogueInference",
+        "aux_id": "flybirdxx/ComfyUI-Qwen-TTS"
+      },
+      "widgets_values": [
+        "",
+        "1.7B",
+        "auto",
+        "bf16",
+        "Auto",
+        0.5,
+        0.4,
+        0.2,
+        0.6,
+        0.3,
+        true,
+        4,
+        326594809115555,
+        "randomize",
+        2048,
+        0.8,
+        20,
+        1,
+        1.05,
+        "sdpa",
+        false
+      ]
+    },
+    {
+      "id": 21,
+      "type": "easy positive",
+      "pos": [
+        -21.753488731333448,
+        -273.7514090519321
+      ],
+      "size": [
+        502.53346409803316,
+        774.1587327959844
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "STRING",
+          "links": [
+            19
+          ]
+        }
+      ],
+      "title": "3. Dialogue",
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "81c510c06e18dffd4f43518644fc35964c9168ca",
+        "Node name for S&R": "easy positive"
+      },
+      "widgets_values": [
+        "man: Hey, you there?\nwoman: Yeah, I’m here, what are we testing?\nman: A clean TTS workflow in ComfyUI\nwoman: Nice, voice design or cloned voice?\nman: Cloned voice for consistency\nwoman: Love it!"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 10,
+      "type": "MarkdownNote",
+      "pos": [
+        -1025.027422974502,
+        -272.00706442021584
+      ],
+      "size": [
+        511.3164882073679,
+        745.6629666425301
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "👑 Pixaroma - Note - START HERE",
+      "properties": {},
+      "widgets_values": [
+        "# MODELS AND NODES USED IN THIS WORKFLOW  \n\n---\n\n### Models are downloaded automatically the first time you use the workflow.\n \n---\n\n## 🧩 Nodes Installed from Manager  \n\n- ComfyUI-Easy-Use\n- Qwen3-TTS - Voice Synthesis & Cloning\n- ComfyUI_LayerStyle\n\nRead More about Qwen TTS Node [HERE](https://github.com/flybirdxx/ComfyUI-Qwen-TTS)\n\n---\n\n## 📚 Resources  \n🎥 **Tutorials:** [Pixaroma YouTube Channel](https://www.youtube.com/@pixaroma)  \n💬 **Community Discord:** [Join Here](https://discord.com/invite/gggpkVgBf3)\n\n---\n\n## 🎭 Qwen3 Dialogue Workflow (Using Previously Saved Voices)\n\nGenerate a multi-speaker dialogue using voices you already saved with **SaveVoice**.\n\n### 🧠 What It Does\n- Loads 2 saved voices (example: `my_custom_voice.wav` + `my_custom_voice2.wav`)\n- Assigns them to roles in **RoleBank** (role_name_1 = man, role_name_2 = woman)\n- Generates a full dialogue using **DialogueInference**\n- Outputs a single MP3 (merged dialogue)\n\n### ✍️ How To Use\n1. **Load Previous Saved Voice (man)**  \n   - Pick your saved voice file (Press **R** to refresh the list)\n\n2. **Load Previous Saved Voice (woman)**  \n   - Pick your second saved voice file (Press **R** to refresh)\n\n3. **Dialogue**  \n   - Write your script in this format (one line per speaker):  \n     `man: dialogue text`  \n     `woman: dialogue text`\n\n4. **RoleBank**\n   - Make sure `role_name_1 = man` and `role_name_2 = woman` match your dialogue labels\n\n5. Click **Run**\n\n### 💾 MP3 Save Location\n- Preview inside **Save Audio (MP3)**\n- Saves under: `ComfyUI\\output\\audio"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 26,
+      "type": "FB_Qwen3TTSLoadSpeaker",
+      "pos": [
+        -483.87857017537686,
+        -273.7514090519321
+      ],
+      "size": [
+        439.63700768922774,
+        98
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "voice_clone_prompt",
+          "type": "VOICE_CLONE_PROMPT",
+          "links": [
+            29
+          ]
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        },
+        {
+          "name": "ref_text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "1. Load Previous Saved Voice (Press R to Refresh)",
+      "properties": {
+        "cnr_id": "qwen3-tts-comfyui",
+        "ver": "17207f8b9d1e2e92cb5cf0e487222656757bedf5",
+        "Node name for S&R": "FB_Qwen3TTSLoadSpeaker",
+        "aux_id": "flybirdxx/ComfyUI-Qwen-TTS"
+      },
+      "widgets_values": [
+        "Basti_Ref_Audio.wav"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 29,
+      "type": "FB_Qwen3TTSLoadSpeaker",
+      "pos": [
+        -483.87857017537686,
+        -104.35241715495037
+      ],
+      "size": [
+        439.63700768922774,
+        98
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "voice_clone_prompt",
+          "type": "VOICE_CLONE_PROMPT",
+          "links": [
+            30
+          ]
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        },
+        {
+          "name": "ref_text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "2. Load Previous Saved Voice (Press R to Refresh)",
+      "properties": {
+        "cnr_id": "qwen3-tts-comfyui",
+        "ver": "17207f8b9d1e2e92cb5cf0e487222656757bedf5",
+        "Node name for S&R": "FB_Qwen3TTSLoadSpeaker",
+        "aux_id": "flybirdxx/ComfyUI-Qwen-TTS"
+      },
+      "widgets_values": [
+        "Basti_Ref_Audio.wav"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 24,
+      "type": "SaveAudioMP3",
+      "pos": [
+        1151.8608100046954,
+        -273.7514090519321
+      ],
+      "size": [
+        270,
+        136
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 24
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.15.1",
+        "Node name for S&R": "SaveAudioMP3"
+      },
+      "widgets_values": [
+        "audio/dialogue",
+        "V0"
+      ]
+    }
+  ],
+  "links": [
+    [
+      18,
+      13,
+      0,
+      20,
+      0,
+      "QWEN3_ROLE_BANK"
+    ],
+    [
+      19,
+      21,
+      0,
+      20,
+      1,
+      "STRING"
+    ],
+    [
+      24,
+      20,
+      0,
+      24,
+      0,
+      "AUDIO"
+    ],
+    [
+      29,
+      26,
+      0,
+      13,
+      0,
+      "VOICE_CLONE_PROMPT"
+    ],
+    [
+      30,
+      29,
+      0,
+      13,
+      1,
+      "VOICE_CLONE_PROMPT"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "ds": {
+      "scale": 0.8992172619047684,
+      "offset": [
+        1128.3684714383612,
+        534.9803636617174
+      ]
+    },
+    "frontendVersion": "1.39.19",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

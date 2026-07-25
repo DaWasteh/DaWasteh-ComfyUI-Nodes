@@ -1,0 +1,1239 @@
+{
+  "id": "pix-color-themes-showcase",
+  "revision": 0,
+  "last_node_id": 35,
+  "last_link_id": 0,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PixaromaText",
+      "pos": [
+        80,
+        113.15857696398149
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Dark",
+        ""
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 2,
+      "type": "PixaromaText",
+      "pos": [
+        390,
+        113.15857696398149
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Onyx",
+        ""
+      ],
+      "color": "#060606",
+      "bgcolor": "#141414"
+    },
+    {
+      "id": 3,
+      "type": "PixaromaText",
+      "pos": [
+        700,
+        113.15857696398149
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Charcoal",
+        ""
+      ],
+      "color": "#262220",
+      "bgcolor": "#36312f"
+    },
+    {
+      "id": 4,
+      "type": "PixaromaText",
+      "pos": [
+        80,
+        353.1585769639815
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Red",
+        ""
+      ],
+      "color": "#3a1414",
+      "bgcolor": "#9d1212"
+    },
+    {
+      "id": 5,
+      "type": "PixaromaText",
+      "pos": [
+        390,
+        353.1585769639815
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Orange",
+        ""
+      ],
+      "color": "#3a2814",
+      "bgcolor": "#9d4912"
+    },
+    {
+      "id": 6,
+      "type": "PixaromaText",
+      "pos": [
+        700,
+        353.1585769639815
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Gold",
+        ""
+      ],
+      "color": "#3a3014",
+      "bgcolor": "#8a6814"
+    },
+    {
+      "id": 7,
+      "type": "PixaromaText",
+      "pos": [
+        1010,
+        353.1585769639815
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Olive",
+        ""
+      ],
+      "color": "#1f2814",
+      "bgcolor": "#4d6814"
+    },
+    {
+      "id": 8,
+      "type": "PixaromaText",
+      "pos": [
+        1320,
+        353.1585769639815
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Lime",
+        ""
+      ],
+      "color": "#152a08",
+      "bgcolor": "#2d5a0d"
+    },
+    {
+      "id": 9,
+      "type": "PixaromaText",
+      "pos": [
+        1630,
+        353.1585769639815
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Green",
+        ""
+      ],
+      "color": "#15261c",
+      "bgcolor": "#004835"
+    },
+    {
+      "id": 10,
+      "type": "PixaromaText",
+      "pos": [
+        80,
+        573.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "PixaRed",
+        ""
+      ],
+      "color": "#9d1212",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 11,
+      "type": "PixaromaText",
+      "pos": [
+        390,
+        573.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "PixaOrange",
+        ""
+      ],
+      "color": "#9d4912",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 12,
+      "type": "PixaromaText",
+      "pos": [
+        700,
+        573.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "PixaGold",
+        ""
+      ],
+      "color": "#8a6814",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 13,
+      "type": "PixaromaText",
+      "pos": [
+        1010,
+        573.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "PixaOlive",
+        ""
+      ],
+      "color": "#4d6814",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 14,
+      "type": "PixaromaText",
+      "pos": [
+        1320,
+        573.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "PixaLime",
+        ""
+      ],
+      "color": "#2d5a0d",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 15,
+      "type": "PixaromaText",
+      "pos": [
+        1630,
+        573.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "PixaGreen",
+        ""
+      ],
+      "color": "#004835",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 16,
+      "type": "PixaromaText",
+      "pos": [
+        80,
+        833.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Teal",
+        ""
+      ],
+      "color": "#102a25",
+      "bgcolor": "#006b5e"
+    },
+    {
+      "id": 17,
+      "type": "PixaromaText",
+      "pos": [
+        390,
+        833.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Cyan",
+        ""
+      ],
+      "color": "#1a3a4a",
+      "bgcolor": "#0a6a8d"
+    },
+    {
+      "id": 18,
+      "type": "PixaromaText",
+      "pos": [
+        700,
+        833.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Sky",
+        ""
+      ],
+      "color": "#15263a",
+      "bgcolor": "#1a5a8a"
+    },
+    {
+      "id": 19,
+      "type": "PixaromaText",
+      "pos": [
+        1010,
+        833.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Blue",
+        ""
+      ],
+      "color": "#1a242e",
+      "bgcolor": "#0d2a3a"
+    },
+    {
+      "id": 20,
+      "type": "PixaromaText",
+      "pos": [
+        1320,
+        833.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Indigo",
+        ""
+      ],
+      "color": "#15123a",
+      "bgcolor": "#1f1a6a"
+    },
+    {
+      "id": 21,
+      "type": "PixaromaText",
+      "pos": [
+        1630,
+        833.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Purple",
+        ""
+      ],
+      "color": "#251a25",
+      "bgcolor": "#3a1d3a"
+    },
+    {
+      "id": 22,
+      "type": "PixaromaText",
+      "pos": [
+        80,
+        1053.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "PixaTeal",
+        ""
+      ],
+      "color": "#006b5e",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 23,
+      "type": "PixaromaText",
+      "pos": [
+        390,
+        1053.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "PixaCyan",
+        ""
+      ],
+      "color": "#0a6a8d",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 24,
+      "type": "PixaromaText",
+      "pos": [
+        700,
+        1053.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "PixaSky",
+        ""
+      ],
+      "color": "#1a5a8a",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 25,
+      "type": "PixaromaText",
+      "pos": [
+        1010,
+        1053.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "PixaBlue",
+        ""
+      ],
+      "color": "#0d2a3a",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 26,
+      "type": "PixaromaText",
+      "pos": [
+        1320,
+        1053.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "PixaIndigo",
+        ""
+      ],
+      "color": "#1f1a6a",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 27,
+      "type": "PixaromaText",
+      "pos": [
+        1630,
+        1053.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "PixaPurple",
+        ""
+      ],
+      "color": "#3a1d3a",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 28,
+      "type": "PixaromaText",
+      "pos": [
+        80,
+        1313.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Magenta",
+        ""
+      ],
+      "color": "#2e1a25",
+      "bgcolor": "#8a2275"
+    },
+    {
+      "id": 29,
+      "type": "PixaromaText",
+      "pos": [
+        390,
+        1313.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Pink",
+        ""
+      ],
+      "color": "#3a1a26",
+      "bgcolor": "#8a224a"
+    },
+    {
+      "id": 30,
+      "type": "PixaromaText",
+      "pos": [
+        700,
+        1313.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "Brown",
+        ""
+      ],
+      "color": "#2e1f12",
+      "bgcolor": "#6a4818"
+    },
+    {
+      "id": 31,
+      "type": "PixaromaText",
+      "pos": [
+        80,
+        1533.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "PixaMagenta",
+        ""
+      ],
+      "color": "#8a2275",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 32,
+      "type": "PixaromaText",
+      "pos": [
+        390,
+        1533.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "PixaPink",
+        ""
+      ],
+      "color": "#8a224a",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 33,
+      "type": "PixaromaText",
+      "pos": [
+        700,
+        1533.1585769639814
+      ],
+      "size": [
+        290,
+        158
+      ],
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaText"
+      },
+      "widgets_values": [
+        "PixaBrown",
+        ""
+      ],
+      "color": "#6a4818",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 34,
+      "type": "PixaromaLabel",
+      "pos": [
+        80,
+        -57.84142303601852
+      ],
+      "size": [
+        295,
+        51
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 33,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "80b307e8d1882fd933959cb0ea94a26d143557b5",
+        "Node name for S&R": "PixaromaLabel",
+        "aux_id": "pixaroma/ComfyUI-Pixaroma"
+      },
+      "widgets_values": [
+        "{\"text\":\"Change Node Color\",\"fontSize\":31,\"fontFamily\":\"Arial\",\"fontColor\":\"#ffffff\",\"textAlign\":\"left\",\"backgroundColor\":\"#f66744\",\"padding\":10,\"borderRadius\":0,\"opacity\":1,\"fontWeight\":\"normal\",\"lineHeight\":1}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    },
+    {
+      "id": 35,
+      "type": "PixaromaLabel",
+      "pos": [
+        80,
+        -6.841423036018519
+      ],
+      "size": [
+        643,
+        57
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 0,
+      "mode": 0,
+      "color": "transparent",
+      "bgcolor": "transparent",
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"Right-click any node in ComfyUI to open the 'Pixaroma colors' submenu and pick one of these 33 themes.\\nSaved colors travel inside the workflow file, so anyone you share with sees the same scheme.\", \"fontSize\": 13, \"fontFamily\": \"Arial\", \"fontColor\": \"#c0c0c0\", \"textAlign\": \"left\", \"backgroundColor\": \"#333333\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.4}"
+      ]
+    }
+  ],
+  "links": [],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7697398648648651,
+      "offset": [
+        137.2072321133117,
+        223.73313844408034
+      ]
+    },
+    "frontendVersion": "1.43.18",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

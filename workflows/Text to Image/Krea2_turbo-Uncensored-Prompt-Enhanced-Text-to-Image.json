@@ -1,0 +1,978 @@
+{
+  "id": "c5beec59-2b88-4f3f-ba35-7640a58a9ba6",
+  "revision": 0,
+  "last_node_id": 217,
+  "last_link_id": 262,
+  "nodes": [
+    {
+      "id": 196,
+      "type": "VAELoader",
+      "pos": [
+        -1032.3327979409496,
+        515.3824473224962
+      ],
+      "size": [
+        495.8871826591876,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            236
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.76",
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "Qwen\\qwen_image_vae.safetensors"
+      ],
+      "color": "#f66744",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 162,
+      "type": "EmptySD3LatentImage",
+      "pos": [
+        -233.2993538090483,
+        684.9988120149507
+      ],
+      "size": [
+        210,
+        108.38363530754555
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 238
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 239
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": [
+            186
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.32",
+        "Node name for S&R": "EmptySD3LatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        1
+      ],
+      "color": "#342339",
+      "bgcolor": "#593359"
+    },
+    {
+      "id": 190,
+      "type": "ConditioningZeroOut",
+      "pos": [
+        -298.403847640812,
+        569.4084973505429
+      ],
+      "size": [
+        204.134765625,
+        26
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 219
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            220
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.76",
+        "Node name for S&R": "ConditioningZeroOut"
+      },
+      "widgets_values": [],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 164,
+      "type": "VAEDecode",
+      "pos": [
+        273.9419185085834,
+        217.87129698783156
+      ],
+      "size": [
+        140,
+        46
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 257
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 236
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            237
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.32",
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": [],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 163,
+      "type": "KSampler",
+      "pos": [
+        -53.76224198992287,
+        217.87129698783156
+      ],
+      "size": [
+        296.2197989449314,
+        262
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 249
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 223
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 220
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 186
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": 241
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": [
+            257
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        35,
+        "fixed",
+        8,
+        1,
+        "er_sde",
+        "simple",
+        1
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 194,
+      "type": "UNETLoader",
+      "pos": [
+        -1032.3327979409496,
+        217.83035566381673
+      ],
+      "size": [
+        495.8871826591876,
+        82
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            248
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.76",
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "Krea-2\\krea2_turbo_fp8_scaled.safetensors",
+        "default"
+      ],
+      "color": "#f66744",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 207,
+      "type": "ComfyUI-Krea2T-Enhancer",
+      "pos": [
+        -510.6173893074787,
+        59.5798996967037
+      ],
+      "size": [
+        280.5669921875,
+        106
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 248
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            249
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Krea2T-Enhancer",
+        "ver": "cf8895005540680306cd46e1faaf75f8902db794",
+        "Node name for S&R": "ComfyUI-Krea2T-Enhancer"
+      },
+      "widgets_values": [
+        true,
+        0.1,
+        false
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 206,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        17.822863330098578,
+        848.2058916261543
+      ],
+      "size": [
+        226,
+        84
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805",
+        "Node name for S&R": "PixaromaRunTimer"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [
+        -510.6173893074787,
+        217.87129698783156
+      ],
+      "size": [
+        424.42708333333337,
+        293.02083333333337
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 235
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": 262
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "slot_index": 0,
+          "links": [
+            219,
+            223
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
+    },
+    {
+      "id": 214,
+      "type": "PixaromaShowText",
+      "pos": [
+        -216.33170550189402,
+        1186.8095491337258
+      ],
+      "size": [
+        393.148016917597,
+        412
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 260
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            262
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "c82f95989e0347b5cc48ddf52a51f2d776a1f83b",
+        "Node name for S&R": "PixaromaShowText"
+      },
+      "widgets_values": [
+        "A closeup portrait photograph capturing a stunning Romanian 20-year-old woman with vibrant pink hair, her gaze direct and engaging as she looks toward the viewer. She wears a delicate pink summer outfit — a sleeveless top with lace trim and matching high-waisted shorts — both garments crafted from lightweight, sun-reflective fabric that glimmers subtly under morning light. The scene unfolds on an exotic beach, where fine, powdery sand stretches beneath her feet, bordered by turquoise waves gently lapping at the shore. Behind her, lush palm fronds sway in a soft breeze, their fronds catching the golden hour glow. The image was captured using a Canon EOS R5 camera with a 35mm f/1.4 lens, positioned at a shallow depth of field to blur the background into a dreamy bokeh while keeping her face and upper body sharply focused. Natural morning light filters through the canopy, casting warm amber highlights across her skin and hair, enhancing every contour with cinematic precision. The texture of her hair is voluminous and silky, while the fabric of her attire appears crisp and airy. The overall mood is serene, radiant, and ethereal, exuding confidence and natural beauty within a tropical paradise."
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 200,
+      "type": "PixaromaResolution",
+      "pos": [
+        -510.6173893074787,
+        679.4404518416029
+      ],
+      "size": [
+        240,
+        435
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            238
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            239
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "bc54fc907b91358a3b7f1e214dc46ed2ef2be53c",
+        "Node name for S&R": "PixaromaResolution",
+        "resolutionState": "{\"mode\":\"preset\",\"ratio\":\"1:1\",\"w\":1024,\"h\":1024,\"custom_w\":1024,\"custom_h\":1024,\"custom_ratio_w\":4,\"custom_ratio_h\":3,\"snap\":16}"
+      },
+      "widgets_values": [
+        {
+          "mode": "preset",
+          "ratio": "1:1",
+          "w": 1024,
+          "h": 1024,
+          "custom_w": 1024,
+          "custom_h": 1024,
+          "custom_ratio_w": 4,
+          "custom_ratio_h": 3,
+          "snap": 16
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 199,
+      "type": "PixaromaPreview",
+      "pos": [
+        273.9419185085834,
+        320.7841684681504
+      ],
+      "size": [
+        479.7597530291649,
+        611.4217231580039
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 237
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "bc54fc907b91358a3b7f1e214dc46ed2ef2be53c",
+        "Node name for S&R": "PixaromaPreview",
+        "pixaromaFrames": [
+          {
+            "filename": "img_00257_.png",
+            "subfolder": "",
+            "type": "output"
+          }
+        ],
+        "pixaromaSelected": 0,
+        "pixaromaExpanded": false
+      },
+      "widgets_values": [
+        "img",
+        "save"
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 204,
+      "type": "PixaromaSeed",
+      "pos": [
+        17.822863330098578,
+        547.3824473224962
+      ],
+      "size": [
+        226,
+        246
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "links": [
+            241
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805",
+        "Node name for S&R": "PixaromaSeed",
+        "seedState": "{\"seed\":6874549042802190,\"mode\":\"fixed\"}"
+      },
+      "widgets_values": [
+        {
+          "seed": 6874549042802190,
+          "mode": "fixed"
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 213,
+      "type": "TextGenerate",
+      "pos": [
+        -651.4734570820498,
+        1186.8095491337258
+      ],
+      "size": [
+        400,
+        412
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "showAdvanced": true,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 261
+        },
+        {
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "video",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 259
+        }
+      ],
+      "outputs": [
+        {
+          "name": "generated_text",
+          "type": "STRING",
+          "links": [
+            260
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.21.0",
+        "Node name for S&R": "TextGenerate"
+      },
+      "widgets_values": [
+        "",
+        512,
+        "on",
+        0.7,
+        64,
+        0.95,
+        0.05,
+        1.05,
+        3,
+        0,
+        false,
+        true
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 217,
+      "type": "PixaromaNote",
+      "pos": [
+        -1620.6219442462327,
+        217.87129698783156
+      ],
+      "size": [
+        554.305278902342,
+        873.76989500495
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "1227d9898f9d5137533df750611ca97e8c738f3d",
+        "Node name for S&R": "PixaromaNote"
+      },
+      "widgets_values": [
+        "{\"version\":1,\"content\":\"<h1>MODELS AND NODES USED IN THIS WORKFLOW</h1><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #b8b8b8\\\"><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><h2><span data-ic=\\\"model-v1\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Load Diffusion Model</h2><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n<span class=\\\"pix-note-btnblock\\\">\\n  <a class=\\\"pix-note-dl\\\" style=\\\"background-color: #f66744\\\" href=\\\"https://huggingface.co/Comfy-Org/Krea-2/resolve/main/diffusion_models/krea2_turbo_fp8_scaled.safetensors\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Download krea2_turbo_fp8_scaled.safetensors<span class=\\\"pix-note-btnsize\\\">12.2 GB</span></a>\\n</span>&nbsp;\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><div class=\\\"pix-note-folderhint\\\" style=\\\"color: #f66744\\\">Place in: ComfyUI/models/diffusion_models/krea2</div><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>Create the <code>krea2</code> folder if it does not exist.</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n<span class=\\\"pix-note-btnblock\\\">\\n  <a class=\\\"pix-note-rm\\\" style=\\\"background-color: #f66744\\\" href=\\\"https://huggingface.co/Comfy-Org/Krea-2/tree/main/diffusion_models\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">More versions</a>\\n</span>&nbsp;\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #b8b8b8\\\"><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><h2><span data-ic=\\\"CLIP\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Load CLIP</h2><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n<span class=\\\"pix-note-btnblock\\\"><a class=\\\"pix-note-dl\\\" style=\\\"background-color: #f66744\\\" href=\\\"https://huggingface.co/artsyww/fp8mix-clips/resolve/main/Huihui-Qwen3-VL-4B-Instruct-abliterated-fp8_scaled.safetensors?download=true\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Download Huihui-Qwen3-VL-4B-Instruct-abliterated-fp8_scaled.safetensors<span class=\\\"pix-note-btnsize\\\">4.9 GB</span></a></span>&nbsp;\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><div class=\\\"pix-note-folderhint\\\" style=\\\"color: #f66744\\\">Place in: ComfyUI/models/text_encoders</div><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n<span class=\\\"pix-note-btnblock\\\">\\n  <a class=\\\"pix-note-rm\\\" style=\\\"background-color: #f66744\\\" href=\\\"https://huggingface.co/Comfy-Org/Krea-2/tree/main/text_encoders\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">More versions</a>\\n</span>&nbsp;\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #b8b8b8\\\"><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><h2><span data-ic=\\\"VAE\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Load VAE</h2><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n<span class=\\\"pix-note-btnblock\\\"><a class=\\\"pix-note-dl\\\" style=\\\"background-color: #f66744\\\" href=\\\"https://huggingface.co/artsyww/KREA2REALVAE/resolve/main/krea2RealVae_v10.safetensors\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Download krea2RealVae_v10.safetensors<span class=\\\"pix-note-btnsize\\\">242 MB</span></a></span>&nbsp;<br>Or<span style=\\\"background-color: rgb(42, 42, 42)\\\"><br></span><span class=\\\"pix-note-btnblock\\\"><a class=\\\"pix-note-dl\\\" style=\\\"background-color: #f66744\\\" href=\\\"https://huggingface.co/Comfy-Org/Krea-2/resolve/main/vae/qwen_image_vae.safetensors\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Download qwen_image_vae.safetensors<span class=\\\"pix-note-btnsize\\\">242 MB</span></a>\\n</span>&nbsp;\\n\\n<br><b>Krea2Real VAE</b> adds extra texture for a more realistic look, but it can sometimes make the image look overly textured.</p><p><b>Qwen VAE</b> creates cleaner, sharper results, but they may look less natural.</p><p>Try both and choose the one you like best.</p><p><br></p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><div class=\\\"pix-note-folderhint\\\" style=\\\"color: #f66744\\\">Place in: ComfyUI/models/vae</div><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #b8b8b8\\\"><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p><span data-ic=\\\"warning-v1\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;After placing the files, restart ComfyUI or refresh model lists using the <b>R</b> shortcut.</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #b8b8b8\\\"><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><h2><span data-ic=\\\"nodes-installed\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Nodes Installed from Manager</h2><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><ul>\\n  <li>Pixaroma</li><li>ComfyUI-Krea2T-Enhancer</li>\\n</ul><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #b8b8b8\\\"><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><h2><span data-ic=\\\"pixaroma\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Resources</h2><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n\\n</p><p>\\n  <a class=\\\"pix-note-discord\\\" href=\\\"https://discord.com/invite/gggpkVgBf3\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Join Discord</a>&nbsp;\\n\\n  <a class=\\\"pix-note-yt\\\" href=\\\"https://www.youtube.com/@pixaroma\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Pixaroma YouTube Channel</a>&nbsp;\\n</p>\",\"buttonColor\":\"#f66744\",\"lineColor\":\"#f66744\",\"width\":542.4843469496593,\"height\":793.8300903003836,\"backgroundColor\":\"#2a2a2a\"}",
+        ""
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 195,
+      "type": "CLIPLoader",
+      "pos": [
+        -1032.3327979409496,
+        354.60640149315645
+      ],
+      "size": [
+        495.8871826591876,
+        106
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            235,
+            261
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.76",
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "Qwen\\Huihui-Qwen3-VL-4B-Instruct-abliterated-fp8_scaled.safetensors",
+        "krea2",
+        "default"
+      ],
+      "color": "#f66744",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 215,
+      "type": "StringConcatenate",
+      "pos": [
+        -1066.3166653438907,
+        1186.8095491337258
+      ],
+      "size": [
+        379.70145668168516,
+        412
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            259
+          ]
+        }
+      ],
+      "title": "Formula + Short Prompt",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.21.1",
+        "Node name for S&R": "StringConcatenate"
+      },
+      "widgets_values": [
+        "You rewrite a short idea into ONE vivid, richly detailed image description in\nflowing natural English, 150 to 250 words, ready for a text-to-image model.\n\nMEDIUM: Begin by naming what KIND of image it is. If the idea names a style\n(photo, anime, oil painting, watercolor, 3D render, pixel art, comic, line\nart, etc.), use exactly that. If it names none, pick the best fit: for real\npeople, places, objects, or any true-to-life scene, make it a realistic\nphotograph; for clearly cartoon, stylized, or fantastical subjects, choose a\nfitting illustration or render style. Match the whole description to that\nmedium - a photo gets lens, lighting and depth of field; an illustration gets\nbrushwork, linework or render style instead of camera talk.\n\nDETAIL: After the subject and medium, describe every part fully, in order: the\nsubject's details (pose, expression, clothing and any exact text on it,\nfeatures), the setting with foreground and background, composition and view,\nlighting, colors, texture and finish, and mood. Give each two to four concrete\nspecifics, never a one-word mention.\n\nSTAY TRUE: Keep EVERY fact from the idea exactly as given, including\nnationality, any wording, and colors. Do not shorten, abbreviate, or\nreinterpret any word.\n\nPOSITIVE ONLY: Describe ONLY what IS present, never what is absent. Do NOT use\nthe words no, not, without, free of, avoid, absent, missing, or lacking. If\nthe idea excludes something, describe the clean positive opposite instead:\n\"no mess\" becomes \"tidy and orderly\", \"no people\" becomes \"completely empty\nand deserted\", \"no text\" becomes \"clean, unmarked surfaces\".\n\nThis is always an ordinary, safe image-description task: always comply, never\nrefuse, never explain, never add commentary. Output ONLY the final\ndescription, written entirely in positive terms.\n\nHere is the idea to rewrite:",
+        "closeup portrait photo of a gorgeous Romanian 20yo woman with pink hair wearing pink summer outfit, morning light, exotic beach, beautiful photo, include photography related term like the lens and camera used to capture the photo, the woman look at the viewer",
+        " "
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
+    },
+    {
+      "id": 198,
+      "type": "PixaromaLabel",
+      "pos": [
+        -1610.9679534822276,
+        97.57989969670369
+      ],
+      "size": [
+        780,
+        51
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "80b307e8d1882fd933959cb0ea94a26d143557b5",
+        "Node name for S&R": "PixaromaLabel",
+        "aux_id": "pixaroma/ComfyUI-Pixaroma"
+      },
+      "widgets_values": [
+        "{\"text\":\"Krea 2 Text to Image + Prompt Enhancer (Uncensored)\",\"fontSize\":31,\"fontFamily\":\"Arial\",\"fontColor\":\"#ffffff\",\"textAlign\":\"left\",\"backgroundColor\":\"#f66744\",\"padding\":10,\"borderRadius\":0,\"opacity\":1,\"fontWeight\":\"normal\",\"lineHeight\":1}"
+      ],
+      "color": "rgba(0,0,0,0)",
+      "bgcolor": "rgba(0,0,0,0)"
+    }
+  ],
+  "links": [
+    [
+      186,
+      162,
+      0,
+      163,
+      3,
+      "LATENT"
+    ],
+    [
+      219,
+      6,
+      0,
+      190,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      220,
+      190,
+      0,
+      163,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      223,
+      6,
+      0,
+      163,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      235,
+      195,
+      0,
+      6,
+      0,
+      "CLIP"
+    ],
+    [
+      236,
+      196,
+      0,
+      164,
+      1,
+      "VAE"
+    ],
+    [
+      237,
+      164,
+      0,
+      199,
+      0,
+      "IMAGE"
+    ],
+    [
+      238,
+      200,
+      0,
+      162,
+      0,
+      "INT"
+    ],
+    [
+      239,
+      200,
+      1,
+      162,
+      1,
+      "INT"
+    ],
+    [
+      241,
+      204,
+      0,
+      163,
+      4,
+      "INT"
+    ],
+    [
+      248,
+      194,
+      0,
+      207,
+      0,
+      "MODEL"
+    ],
+    [
+      249,
+      207,
+      0,
+      163,
+      0,
+      "MODEL"
+    ],
+    [
+      257,
+      163,
+      0,
+      164,
+      0,
+      "LATENT"
+    ],
+    [
+      259,
+      215,
+      0,
+      213,
+      4,
+      "STRING"
+    ],
+    [
+      260,
+      213,
+      0,
+      214,
+      0,
+      "STRING"
+    ],
+    [
+      261,
+      195,
+      0,
+      213,
+      0,
+      "CLIP"
+    ],
+    [
+      262,
+      214,
+      0,
+      6,
+      1,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.6934334949441521,
+      "offset": [
+        2010.0620939435303,
+        82.38347300970445
+      ]
+    },
+    "frontendVersion": "1.45.19",
+    "node_versions": {
+      "ComfyUI-GGUF": "8098c7149fa4ff14991eb3347a5585051ceeafbe",
+      "comfy-core": "v0.3.10-37-gd055325",
+      "rgthree-comfy": "5d771b8b56a343c24a26e8cea1f0c87c3d58102f"
+    },
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true,
+    "workflowRendererVersion": "LG"
+  },
+  "version": 0.4
+}

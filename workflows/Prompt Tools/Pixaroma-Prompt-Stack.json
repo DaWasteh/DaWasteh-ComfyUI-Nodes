@@ -1,0 +1,198 @@
+{
+  "id": "pix-prompt-stack-demo",
+  "revision": 0,
+  "last_node_id": 4,
+  "last_link_id": 1,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PixaromaLabel",
+      "pos": [
+        80,
+        40
+      ],
+      "size": [
+        210,
+        51
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"Prompt Stack\", \"fontSize\": 31, \"fontFamily\": \"Arial\", \"fontColor\": \"#ffffff\", \"textAlign\": \"left\", \"backgroundColor\": \"#f66744\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    },
+    {
+      "id": 2,
+      "type": "PixaromaLabel",
+      "pos": [
+        80,
+        91
+      ],
+      "size": [
+        599,
+        57
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"Click Run: every row marked ON is joined into one combined prompt (default separator is a comma).\\nToggle rows off to drop pieces from the mix; flip them back on later without retyping.\", \"fontSize\": 13, \"fontFamily\": \"Arial\", \"fontColor\": \"#c0c0c0\", \"textAlign\": \"left\", \"backgroundColor\": \"#333333\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.4}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    },
+    {
+      "id": 3,
+      "type": "PixaromaPromptStack",
+      "pos": [
+        80,
+        211
+      ],
+      "size": [
+        400,
+        425
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaPromptStack",
+        "promptStackState": {
+          "version": 1,
+          "rows": [
+            {
+              "id": "r1",
+              "enabled": true,
+              "label": "Subject",
+              "text": "a cute bunny"
+            },
+            {
+              "id": "r2",
+              "enabled": true,
+              "label": "Style",
+              "text": "in watercolor style"
+            },
+            {
+              "id": "r3",
+              "enabled": true,
+              "label": "Lighting",
+              "text": "dramatic lighting"
+            },
+            {
+              "id": "r4",
+              "enabled": true,
+              "label": "Quality",
+              "text": "highly detailed"
+            }
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 4,
+      "type": "PixaromaShowText",
+      "pos": [
+        507.16150362619493,
+        210.99999999999997
+      ],
+      "size": [
+        380.6833362548956,
+        425
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaShowText"
+      },
+      "widgets_values": [
+        "a cute bunny, in watercolor style, dramatic lighting, highly detailed"
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    }
+  ],
+  "links": [
+    [
+      1,
+      3,
+      0,
+      4,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.3804985337243403,
+      "offset": [
+        200.61279288231307,
+        99.60285014839454
+      ]
+    },
+    "frontendVersion": "1.43.18",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

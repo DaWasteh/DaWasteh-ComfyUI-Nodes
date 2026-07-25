@@ -1,0 +1,987 @@
+{
+  "id": "23a1fd59-1a2b-4029-b16d-e90b266437d6",
+  "revision": 0,
+  "last_node_id": 24,
+  "last_link_id": 24,
+  "nodes": [
+    {
+      "id": 14,
+      "type": "FB_Qwen3TTSVoiceClonePrompt",
+      "pos": [
+        -430.00000000000017,
+        -183.55658635195596
+      ],
+      "size": [
+        377.01709380802413,
+        267.58650545944374
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ref_audio",
+          "type": "AUDIO",
+          "link": 9
+        },
+        {
+          "name": "ref_text",
+          "type": "STRING",
+          "widget": {
+            "name": "ref_text"
+          },
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "voice_clone_prompt",
+          "type": "VOICE_CLONE_PROMPT",
+          "links": [
+            20
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "qwen3-tts-comfyui",
+        "ver": "17207f8b9d1e2e92cb5cf0e487222656757bedf5",
+        "Node name for S&R": "FB_Qwen3TTSVoiceClonePrompt",
+        "aux_id": "flybirdxx/ComfyUI-Qwen-TTS"
+      },
+      "widgets_values": [
+        "",
+        "1.7B",
+        "auto",
+        "bf16",
+        "sdpa",
+        false,
+        false
+      ]
+    },
+    {
+      "id": 18,
+      "type": "FB_Qwen3TTSVoiceClonePrompt",
+      "pos": [
+        -430,
+        370
+      ],
+      "size": [
+        377.01709380802413,
+        267.58650545944374
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ref_audio",
+          "type": "AUDIO",
+          "link": 14
+        },
+        {
+          "name": "ref_text",
+          "type": "STRING",
+          "widget": {
+            "name": "ref_text"
+          },
+          "link": 15
+        }
+      ],
+      "outputs": [
+        {
+          "name": "voice_clone_prompt",
+          "type": "VOICE_CLONE_PROMPT",
+          "links": [
+            21
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "qwen3-tts-comfyui",
+        "ver": "17207f8b9d1e2e92cb5cf0e487222656757bedf5",
+        "Node name for S&R": "FB_Qwen3TTSVoiceClonePrompt",
+        "aux_id": "flybirdxx/ComfyUI-Qwen-TTS"
+      },
+      "widgets_values": [
+        "",
+        "1.7B",
+        "auto",
+        "bf16",
+        "sdpa",
+        false,
+        false
+      ]
+    },
+    {
+      "id": 22,
+      "type": "LayerUtility: PurgeVRAM V2",
+      "pos": [
+        -19.92801814752635,
+        -410.80950611858503
+      ],
+      "size": [
+        288.4146484375,
+        82
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "anything",
+          "type": "*",
+          "link": 20
+        }
+      ],
+      "outputs": [
+        {
+          "name": "any",
+          "type": "*",
+          "links": [
+            22
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_layerstyle",
+        "ver": "d94bef1ee5ed3656f5ff1bb2830a4ffd94f40935",
+        "Node name for S&R": "LayerUtility: PurgeVRAM V2"
+      },
+      "widgets_values": [
+        true,
+        true
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    },
+    {
+      "id": 23,
+      "type": "LayerUtility: PurgeVRAM V2",
+      "pos": [
+        -19.92801814752635,
+        570.17058835593
+      ],
+      "size": [
+        288.4146484375,
+        82
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "anything",
+          "type": "*",
+          "link": 21
+        }
+      ],
+      "outputs": [
+        {
+          "name": "any",
+          "type": "*",
+          "links": [
+            23
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_layerstyle",
+        "ver": "d94bef1ee5ed3656f5ff1bb2830a4ffd94f40935",
+        "Node name for S&R": "LayerUtility: PurgeVRAM V2"
+      },
+      "widgets_values": [
+        true,
+        true
+      ],
+      "color": "rgba(38, 73, 116, 0.7)"
+    },
+    {
+      "id": 13,
+      "type": "FB_Qwen3TTSRoleBank",
+      "pos": [
+        508.87908129217874,
+        -264.0863477029874
+      ],
+      "size": [
+        270,
+        366
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt_1",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": 22
+        },
+        {
+          "name": "prompt_2",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": 23
+        },
+        {
+          "name": "prompt_3",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": null
+        },
+        {
+          "name": "prompt_4",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": null
+        },
+        {
+          "name": "prompt_5",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": null
+        },
+        {
+          "name": "prompt_6",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": null
+        },
+        {
+          "name": "prompt_7",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": null
+        },
+        {
+          "name": "prompt_8",
+          "shape": 7,
+          "type": "VOICE_CLONE_PROMPT",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "role_bank",
+          "type": "QWEN3_ROLE_BANK",
+          "links": [
+            18
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "qwen3-tts-comfyui",
+        "ver": "17207f8b9d1e2e92cb5cf0e487222656757bedf5",
+        "Node name for S&R": "FB_Qwen3TTSRoleBank",
+        "aux_id": "flybirdxx/ComfyUI-Qwen-TTS"
+      },
+      "widgets_values": [
+        "man",
+        "woman",
+        "Role3",
+        "Role4",
+        "Role5",
+        "Role6",
+        "Role7",
+        "Role8"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "MarkdownNote",
+      "pos": [
+        -1698.535484372624,
+        -412.2589752330893
+      ],
+      "size": [
+        518.0563379670084,
+        809.3852845441536
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "👑 Pixaroma - Note - START HERE",
+      "properties": {},
+      "widgets_values": [
+        "# MODELS AND NODES USED IN THIS WORKFLOW  \n\n---\n\n### Models are downloaded automatically the first time you use the workflow.\n \n---\n\n## 🧩 Nodes Installed from Manager  \n\n- ComfyUI-Easy-Use\n- Qwen3-TTS - Voice Synthesis & Cloning\n- ComfyUI_LayerStyle\n\nRead More about Qwen TTS Node [HERE](https://github.com/flybirdxx/ComfyUI-Qwen-TTS)\n\n---\n\n## 📚 Resources  \n🎥 **Tutorials:** [Pixaroma YouTube Channel](https://www.youtube.com/@pixaroma)  \n💬 **Community Discord:** [Join Here](https://discord.com/invite/gggpkVgBf3)\n\n---\n\n## 🎭 Qwen3 Multi-Voice Dialogue Workflow (VoiceDesign + Dialogue)\n\nCreate multiple character voices, then generate a full dialogue scene as one audio file.\n\n### 🧠 What It Does\n- Builds **Character voices** using **VoiceDesign** + **Voice Direction**\n- Stores them in **RoleBank** (Character 1 = man, Character 2 = woman, etc.)\n- Generates a multi-speaker script using **DialogueInference**\n- Outputs a single MP3 (merged dialogue)\n\n### ✍️ How To Use\n1. **Character 1**\n   - **Speech Text**: short sample line for that character\n   - **Voice Direction**: describe the voice style (required for VoiceDesign)\n\n2. **Character 2**\n   - Same as Character 1 (different Speech Text + Voice Direction)\n\n3. **Add more characters**\n   - Duplicate a Character block and give it a new RoleBank name (`role_name_3`, `role_name_4`, etc.)\n\n4. **Dialogue**\n   - Write your script in this format (one line per speaker):\n     > role_name: dialogue text\n   - Example:\n     > man: Where are we going?  \n     > woman: Just trust me.\n\n5. Click **Run**\n\n### 💾 MP3 Save Location\n- Preview inside **Save Audio (MP3)**\n- Saves under: `ComfyUI\\output\\audio`"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 5,
+      "type": "easy positive",
+      "pos": [
+        -1147.8411054006644,
+        -370
+      ],
+      "size": [
+        337.2578657935387,
+        232.47394905954621
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "STRING",
+          "links": [
+            7,
+            10
+          ]
+        }
+      ],
+      "title": "1. Speech Text",
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "81c510c06e18dffd4f43518644fc35964c9168ca",
+        "Node name for S&R": "easy positive"
+      },
+      "widgets_values": [
+        "Hey, you there? I’m setting up a clean voice workflow in ComfyUI. Want to hear how consistent this sounds?"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 6,
+      "type": "easy positive",
+      "pos": [
+        -1147.8411054006644,
+        -80.47961737568687
+      ],
+      "size": [
+        337.2578657935387,
+        162.01161311099474
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "STRING",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "title": "2. Voice Direction",
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "81c510c06e18dffd4f43518644fc35964c9168ca",
+        "Node name for S&R": "easy positive"
+      },
+      "widgets_values": [
+        "Male voice. Deep, modern YouTuber narrator. Confident and friendly. Medium pace. Clean close-mic studio sound. Clear pronunciation, natural pauses, slight smile."
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 19,
+      "type": "easy positive",
+      "pos": [
+        -1150,
+        190
+      ],
+      "size": [
+        337.2578657935387,
+        232.47394905954621
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "STRING",
+          "links": [
+            12,
+            15
+          ]
+        }
+      ],
+      "title": "1. Speech Text",
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "81c510c06e18dffd4f43518644fc35964c9168ca",
+        "Node name for S&R": "easy positive"
+      },
+      "widgets_values": [
+        "Hi, I’m here. Yeah, play it. Are we using voice design or a cloned voice this time?"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 15,
+      "type": "easy positive",
+      "pos": [
+        -1150,
+        480
+      ],
+      "size": [
+        337.2578657935387,
+        162.01161311099474
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "STRING",
+          "links": [
+            13
+          ]
+        }
+      ],
+      "title": "2. Voice Direction",
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "81c510c06e18dffd4f43518644fc35964c9168ca",
+        "Node name for S&R": "easy positive"
+      },
+      "widgets_values": [
+        "Female voice. Warm and clear. Friendly, curious tone. Medium pace. Natural conversational delivery. Close mic, clean audio, light smile."
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 21,
+      "type": "easy positive",
+      "pos": [
+        -19.92801814752635,
+        -266.39882527931974
+      ],
+      "size": [
+        502.53346409803316,
+        774.1587327959844
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "STRING",
+          "links": [
+            19
+          ]
+        }
+      ],
+      "title": "3. Dialogue",
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "81c510c06e18dffd4f43518644fc35964c9168ca",
+        "Node name for S&R": "easy positive"
+      },
+      "widgets_values": [
+        "man: Hey, you there?\nwoman: Yeah, I’m here, what are we testing?\nman: A clean TTS workflow in ComfyUI\nwoman: Nice, voice design or cloned voice?\nman: Cloned voice for consistency\nwoman: Love it!"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 8,
+      "type": "SaveAudioMP3",
+      "pos": [
+        -430.00000000000017,
+        -370
+      ],
+      "size": [
+        270,
+        136
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 6
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.15.1",
+        "Node name for S&R": "SaveAudioMP3"
+      },
+      "widgets_values": [
+        "audio/voice",
+        "V0"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "SaveAudioMP3",
+      "pos": [
+        -430,
+        190
+      ],
+      "size": [
+        270,
+        136
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 11
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.15.1",
+        "Node name for S&R": "SaveAudioMP3"
+      },
+      "widgets_values": [
+        "audio/voice",
+        "V0"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "FB_Qwen3TTSVoiceDesign",
+      "pos": [
+        -788.9205527003323,
+        -370
+      ],
+      "size": [
+        337.2578657935387,
+        454
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "config",
+          "shape": 7,
+          "type": "TTS_CONFIG",
+          "link": null
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": 7
+        },
+        {
+          "name": "instruct",
+          "type": "STRING",
+          "widget": {
+            "name": "instruct"
+          },
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            6,
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "qwen3-tts-comfyui",
+        "ver": "17207f8b9d1e2e92cb5cf0e487222656757bedf5",
+        "Node name for S&R": "FB_Qwen3TTSVoiceDesign",
+        "aux_id": "flybirdxx/ComfyUI-Qwen-TTS"
+      },
+      "widgets_values": [
+        "",
+        "",
+        "1.7B",
+        "auto",
+        "bf16",
+        "English",
+        662140063652622,
+        "randomize",
+        512,
+        0.8,
+        20,
+        1,
+        1.05,
+        "sdpa",
+        false
+      ]
+    },
+    {
+      "id": 17,
+      "type": "FB_Qwen3TTSVoiceDesign",
+      "pos": [
+        -790,
+        190
+      ],
+      "size": [
+        337.2578657935387,
+        454
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "config",
+          "shape": 7,
+          "type": "TTS_CONFIG",
+          "link": null
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": 12
+        },
+        {
+          "name": "instruct",
+          "type": "STRING",
+          "widget": {
+            "name": "instruct"
+          },
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            11,
+            14
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "qwen3-tts-comfyui",
+        "ver": "17207f8b9d1e2e92cb5cf0e487222656757bedf5",
+        "Node name for S&R": "FB_Qwen3TTSVoiceDesign",
+        "aux_id": "flybirdxx/ComfyUI-Qwen-TTS"
+      },
+      "widgets_values": [
+        "",
+        "",
+        "1.7B",
+        "auto",
+        "bf16",
+        "English",
+        6930112427613,
+        "randomize",
+        512,
+        0.8,
+        20,
+        1,
+        1.05,
+        "sdpa",
+        false
+      ]
+    },
+    {
+      "id": 20,
+      "type": "FB_Qwen3TTSDialogueInference",
+      "pos": [
+        802.2067472702781,
+        -264.0863477029874
+      ],
+      "size": [
+        333.6166133735487,
+        568
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "role_bank",
+          "type": "QWEN3_ROLE_BANK",
+          "link": 18
+        },
+        {
+          "name": "script",
+          "type": "STRING",
+          "widget": {
+            "name": "script"
+          },
+          "link": 19
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            24
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "qwen3-tts-comfyui",
+        "ver": "17207f8b9d1e2e92cb5cf0e487222656757bedf5",
+        "Node name for S&R": "FB_Qwen3TTSDialogueInference",
+        "aux_id": "flybirdxx/ComfyUI-Qwen-TTS"
+      },
+      "widgets_values": [
+        "",
+        "1.7B",
+        "auto",
+        "bf16",
+        "Auto",
+        0.5,
+        0.4,
+        0.2,
+        0.6,
+        0.3,
+        true,
+        4,
+        733090621738110,
+        "randomize",
+        2048,
+        0.8,
+        20,
+        1,
+        1.05,
+        "sdpa",
+        false
+      ]
+    },
+    {
+      "id": 24,
+      "type": "SaveAudioMP3",
+      "pos": [
+        1151.8608100046954,
+        -264.5405166306584
+      ],
+      "size": [
+        270,
+        136
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 24
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.15.1",
+        "Node name for S&R": "SaveAudioMP3"
+      },
+      "widgets_values": [
+        "audio/dialogue",
+        "V0"
+      ]
+    }
+  ],
+  "links": [
+    [
+      6,
+      4,
+      0,
+      8,
+      0,
+      "AUDIO"
+    ],
+    [
+      7,
+      5,
+      0,
+      4,
+      1,
+      "STRING"
+    ],
+    [
+      8,
+      6,
+      0,
+      4,
+      2,
+      "STRING"
+    ],
+    [
+      9,
+      4,
+      0,
+      14,
+      0,
+      "AUDIO"
+    ],
+    [
+      10,
+      5,
+      0,
+      14,
+      1,
+      "STRING"
+    ],
+    [
+      11,
+      17,
+      0,
+      16,
+      0,
+      "AUDIO"
+    ],
+    [
+      12,
+      19,
+      0,
+      17,
+      1,
+      "STRING"
+    ],
+    [
+      13,
+      15,
+      0,
+      17,
+      2,
+      "STRING"
+    ],
+    [
+      14,
+      17,
+      0,
+      18,
+      0,
+      "AUDIO"
+    ],
+    [
+      15,
+      19,
+      0,
+      18,
+      1,
+      "STRING"
+    ],
+    [
+      18,
+      13,
+      0,
+      20,
+      0,
+      "QWEN3_ROLE_BANK"
+    ],
+    [
+      19,
+      21,
+      0,
+      20,
+      1,
+      "STRING"
+    ],
+    [
+      20,
+      14,
+      0,
+      22,
+      0,
+      "VOICE_CLONE_PROMPT"
+    ],
+    [
+      21,
+      18,
+      0,
+      23,
+      0,
+      "VOICE_CLONE_PROMPT"
+    ],
+    [
+      22,
+      22,
+      0,
+      13,
+      0,
+      "VOICE_CLONE_PROMPT"
+    ],
+    [
+      23,
+      23,
+      0,
+      13,
+      1,
+      "VOICE_CLONE_PROMPT"
+    ],
+    [
+      24,
+      20,
+      0,
+      24,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "Character 1",
+      "bounding": [
+        -1157.8411054006644,
+        -443.6,
+        1114.8581992086883,
+        537.6299191074878
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "Character 2",
+      "bounding": [
+        -1160,
+        116.4,
+        1117.0170938080241,
+        537.6
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "ds": {
+      "scale": 0.8174702380952439,
+      "offset": [
+        1686.6665350191777,
+        580.443618806304
+      ]
+    },
+    "frontendVersion": "1.39.19",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

@@ -1,0 +1,174 @@
+{
+  "id": "4330942e-91a3-430b-96aa-e8da25b4cb73",
+  "revision": 0,
+  "last_node_id": 4,
+  "last_link_id": 1,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PixaromaLabel",
+      "pos": [
+        80,
+        40
+      ],
+      "size": [
+        265,
+        51
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"Prompt Pack Line\", \"fontSize\": 31, \"fontFamily\": \"Arial\", \"fontColor\": \"#ffffff\", \"textAlign\": \"left\", \"backgroundColor\": \"#f66744\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    },
+    {
+      "id": 2,
+      "type": "PixaromaPromptPack",
+      "pos": [
+        80,
+        211
+      ],
+      "size": [
+        400,
+        287
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaPromptPack",
+        "promptPackState": {
+          "version": 1,
+          "mode": "line",
+          "text": "This is the first prompt.\nEach new line is a separate prompt.\nThis is the third prompt; one line is one run.\n",
+          "activePrompt": "This is the third prompt; one line is one run."
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 3,
+      "type": "PixaromaShowText",
+      "pos": [
+        540,
+        211
+      ],
+      "size": [
+        400,
+        287
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "slot_index": 0,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "5aaf58b01895a1371f6f16b765376fd4713071c2",
+        "Node name for S&R": "PixaromaShowText"
+      },
+      "widgets_values": [
+        "This is the third prompt; one line is one run."
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 4,
+      "type": "PixaromaLabel",
+      "pos": [
+        80,
+        91
+      ],
+      "size": [
+        643,
+        57
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "a3d3f7ffb758f9eed552bc5b60493ac1af301a57",
+        "Node name for S&R": "PixaromaLabel"
+      },
+      "widgets_values": [
+        "{\"text\": \"Click Run: Prompt Pack queues one workflow run per line, one after another.\\nEach line becomes the prompt for its run, and the 'N left' counter ticks down as each finishes.\", \"fontSize\": 13, \"fontFamily\": \"Arial\", \"fontColor\": \"#c0c0c0\", \"textAlign\": \"left\", \"backgroundColor\": \"#333333\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.4}"
+      ],
+      "color": "transparent",
+      "bgcolor": "transparent"
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      3,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.5778409090909091,
+      "offset": [
+        48.35792732902707,
+        135.56973307994983
+      ]
+    },
+    "frontendVersion": "1.43.18",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

@@ -1,7 +1,7 @@
 {
   "id": "c5beec59-2b88-4f3f-ba35-7640a58a9ba6",
   "revision": 0,
-  "last_node_id": 240,
+  "last_node_id": 241,
   "last_link_id": 346,
   "nodes": [
     {
@@ -210,6 +210,40 @@
       "widgets_values": [
         "{\"version\":1,\"content\":\"<h1>Load Images from Folder + Crop</h1>\\n\\n<p>\\n<span data-ic=\\\"workflow-v1\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Load multiple images from a folder, resize or crop them to the selected size, and preview/save the processed images.\\n</p>\\n\\n<hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #b8b8b8\\\">\\n\\n<h2><span data-ic=\\\"nodes-installed\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Nodes Installed from Manager</h2>\\n\\n<ul>\\n  <li>Pixaroma</li>\\n</ul>\\n\\n<hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #b8b8b8\\\">\\n\\n<h2><span data-ic=\\\"pixaroma\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Resources</h2>\\n\\n<p>\\n  <a class=\\\"pix-note-discord\\\" href=\\\"https://discord.com/invite/gggpkVgBf3\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Join Discord</a>&nbsp;\\n\\n  <a class=\\\"pix-note-yt\\\" href=\\\"https://www.youtube.com/@pixaroma\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Pixaroma YouTube Channel</a>&nbsp;\\n</p>\",\"buttonColor\":\"#f66744\",\"lineColor\":\"#f66744\",\"width\":528.8383221706308,\"height\":591.2463174881113,\"backgroundColor\":\"#2a2a2a\"}",
         ""
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 241,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        -1566.7373506224787,
+        791.8303556638167
+      ],
+      "size": [
+        226,
+        136
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"

@@ -18,6 +18,7 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 ## Ergebnis
 
 - **173 kuratierte Workflow-Dateien** in 27 Kategorien
+- alle 173 Workflows enthalten einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
 - 59 vorhandene Workflows beibehalten
 - 114 funktional ergänzende Workflows übernommen:
   - 33 aus `DaWasteh`
@@ -97,8 +98,9 @@ Diese Dateien bleiben in ihren Quellordnern als Referenz, gehören aber nicht in
 Automatisch geprüft wurden alle 173 Workflows gegen den aktuellen ComfyUI-`object_info`-Snapshot:
 
 - 173/173 gültige JSON-Dateien
+- 173/173 Workflows mit genau einem `PixaromaRunTimer`
 - 202 Haupt- und Untergraphen rekursiv geprüft
-- 3.045 Nodes und 3.647 Graph-Links konsistent und bidirektional referenziert
+- 3.161 Nodes und 3.647 Graph-Links konsistent und bidirektional referenziert
 - alle 408 Subgraph-Interface-Links (`inputNode`/`outputNode`) erhalten und geprüft
 - keine fehlenden installierten Node-Typen (Frontend-/Subgraph-Knoten berücksichtigt)
 - 498 Modellreferenzen einschließlich Untergraphen geprüft

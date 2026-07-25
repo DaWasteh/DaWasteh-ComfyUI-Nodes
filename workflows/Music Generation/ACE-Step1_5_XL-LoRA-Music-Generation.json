@@ -1,7 +1,7 @@
 {
   "id": "88ac5dad-efd7-40bb-84fe-fbaefdee1fa9",
   "revision": 0,
-  "last_node_id": 119,
+  "last_node_id": 120,
   "last_link_id": 280,
   "nodes": [
     {
@@ -997,6 +997,40 @@
         "ACE-Step-1.5\\taylor_swift-v1-16step.safetensors",
         1.0
       ]
+    },
+    {
+      "id": 120,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        -222.71694101748983,
+        145.46806774891752
+      ],
+      "size": [
+        226,
+        136
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
     }
   ],
   "links": [

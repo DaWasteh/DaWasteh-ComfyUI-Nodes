@@ -1,7 +1,7 @@
 {
   "id": "c5beec59-2b88-4f3f-ba35-7640a58a9ba6",
   "revision": 0,
-  "last_node_id": 222,
+  "last_node_id": 223,
   "last_link_id": 266,
   "nodes": [
     {
@@ -737,6 +737,40 @@
       "widgets_values": [
         "3D render of a cute anthropomorphic white rabbit character dressed in a military-style outfit, standing in a three-quarter view facing slightly right. The rabbit has large, expressive brown eyes with glossy highlights, a small pink nose, and rosy pink cheeks. It wears a green pith helmet with a gold insignia button on the front. The uniform consists of a green short-sleeved shirt with gold buttons, matching green shorts, and brown boots. A wide brown leather belt with a rectangular buckle cinches the waist. Over the shoulders are brown leather straps connecting to a green backpack with tan leather accents and buckles. The rabbit's fluffy white fur is detailed with soft shading, and its long ears are upright, one slightly tilted back. The pose is confident and ready for action, with hands resting at the sides. The background is a clean, solid light gray gradient that fades to white at the bottom, creating a studio lighting effect. The lighting is bright and even, casting soft shadows beneath the feet. The aesthetic is 3D animation style, similar to Pixar or Disney characters, with smooth textures and vibrant colors. High resolution, octane render, unreal engine 5 style."
       ]
+    },
+    {
+      "id": 223,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        -1694.7773670220643,
+        1993.1102505266545
+      ],
+      "size": [
+        226,
+        136
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
     }
   ],
   "links": [

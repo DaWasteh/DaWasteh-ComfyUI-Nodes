@@ -1,7 +1,7 @@
 {
   "id": "c1a88b86-b96e-411e-a13a-c89a8ebd86a5",
   "revision": 0,
-  "last_node_id": 45,
+  "last_node_id": 46,
   "last_link_id": 99,
   "nodes": [
     {
@@ -1392,6 +1392,40 @@
       "widgets_values": [
         "segm/hair_yolov8n-seg_60.pt"
       ]
+    },
+    {
+      "id": 46,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        -586.2856721045546,
+        1525.8658043654002
+      ],
+      "size": [
+        226,
+        136
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
     }
   ],
   "links": [

@@ -1,7 +1,7 @@
 {
   "id": "pix-color-themes-showcase",
   "revision": 0,
-  "last_node_id": 35,
+  "last_node_id": 36,
   "last_link_id": 0,
   "nodes": [
     {
@@ -1216,6 +1216,40 @@
       "widgets_values": [
         "{\"text\": \"Right-click any node in ComfyUI to open the 'Pixaroma colors' submenu and pick one of these 33 themes.\\nSaved colors travel inside the workflow file, so anyone you share with sees the same scheme.\", \"fontSize\": 13, \"fontFamily\": \"Arial\", \"fontColor\": \"#c0c0c0\", \"textAlign\": \"left\", \"backgroundColor\": \"#333333\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.4}"
       ]
+    },
+    {
+      "id": 36,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        80.0,
+        1771.1585769639814
+      ],
+      "size": [
+        226,
+        136
+      ],
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
     }
   ],
   "links": [],

@@ -1,7 +1,7 @@
 {
   "id": "combine-pixaroma---join-two-images",
   "revision": 0,
-  "last_node_id": 30,
+  "last_node_id": 31,
   "last_link_id": 3,
   "nodes": [
     {
@@ -321,6 +321,40 @@
       "widgets_values": [
         "{\"text\": \"Combine merges by KIND: two images (or video frames) stack into one batch; two numbers or pieces of\\ntext gather into a list; latents batch together. If one side is empty it just passes the other through,\\nwhich is why it works as the running total inside a loop (round 1 has nothing to add yet).\", \"fontSize\": 13, \"fontFamily\": \"Arial\", \"fontColor\": \"#c0c0c0\", \"textAlign\": \"left\", \"backgroundColor\": \"#333333\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.4}"
       ]
+    },
+    {
+      "id": 31,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        60.0,
+        807.0
+      ],
+      "size": [
+        226,
+        136
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
     }
   ],
   "links": [

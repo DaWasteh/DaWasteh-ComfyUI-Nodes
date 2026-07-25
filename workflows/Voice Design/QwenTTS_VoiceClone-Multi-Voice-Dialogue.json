@@ -1,7 +1,7 @@
 {
   "id": "23a1fd59-1a2b-4029-b16d-e90b266437d6",
   "revision": 0,
-  "last_node_id": 29,
+  "last_node_id": 30,
   "last_link_id": 30,
   "nodes": [
     {
@@ -349,6 +349,40 @@
         "audio/dialogue",
         "V0"
       ]
+    },
+    {
+      "id": 30,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        -1025.027422974502,
+        580.4073237440523
+      ],
+      "size": [
+        226,
+        136
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
     }
   ],
   "links": [

@@ -1,7 +1,7 @@
 {
   "id": "c5beec59-2b88-4f3f-ba35-7640a58a9ba6",
   "revision": 0,
-  "last_node_id": 213,
+  "last_node_id": 214,
   "last_link_id": 267,
   "nodes": [
     {
@@ -620,6 +620,40 @@
           "scene_json": "{\"doc_w\":1024,\"doc_h\":1024,\"project_id\":\"p3d_1776253941838\",\"bgColor\":\"#6e6e6e\",\"fov\":50,\"shadows\":true,\"isOrtho\":false,\"studioLighting\":true,\"showAxes\":true,\"objects\":[{\"id\":1,\"name\":\"Cone 1\",\"type\":\"cone\",\"colorHex\":\"#f3e8d8\",\"locked\":false,\"geoParams\":{\"radius\":0.5,\"height\":1.2,\"sides\":16},\"position\":{\"x\":0,\"y\":2.3841858265427618e-8,\"z\":0},\"rotation\":{\"x\":0,\"y\":0,\"z\":0},\"scale\":{\"x\":1,\"y\":1,\"z\":1},\"visible\":true,\"roughness\":0.55,\"metalness\":0,\"opacity\":1}],\"camera\":{\"position\":{\"x\":1.5888572738328737,\"y\":1.4930357961455456,\"z\":1.9860715922910919},\"target\":{\"x\":0,\"y\":0.5,\"z\":0}},\"light\":{\"color\":\"#ffffff\",\"intensity\":1,\"ambient\":0.15,\"dir\":{\"theta\":1.413716694115407,\"phi\":1.1344640137963142}},\"showGrid\":true,\"showGizmo\":true,\"bgImage\":null,\"composite_path\":\"pixaroma/3d_render_p3d_1776253941838.png\"}"
         }
       ]
+    },
+    {
+      "id": 214,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        -1611.3968938894755,
+        1288.3365276222025
+      ],
+      "size": [
+        226,
+        136
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
     }
   ],
   "links": [

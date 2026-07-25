@@ -1,7 +1,7 @@
 {
   "id": "group-compare---comfyui-vs-pixaroma",
   "revision": 0,
-  "last_node_id": 30,
+  "last_node_id": 31,
   "last_link_id": 0,
   "nodes": [
     {
@@ -219,6 +219,40 @@
       "widgets_values": [
         "{\"text\": \"What the Pixaroma Group adds over a ComfyUI group:\\n- Separate title + body colours, each with its own opacity (a ComfyUI group has one flat colour)\\n- A node-count badge in the header (this one shows 2)\\n- Resize from ALL FOUR corners (a ComfyUI group resizes from the bottom-right only)\\n- Fold the whole group down to a slim bar: its nodes and wires tuck away to tidy the canvas\\n- Hover the header for one-click buttons: Run, Mute, Bypass, Fold, Colour\\n- Run just this group (queues only its output nodes); Mute / Bypass reach inside subgraphs\\n- Snaps into line with the Align tool, and groups can be nested inside each other\", \"fontSize\": 13, \"fontFamily\": \"Arial\", \"fontColor\": \"#c0c0c0\", \"textAlign\": \"left\", \"backgroundColor\": \"#333333\", \"padding\": 10, \"borderRadius\": 0, \"opacity\": 1, \"fontWeight\": \"normal\", \"lineHeight\": 1.45}"
       ]
+    },
+    {
+      "id": 31,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        60.0,
+        890.0
+      ],
+      "size": [
+        226,
+        136
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
     }
   ],
   "links": [],

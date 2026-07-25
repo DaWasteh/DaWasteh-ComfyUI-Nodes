@@ -1,7 +1,7 @@
 {
   "id": "04e89199-d7f7-4169-9726-2ed8f1ce6824",
   "revision": 0,
-  "last_node_id": 80,
+  "last_node_id": 81,
   "last_link_id": 141,
   "nodes": [
     {
@@ -1977,6 +1977,40 @@
       "widgets_values": [
         "SDXL\\RealVisXL_V4.0.safetensors"
       ]
+    },
+    {
+      "id": 81,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        -528.3450312779898,
+        1479.796129707179
+      ],
+      "size": [
+        226,
+        136
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
     }
   ],
   "links": [

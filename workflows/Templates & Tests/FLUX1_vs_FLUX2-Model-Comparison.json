@@ -1,7 +1,7 @@
 {
   "id": "9f0faddb-b473-46e3-93c3-9204cec4809c",
   "revision": 0,
-  "last_node_id": 145,
+  "last_node_id": 146,
   "last_link_id": 256,
   "nodes": [
     {
@@ -2660,6 +2660,40 @@
       "widgets_values": [
         "ComfyUI"
       ]
+    },
+    {
+      "id": 146,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        524.4713948900998,
+        3448.453407983117
+      ],
+      "size": [
+        226,
+        136
+      ],
+      "flags": {},
+      "order": 45,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
     }
   ],
   "links": [

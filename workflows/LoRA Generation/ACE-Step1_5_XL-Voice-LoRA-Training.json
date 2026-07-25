@@ -1,7 +1,7 @@
 {
   "id": "acestep-voice-lora-training",
   "revision": 0,
-  "last_node_id": 10,
+  "last_node_id": 11,
   "last_link_id": 1011,
   "nodes": [
     {
@@ -825,6 +825,40 @@
       ],
       "color": "#16727c",
       "bgcolor": "#4F0074"
+    },
+    {
+      "id": 11,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        -1271.5,
+        422.05999999999995
+      ],
+      "size": [
+        226,
+        136
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
     }
   ],
   "links": [

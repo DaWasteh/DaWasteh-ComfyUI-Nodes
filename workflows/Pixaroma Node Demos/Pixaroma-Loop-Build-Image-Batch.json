@@ -1,7 +1,7 @@
 {
   "id": "loop-pixaroma---build-an-image-batch",
   "revision": 0,
-  "last_node_id": 24,
+  "last_node_id": 25,
   "last_link_id": 5,
   "nodes": [
     {
@@ -497,6 +497,40 @@
         1,
         16148292
       ]
+    },
+    {
+      "id": 25,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        60.0,
+        828.0
+      ],
+      "size": [
+        226,
+        136
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
     }
   ],
   "links": [

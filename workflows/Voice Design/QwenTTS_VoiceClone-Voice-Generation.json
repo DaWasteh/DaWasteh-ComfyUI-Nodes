@@ -565,7 +565,9 @@
       "inputs": [],
       "outputs": [],
       "properties": {
-        "Node name for S&R": "PixaromaRunTimer"
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
       },
       "widgets_values": [
         {

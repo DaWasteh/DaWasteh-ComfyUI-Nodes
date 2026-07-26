@@ -1,15 +1,15 @@
 {
   "id": "d15f1c46-be16-4a13-9423-d92a25a9a18f",
   "revision": 0,
-  "last_node_id": 7,
+  "last_node_id": 9,
   "last_link_id": 2,
   "nodes": [
     {
       "id": 2,
       "type": "AILab_Qwen3TTSVoiceDesign",
       "pos": [
-        480,
-        40
+        1176.0,
+        94.0
       ],
       "size": [
         430,
@@ -109,8 +109,8 @@
       "id": 3,
       "type": "SaveAudio",
       "pos": [
-        950,
-        40
+        2327.5,
+        94.0
       ],
       "size": [
         340,
@@ -167,8 +167,8 @@
       "id": 4,
       "type": "Note",
       "pos": [
-        22.857142857142833,
-        295.7142857142857
+        56.0,
+        694.929
       ],
       "size": [
         420,
@@ -195,8 +195,8 @@
       "id": 5,
       "type": "MarkdownNote",
       "pos": [
-        950,
-        200
+        2327.5,
+        470.0
       ],
       "size": [
         360,
@@ -223,8 +223,8 @@
       "id": 7,
       "type": "PixaromaRunTimer",
       "pos": [
-        170.4582420417595,
-        47.498564527861504
+        417.623,
+        111.622
       ],
       "size": [
         226,
@@ -255,6 +255,64 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 8,
+      "type": "MarkdownNote",
+      "pos": [
+        1652.0,
+        94.0
+      ],
+      "size": [
+        390,
+        481
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · VoiceDesign Generieren · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · VoiceDesign Generieren · Node 2\n\n**Zweck:** Verarbeitet die Ein- und Ausgaben des Node-Typs `AILab_Qwen3TTSVoiceDesign` gemäß seiner Workflow-Funktion.\n\n**Einstellbare Werte**\n- `text` = `Welcome to the future of local voice synthesis.` — Text to synthesize Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `instruct` = `A deep, warm male voice with a calm British accent, speaking slowly and clearly like a documentary narrator.` — Voice description Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `model_size` = `1.7B` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `language` = `English` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `unload_models` = `True` — Unload cached models after generation AN gibt Modell-/VRAM-Speicher nach dem Lauf frei, macht den nächsten Lauf aber langsamer; AUS hält das Modell für Wiederholungen im Cache.\n- `seed` = `0` — Steuert diesen Parameter. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `seed_control_after_generate` = `randomize` — Verhalten des Werts nach jedem Workflow-Lauf. `randomize` erzeugt pro Lauf eine neue Variation; `fixed` behält den Wert; andere Modi ändern ihn schrittweise.\n\n**Eingänge**\n- `text` (STRING, nicht verbunden): Text to synthesize\n- `instruct` (STRING, nicht verbunden): Voice description\n- `model_size` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `language` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `unload_models` (BOOLEAN, nicht verbunden): Unload cached models after generation\n- `seed` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `audio` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 9,
+      "type": "MarkdownNote",
+      "pos": [
+        2713.5,
+        94.0
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Audio speichern · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 3,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Audio speichern · Node 3\n\n**Zweck:** Speichert das erzeugte Ergebnis mit den gewählten Ausgabeparametern.\n\n**Einstellbare Werte**\n- `filename_prefix` = `audio/QwenTTS_design` — Steuert diesen Parameter. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n\n**Eingänge**\n- `audio` (AUDIO, Link 2): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `filename_prefix` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audioUI` (AUDIO_UI, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `audio` (AUDIO, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -276,6 +334,13 @@
         368.14573329129587,
         212.41269016041832
       ]
+    },
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 2,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
     }
   },
   "version": 0.4

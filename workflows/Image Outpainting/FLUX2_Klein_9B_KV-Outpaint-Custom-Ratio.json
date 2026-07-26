@@ -1,15 +1,15 @@
 {
   "id": "c5beec59-2b88-4f3f-ba35-7640a58a9ba6",
   "revision": 0,
-  "last_node_id": 216,
+  "last_node_id": 235,
   "last_link_id": 264,
   "nodes": [
     {
       "id": 196,
       "type": "VAELoader",
       "pos": [
-        -805.4589755125827,
-        496.6351173520148
+        -1973.374,
+        1167.093
       ],
       "size": [
         270,
@@ -42,8 +42,8 @@
       "id": 205,
       "type": "ReferenceLatent",
       "pos": [
-        154.2359393711904,
-        450.2663026022682
+        377.878,
+        1058.126
       ],
       "size": [
         204.134765625,
@@ -85,8 +85,8 @@
       "id": 163,
       "type": "KSampler",
       "pos": [
-        390.4924674860182,
-        367.1867161823879
+        956.707,
+        862.889
       ],
       "size": [
         296.2197989449314,
@@ -146,8 +146,8 @@
       "id": 164,
       "type": "VAEDecode",
       "pos": [
-        716.2785031287998,
-        367.1867161823879
+        1754.882,
+        862.889
       ],
       "size": [
         140,
@@ -191,8 +191,8 @@
       "id": 206,
       "type": "VAEEncode",
       "pos": [
-        -54.98089827371333,
-        583.1832454550635
+        -134.703,
+        1370.481
       ],
       "size": [
         140,
@@ -234,8 +234,8 @@
       "id": 190,
       "type": "ConditioningZeroOut",
       "pos": [
-        -66.97604304924867,
-        449.508216028538
+        -164.091,
+        1056.344
       ],
       "size": [
         204.134765625,
@@ -273,8 +273,8 @@
       "id": 204,
       "type": "ReferenceLatent",
       "pos": [
-        154.2359393711904,
-        347.3260627078256
+        377.878,
+        816.216
       ],
       "size": [
         204.134765625,
@@ -316,8 +316,8 @@
       "id": 202,
       "type": "Image Comparer (rgthree)",
       "pos": [
-        100.20783281292218,
-        687.9515234227435
+        245.509,
+        1616.686
       ],
       "size": [
         460.7295725578971,
@@ -365,8 +365,8 @@
       "id": 203,
       "type": "SaveImage",
       "pos": [
-        587.118088516458,
-        687.9515234227435
+        1438.439,
+        1616.686
       ],
       "size": [
         455.6680409574101,
@@ -396,8 +396,8 @@
       "id": 195,
       "type": "CLIPLoader",
       "pos": [
-        -996.7012011949272,
-        345.2327365079158
+        -2441.918,
+        811.297
       ],
       "size": [
         461.2422256823445,
@@ -431,8 +431,8 @@
       "id": 211,
       "type": "MarkdownNote",
       "pos": [
-        -1621.6768642572256,
-        220.4291493234161
+        -3973.108,
+        518.009
       ],
       "size": [
         565.2891085498961,
@@ -457,8 +457,8 @@
       "id": 194,
       "type": "UNETLoader",
       "pos": [
-        -1031.3461581717702,
-        217.83035566381673
+        -2526.798,
+        511.901
       ],
       "size": [
         495.8871826591876,
@@ -491,8 +491,8 @@
       "id": 212,
       "type": "FluxKVCache",
       "pos": [
-        -504.9295829021392,
-        214.82387887247415
+        -1237.077,
+        504.836
       ],
       "size": [
         205.4809447582344,
@@ -528,8 +528,8 @@
       "id": 200,
       "type": "GetImageSize",
       "pos": [
-        -373.0738380737931,
-        785.6307420845679
+        -914.031,
+        1846.232
       ],
       "size": [
         210,
@@ -579,8 +579,8 @@
       "id": 213,
       "type": "ImagePadForOutpaintTargetSize",
       "pos": [
-        -742.2515145176812,
-        769.5929399968913
+        -1818.516,
+        1808.543
       ],
       "size": [
         333.648046875,
@@ -653,8 +653,8 @@
       "id": 197,
       "type": "EmptyFlux2LatentImage",
       "pos": [
-        -141.99567971950816,
-        761.8511152812554
+        -347.889,
+        1790.35
       ],
       "size": [
         210,
@@ -707,8 +707,8 @@
       "id": 215,
       "type": "PreviewImage",
       "pos": [
-        -379.89702341160205,
-        978.4540595701511
+        -930.748,
+        2299.367
       ],
       "size": [
         348.31518261450833,
@@ -736,8 +736,8 @@
       "id": 6,
       "type": "CLIPTextEncode",
       "pos": [
-        -516.3857867517388,
-        346.49167053268854
+        -1265.145,
+        814.255
       ],
       "size": [
         424.42708333333337,
@@ -780,8 +780,8 @@
       "id": 198,
       "type": "LoadImage",
       "pos": [
-        -1043.4241030948558,
-        975.9317807353481
+        -2556.389,
+        2293.44
       ],
       "size": [
         290.2154648658484,
@@ -819,8 +819,8 @@
       "id": 214,
       "type": "ResolutionSelector",
       "pos": [
-        -1037.274383167275,
-        815.1709782142831
+        -2541.322,
+        1915.652
       ],
       "size": [
         270,
@@ -862,8 +862,8 @@
       "id": 216,
       "type": "PixaromaRunTimer",
       "pos": [
-        -1621.6768642572256,
-        1478.9651977085573
+        -3973.108,
+        3475.568
       ],
       "size": [
         226,
@@ -891,6 +891,557 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 217,
+      "type": "MarkdownNote",
+      "pos": [
+        -794.718,
+        814.255
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · CLIP Text Encode (Positive Prompt) · Node 6",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 6,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · CLIP Text Encode (Positive Prompt) · Node 6\n\n**Zweck:** Encodes a text prompt using a CLIP model into an embedding that can be used to guide the diffusion model towards generating specific images.\n\n**Einstellbare Werte**\n- `text` = `Replace the gray bars, gray padding, empty border areas, or placeholder background with a natural continuatio…` — The text to be encoded. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- `clip` (CLIP, Link 235): The CLIP model used for encoding the text.\n\n**Ausgänge**\n- `CONDITIONING` (CONDITIONING, 2 Verbindung(en)): A conditioning containing the embedded text used to guide the diffusion model."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 218,
+      "type": "MarkdownNote",
+      "pos": [
+        1298.927,
+        862.889
+      ],
+      "size": [
+        390,
+        447
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · KSampler · Node 163",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 163,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · KSampler · Node 163\n\n**Zweck:** Uses the provided model, positive and negative conditioning to denoise the latent image.\n\n**Einstellbare Werte**\n- `seed` = `641696771406099` — The random seed used for creating the noise. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `seed_control_after_generate` = `randomize` — Verhalten des Werts nach jedem Workflow-Lauf. `randomize` erzeugt pro Lauf eine neue Variation; `fixed` behält den Wert; andere Modi ändern ihn schrittweise.\n- `steps` = `4` — The number of steps used in the denoising process. Höher erhöht Laufzeit und mögliche Ausarbeitung, kann aber übertrainieren; niedriger ist schneller.\n- `cfg` = `1` — The Classifier-Free Guidance scale balances creativity and adherence to the prompt. Higher values result in images more closely matching the prompt however too high values will ne… Höher folgt der Vorgabe stärker, kann unnatürlich/übersättigt wirken; niedriger lässt mehr Freiheit.\n- `sampler_name` = `euler` — The algorithm used when sampling, this can affect the quality, speed, and style of the generated output. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n- `scheduler` = `simple` — The scheduler controls how noise is gradually removed to form the image. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n- `denoise` = `1` — The amount of denoising applied, lower values will maintain the structure of the initial image allowing for image to image sampling. Höher verstärkt den Einfluss bzw. die Veränderung; niedriger bewahrt Eingang/Grundmodell stärker.\n\n**Eingänge**\n- `model` (MODEL, Link 256): The model used for denoising the input latent.\n- `positive` (CONDITIONING, Link 251): The conditioning describing the attributes you want to include in the image.\n- `negative` (CONDITIONING, Link 253): The conditioning describing the attributes you want to exclude from the image.\n- `latent_image` (LATENT, Link 237): The latent image to denoise.\n\n**Ausgänge**\n- `LATENT` (LATENT, 1 Verbindung(en)): The denoised latent."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 219,
+      "type": "MarkdownNote",
+      "pos": [
+        1940.882,
+        862.889
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · VAE Decode · Node 164",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 164,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · VAE Decode · Node 164\n\n**Zweck:** Decodes latent images back into pixel space images.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `samples` (LATENT, Link 187): The latent to be decoded.\n- `vae` (VAE, Link 236): The VAE model used for decoding the latent.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 2 Verbindung(en)): The decoded image."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 220,
+      "type": "MarkdownNote",
+      "pos": [
+        86.044,
+        1144.344
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Conditioning Zero Out · Node 190",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 190,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Conditioning Zero Out · Node 190\n\n**Zweck:** Erzeugt, kombiniert oder gewichtet Konditionierungen, die das generative Modell während des Samplings steuern.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `conditioning` (CONDITIONING, Link 219): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CONDITIONING` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 221,
+      "type": "MarkdownNote",
+      "pos": [
+        -1940.911,
+        511.901
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Diffusion Model · Node 194",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 194,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Diffusion Model · Node 194\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `unet_name` = `FLUX2\\flux-2-klein-9b-kv-fp8.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `weight_dtype` = `default` — Steuert diesen Parameter. Die Auswahl ändert Rechenpräzision, Speicherbedarf und Hardware-Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `MODEL` (MODEL, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 222,
+      "type": "MarkdownNote",
+      "pos": [
+        -1582.676,
+        1163.297
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load CLIP · Node 195",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 195,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load CLIP · Node 195\n\n**Zweck:** Recipes: ↵ sd: clip-l ↵ stable cascade: clip-g ↵ sd3: t5 xxl / clip-g / clip-l ↵ stable audio: t5 base ↵ mochi: t5 xxl ↵ cogvideox: t5 xxl (226-token padding) ↵ cosmos: old t5 xxl ↵ lumina2: gemma 2 2B ↵ wan: umt5 xxl ↵ hidream: llama-3.1 (Recommend) or t5 ↵ omnigen2: qwen vl 2.5 3B ↵ joyimage: qwen3-vl 8B ↵ lens: gpt…\n\n**Einstellbare Werte**\n- `clip_name` = `Qwen\\qwen_3_8b_fp8mixed.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `type` = `flux2` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `device` = `default` — Steuert diesen Parameter. Die Auswahl bestimmt das Rechen-Backend (z. B. GPU oder CPU) und damit Geschwindigkeit und Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `CLIP` (CLIP, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 223,
+      "type": "MarkdownNote",
+      "pos": [
+        -1129.374,
+        1167.093
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load VAE · Node 196",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 196,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load VAE · Node 196\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `vae_name` = `FLUX2\\flux2-vae.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `VAE` (VAE, 2 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 224,
+      "type": "MarkdownNote",
+      "pos": [
+        -267.889,
+        1966.35
+      ],
+      "size": [
+        390,
+        345
+      ],
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Empty Flux 2 Latent · Node 197",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 197,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Empty Flux 2 Latent · Node 197\n\n**Zweck:** Erzeugt, kombiniert oder transformiert Daten im Latent-Raum vor Sampling oder Decoding.\n\n**Einstellbare Werte**\n- `width` = `1024` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `height` = `1024` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `batch_size` = `1` — Steuert diesen Parameter. Höher verarbeitet mehr Beispiele parallel und braucht mehr VRAM; niedriger spart Speicher.\n\n**Eingänge**\n- `width` (INT, Link 240): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `height` (INT, Link 241): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `LATENT` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 225,
+      "type": "MarkdownNote",
+      "pos": [
+        -2220.174,
+        2293.44
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Image · Node 198",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 198,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Image · Node 198\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 226,
+      "type": "MarkdownNote",
+      "pos": [
+        -658.031,
+        1406.232
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Get Image Size · Node 200",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 200,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Get Image Size · Node 200\n\n**Zweck:** Returns width and height of the image, and passes it through unchanged.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `image` (IMAGE, Link 260): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `width` (INT, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `height` (INT, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `batch_size` (INT, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 227,
+      "type": "MarkdownNote",
+      "pos": [
+        752.239,
+        1616.686
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Image Comparer (rgthree) · Node 202",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 202,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Image Comparer (rgthree) · Node 202\n\n**Zweck:** Compares two images with a hover slider, or click from properties.\n\n**Einstellbare Werte**\n- `value` = `[{\"name\":\"A\",\"selected\":true,\"url\":\"/api/view?filename=rgthree.compare._temp_ekohk_00035_.png&type=temp&subfo…` — Direkter Primitive-Wert für verbundene Nodes. Höher gibt einen größeren Zahlenwert an verbundene Nodes weiter; niedriger einen kleineren, ohne eigene Zusatzwirkung.\n\n**Eingänge**\n- `image_a` (IMAGE, Link 263): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `image_b` (IMAGE, Link 244): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 228,
+      "type": "MarkdownNote",
+      "pos": [
+        1940.107,
+        1616.686
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Save Image · Node 203",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 203,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Save Image · Node 203\n\n**Zweck:** Saves the input images to your ComfyUI output directory.\n\n**Einstellbare Werte**\n- `filename_prefix` = `img` — The prefix for the file to save. This may include formatting information such as %date:yyyy-MM-dd% or %Empty Latent Image.width% to include values from nodes. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n\n**Eingänge**\n- `images` (IMAGE, Link 242): The images to save.\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 229,
+      "type": "MarkdownNote",
+      "pos": [
+        628.013,
+        508.216
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Set Reference Latent · Node 204",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 204,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Set Reference Latent · Node 204\n\n**Zweck:** This node sets the guiding latent for an edit model. If the model supports it you can chain multiple to set multiple reference images.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `conditioning` (CONDITIONING, Link 250): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `latent` (LATENT, Link 248): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CONDITIONING` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 230,
+      "type": "MarkdownNote",
+      "pos": [
+        628.013,
+        1190.126
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Set Reference Latent · Node 205",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 205,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Set Reference Latent · Node 205\n\n**Zweck:** This node sets the guiding latent for an edit model. If the model supports it you can chain multiple to set multiple reference images.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `conditioning` (CONDITIONING, Link 252): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `latent` (LATENT, Link 247): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CONDITIONING` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 231,
+      "type": "MarkdownNote",
+      "pos": [
+        755.297,
+        2074.481
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · VAE Encode · Node 206",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 206,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · VAE Encode · Node 206\n\n**Zweck:** Kodiert Medien mit dem VAE in den Latent-Raum.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `pixels` (IMAGE, Link 261): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `vae` (VAE, Link 249): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `LATENT` (LATENT, 2 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 232,
+      "type": "MarkdownNote",
+      "pos": [
+        -985.596,
+        460.836
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 36,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Flux KV Cache · Node 212",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 212,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Flux KV Cache · Node 212\n\n**Zweck:** Enables KV Cache optimization for reference images on Flux family models.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `model` (MODEL, Link 255): The model to use KV Cache on.\n\n**Ausgänge**\n- `MODEL` (MODEL, 1 Verbindung(en)): The patched model with KV Cache enabled."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 233,
+      "type": "MarkdownNote",
+      "pos": [
+        -1438.868,
+        1808.543
+      ],
+      "size": [
+        390,
+        413
+      ],
+      "flags": {},
+      "order": 37,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Image Pad For Outpaint Target Size · Node 213",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 213,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Image Pad For Outpaint Target Size · Node 213\n\n**Zweck:** Erzeugt oder verarbeitet Bilddaten, etwa durch Skalierung, Zuschnitt, Maskierung oder Kombination.\n\n**Einstellbare Werte**\n- `target_width` = `0` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `target_height` = `0` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `feathering` = `0` — Steuert diesen Parameter. Höher verbreitert Übergänge/Überlappung und reduziert harte Nähte, kostet aber mehr Verarbeitung und kann Details weicher machen.\n- `upscale_method` = `nearest-exact` — Steuert diesen Parameter. Die Auswahl ändert die Skalierungsmethode und damit Schärfe, Kanten und mögliche Artefakte.\n\n**Eingänge**\n- `image` (IMAGE, Link 257): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `mask` (MASK, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `target_width` (INT, Link 258): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `target_height` (INT, Link 259): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 4 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 234,
+      "type": "MarkdownNote",
+      "pos": [
+        -2621.322,
+        1519.652
+      ],
+      "size": [
+        390,
+        345
+      ],
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Resolution Selector · Node 214",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 214,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Resolution Selector · Node 214\n\n**Zweck:** Calculate width and height from aspect ratio and megapixel target. Useful for setting up Empty Latent Image dimensions.\n\n**Einstellbare Werte**\n- `aspect_ratio` = `16:9 (Widescreen)` — The aspect ratio for the output dimensions. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `megapixels` = `1` — Target total megapixels. 1.0 MP ≈ 1024x1024 for square. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `multiple` = `8` — Nearest multiple of the result to set the selected resolution to. Ändert Seitenverhältnis bzw. Rasterteilung; größere Vielfache erhöhen Kompatibilität, können Abmessungen aber stärker runden.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `width` (INT, 1 Verbindung(en)): Calculated width in pixels multiplied by the selected multiple.\n- `height` (INT, 1 Verbindung(en)): Calculated height in pixels multiplied by the selected multiple."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 235,
+      "type": "MarkdownNote",
+      "pos": [
+        -536.433,
+        2387.367
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Preview Image · Node 215",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 215,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Preview Image · Node 215\n\n**Zweck:** Preview the images without saving them to the ComfyUI output directory.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `images` (IMAGE, Link 264): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -1115,7 +1666,14 @@
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
     "VHS_KeepIntermediate": true,
-    "workflowRendererVersion": "LG"
+    "workflowRendererVersion": "LG",
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 19,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

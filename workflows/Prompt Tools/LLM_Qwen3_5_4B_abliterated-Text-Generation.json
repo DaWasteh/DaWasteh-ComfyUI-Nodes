@@ -1,15 +1,15 @@
 {
   "id": "a3b7ba33-76af-48e2-906b-211db01b1bb9",
   "revision": 0,
-  "last_node_id": 5,
+  "last_node_id": 9,
   "last_link_id": 3,
   "nodes": [
     {
       "id": 1,
       "type": "CLIPLoader",
       "pos": [
-        -819.9932961224453,
-        3579.995831363519
+        -2008.984,
+        8412.99
       ],
       "size": [
         430,
@@ -93,8 +93,8 @@
       "id": 2,
       "type": "LoadImage",
       "pos": [
-        -809.9959142125558,
-        3820.002270915678
+        -1984.49,
+        8977.005
       ],
       "size": [
         420,
@@ -165,8 +165,8 @@
       "id": 3,
       "type": "TextGenerate",
       "pos": [
-        -310.0019379579869,
-        3579.995831363519
+        -759.505,
+        8412.99
       ],
       "size": [
         417.6666564941406,
@@ -361,8 +361,8 @@
       "id": 4,
       "type": "PreviewAny",
       "pos": [
-        179.99475669252365,
-        3579.995831363519
+        440.987,
+        8412.99
       ],
       "size": [
         500,
@@ -414,8 +414,8 @@
       "id": 5,
       "type": "PixaromaRunTimer",
       "pos": [
-        -819.9932961224453,
-        4272.002270915678
+        -2008.984,
+        10039.205
       ],
       "size": [
         226,
@@ -443,6 +443,122 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 6,
+      "type": "MarkdownNote",
+      "pos": [
+        -1532.984,
+        8412.99
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load CLIP · Node 1",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 1,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load CLIP · Node 1\n\n**Zweck:** Recipes: ↵ sd: clip-l ↵ stable cascade: clip-g ↵ sd3: t5 xxl / clip-g / clip-l ↵ stable audio: t5 base ↵ mochi: t5 xxl ↵ cogvideox: t5 xxl (226-token padding) ↵ cosmos: old t5 xxl ↵ lumina2: gemma 2 2B ↵ wan: umt5 xxl ↵ hidream: llama-3.1 (Recommend) or t5 ↵ omnigen2: qwen vl 2.5 3B ↵ joyimage: qwen3-vl 8B ↵ lens: gpt…\n\n**Einstellbare Werte**\n- `clip_name` = `Qwen\\qwen3.5-4b_abliterated_bf16.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `type` = `stable_diffusion` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `device` = `default` — Steuert diesen Parameter. Die Auswahl bestimmt das Rechen-Backend (z. B. GPU oder CPU) und damit Geschwindigkeit und Kompatibilität.\n\n**Eingänge**\n- `clip_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `type` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `device` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CLIP` (CLIP, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 7,
+      "type": "MarkdownNote",
+      "pos": [
+        -1518.49,
+        8977.005
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Image · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Image · Node 2\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `image` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `upload` (IMAGEUPLOAD, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 8,
+      "type": "MarkdownNote",
+      "pos": [
+        -295.838,
+        8412.99
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Generate Text · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 3,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Generate Text · Node 3\n\n**Zweck:** Erzeugt mit dem geladenen Sprachmodell Text aus Prompt und optionalen Bild-, Video- oder Audio-Eingaben.\n\n**Einstellbare Werte**\n- `prompt` = `Describe this image in extreme detail, including subject appearance, clothing, pose, expression, background e…` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `max_length` = `256` — Steuert diesen Parameter. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `sampling_mode` = `on` — Sampling Mode Ändert die Verarbeitung dieses Nodes entsprechend dem angeschlossenen Datentyp.\n- `temperature` = `0.7` — Steuert diesen Parameter. Höher macht die Auswahl vielfältiger/zufälliger; niedriger wird deterministischer und konservativer.\n- `top_k` = `64` — Steuert diesen Parameter. Höher erlaubt mehr Kandidaten und Vielfalt; niedriger begrenzt die Auswahl stärker.\n- `top_p` = `0.95` — Steuert diesen Parameter. Ändert den Wahrscheinlichkeitsfilter: großzügiger erhöht Vielfalt, strenger erhöht Fokus/Konsistenz.\n- `min_p` = `0.05` — Steuert diesen Parameter. Ändert den Wahrscheinlichkeitsfilter: großzügiger erhöht Vielfalt, strenger erhöht Fokus/Konsistenz.\n- `repetition_penalty` = `1.05` — Steuert diesen Parameter. Über 1 unterdrückt Wiederholungen zunehmend; zu hoch kann Wörter, Klang oder Kohärenz beschädigen, nahe 1 bleibt neutral.\n- `seed` = `0` — Steuert diesen Parameter. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `presence_penalty` = `0` — Steuert diesen Parameter. Höher bevorzugt neue Inhalte statt bereits verwendeter Tokens; 0 lässt die ursprüngliche Modellverteilung unverändert.\n- `thinking` = `False` — Operate in thinking mode if the model supports it. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `use_default_template` = `True` — Use the built in system prompt/template if the model has one. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `clip` (CLIP, Link 1): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `image` (IMAGE, Link 2): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `video` (IMAGE, nicht verbunden): Video frames as image batch. Assumed to be 24 FPS; subsampled to 1 FPS internally.\n- `audio` (AUDIO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `prompt` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `max_length` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode` (COMFY_DYNAMICCOMBO_V3, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.temperature` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.top_k` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.top_p` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.min_p` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.repetition_penalty` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.seed` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.presence_penalty` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `thinking` (BOOLEAN, nicht verbunden): Operate in thinking mode if the model supports it.\n- `use_default_template` (BOOLEAN, nicht verbunden): Use the built in system prompt/template if the model has one.\n\n**Ausgänge**\n- `generated_text` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 9,
+      "type": "MarkdownNote",
+      "pos": [
+        986.987,
+        8412.99
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Preview as Text · Node 4",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 4,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Preview as Text · Node 4\n\n**Zweck:** Preview any input value as text.\n\n**Einstellbare Werte**\n- `value` = `None` — Direkter Primitive-Wert für verbundene Nodes. Höher gibt einen größeren Zahlenwert an verbundene Nodes weiter; niedriger einen kleineren, ohne eigene Zusatzwirkung.\n\n**Eingänge**\n- `source` (*, Link 3): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `STRING` (STRING, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -486,7 +602,14 @@
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
     "VHS_KeepIntermediate": true,
-    "ue_links": []
+    "ue_links": [],
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 4,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

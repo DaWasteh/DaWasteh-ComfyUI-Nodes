@@ -1,0 +1,1136 @@
+{
+  "id": "local-boogu-image-base-lora-training",
+  "revision": 0,
+  "last_node_id": 23,
+  "last_link_id": 13,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImageTextDataSetFromFolder",
+      "pos": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        300,
+        180
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "folder",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "folder"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            1,
+            2
+          ]
+        },
+        {
+          "name": "texts",
+          "type": "STRING",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImageTextDataSetFromFolder"
+      },
+      "widgets_values": [
+        "lora_training/boogu-image-base"
+      ],
+      "title": "Dataset aus ComfyUI input"
+    },
+    {
+      "id": 2,
+      "type": "PreviewImage",
+      "pos": [
+        1225.0,
+        0.0
+      ],
+      "size": [
+        300,
+        180
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "title": "Dataset-Vorschau"
+    },
+    {
+      "id": 3,
+      "type": "UNETLoader",
+      "pos": [
+        0.0,
+        1175.0
+      ],
+      "size": [
+        300,
+        180
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "unet_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "unet_name"
+          }
+        },
+        {
+          "name": "weight_dtype",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "weight_dtype"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "Boogu\\boogu_image_base_bf16.safetensors",
+        "default"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "CLIPLoader",
+      "pos": [
+        0.0,
+        2350.0
+      ],
+      "size": [
+        300,
+        180
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "clip_name"
+          }
+        },
+        {
+          "name": "type",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "type"
+          }
+        },
+        {
+          "name": "device",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "device"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "Qwen\\qwen3vl_8b_fp8_scaled.safetensors",
+        "boogu",
+        "default"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "VAELoader",
+      "pos": [
+        0.0,
+        3525.0
+      ],
+      "size": [
+        300,
+        180
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "vae_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "vae_name"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "FLUX\\flux1_vae_bf16.safetensors"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "MakeTrainingDataset",
+      "pos": [
+        2450.0,
+        1880.0
+      ],
+      "size": [
+        340,
+        220
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 2
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 3
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 4
+        },
+        {
+          "name": "texts",
+          "type": "STRING",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latents",
+          "type": "LATENT",
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "links": [
+            7
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MakeTrainingDataset"
+      }
+    },
+    {
+      "id": 7,
+      "type": "ResolutionBucket",
+      "pos": [
+        3920.0,
+        1880.0
+      ],
+      "size": [
+        300,
+        180
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "latents",
+          "type": "LATENT",
+          "link": 6
+        },
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latents",
+          "type": "LATENT",
+          "links": [
+            9
+          ]
+        },
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ResolutionBucket"
+      }
+    },
+    {
+      "id": 8,
+      "type": "TrainLoraNode",
+      "pos": [
+        5390.0,
+        1527.5
+      ],
+      "size": [
+        390,
+        620
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 8
+        },
+        {
+          "name": "latents",
+          "type": "LATENT",
+          "link": 9
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 10
+        },
+        {
+          "name": "batch_size",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "batch_size"
+          }
+        },
+        {
+          "name": "grad_accumulation_steps",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "grad_accumulation_steps"
+          }
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "steps"
+          }
+        },
+        {
+          "name": "learning_rate",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "learning_rate"
+          }
+        },
+        {
+          "name": "rank",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "rank"
+          }
+        },
+        {
+          "name": "optimizer",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "optimizer"
+          }
+        },
+        {
+          "name": "loss_function",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "loss_function"
+          }
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "name": "training_dtype",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "training_dtype"
+          }
+        },
+        {
+          "name": "lora_dtype",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "lora_dtype"
+          }
+        },
+        {
+          "name": "quantized_backward",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "quantized_backward"
+          }
+        },
+        {
+          "name": "algorithm",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "algorithm"
+          }
+        },
+        {
+          "name": "gradient_checkpointing",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "gradient_checkpointing"
+          }
+        },
+        {
+          "name": "checkpoint_depth",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "checkpoint_depth"
+          }
+        },
+        {
+          "name": "offloading",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "offloading"
+          }
+        },
+        {
+          "name": "existing_lora",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "existing_lora"
+          }
+        },
+        {
+          "name": "bucket_mode",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "bucket_mode"
+          }
+        },
+        {
+          "name": "bypass_mode",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "bypass_mode"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "lora",
+          "type": "LORA_MODEL",
+          "links": [
+            12
+          ]
+        },
+        {
+          "name": "loss_map",
+          "type": "LOSS_MAP",
+          "links": [
+            11
+          ]
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "links": [
+            13
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TrainLoraNode"
+      },
+      "widgets_values": [
+        1,
+        4,
+        2,
+        0.0001,
+        16,
+        "AdamW",
+        "MSE",
+        42,
+        "bf16",
+        "bf16",
+        false,
+        "LoRA",
+        true,
+        1,
+        true,
+        "[None]",
+        true,
+        false
+      ],
+      "title": "Lokales LoRA-Training"
+    },
+    {
+      "id": 9,
+      "type": "LossGraphNode",
+      "pos": [
+        7105.0,
+        1527.5
+      ],
+      "size": [
+        300,
+        180
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "loss",
+          "type": "LOSS_MAP",
+          "link": 11
+        },
+        {
+          "name": "filename_prefix",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "filename_prefix"
+          }
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "LossGraphNode"
+      },
+      "widgets_values": [
+        "lora_training/boogu-image-base_loss"
+      ],
+      "title": "LossGraph anzeigen"
+    },
+    {
+      "id": 10,
+      "type": "SaveLoRA",
+      "pos": [
+        7105.0,
+        2467.5
+      ],
+      "size": [
+        300,
+        180
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "lora",
+          "type": "LORA_MODEL",
+          "link": 12
+        },
+        {
+          "name": "prefix",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "prefix"
+          }
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 13
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveLoRA"
+      },
+      "widgets_values": [
+        "loras/DaWasteh/boogu-image-base_rank16_smoke"
+      ],
+      "title": "LoRA lokal speichern"
+    },
+    {
+      "id": 11,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        7105.0,
+        3407.5
+      ],
+      "size": [
+        300,
+        100
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "type": "MarkdownNote",
+      "pos": [
+        0.0,
+        4817.5
+      ],
+      "size": [
+        700,
+        420
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "MarkdownNote"
+      },
+      "widgets_values": [
+        "# Boogu Image Base · Lokales Bild-LoRA-Training\n\nDataset unter `ComfyUI/input/lora_training/boogu-image-base` anlegen. Zu jedem Bild gehört eine gleichnamige `.txt`-Datei mit präziser Caption (z. B. `bild01.png` + `bild01.txt`). **2 Schritte sind als sicherer Smoke-Test voreingestellt.** Erst wenn Loss und Dateiausgabe funktionieren, `steps` auf etwa 1000 setzen und `_smoke` aus dem Dateiprefix entfernen.\n\nRDNA4: BF16 und PyTorch-SDPA verwenden; keine CUDA-exklusiven Attention- oder Kernel-Optionen ergänzen. Bei Boogu ist `offloading=true` gegen OOM bereits aktiviert; nicht abschalten, außer ein gemessener Lauf hat ausreichend VRAM-Reserve. `SaveLoRA` schreibt nach `ComfyUI/output/loras/DaWasteh/`; zur Nutzung die fertige Datei anschließend nach `ComfyUI/models/loras/DaWasteh/` kopieren. Der LossGraph liegt ebenfalls unter `output`."
+      ],
+      "title": "Bedienung und Dataset"
+    },
+    {
+      "id": 13,
+      "type": "MarkdownNote",
+      "pos": [
+        2205.0,
+        4817.5
+      ],
+      "size": [
+        700,
+        420
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "MarkdownNote"
+      },
+      "widgets_values": [
+        "# Rank-Matrix 16 / 32 / 64 / 128\n\n| Rank | Kapazität | Dateigröße | Overfitting |\n|---:|---|---|---|\n| 16 | kompakt, guter Start | klein | geringstes Risiko |\n| 32 | mehr Details | mittel | bei kleinen Sets beobachten |\n| 64 | hohe Stilkapazität | groß | deutlich erhöht |\n| 128 | maximale Kapazität | sehr groß | nur für große, vielfältige Sets |\n\nDie Learning Rate **nicht automatisch erhöhen**, wenn der Rank steigt; zunächst `0.0001` beibehalten. Rank und Dateiprefix gemeinsam ändern."
+      ],
+      "title": "Rank 16/32/64/128"
+    },
+    {
+      "id": 14,
+      "type": "MarkdownNote",
+      "pos": [
+        346.0,
+        0.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Dataset aus ComfyUI input · Node 1",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 1,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Dataset aus ComfyUI input · Node 1\n\n**Zweck:** Load a dataset of pairs of images and text captions from a specified folder and return them as a list. Supported formats: PNG, JPG, JPEG, WEBP.\n\n**Einstellbare Werte**\n- `folder` = `lora_training/boogu-image-base` — The folder to load images and text captions from. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `folder` (COMBO, nicht verbunden): The folder to load images and text captions from.\n\n**Ausgänge**\n- `images` (IMAGE, 2 Verbindung(en)): List of loaded images\n- `texts` (STRING, 1 Verbindung(en)): List of text captions"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 15,
+      "type": "MarkdownNote",
+      "pos": [
+        1571.0,
+        0.0
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Dataset-Vorschau · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Dataset-Vorschau · Node 2\n\n**Zweck:** Preview the images without saving them to the ComfyUI output directory.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `images` (IMAGE, Link 1): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `images` (IMAGE, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 16,
+      "type": "MarkdownNote",
+      "pos": [
+        346.0,
+        1175.0
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Diffusion Model · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 3,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Diffusion Model · Node 3\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `unet_name` = `Boogu\\boogu_image_base_bf16.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `weight_dtype` = `default` — Steuert diesen Parameter. Die Auswahl ändert Rechenpräzision, Speicherbedarf und Hardware-Kompatibilität.\n\n**Eingänge**\n- `unet_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `weight_dtype` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `MODEL` (MODEL, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 17,
+      "type": "MarkdownNote",
+      "pos": [
+        346.0,
+        2350.0
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load CLIP · Node 4",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 4,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load CLIP · Node 4\n\n**Zweck:** Recipes: ↵ sd: clip-l ↵ stable cascade: clip-g ↵ sd3: t5 xxl / clip-g / clip-l ↵ stable audio: t5 base ↵ mochi: t5 xxl ↵ cogvideox: t5 xxl (226-token padding) ↵ cosmos: old t5 xxl ↵ lumina2: gemma 2 2B ↵ wan: umt5 xxl ↵ hidream: llama-3.1 (Recommend) or t5 ↵ omnigen2: qwen vl 2.5 3B ↵ joyimage: qwen3-vl 8B ↵ lens: gpt…\n\n**Einstellbare Werte**\n- `clip_name` = `Qwen\\qwen3vl_8b_fp8_scaled.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `type` = `boogu` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `device` = `default` — Steuert diesen Parameter. Die Auswahl bestimmt das Rechen-Backend (z. B. GPU oder CPU) und damit Geschwindigkeit und Kompatibilität.\n\n**Eingänge**\n- `clip_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `type` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `device` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CLIP` (CLIP, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 18,
+      "type": "MarkdownNote",
+      "pos": [
+        346.0,
+        3525.0
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load VAE · Node 5",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 5,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load VAE · Node 5\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `vae_name` = `FLUX\\flux1_vae_bf16.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n\n**Eingänge**\n- `vae_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `VAE` (VAE, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 19,
+      "type": "MarkdownNote",
+      "pos": [
+        2836.0,
+        1880.0
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Make Training Dataset · Node 6",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 6,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Make Training Dataset · Node 6\n\n**Zweck:** Encode images with VAE and texts with CLIP to create a training dataset of latents and conditionings.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `images` (IMAGE, Link 2): List of images to encode.\n- `vae` (VAE, Link 3): VAE model for encoding images to latents.\n- `clip` (CLIP, Link 4): CLIP model for encoding text to conditioning.\n- `texts` (STRING, Link 5): List of text captions. Can be length n (matching images), 1 (repeated for all), or omitted (uses empty string).\n\n**Ausgänge**\n- `latents` (LATENT, 1 Verbindung(en)): List of latent dicts\n- `conditioning` (CONDITIONING, 1 Verbindung(en)): List of conditioning lists"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 20,
+      "type": "MarkdownNote",
+      "pos": [
+        4266.0,
+        1880.0
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Resolution Bucket · Node 7",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 7,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Resolution Bucket · Node 7\n\n**Zweck:** Group latents and conditionings into buckets\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `latents` (LATENT, Link 6): List of latent dicts to bucket by resolution.\n- `conditioning` (CONDITIONING, Link 7): List of conditioning lists (must match latents length).\n\n**Ausgänge**\n- `latents` (LATENT, 1 Verbindung(en)): List of batched latent dicts, one per resolution bucket.\n- `conditioning` (CONDITIONING, 1 Verbindung(en)): List of condition lists, one per resolution bucket."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 21,
+      "type": "MarkdownNote",
+      "pos": [
+        5826.0,
+        1527.5
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Lokales LoRA-Training · Node 8",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 8,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Lokales LoRA-Training · Node 8\n\n**Zweck:** Konfiguriert oder führt einen Trainingsschritt mit den bereitgestellten Daten und Modellen aus.\n\n**Einstellbare Werte**\n- `batch_size` = `1` — The batch size to use for training. Höher verarbeitet mehr Beispiele parallel und braucht mehr VRAM; niedriger spart Speicher.\n- `grad_accumulation_steps` = `4` — The number of gradient accumulation steps to use for training. Höher erhöht Laufzeit und mögliche Ausarbeitung, kann aber übertrainieren; niedriger ist schneller.\n- `steps` = `2` — The number of steps to train the LoRA for. Höher erhöht Laufzeit und mögliche Ausarbeitung, kann aber übertrainieren; niedriger ist schneller.\n- `learning_rate` = `0.0001` — The learning rate to use for training. Höher lernt schneller, kann aber instabil werden/übersteuern; niedriger ist stabiler, benötigt mehr Schritte.\n- `rank` = `16` — The rank of the LoRA layers. Höher erhöht Kapazität, Dateigröße und Speicherbedarf; niedriger ist kompakter, kann Details unterlernen.\n- `optimizer` = `AdamW` — The optimizer to use for training. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `loss_function` = `MSE` — The loss function to use for training. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `seed` = `42` — The seed to use for training (used in generator for LoRA weight initialization and noise sampling) Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `training_dtype` = `bf16` — The dtype to use for training. 'none' preserves the model's native compute dtype instead of overriding it. For fp16 models, GradScaler is automatically enabled. Die Auswahl ändert Rechenpräzision, Speicherbedarf und Hardware-Kompatibilität.\n- `lora_dtype` = `bf16` — The dtype to use for lora. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `quantized_backward` = `False` — When using training_dtype 'none' and training on quantized model, doing backward with quantized matmul when enabled. AN nutzt den quantisierten Rückwärtsweg für kompatible quantisierte Modelle; AUS verwendet den normalen, präziseren Trainingspfad.\n- `algorithm` = `LoRA` — The algorithm to use for training. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `gradient_checkpointing` = `True` — Use gradient checkpointing for training. AN spart Trainings-VRAM durch Neuberechnung, erhöht aber die Laufzeit; AUS ist schneller und speicherintensiver.\n- `checkpoint_depth` = `1` — Depth level for gradient checkpointing. Höher checkpointet tiefer verschachtelte Module und verändert den VRAM-/Laufzeit-Kompromiss; 1 ist der konservative Start.\n- `offloading` = `True` — Offload model weights to CPU during training to save GPU memory. AN spart VRAM durch Auslagern in RAM, ist aber langsamer; AUS ist schneller und braucht mehr VRAM.\n- `existing_lora` = `[None]` — The existing LoRA to append to. Set to None for new LoRA. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `bucket_mode` = `True` — Enable resolution bucket mode. When enabled, expects pre-bucketed latents from ResolutionBucket node. AN trainiert vorgruppierte Auflösungs-Buckets effizienter; AUS verarbeitet die Latents ohne Bucket-Gruppierung.\n- `bypass_mode` = `False` — Enable bypass mode for training. When enabled, adapters are applied via forward hooks instead of weight modification. Useful for quantized models where weights cannot be directly … AN injiziert Adapter über Forward-Hooks und hilft bei quantisierten/ausgelagerten Gewichten; AUS verändert die normalen Weight-Wrapper.\n\n**Eingänge**\n- `model` (MODEL, Link 8): The model to train the LoRA on.\n- `latents` (LATENT, Link 9): The Latents to use for training, serve as dataset/input of the model.\n- `positive` (CONDITIONING, Link 10): The positive conditioning to use for training.\n- `batch_size` (INT, nicht verbunden): The batch size to use for training.\n- `grad_accumulation_steps` (INT, nicht verbunden): The number of gradient accumulation steps to use for training.\n- `steps` (INT, nicht verbunden): The number of steps to train the LoRA for.\n- `learning_rate` (FLOAT, nicht verbunden): The learning rate to use for training.\n- `rank` (INT, nicht verbunden): The rank of the LoRA layers.\n- `optimizer` (COMBO, nicht verbunden): The optimizer to use for training.\n- `loss_function` (COMBO, nicht verbunden): The loss function to use for training.\n- `seed` (INT, nicht verbunden): The seed to use for training (used in generator for LoRA weight initialization and noise sampling)\n- `training_dtype` (COMBO, nicht verbunden): The dtype to use for training. 'none' preserves the model's native compute dtype instead of overriding it. For fp16 models, GradScaler is automatical…\n- `lora_dtype` (COMBO, nicht verbunden): The dtype to use for lora.\n- `quantized_backward` (BOOLEAN, nicht verbunden): When using training_dtype 'none' and training on quantized model, doing backward with quantized matmul when enabled.\n- `algorithm` (COMBO, nicht verbunden): The algorithm to use for training.\n- `gradient_checkpointing` (BOOLEAN, nicht verbunden): Use gradient checkpointing for training.\n- `checkpoint_depth` (INT, nicht verbunden): Depth level for gradient checkpointing.\n- `offloading` (BOOLEAN, nicht verbunden): Offload model weights to CPU during training to save GPU memory.\n- `existing_lora` (COMBO, nicht verbunden): The existing LoRA to append to. Set to None for new LoRA.\n- `bucket_mode` (BOOLEAN, nicht verbunden): Enable resolution bucket mode. When enabled, expects pre-bucketed latents from ResolutionBucket node.\n- `bypass_mode` (BOOLEAN, nicht verbunden): Enable bypass mode for training. When enabled, adapters are applied via forward hooks instead of weight modification. Useful for quantized models whe…\n\n**Ausgänge**\n- `lora` (LORA_MODEL, 1 Verbindung(en)): LoRA weights\n- `loss_map` (LOSS_MAP, 1 Verbindung(en)): Loss history\n- `steps` (INT, 1 Verbindung(en)): Total training steps"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 22,
+      "type": "MarkdownNote",
+      "pos": [
+        7451.0,
+        1527.5
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LossGraph anzeigen · Node 9",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 9,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LossGraph anzeigen · Node 9\n\n**Zweck:** Visualisiert und speichert den Loss-Verlauf, damit Trainingsstabilität und Overfitting beurteilt werden können.\n\n**Einstellbare Werte**\n- `filename_prefix` = `lora_training/boogu-image-base_loss` — Prefix for the saved loss graph image. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n\n**Eingänge**\n- `loss` (LOSS_MAP, Link 11): Loss map from training node.\n- `filename_prefix` (STRING, nicht verbunden): Prefix for the saved loss graph image.\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 23,
+      "type": "MarkdownNote",
+      "pos": [
+        7451.0,
+        2467.5
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LoRA lokal speichern · Node 10",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 10,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LoRA lokal speichern · Node 10\n\n**Zweck:** Speichert das erzeugte Ergebnis mit den gewählten Ausgabeparametern.\n\n**Einstellbare Werte**\n- `prefix` = `loras/DaWasteh/boogu-image-base_rank16_smoke` — The prefix to use for the saved LoRA file. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n\n**Eingänge**\n- `lora` (LORA_MODEL, Link 12): The LoRA model to save. Do not use the model with LoRA layers.\n- `prefix` (STRING, nicht verbunden): The prefix to use for the saved LoRA file.\n- `steps` (INT, Link 13): Optional: The number of steps the LoRA has been trained for, used to name the saved file.\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "IMAGE"
+    ],
+    [
+      2,
+      1,
+      0,
+      6,
+      0,
+      "IMAGE"
+    ],
+    [
+      3,
+      5,
+      0,
+      6,
+      1,
+      "VAE"
+    ],
+    [
+      4,
+      4,
+      0,
+      6,
+      2,
+      "CLIP"
+    ],
+    [
+      5,
+      1,
+      1,
+      6,
+      3,
+      "STRING"
+    ],
+    [
+      6,
+      6,
+      0,
+      7,
+      0,
+      "LATENT"
+    ],
+    [
+      7,
+      6,
+      1,
+      7,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      8,
+      3,
+      0,
+      8,
+      0,
+      "MODEL"
+    ],
+    [
+      9,
+      7,
+      0,
+      8,
+      1,
+      "LATENT"
+    ],
+    [
+      10,
+      7,
+      1,
+      8,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      11,
+      8,
+      1,
+      9,
+      0,
+      "LOSS_MAP"
+    ],
+    [
+      12,
+      8,
+      0,
+      10,
+      0,
+      "LORA_MODEL"
+    ],
+    [
+      13,
+      8,
+      2,
+      10,
+      2,
+      "INT"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7,
+      "offset": [
+        100,
+        100
+      ]
+    },
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 10,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
+  },
+  "version": 0.4
+}

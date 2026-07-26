@@ -8,8 +8,8 @@
       "id": 1,
       "type": "PixaromaLabel",
       "pos": [
-        80,
-        40
+        196.0,
+        94.0
       ],
       "size": [
         359,
@@ -37,8 +37,8 @@
       "id": 2,
       "type": "PixaromaLabel",
       "pos": [
-        80,
-        91
+        196.0,
+        213.85
       ],
       "size": [
         602,
@@ -66,8 +66,8 @@
       "id": 3,
       "type": "PixaromaPromptMulti",
       "pos": [
-        80,
-        211
+        196.0,
+        495.85
       ],
       "size": [
         394.48083764235236,
@@ -135,8 +135,8 @@
       "id": 4,
       "type": "PixaromaPromptFromList",
       "pos": [
-        510,
-        211
+        1249.5,
+        495.85
       ],
       "size": [
         290,
@@ -177,8 +177,8 @@
       "id": 5,
       "type": "PixaromaShowText",
       "pos": [
-        830,
-        211
+        2033.5,
+        495.85
       ],
       "size": [
         350,
@@ -217,8 +217,8 @@
       "id": 6,
       "type": "PixaromaPromptFromList",
       "pos": [
-        510,
-        446.5
+        1249.5,
+        1049.275
       ],
       "size": [
         290,
@@ -259,8 +259,8 @@
       "id": 8,
       "type": "PixaromaPromptFromList",
       "pos": [
-        510,
-        682
+        1249.5,
+        1602.7
       ],
       "size": [
         290,
@@ -301,8 +301,8 @@
       "id": 7,
       "type": "PixaromaShowText",
       "pos": [
-        830,
-        446.5
+        2033.5,
+        1049.275
       ],
       "size": [
         350,
@@ -341,8 +341,8 @@
       "id": 9,
       "type": "PixaromaShowText",
       "pos": [
-        830,
-        682
+        2033.5,
+        1602.7
       ],
       "size": [
         350,
@@ -381,8 +381,8 @@
       "id": 10,
       "type": "PixaromaRunTimer",
       "pos": [
-        80.0,
-        902.0
+        196.0,
+        2119.7
       ],
       "size": [
         226,
@@ -476,7 +476,14 @@
     "VHS_latentpreview": false,
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
-    "VHS_KeepIntermediate": true
+    "VHS_KeepIntermediate": true,
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 0,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

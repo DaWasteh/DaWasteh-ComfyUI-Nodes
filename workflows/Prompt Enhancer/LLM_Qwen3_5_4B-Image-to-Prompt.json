@@ -1,15 +1,15 @@
 {
   "id": "c5beec59-2b88-4f3f-ba35-7640a58a9ba6",
   "revision": 0,
-  "last_node_id": 226,
+  "last_node_id": 230,
   "last_link_id": 269,
   "nodes": [
     {
       "id": 211,
       "type": "LoadImage",
       "pos": [
-        -1126.5790811058273,
-        308.8372709235234
+        -2760.119,
+        725.768
       ],
       "size": [
         495.8871826591876,
@@ -75,8 +75,8 @@
       "id": 225,
       "type": "PixaromaShowText",
       "pos": [
-        -61.41200796781686,
-        150.0876883278024
+        -150.459,
+        352.706
       ],
       "size": [
         495.8871826591876,
@@ -112,8 +112,8 @@
       "id": 218,
       "type": "StringConcatenate",
       "pos": [
-        -593.9955445368221,
-        592.1496113719488
+        -1455.289,
+        1391.552
       ],
       "size": [
         495.8871826591876,
@@ -150,8 +150,8 @@
       "id": 215,
       "type": "PixaromaLabel",
       "pos": [
-        -1126.5790811058273,
-        18.22669997755455
+        -2760.119,
+        42.833
       ],
       "size": [
         487,
@@ -180,8 +180,8 @@
       "id": 210,
       "type": "CLIPLoader",
       "pos": [
-        -1126.5790811058273,
-        150.0876883278024
+        -2760.119,
+        352.706
       ],
       "size": [
         495.8871826591876,
@@ -215,8 +215,8 @@
       "id": 212,
       "type": "TextGenerate",
       "pos": [
-        -593.9955445368221,
-        150.0876883278024
+        -1455.289,
+        572.706
       ],
       "size": [
         495.8871826591876,
@@ -286,8 +286,8 @@
       "id": 226,
       "type": "PixaromaRunTimer",
       "pos": [
-        -1694.7773670220643,
-        993.6212759733664
+        -4152.205,
+        2335.01
       ],
       "size": [
         226,
@@ -315,6 +315,122 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 227,
+      "type": "MarkdownNote",
+      "pos": [
+        -2218.232,
+        352.706
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load CLIP · Node 210",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 210,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load CLIP · Node 210\n\n**Zweck:** Recipes: ↵ sd: clip-l ↵ stable cascade: clip-g ↵ sd3: t5 xxl / clip-g / clip-l ↵ stable audio: t5 base ↵ mochi: t5 xxl ↵ cogvideox: t5 xxl (226-token padding) ↵ cosmos: old t5 xxl ↵ lumina2: gemma 2 2B ↵ wan: umt5 xxl ↵ hidream: llama-3.1 (Recommend) or t5 ↵ omnigen2: qwen vl 2.5 3B ↵ joyimage: qwen3-vl 8B ↵ lens: gpt…\n\n**Einstellbare Werte**\n- `clip_name` = `Qwen\\qwen3.5_4b_bf16.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `type` = `stable_diffusion` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `device` = `default` — Steuert diesen Parameter. Die Auswahl bestimmt das Rechen-Backend (z. B. GPU oder CPU) und damit Geschwindigkeit und Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `CLIP` (CLIP, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 228,
+      "type": "MarkdownNote",
+      "pos": [
+        -2218.232,
+        725.768
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Image · Node 211",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 211,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Image · Node 211\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 229,
+      "type": "MarkdownNote",
+      "pos": [
+        -913.402,
+        572.706
+      ],
+      "size": [
+        390,
+        515
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Generate Text · Node 212",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 212,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Generate Text · Node 212\n\n**Zweck:** Erzeugt mit dem geladenen Sprachmodell Text aus Prompt und optionalen Bild-, Video- oder Audio-Eingaben.\n\n**Einstellbare Werte**\n- `prompt` = `Describe this image in extreme detail, including subject appearance, clothing, pose, expression, background e…` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `max_length` = `256` — Steuert diesen Parameter. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `sampling_mode` = `on` — Sampling Mode Ändert die Verarbeitung dieses Nodes entsprechend dem angeschlossenen Datentyp.\n- `temperature` = `0.7` — Steuert diesen Parameter. Höher macht die Auswahl vielfältiger/zufälliger; niedriger wird deterministischer und konservativer.\n- `top_k` = `64` — Steuert diesen Parameter. Höher erlaubt mehr Kandidaten und Vielfalt; niedriger begrenzt die Auswahl stärker.\n- `top_p` = `0.95` — Steuert diesen Parameter. Ändert den Wahrscheinlichkeitsfilter: großzügiger erhöht Vielfalt, strenger erhöht Fokus/Konsistenz.\n- `min_p` = `0.05` — Steuert diesen Parameter. Ändert den Wahrscheinlichkeitsfilter: großzügiger erhöht Vielfalt, strenger erhöht Fokus/Konsistenz.\n- `repetition_penalty` = `1.05` — Steuert diesen Parameter. Über 1 unterdrückt Wiederholungen zunehmend; zu hoch kann Wörter, Klang oder Kohärenz beschädigen, nahe 1 bleibt neutral.\n- `seed` = `0` — Steuert diesen Parameter. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `presence_penalty` = `0` — Steuert diesen Parameter. Höher bevorzugt neue Inhalte statt bereits verwendeter Tokens; 0 lässt die ursprüngliche Modellverteilung unverändert.\n- `thinking` = `False` — Operate in thinking mode if the model supports it. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `use_default_template` = `True` — Use the built in system prompt/template if the model has one. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `clip` (CLIP, Link 256): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `image` (IMAGE, Link 257): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `prompt` (STRING, Link 262): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `generated_text` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 230,
+      "type": "MarkdownNote",
+      "pos": [
+        -913.402,
+        1391.552
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Image to Prompt Formula + Extra · Node 218",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 218,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Image to Prompt Formula + Extra · Node 218\n\n**Zweck:** Erzeugt, kombiniert, ersetzt oder extrahiert Text für nachfolgende Workflow-Schritte.\n\n**Einstellbare Werte**\n- `string_a` = `Describe this image in extreme detail, including subject appearance, clothing, pose, expression, background e…` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `string_b` = `` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `delimiter` = ` ` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `STRING` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -371,7 +487,14 @@
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
     "VHS_KeepIntermediate": true,
-    "workflowRendererVersion": "LG"
+    "workflowRendererVersion": "LG",
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 4,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

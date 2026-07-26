@@ -8,8 +8,8 @@
       "id": 1,
       "type": "PixaromaPromptReader",
       "pos": [
-        146.8267832024326,
-        -308
+        359.726,
+        -723.8
       ],
       "size": [
         400,
@@ -52,8 +52,8 @@
       "id": 3,
       "type": "PixaromaLabel",
       "pos": [
-        146.8267832024326,
-        -488.1818181818182
+        359.726,
+        -1147.227
       ],
       "size": [
         379,
@@ -82,8 +82,8 @@
       "id": 2,
       "type": "PixaromaShowText",
       "pos": [
-        574.8760401997303,
-        -308
+        1408.446,
+        -723.8
       ],
       "size": [
         399.9507430027023,
@@ -121,8 +121,8 @@
       "id": 4,
       "type": "PixaromaLabel",
       "pos": [
-        146.8267832024326,
-        -437.1818181818182
+        359.726,
+        -1027.377
       ],
       "size": [
         643,
@@ -150,8 +150,8 @@
       "id": 5,
       "type": "PixaromaRunTimer",
       "pos": [
-        146.8267832024326,
-        88.0
+        359.726,
+        206.8
       ],
       "size": [
         226,
@@ -205,7 +205,14 @@
     "VHS_latentpreview": false,
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
-    "VHS_KeepIntermediate": true
+    "VHS_KeepIntermediate": true,
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 0,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

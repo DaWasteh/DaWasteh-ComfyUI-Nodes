@@ -1,4 +1,4 @@
-# DaWasteh – konsolidierte ComfyUI-Workflows
+# DaWasteh – konsolidierte ComfyUI-Workflows · v0.6.0
 
 Dieser Ordner ist jetzt der **kuratierte Hauptordner** für die lokalen Workflows auf Windows 11 mit:
 
@@ -17,8 +17,10 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 
 ## Ergebnis
 
-- **176 kuratierte Workflow-Dateien** in 28 Kategorien
-- alle 176 Workflows enthalten einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
+- **181 kuratierte Workflow-Dateien** in 28 Kategorien
+- alle 181 Workflows enthalten exakt einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
+- alle vorhandenen Workflows wurden mit deutlich größeren, kollisionsfreien Abständen neu angeordnet
+- **2.687 automatisch zugeordnete Parameter-Notes** erklären jeden Nicht-Pixaroma-/Nicht-Dokumentations-Node einschließlich aktueller Werte, Schalterwirkung, Ein-/Ausgänge und höher-/niedriger-Auswirkung
 - 59 vorhandene Workflows beibehalten
 - 114 funktional ergänzende Workflows übernommen:
   - 33 aus `DaWasteh`
@@ -26,6 +28,8 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
   - 3 aus `WhatDreamsCost`
 - 2 neue Audio-zu-Video-Workflows aufgebaut: ein klar als AudioReact gekennzeichneter Gemma-/FLUX2-/Pixaroma-Workflow und ein echtes generatives LTX-2.3-Video mit Custom Audio
 - 1 neuer Audio-zu-Bild-Workflow: Gemma 4 analysiert das Audio, FLUX.2 Klein 4B erzeugt das Kontextbild, `PixaromaResolution` bietet frei wählbare Formate und `PixaromaNote` dokumentiert Bedienung und Downloads
+- 5 neue lokale Bild-LoRA-Trainingsworkflows mit offiziellen ComfyUI-Core-Trainingsnodes: Z-Image Base, Boogu Image Base, FLUX.1 Dev, FLUX.2 Klein 4B Base und SDXL
+- der ACE-Step-1.5-Workflow enthält zusätzlich einen ausführlichen Rank-Guide für Rank 16/32/64/128
 - exakte und funktionale Tutorial-Duplikate nicht erneut übernommen
 - NVIDIA-/CUDA-exklusive Varianten durch lokale AMD-taugliche Varianten ersetzt oder ausgelassen
 - vorhandene Modell- und Input-Referenzen auf die lokale Installation angepasst
@@ -35,6 +39,7 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 | Ordner | Anzahl | Zweck |
 |---|---:|---|
 | `Text to Image` | 42 | FLUX, Krea2, Z-Image, SDXL, Anima, Boogu, LongCat, Ideogram usw. |
+| `LoRA Generation` | 6 | ACE-Step 1.5 sowie lokale Core-Trainer für Z-Image, Boogu, FLUX.1, FLUX.2 Klein und SDXL |
 | `Image Editing` | 21 | FLUX2-Klein-Edits, Qwen Image Edit, SDXL-Composites, Bernini |
 | `Prompt Tools` | 15 | Prompt Stack/Pack/Multi, Builder, Text-Tools, XY-Plot |
 | `Pixaroma Node Demos` | 12 | aktuelle, deduplizierte Pixaroma-Node-Beispiele |
@@ -52,7 +57,7 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 | `Image Inpainting` | 3 | FLUX2 Klein 4B/9B Inpainting |
 | `Image Upscaling` | 3 | einfache, Modell- und Z-Image-Upscaler |
 | `Batch Processing` | 2 | Ordner-Batches und Batch-Image-Edit |
-| weitere Einzelordner | je 1 | Controlled Video, Image Fusion, 3D, Outpainting, Training, Talking Video, Tests, Video Editing, Video-to-Audio, Vocal Separation |
+| weitere Einzelordner | je 1 | Controlled Video, Image Fusion, 3D, Outpainting, Talking Video, Tests, Video Editing, Video-to-Audio, Vocal Separation |
 
 ## Benennung
 
@@ -65,6 +70,21 @@ Korrigierte vorhandene Namen:
 - `LLM_Gemma3_12B_abliterated_...` → `LLM_Gemma4_e4b_abliterated_...`  
   Der Workflow lädt tatsächlich Gemma 4 e4b.
 - `FLUX2_dev_fp8mixed_NEW-...` → `FLUX2_dev_fp8mixed_v2-...`
+
+## Lokales LoRA-Training auf RDNA4
+
+Die fünf neuen Bildtrainer verwenden ausschließlich die **offiziellen experimentellen ComfyUI-Core-Nodes** `LoadImageTextDataSetFromFolder`, `MakeTrainingDataset`, `ResolutionBucket`, `TrainLoraNode`, `LossGraphNode` und `SaveLoRA`. Es wird keine zusätzliche CUDA-Trainer-Extension benötigt.
+
+- Trainingsdaten liegen unter `ComfyUI/input/lora_training/<modell>/`; jedes Bild erhält eine gleichnamige `.txt`-Caption.
+- Alle neuen Trainer starten absichtlich mit **2 Schritten** und einem `_smoke`-Dateiprefix. Erst nach erfolgreichem Loss-/Datei-Test auf den gewünschten Schrittwert erhöhen und `_smoke` entfernen.
+- Standard ist Rank 16, BF16, Batch 1, Gradient Accumulation 4, Gradient Checkpointing und Resolution Buckets.
+- `SaveLoRA` schreibt nach `ComfyUI/output/loras/DaWasteh/`. Fertige Adapter anschließend nach `ComfyUI/models/loras/DaWasteh/` kopieren.
+- FLUX.1 Dev nutzt wegen des vorhandenen FP8-Modells den quantisierten Bypass-Rückwärtsweg und ist im Workflow ausdrücklich als experimentell markiert.
+- Alle für diese fünf Workflows benötigten Basismodelle, Textencoder und VAEs waren bereits in `L:/ComfyUI/ComfyUI/models` vorhanden; es mussten keine zusätzlichen Gewichte heruntergeladen werden.
+
+**Krea 2 RAW wurde nach einem reproduzierbaren OOM auf der R9700 trotz aktiviertem Offloading wieder entfernt.** Das 24,5-GB-BF16-Modell zusammen mit Textencoder und Trainingszustand überschreitet die sichere 32-GB-VRAM-/48-GB-RAM-Grenze dieses Systems. Entsprechend der Stabilitätsregel wird kein Workflow ausgeliefert, der auf der Zielhardware nicht sicher nutzbar ist.
+
+Bewusst nicht als lokaler RDNA4-LoRA-Trainer aufgenommen wurden LTX-2 (offizieller Trainer verlangt CUDA/Triton), WAN 2.x (kein offizieller Herstellertrainer), HunyuanVideo/CogVideoX (kein bestätigter gfx1201-Pfad), Stable Audio 3 (kein passender ComfyUI-Core-Datasetpfad) sowie Qwen3-TTS (vorhandener Node ist Full-Finetuning statt LoRA).
 
 ## RDNA4-Anpassungen
 
@@ -99,19 +119,20 @@ Diese Dateien bleiben in ihren Quellordnern als Referenz, gehören aber nicht in
 
 ## Validierung
 
-Automatisch geprüft wurden alle 176 Workflows gegen den aktuellen ComfyUI-`object_info`-Snapshot:
+Automatisch geprüft wurden alle 181 Workflows gegen den aktuellen ComfyUI-`object_info`-Stand:
 
-- 176/176 gültige JSON-Dateien
-- 176/176 Workflows mit genau einem `PixaromaRunTimer`
-- 213 Haupt- und Untergraphen rekursiv geprüft
-- 3.277 Nodes und 3.854 Graph-Links konsistent und bidirektional referenziert
-- alle 487 Subgraph-Interface-Links (`inputNode`/`outputNode`) erhalten und geprüft
-- keine fehlenden installierten Node-Typen (Frontend-/Subgraph-Knoten berücksichtigt)
-- 514 Modellreferenzen einschließlich Untergraphen geprüft
-- 136 Input-/Medienreferenzen einschließlich Untergraphen geprüft
-- keine fehlenden Modell- oder Input-Dateien
-- keine NVIDIA-/CUDA-only-Risiko-Widgets
-- keine eingebetteten `Rh-Comfy-Auth`-Tokens/JWTs
-- unabhängiger abschließender Reviewer-Check: **PASS**, keine verbleibenden Blocker oder Fehler
+- 181/181 gültige JSON-Dateien
+- 181/181 Workflows mit genau einem `PixaromaRunTimer`
+- 218 Haupt- und Untergraphen rekursiv geprüft
+- 6.029 Nodes, davon 2.687 eindeutig zugeordnete Parameter-Notes
+- 3.920 Graph-Links konsistent und bidirektional referenziert
+- bestehende 3.854 Links sowie alle Subgraph-Interface-Links unverändert erhalten
+- keine doppelten Node-/Link-IDs und keine überlappenden Node-Rechtecke
+- vorhandene `PixaromaNote`-Dictionaries einschließlich Position, Größe und Inhalt unverändert
+- alle fünf neuen Trainer verwenden installierte Core-Nodes und vorhandene lokale Modelle
+- alle fünf Trainer erfolgreich mit einem vollständigen einmaligen 1-Step-Train-und-Save-Smoke-Test auf der Radeon AI Pro R9700 / ROCm 7.15 ausgeführt; die ausgelieferten Workflows starten bewusst mit 2 Schritten für den ersten eigenen Smoke-Test, und die erzeugten Test-Safetensors enthielten nichtleere Adaptergewichte
+- Boogu erst nach aktiviertem `offloading=true` OOM-frei validiert; diese sichere Einstellung ist im Workflow fest voreingestellt
+- keine NVIDIA-/CUDA-only-Risiko-Widgets und keine eingebetteten `Rh-Comfy-Auth`-Tokens/JWTs
+- Generator, Refinement und Validator sind reproduzierbar und idempotent; die fokussierte Unit-Test-Suite prüft dynamische Widgets, Seed-Kontrollen, VHS-Dictionary-Werte, Subgraphs und TrainLora-Widgetreihenfolge
 
-Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und statische RDNA4-Kompatibilität. Der neue Audio-to-Image-Workflow wurde zusätzlich vollständig mit Gemma 4 und FLUX.2 Klein 4B auf der lokalen ComfyUI-Installation ausgeführt. Ein vollständiger GPU-End-to-End-Lauf aller 176 Workflows wäre sehr rechen- und zeitintensiv; besonders große WAN-/LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.
+Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und RDNA4-Kompatibilität. Die fünf neuen Bild-LoRA-Trainer wurden lokal bis zum gespeicherten Adapter ausgeführt; Krea 2 RAW wurde nach dem OOM konsequent entfernt. Der Audio-to-Image-Workflow wurde vollständig mit Gemma 4 und FLUX.2 Klein 4B auf der lokalen ComfyUI-Installation ausgeführt. Ein vollständiger GPU-End-to-End-Lauf aller 181 Workflows wäre sehr rechen- und zeitintensiv; besonders große WAN-/LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.

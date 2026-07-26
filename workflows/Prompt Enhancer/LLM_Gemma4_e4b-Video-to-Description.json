@@ -1,15 +1,15 @@
 {
   "id": "6d2c1c3c-70e3-4d13-9413-b1b027c691b3",
   "revision": 0,
-  "last_node_id": 15,
+  "last_node_id": 19,
   "last_link_id": 7,
   "nodes": [
     {
       "id": 5,
       "type": "PixaromaShowText",
       "pos": [
-        498.98291702436495,
-        168.56415608910356
+        1222.508,
+        396.126
       ],
       "size": [
         438.4892984785601,
@@ -47,8 +47,8 @@
       "id": 13,
       "type": "LoadVideo",
       "pos": [
-        -343.52168929332856,
-        326.7846956825924
+        -841.628,
+        1163.944
       ],
       "size": [
         386.798828125,
@@ -83,8 +83,8 @@
       "id": 14,
       "type": "GetVideoComponents",
       "pos": [
-        71.13038661461565,
-        919.3984686067583
+        174.269,
+        2160.586
       ],
       "size": [
         193.530859375,
@@ -132,8 +132,8 @@
       "id": 3,
       "type": "TextGenerate",
       "pos": [
-        71.13038661461565,
-        168.56415608910342
+        174.269,
+        396.126
       ],
       "size": [
         400,
@@ -211,8 +211,8 @@
       "id": 11,
       "type": "PixaromaText",
       "pos": [
-        71.13038661461565,
-        639.9813123479308
+        174.269,
+        1503.956
       ],
       "size": [
         400,
@@ -307,8 +307,8 @@
       "id": 8,
       "type": "PixaromaLabel",
       "pos": [
-        -916.0781713722968,
-        63.031910200653414
+        -2244.392,
+        148.125
       ],
       "size": [
         461,
@@ -337,8 +337,8 @@
       "id": 1,
       "type": "CLIPLoader",
       "pos": [
-        -343.52097192013366,
-        168.56415608910342
+        -841.626,
+        0.126
       ],
       "size": [
         386.798828125,
@@ -374,8 +374,8 @@
       "id": 15,
       "type": "PixaromaRunTimer",
       "pos": [
-        -916.0781713722968,
-        1199.2359977659257
+        -2244.392,
+        2818.205
       ],
       "size": [
         226,
@@ -403,6 +403,122 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 16,
+      "type": "MarkdownNote",
+      "pos": [
+        -320.827,
+        0.126
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load CLIP · Node 1",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 1,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load CLIP · Node 1\n\n**Zweck:** Recipes: ↵ sd: clip-l ↵ stable cascade: clip-g ↵ sd3: t5 xxl / clip-g / clip-l ↵ stable audio: t5 base ↵ mochi: t5 xxl ↵ cogvideox: t5 xxl (226-token padding) ↵ cosmos: old t5 xxl ↵ lumina2: gemma 2 2B ↵ wan: umt5 xxl ↵ hidream: llama-3.1 (Recommend) or t5 ↵ omnigen2: qwen vl 2.5 3B ↵ joyimage: qwen3-vl 8B ↵ lens: gpt…\n\n**Einstellbare Werte**\n- `clip_name` = `Gemma\\gemma4_e4b_it_fp8_scaled.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `type` = `stable_diffusion` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `device` = `default` — Steuert diesen Parameter. Die Auswahl bestimmt das Rechen-Backend (z. B. GPU oder CPU) und damit Geschwindigkeit und Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `CLIP` (CLIP, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 17,
+      "type": "MarkdownNote",
+      "pos": [
+        620.269,
+        396.126
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Generate Text · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 3,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Generate Text · Node 3\n\n**Zweck:** Erzeugt mit dem geladenen Sprachmodell Text aus Prompt und optionalen Bild-, Video- oder Audio-Eingaben.\n\n**Einstellbare Werte**\n- `prompt` = `` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `max_length` = `2048` — Steuert diesen Parameter. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `sampling_mode` = `on` — Sampling Mode Ändert die Verarbeitung dieses Nodes entsprechend dem angeschlossenen Datentyp.\n- `temperature` = `0.7` — Steuert diesen Parameter. Höher macht die Auswahl vielfältiger/zufälliger; niedriger wird deterministischer und konservativer.\n- `top_k` = `64` — Steuert diesen Parameter. Höher erlaubt mehr Kandidaten und Vielfalt; niedriger begrenzt die Auswahl stärker.\n- `top_p` = `0.95` — Steuert diesen Parameter. Ändert den Wahrscheinlichkeitsfilter: großzügiger erhöht Vielfalt, strenger erhöht Fokus/Konsistenz.\n- `min_p` = `0.05` — Steuert diesen Parameter. Ändert den Wahrscheinlichkeitsfilter: großzügiger erhöht Vielfalt, strenger erhöht Fokus/Konsistenz.\n- `repetition_penalty` = `1.05` — Steuert diesen Parameter. Über 1 unterdrückt Wiederholungen zunehmend; zu hoch kann Wörter, Klang oder Kohärenz beschädigen, nahe 1 bleibt neutral.\n- `seed` = `0` — Steuert diesen Parameter. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `presence_penalty` = `0` — Steuert diesen Parameter. Höher bevorzugt neue Inhalte statt bereits verwendeter Tokens; 0 lässt die ursprüngliche Modellverteilung unverändert.\n- `thinking` = `False` — Operate in thinking mode if the model supports it. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `use_default_template` = `True` — Use the built in system prompt/template if the model has one. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `clip` (CLIP, Link 1): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `image` (IMAGE, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `video` (IMAGE, Link 7): Video frames as image batch. Assumed to be 24 FPS; subsampled to 1 FPS internally.\n- `audio` (AUDIO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `prompt` (STRING, Link 4): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `generated_text` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 18,
+      "type": "MarkdownNote",
+      "pos": [
+        -408.829,
+        1163.944
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Video · Node 13",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 13,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Video · Node 13\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `file` = `LTX_Director_00001_.mp4` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `VIDEO` (VIDEO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 19,
+      "type": "MarkdownNote",
+      "pos": [
+        413.8,
+        2160.586
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Get Video Components · Node 14",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 14,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Get Video Components · Node 14\n\n**Zweck:** Extracts all components from a video: frames, audio, framerate, and bit depth.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `video` (VIDEO, Link 6): The video to extract components from.\n\n**Ausgänge**\n- `images` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `audio` (AUDIO, nicht verbunden): Ergebnis dieses Nodes\n- `fps` (FLOAT, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -461,7 +577,14 @@
     "VHS_latentpreview": false,
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
-    "VHS_KeepIntermediate": true
+    "VHS_KeepIntermediate": true,
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 4,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

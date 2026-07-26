@@ -1,15 +1,15 @@
 {
   "id": "06c37c37-6fa7-44dc-b7e0-c4008eff7b72",
   "revision": 0,
-  "last_node_id": 11,
+  "last_node_id": 20,
   "last_link_id": 10,
   "nodes": [
     {
       "id": 1,
       "type": "CheckpointLoaderSimple",
       "pos": [
-        40,
-        40
+        98.0,
+        94.0
       ],
       "size": [
         320,
@@ -70,8 +70,8 @@
       "id": 2,
       "type": "CLIPSetLastLayer",
       "pos": [
-        40,
-        224.28571428571433
+        98.0,
+        527.071
       ],
       "size": [
         320,
@@ -123,8 +123,8 @@
       "id": 3,
       "type": "CLIPTextEncode",
       "pos": [
-        400,
-        40
+        980.0,
+        94.0
       ],
       "size": [
         420,
@@ -177,8 +177,8 @@
       "id": 4,
       "type": "CLIPTextEncode",
       "pos": [
-        398.57142857142867,
-        295.71428571428567
+        976.5,
+        694.929
       ],
       "size": [
         420,
@@ -231,8 +231,8 @@
       "id": 5,
       "type": "EmptyLatentImage",
       "pos": [
-        407.1428571428571,
-        524.2857142857143
+        997.5,
+        1232.071
       ],
       "size": [
         320,
@@ -297,8 +297,8 @@
       "id": 6,
       "type": "KSampler",
       "pos": [
-        860,
-        40
+        2107.0,
+        94.0
       ],
       "size": [
         330,
@@ -417,8 +417,8 @@
       "id": 7,
       "type": "VAELoader",
       "pos": [
-        834.2857142857143,
-        402.8571428571429
+        2044.0,
+        946.714
       ],
       "size": [
         368.5666809082031,
@@ -463,8 +463,8 @@
       "id": 8,
       "type": "VAEDecode",
       "pos": [
-        1230,
-        40
+        3013.5,
+        94.0
       ],
       "size": [
         225,
@@ -509,8 +509,8 @@
       "id": 9,
       "type": "SaveImage",
       "pos": [
-        1230,
-        140
+        3013.5,
+        329.0
       ],
       "size": [
         480,
@@ -558,8 +558,8 @@
       "id": 10,
       "type": "Note",
       "pos": [
-        37.14285714285711,
-        358.57142857142856
+        91.0,
+        842.643
       ],
       "size": [
         330,
@@ -586,8 +586,8 @@
       "id": 11,
       "type": "PixaromaRunTimer",
       "pos": [
-        840,
-        530.0000000000005
+        2058.0,
+        1245.5
       ],
       "size": [
         226,
@@ -616,6 +616,267 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 12,
+      "type": "MarkdownNote",
+      "pos": [
+        464.0,
+        94.0
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Checkpoint · Node 1",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 1,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Checkpoint · Node 1\n\n**Zweck:** Loads a diffusion model checkpoint, diffusion models are used to denoise latents.\n\n**Einstellbare Werte**\n- `ckpt_name` = `SDXL\\novaAnimeXL_ilV190.safetensors` — The name of the checkpoint (model) to load. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n\n**Eingänge**\n- `ckpt_name` (COMBO, nicht verbunden): The name of the checkpoint (model) to load.\n\n**Ausgänge**\n- `MODEL` (MODEL, 1 Verbindung(en)): The model used for denoising latents.\n- `CLIP` (CLIP, 1 Verbindung(en)): The CLIP model used for encoding text prompts.\n- `VAE` (VAE, nicht verbunden): The VAE model used for encoding and decoding images to and from latent space."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 13,
+      "type": "MarkdownNote",
+      "pos": [
+        464.0,
+        527.071
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · CLIP Skip · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · CLIP Skip · Node 2\n\n**Zweck:** Verarbeitet die Ein- und Ausgaben des Node-Typs `CLIPSetLastLayer` gemäß seiner Workflow-Funktion.\n\n**Einstellbare Werte**\n- `stop_at_clip_layer` = `-2` — Steuert diesen Parameter. Stärker negative Werte stoppen CLIP früher und verändern Stil/Promptinterpretation; -1 nutzt die letzte Schicht.\n\n**Eingänge**\n- `clip` (CLIP, Link 1): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `stop_at_clip_layer` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CLIP` (CLIP, 2 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 14,
+      "type": "MarkdownNote",
+      "pos": [
+        1446.0,
+        94.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Positiv · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 3,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Positiv · Node 3\n\n**Zweck:** Encodes a text prompt using a CLIP model into an embedding that can be used to guide the diffusion model towards generating specific images.\n\n**Einstellbare Werte**\n- `text` = `Extreme close-up photograph of a single human eye, filling most of the frame. The eye is open and looking dir…` — The text to be encoded. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- `clip` (CLIP, Link 2): The CLIP model used for encoding the text.\n- `text` (STRING, nicht verbunden): The text to be encoded.\n\n**Ausgänge**\n- `CONDITIONING` (CONDITIONING, 1 Verbindung(en)): A conditioning containing the embedded text used to guide the diffusion model."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 15,
+      "type": "MarkdownNote",
+      "pos": [
+        1442.5,
+        694.929
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Negativ · Node 4",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 4,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Negativ · Node 4\n\n**Zweck:** Encodes a text prompt using a CLIP model into an embedding that can be used to guide the diffusion model towards generating specific images.\n\n**Einstellbare Werte**\n- `text` = `two eyes, multiple eyes, extra pupil, double pupil, malformed iris, distorted eye, asymmetric pupil, cross-ey…` — The text to be encoded. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- `clip` (CLIP, Link 3): The CLIP model used for encoding the text.\n- `text` (STRING, nicht verbunden): The text to be encoded.\n\n**Ausgänge**\n- `CONDITIONING` (CONDITIONING, 1 Verbindung(en)): A conditioning containing the embedded text used to guide the diffusion model."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 16,
+      "type": "MarkdownNote",
+      "pos": [
+        1363.5,
+        1232.071
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Latent (SDXL: 1024²) · Node 5",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 5,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Latent (SDXL: 1024²) · Node 5\n\n**Zweck:** Create a new batch of empty latent images to be denoised via sampling.\n\n**Einstellbare Werte**\n- `width` = `1024` — The width of the latent images in pixels. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `height` = `1024` — The height of the latent images in pixels. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `batch_size` = `1` — The number of latent images in the batch. Höher verarbeitet mehr Beispiele parallel und braucht mehr VRAM; niedriger spart Speicher.\n\n**Eingänge**\n- `width` (INT, nicht verbunden): The width of the latent images in pixels.\n- `height` (INT, nicht verbunden): The height of the latent images in pixels.\n- `batch_size` (INT, nicht verbunden): The number of latent images in the batch.\n\n**Ausgänge**\n- `LATENT` (LATENT, 1 Verbindung(en)): The empty latent image batch."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 17,
+      "type": "MarkdownNote",
+      "pos": [
+        2483.0,
+        94.0
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · KSampler · Node 6",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 6,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · KSampler · Node 6\n\n**Zweck:** Uses the provided model, positive and negative conditioning to denoise the latent image.\n\n**Einstellbare Werte**\n- `seed` = `991178588264859` — The random seed used for creating the noise. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `seed_control_after_generate` = `randomize` — Verhalten des Werts nach jedem Workflow-Lauf. `randomize` erzeugt pro Lauf eine neue Variation; `fixed` behält den Wert; andere Modi ändern ihn schrittweise.\n- `steps` = `30` — The number of steps used in the denoising process. Höher erhöht Laufzeit und mögliche Ausarbeitung, kann aber übertrainieren; niedriger ist schneller.\n- `cfg` = `6` — The Classifier-Free Guidance scale balances creativity and adherence to the prompt. Higher values result in images more closely matching the prompt however too high values will ne… Höher folgt der Vorgabe stärker, kann unnatürlich/übersättigt wirken; niedriger lässt mehr Freiheit.\n- `sampler_name` = `euler_ancestral` — The algorithm used when sampling, this can affect the quality, speed, and style of the generated output. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n- `scheduler` = `normal` — The scheduler controls how noise is gradually removed to form the image. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n- `denoise` = `1` — The amount of denoising applied, lower values will maintain the structure of the initial image allowing for image to image sampling. Höher verstärkt den Einfluss bzw. die Veränderung; niedriger bewahrt Eingang/Grundmodell stärker.\n\n**Eingänge**\n- `model` (MODEL, Link 4): The model used for denoising the input latent.\n- `positive` (CONDITIONING, Link 5): The conditioning describing the attributes you want to include in the image.\n- `negative` (CONDITIONING, Link 6): The conditioning describing the attributes you want to exclude from the image.\n- `latent_image` (LATENT, Link 7): The latent image to denoise.\n- `seed` (INT, nicht verbunden): The random seed used for creating the noise.\n- `steps` (INT, nicht verbunden): The number of steps used in the denoising process.\n- `cfg` (FLOAT, nicht verbunden): The Classifier-Free Guidance scale balances creativity and adherence to the prompt. Higher values result in images more closely matching the prompt h…\n- `sampler_name` (COMBO, nicht verbunden): The algorithm used when sampling, this can affect the quality, speed, and style of the generated output.\n- `scheduler` (COMBO, nicht verbunden): The scheduler controls how noise is gradually removed to form the image.\n- `denoise` (FLOAT, nicht verbunden): The amount of denoising applied, lower values will maintain the structure of the initial image allowing for image to image sampling.\n\n**Ausgänge**\n- `LATENT` (LATENT, 1 Verbindung(en)): The denoised latent."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 18,
+      "type": "MarkdownNote",
+      "pos": [
+        2458.567,
+        946.714
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · VAE (extern) · Node 7",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 7,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · VAE (extern) · Node 7\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `vae_name` = `SDXL\\Illustrious_vae.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n\n**Eingänge**\n- `vae_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `VAE` (VAE, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 19,
+      "type": "MarkdownNote",
+      "pos": [
+        3284.5,
+        -38.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · VAE Decode · Node 8",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 8,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · VAE Decode · Node 8\n\n**Zweck:** Decodes latent images back into pixel space images.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `samples` (LATENT, Link 8): The latent to be decoded.\n- `vae` (VAE, Link 9): The VAE model used for decoding the latent.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): The decoded image."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 20,
+      "type": "MarkdownNote",
+      "pos": [
+        3539.5,
+        329.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Speichern · Node 9",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 9,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Speichern · Node 9\n\n**Zweck:** Saves the input images to your ComfyUI output directory.\n\n**Einstellbare Werte**\n- `filename_prefix` = `WF_SDXL_novaAnimeXL_ilV190` — The prefix for the file to save. This may include formatting information such as %date:yyyy-MM-dd% or %Empty Latent Image.width% to include values from nodes. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n\n**Eingänge**\n- `images` (IMAGE, Link 10): The images to save.\n- `filename_prefix` (STRING, nicht verbunden): The prefix for the file to save. This may include formatting information such as %date:yyyy-MM-dd% or %Empty Latent Image.width% to include values fr…\n\n**Ausgänge**\n- `images` (IMAGE, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -709,6 +970,13 @@
         1461.4285714285716,
         561.4285714285711
       ]
+    },
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 9,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
     }
   },
   "version": 0.4

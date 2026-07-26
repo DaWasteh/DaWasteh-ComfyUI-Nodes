@@ -8,8 +8,8 @@
       "id": 240,
       "type": "PixaromaLoadImagesFolder",
       "pos": [
-        -1027.9025668421764,
-        217.83035566381673
+        -2518.361,
+        511.901
       ],
       "size": [
         370,
@@ -83,8 +83,8 @@
       "id": 226,
       "type": "PixaromaPreview",
       "pos": [
-        -626.7323212467865,
-        217.83035566381673
+        -1535.494,
+        555.901
       ],
       "size": [
         410.57799999999975,
@@ -160,8 +160,8 @@
       "id": 211,
       "type": "PixaromaLabel",
       "pos": [
-        -1027.9025668421764,
-        104.78315929186166
+        -2518.361,
+        246.24
       ],
       "size": [
         542,
@@ -218,8 +218,8 @@
       "id": 241,
       "type": "PixaromaRunTimer",
       "pos": [
-        -1566.7373506224787,
-        791.8303556638167
+        -3838.507,
+        1860.801
       ],
       "size": [
         226,
@@ -287,7 +287,14 @@
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
     "VHS_KeepIntermediate": true,
-    "workflowRendererVersion": "LG"
+    "workflowRendererVersion": "LG",
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 0,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

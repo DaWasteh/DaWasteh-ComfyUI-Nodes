@@ -1,15 +1,15 @@
 {
   "id": "23a1fd59-1a2b-4029-b16d-e90b266437d6",
   "revision": 0,
-  "last_node_id": 16,
+  "last_node_id": 23,
   "last_link_id": 15,
   "nodes": [
     {
       "id": 5,
       "type": "easy positive",
       "pos": [
-        -1147.8411054006647,
-        -376.7180786166191
+        -2812.211,
+        -885.287
       ],
       "size": [
         337.2578657935387,
@@ -46,8 +46,8 @@
       "id": 14,
       "type": "FB_Qwen3TTSVoiceClonePrompt",
       "pos": [
-        -425.88418408177296,
-        -376.7180786166191
+        -1043.416,
+        -885.287
       ],
       "size": [
         400,
@@ -100,8 +100,8 @@
       "id": 6,
       "type": "easy positive",
       "pos": [
-        -1147.8411054006647,
-        -85.54339575786133
+        -2812.211,
+        -201.027
       ],
       "size": [
         337.2578657935387,
@@ -136,8 +136,8 @@
       "id": 13,
       "type": "FB_Qwen3TTSSaveVoice",
       "pos": [
-        -2.1635892158659544,
-        -376.7180786166191
+        -5.301,
+        -885.287
       ],
       "size": [
         400,
@@ -184,8 +184,8 @@
       "id": 4,
       "type": "FB_Qwen3TTSVoiceDesign",
       "pos": [
-        -786.8626447412187,
-        -376.7180786166191
+        -1927.813,
+        -885.287
       ],
       "size": [
         337.2578657935387,
@@ -257,8 +257,8 @@
       "id": 15,
       "type": "LayerUtility: PurgeVRAM V2",
       "pos": [
-        -425.88418408177296,
-        -95.05789711131548
+        -1043.416,
+        -223.386
       ],
       "size": [
         288.4146484375,
@@ -298,8 +298,8 @@
       "id": 8,
       "type": "SaveAudioMP3",
       "pos": [
-        -116.46298771484494,
-        -95.05789711131548
+        -285.334,
+        -223.386
       ],
       "size": [
         270,
@@ -330,8 +330,8 @@
       "id": 10,
       "type": "MarkdownNote",
       "pos": [
-        -1684.4491366696368,
-        -376.7180786166191
+        -4126.9,
+        -885.287
       ],
       "size": [
         516.1707001965974,
@@ -356,8 +356,8 @@
       "id": 16,
       "type": "PixaromaRunTimer",
       "pos": [
-        -1684.4491366696368,
-        361.68367733751313
+        -4126.9,
+        849.957
       ],
       "size": [
         226,
@@ -385,6 +385,209 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 17,
+      "type": "MarkdownNote",
+      "pos": [
+        -1544.555,
+        -885.287
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 🎨 Qwen3-TTS VoiceDesign · Node 4",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 4,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 🎨 Qwen3-TTS VoiceDesign · Node 4\n\n**Zweck:** VoiceDesign: Generate custom voices from descriptions.\n\n**Einstellbare Werte**\n- `text` = `` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `instruct` = `` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `model_choice` = `1.7B` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `device` = `auto` — Steuert diesen Parameter. Die Auswahl bestimmt das Rechen-Backend (z. B. GPU oder CPU) und damit Geschwindigkeit und Kompatibilität.\n- `precision` = `bf16` — Steuert diesen Parameter. Die Auswahl ändert Rechenpräzision, Speicherbedarf und Hardware-Kompatibilität.\n- `language` = `English` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `seed` = `502134660711936` — Steuert diesen Parameter. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `seed_control_after_generate` = `randomize` — Verhalten des Werts nach jedem Workflow-Lauf. `randomize` erzeugt pro Lauf eine neue Variation; `fixed` behält den Wert; andere Modi ändern ihn schrittweise.\n- `max_new_tokens` = `2048` — Steuert diesen Parameter. Höher erlaubt längere Text-/Sprachausgaben und benötigt mehr Zeit/Speicher; niedriger kürzt früher ab.\n- `top_p` = `0.8` — Nucleus sampling probability Ändert den Wahrscheinlichkeitsfilter: großzügiger erhöht Vielfalt, strenger erhöht Fokus/Konsistenz.\n- `top_k` = `20` — Top-k sampling parameter Höher erlaubt mehr Kandidaten und Vielfalt; niedriger begrenzt die Auswahl stärker.\n- `temperature` = `1` — Sampling temperature Höher macht die Auswahl vielfältiger/zufälliger; niedriger wird deterministischer und konservativer.\n- `repetition_penalty` = `1.05` — Penalty for repetition Über 1 unterdrückt Wiederholungen zunehmend; zu hoch kann Wörter, Klang oder Kohärenz beschädigen, nahe 1 bleibt neutral.\n- `attention` = `sdpa` — Attention implementation Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `unload_model_after_generate` = `False` — Unload model from memory after generation AN gibt Modell-/VRAM-Speicher nach dem Lauf frei, macht den nächsten Lauf aber langsamer; AUS hält das Modell für Wiederholungen im Cache.\n\n**Eingänge**\n- `config` (TTS_CONFIG, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `text` (STRING, Link 7): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `instruct` (STRING, Link 8): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `audio` (AUDIO, 3 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 18,
+      "type": "MarkdownNote",
+      "pos": [
+        -2428.953,
+        -885.287
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 1. Speech Text · Node 5",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 5,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 1. Speech Text · Node 5\n\n**Zweck:** Verarbeitet die Ein- und Ausgaben des Node-Typs `easy positive` gemäß seiner Workflow-Funktion.\n\n**Einstellbare Werte**\n- `positive` = `What’s up, I’m Pixaroma. In this workflow we design a custom voice. Instead of picking a preset speaker, you …` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `positive` (STRING, 3 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 19,
+      "type": "MarkdownNote",
+      "pos": [
+        -2428.953,
+        -201.027
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 2. Voice Direction · Node 6",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 6,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 2. Voice Direction · Node 6\n\n**Zweck:** Verarbeitet die Ein- und Ausgaben des Node-Typs `easy positive` gemäß seiner Workflow-Funktion.\n\n**Einstellbare Werte**\n- `positive` = `Male voice. Deep, modern YouTuber narrator. Confident and friendly. Medium pace, clear pronunciation. Slight …` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `positive` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 20,
+      "type": "MarkdownNote",
+      "pos": [
+        30.666,
+        -223.386
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Save Audio (MP3) (DEPRECATED) · Node 8",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 8,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Save Audio (MP3) (DEPRECATED) · Node 8\n\n**Zweck:** Speichert das erzeugte Ergebnis mit den gewählten Ausgabeparametern.\n\n**Einstellbare Werte**\n- `filename_prefix` = `audio/voice` — Steuert diesen Parameter. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n- `quality` = `V0` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `audio` (AUDIO, Link 14): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 21,
+      "type": "MarkdownNote",
+      "pos": [
+        440.699,
+        -885.287
+      ],
+      "size": [
+        390,
+        345
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 💾 Qwen3-TTS SaveVoice · Node 13",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 13,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 💾 Qwen3-TTS SaveVoice · Node 13\n\n**Zweck:** SaveVoice: Save voice clone prompt features to disk for later use.\n\n**Einstellbare Werte**\n- `filename` = `my_custom_voice2` — Steuert diesen Parameter. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n- `ref_text` = `` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- `voice_clone_prompt` (VOICE_CLONE_PROMPT, Link 9): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audio` (AUDIO, Link 11): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_text` (STRING, Link 13): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 22,
+      "type": "MarkdownNote",
+      "pos": [
+        -597.416,
+        -885.287
+      ],
+      "size": [
+        390,
+        413
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 🎭 Qwen3-TTS VoiceClonePrompt · Node 14",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 14,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 🎭 Qwen3-TTS VoiceClonePrompt · Node 14\n\n**Zweck:** VoiceClonePrompt: Extract and cache voice features for reuse in VoiceClone node.\n\n**Einstellbare Werte**\n- `ref_text` = `` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `model_choice` = `1.7B` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `device` = `auto` — Steuert diesen Parameter. Die Auswahl bestimmt das Rechen-Backend (z. B. GPU oder CPU) und damit Geschwindigkeit und Kompatibilität.\n- `precision` = `bf16` — Steuert diesen Parameter. Die Auswahl ändert Rechenpräzision, Speicherbedarf und Hardware-Kompatibilität.\n- `attention` = `sdpa` — Attention implementation Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `x_vector_only` = `False` — If True, only speaker embedding is extracted (ref_text not needed) AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `unload_model_after_generate` = `False` — Unload model from memory after generation AN gibt Modell-/VRAM-Speicher nach dem Lauf frei, macht den nächsten Lauf aber langsamer; AUS hält das Modell für Wiederholungen im Cache.\n\n**Eingänge**\n- `ref_audio` (AUDIO, Link 10): Reference audio (ComfyUI Audio)\n- `ref_text` (STRING, Link 12): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `voice_clone_prompt` (VOICE_CLONE_PROMPT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 23,
+      "type": "MarkdownNote",
+      "pos": [
+        -841.001,
+        -91.386
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LayerUtility: Purge VRAM V2 · Node 15",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 15,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LayerUtility: Purge VRAM V2 · Node 15\n\n**Zweck:** Gibt zwischengespeicherte Modelle und VRAM frei, damit nachfolgende große Schritte mehr Speicher erhalten.\n\n**Einstellbare Werte**\n- `purge_cache` = `True` — Steuert diesen Parameter. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `purge_models` = `True` — Steuert diesen Parameter. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `anything` (*, Link 15): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `any` (*, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -476,7 +679,14 @@
     "VHS_latentpreview": false,
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
-    "VHS_KeepIntermediate": true
+    "VHS_KeepIntermediate": true,
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 7,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

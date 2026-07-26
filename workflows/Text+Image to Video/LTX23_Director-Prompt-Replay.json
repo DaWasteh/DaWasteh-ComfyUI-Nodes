@@ -1,15 +1,15 @@
 {
   "id": "64b81755-dd7d-4e01-9e14-9b2ad6ab4341",
   "revision": 0,
-  "last_node_id": 97,
+  "last_node_id": 126,
   "last_link_id": 217,
   "nodes": [
     {
       "id": 13,
       "type": "LTXVSeparateAVLatent",
       "pos": [
-        4196.507111111112,
-        4572.199111111127
+        10281.442,
+        10744.668
       ],
       "size": [
         225,
@@ -61,8 +61,8 @@
       "id": 53,
       "type": "KSamplerSelect",
       "pos": [
-        3520.2393333333334,
-        3975.64688888889
+        8624.586,
+        9342.77
       ],
       "size": [
         225,
@@ -117,8 +117,8 @@
       "id": 47,
       "type": "SamplerCustomAdvanced",
       "pos": [
-        3740.2393333333334,
-        3835.64688888889
+        9163.586,
+        9013.77
       ],
       "size": [
         230,
@@ -203,8 +203,8 @@
       "id": 50,
       "type": "LTXVConcatAVLatent",
       "pos": [
-        3290.2393333333334,
-        4075.64688888888
+        8061.086,
+        9577.77
       ],
       "size": [
         225,
@@ -261,8 +261,8 @@
       "id": 11,
       "type": "BasicScheduler",
       "pos": [
-        3746.507111111111,
-        4802.199111111127
+        9178.942,
+        11285.168
       ],
       "size": [
         225,
@@ -339,8 +339,8 @@
       "id": 48,
       "type": "LTXVSeparateAVLatent",
       "pos": [
-        3980.2393333333334,
-        3835.64688888889
+        9751.586,
+        9013.77
       ],
       "size": [
         225,
@@ -399,8 +399,8 @@
       "id": 49,
       "type": "CFGGuider",
       "pos": [
-        3520.2393333333334,
-        3835.64688888889
+        8624.586,
+        9013.77
       ],
       "size": [
         225,
@@ -476,8 +476,8 @@
       "id": 14,
       "type": "LTXVCropGuides",
       "pos": [
-        4190.239333333332,
-        3835.64688888889
+        10266.086,
+        9013.77
       ],
       "size": [
         225,
@@ -548,8 +548,8 @@
       "id": 10,
       "type": "SamplerCustomAdvanced",
       "pos": [
-        3964.500031032986,
-        4562.164931423627
+        9713.025,
+        10721.088
       ],
       "size": [
         225,
@@ -634,8 +634,8 @@
       "id": 4,
       "type": "VAELoaderKJ",
       "pos": [
-        1352.105185680022,
-        4328.597488769526
+        3312.658,
+        10172.204
       ],
       "size": [
         431.04998779296875,
@@ -707,8 +707,8 @@
       "id": 3,
       "type": "VAELoaderKJ",
       "pos": [
-        1382.7717708876892,
-        4579.126030817208
+        3387.791,
+        10760.946
       ],
       "size": [
         410.26666259765625,
@@ -782,8 +782,8 @@
       "id": 92,
       "type": "MarkdownNote",
       "pos": [
-        734.3462110085763,
-        4312.42514339984
+        1799.148,
+        10134.199
       ],
       "size": [
         593.2833251953125,
@@ -808,8 +808,8 @@
       "id": 5,
       "type": "LTXVConditioning",
       "pos": [
-        3030.501251736111,
-        4570.338759548627
+        7424.728,
+        10740.296
       ],
       "size": [
         240,
@@ -889,8 +889,8 @@
       "id": 29,
       "type": "KSamplerSelect",
       "pos": [
-        3735.470978298611,
-        4692.164443142377
+        9151.904,
+        11026.586
       ],
       "size": [
         225,
@@ -945,8 +945,8 @@
       "id": 57,
       "type": "LatentUpscaleModelLoader",
       "pos": [
-        3027.2227317708334,
-        3957.90714279514
+        7416.696,
+        9301.082
       ],
       "size": [
         250,
@@ -994,8 +994,8 @@
       "id": 55,
       "type": "LTXVCropGuides",
       "pos": [
-        3025.7154075520834,
-        3839.612953342015
+        7413.003,
+        9023.09
       ],
       "size": [
         250,
@@ -1070,8 +1070,8 @@
       "id": 58,
       "type": "LTXDirectorGuide",
       "pos": [
-        3287.2239524739584,
-        3833.58292404514
+        8053.699,
+        9008.92
       ],
       "size": [
         225,
@@ -1184,8 +1184,8 @@
       "id": 52,
       "type": "LTXVLatentUpsampler",
       "pos": [
-        3028.9915305989584,
-        4066.8929826388808
+        7421.029,
+        9557.199
       ],
       "size": [
         250,
@@ -1249,8 +1249,8 @@
       "id": 7,
       "type": "LTXVConcatAVLatent",
       "pos": [
-        3521.411407986111,
-        4714.800185329877
+        8627.458,
+        11079.78
       ],
       "size": [
         225,
@@ -1300,8 +1300,8 @@
       "id": 84,
       "type": "DualCLIPLoader",
       "pos": [
-        1215.9342440695664,
-        4051.7314339832483
+        2979.039,
+        9521.569
       ],
       "size": [
         565.1166381835938,
@@ -1383,8 +1383,8 @@
       "id": 16,
       "type": "LTXVAudioVAEDecode",
       "pos": [
-        4203.477536024292,
-        4299.86453081598
+        10298.52,
+        10104.682
       ],
       "size": [
         225,
@@ -1434,8 +1434,8 @@
       "id": 15,
       "type": "VAEDecode",
       "pos": [
-        4202.373532118042,
-        4393.17629839411
+        10295.815,
+        10323.964
       ],
       "size": [
         225,
@@ -1485,8 +1485,8 @@
       "id": 94,
       "type": "VHS_VideoCombine",
       "pos": [
-        4480.133648437486,
-        4295.048444227439
+        10976.327,
+        10093.364
       ],
       "size": [
         475.1166687011719,
@@ -1614,8 +1614,8 @@
       "id": 28,
       "type": "RandomNoise",
       "pos": [
-        3747.753449001736,
-        4561.607314236127
+        9181.996,
+        10719.777
       ],
       "size": [
         225,
@@ -1665,8 +1665,8 @@
       "id": 9,
       "type": "CFGGuider",
       "pos": [
-        3519.690460720486,
-        4563.837782986127
+        8623.242,
+        10725.019
       ],
       "size": [
         225,
@@ -1742,8 +1742,8 @@
       "id": 26,
       "type": "ConditioningZeroOut",
       "pos": [
-        3039.415314236111,
-        4698.298232204877
+        7446.568,
+        11041.001
       ],
       "size": [
         240,
@@ -1786,8 +1786,8 @@
       "id": 8,
       "type": "LTXDirectorGuide",
       "pos": [
-        3291.785919704861,
-        4560.973525173627
+        8064.876,
+        10718.288
       ],
       "size": [
         225,
@@ -1904,8 +1904,8 @@
       "id": 95,
       "type": "UNETLoader",
       "pos": [
-        1113.5765668456581,
-        3868.284276867665
+        2728.263,
+        9090.468
       ],
       "size": [
         659.3666381835938,
@@ -1962,8 +1962,8 @@
       "id": 96,
       "type": "ManualSigmas",
       "pos": [
-        3506.1463157552084,
-        4092.835365451377
+        8590.058,
+        9618.163
       ],
       "size": [
         225,
@@ -2025,8 +2025,8 @@
       "id": 46,
       "type": "LTXDirector",
       "pos": [
-        1847.071044921875,
-        3887.5751953125
+        4525.324,
+        9135.802
       ],
       "size": [
         1120,
@@ -2291,8 +2291,8 @@
       "id": 97,
       "type": "PixaromaRunTimer",
       "pos": [
-        734.3462110085763,
-        5409.031720594627
+        1799.148,
+        12711.225
       ],
       "size": [
         226,
@@ -2320,6 +2320,847 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 98,
+      "type": "MarkdownNote",
+      "pos": [
+        3844.058,
+        10760.946
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Video VAELoader · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 3,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Video VAELoader · Node 3\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `vae_name` = `LTX\\LTX23_video_vae_bf16.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `device` = `main_device` — Steuert diesen Parameter. Die Auswahl bestimmt das Rechen-Backend (z. B. GPU oder CPU) und damit Geschwindigkeit und Kompatibilität.\n- `weight_dtype` = `bf16` — Steuert diesen Parameter. Die Auswahl ändert Rechenpräzision, Speicherbedarf und Hardware-Kompatibilität.\n\n**Eingänge**\n- `vae_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `device` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `weight_dtype` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `VAE` (VAE, 4 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 99,
+      "type": "MarkdownNote",
+      "pos": [
+        3789.708,
+        10172.204
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Audio VAELoader · Node 4",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 4,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Audio VAELoader · Node 4\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `vae_name` = `LTX\\LTX23_audio_vae_bf16.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `device` = `main_device` — Steuert diesen Parameter. Die Auswahl bestimmt das Rechen-Backend (z. B. GPU oder CPU) und damit Geschwindigkeit und Kompatibilität.\n- `weight_dtype` = `bf16` — Steuert diesen Parameter. Die Auswahl ändert Rechenpräzision, Speicherbedarf und Hardware-Kompatibilität.\n\n**Eingänge**\n- `vae_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `device` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `weight_dtype` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `VAE` (VAE, 2 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 100,
+      "type": "MarkdownNote",
+      "pos": [
+        7974.728,
+        11004.296
+      ],
+      "size": [
+        390,
+        345
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LTXVConditioning · Node 5",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 5,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LTXVConditioning · Node 5\n\n**Zweck:** Erzeugt, kombiniert oder gewichtet Konditionierungen, die das generative Modell während des Samplings steuern.\n\n**Einstellbare Werte**\n- `frame_rate` = `24` — Steuert diesen Parameter. Höher wirkt flüssiger und erzeugt/verarbeitet mehr Frames pro Sekunde; niedriger spart Rechenzeit/Dateigröße.\n\n**Eingänge**\n- `positive` (CONDITIONING, Link 116): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `negative` (CONDITIONING, Link 50): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `frame_rate` (FLOAT, Link 120): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `positive` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `negative` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 101,
+      "type": "MarkdownNote",
+      "pos": [
+        8722.458,
+        11255.78
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LTXVConcatAVLatent · Node 7",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 7,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LTXVConcatAVLatent · Node 7\n\n**Zweck:** Führt mehrere kompatible Datenströme oder Konditionierungen zu einem Ergebnis zusammen.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `video_latent` (LATENT, Link 108): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audio_latent` (LATENT, Link 119): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `latent` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 102,
+      "type": "MarkdownNote",
+      "pos": [
+        8335.876,
+        10146.288
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LTX Director Guide · Node 8",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 8,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LTX Director Guide · Node 8\n\n**Zweck:** Verarbeitet die Ein- und Ausgaben des Node-Typs `LTXDirectorGuide` gemäß seiner Workflow-Funktion.\n\n**Einstellbare Werte**\n- `scale_by` = `0.5` — Scale the latent by this factor. Höher vergrößert das Ergebnis proportional und erhöht Pixelzahl, Zeit und VRAM; unter 1 verkleinert es.\n- `upscale_method` = `bicubic` — Method used to upscale/downscale the latent. Die Auswahl ändert die Skalierungsmethode und damit Schärfe, Kanten und mögliche Artefakte.\n\n**Eingänge**\n- `positive` (CONDITIONING, Link 6): Positive conditioning to add guide keyframe info to.\n- `negative` (CONDITIONING, Link 7): Negative conditioning to add guide keyframe info to.\n- `vae` (VAE, Link 16): Video VAE used to encode the guide images.\n- `latent` (LATENT, Link 118): Video latent — guides are inserted into this latent.\n- `guide_data` (GUIDE_DATA, Link 122): Guide data produced by Prompt Relay Encode (Timeline).\n- `scale_by` (FLOAT, nicht verbunden): Scale the latent by this factor.\n- `upscale_method` (COMBO, nicht verbunden): Method used to upscale/downscale the latent.\n\n**Ausgänge**\n- `positive` (CONDITIONING, 3 Verbindung(en)): Ergebnis dieses Nodes\n- `negative` (CONDITIONING, 3 Verbindung(en)): Ergebnis dieses Nodes\n- `latent` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 103,
+      "type": "MarkdownNote",
+      "pos": [
+        8894.242,
+        10329.019
+      ],
+      "size": [
+        390,
+        345
+      ],
+      "flags": {},
+      "order": 36,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · CFG Guider · Node 9",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 9,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · CFG Guider · Node 9\n\n**Zweck:** Erzeugt, kombiniert oder gewichtet Konditionierungen, die das generative Modell während des Samplings steuern.\n\n**Einstellbare Werte**\n- `cfg` = `1` — Steuert diesen Parameter. Höher folgt der Vorgabe stärker, kann unnatürlich/übersättigt wirken; niedriger lässt mehr Freiheit.\n\n**Eingänge**\n- `model` (MODEL, Link 114): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `positive` (CONDITIONING, Link 10): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `negative` (CONDITIONING, Link 11): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `cfg` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `GUIDER` (GUIDER, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 104,
+      "type": "MarkdownNote",
+      "pos": [
+        9984.025,
+        10853.088
+      ],
+      "size": [
+        390,
+        379
+      ],
+      "flags": {},
+      "order": 37,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · SamplerCustomAdvanced · Node 10",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 10,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · SamplerCustomAdvanced · Node 10\n\n**Zweck:** Steuert Sampling, Zeitplan oder Modell-Sampling für den schrittweisen Rauschabbau.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `noise` (NOISE, Link 51): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `guider` (GUIDER, Link 12): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampler` (SAMPLER, Link 53): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sigmas` (SIGMAS, Link 52): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `latent_image` (LATENT, Link 14): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `output` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `denoised_output` (LATENT, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 105,
+      "type": "MarkdownNote",
+      "pos": [
+        9449.942,
+        11285.168
+      ],
+      "size": [
+        390,
+        379
+      ],
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · BasicScheduler · Node 11",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 11,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · BasicScheduler · Node 11\n\n**Zweck:** Steuert Sampling, Zeitplan oder Modell-Sampling für den schrittweisen Rauschabbau.\n\n**Einstellbare Werte**\n- `scheduler` = `linear_quadratic` — Steuert diesen Parameter. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n- `steps` = `8` — Steuert diesen Parameter. Höher erhöht Laufzeit und mögliche Ausarbeitung, kann aber übertrainieren; niedriger ist schneller.\n- `denoise` = `1` — Steuert diesen Parameter. Höher verstärkt den Einfluss bzw. die Veränderung; niedriger bewahrt Eingang/Grundmodell stärker.\n\n**Eingänge**\n- `model` (MODEL, Link 115): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `scheduler` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `steps` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `denoise` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `SIGMAS` (SIGMAS, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 106,
+      "type": "MarkdownNote",
+      "pos": [
+        10420.442,
+        10876.668
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LTXVSeparateAVLatent · Node 13",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 13,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LTXVSeparateAVLatent · Node 13\n\n**Zweck:** LTXV Separate AV Latent\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `av_latent` (LATENT, Link 156): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `video_latent` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `audio_latent` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 107,
+      "type": "MarkdownNote",
+      "pos": [
+        10537.086,
+        9013.77
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 40,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LTXVCropGuides · Node 14",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 14,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LTXVCropGuides · Node 14\n\n**Zweck:** Erzeugt oder verarbeitet Bilddaten, etwa durch Skalierung, Zuschnitt, Maskierung oder Kombination.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `positive` (CONDITIONING, Link 54): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `negative` (CONDITIONING, Link 55): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `latent` (LATENT, Link 136): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `positive` (CONDITIONING, nicht verbunden): Ergebnis dieses Nodes\n- `negative` (CONDITIONING, nicht verbunden): Ergebnis dieses Nodes\n- `latent` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 108,
+      "type": "MarkdownNote",
+      "pos": [
+        9994.815,
+        9751.964
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 41,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · VAE Decode · Node 15",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 15,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · VAE Decode · Node 15\n\n**Zweck:** Decodes latent images back into pixel space images.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `samples` (LATENT, Link 208): The latent to be decoded.\n- `vae` (VAE, Link 59): The VAE model used for decoding the latent.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): The decoded image."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 109,
+      "type": "MarkdownNote",
+      "pos": [
+        10569.52,
+        9708.682
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 42,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LTXV Audio VAE Decode · Node 16",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 16,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LTXV Audio VAE Decode · Node 16\n\n**Zweck:** Dekodiert Latents mit dem VAE zu sicht- oder hörbaren Mediendaten.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `samples` (LATENT, Link 202): The latent to be decoded.\n- `audio_vae` (VAE, Link 58): The Audio VAE model used for decoding the latent.\n\n**Ausgänge**\n- `Audio` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 110,
+      "type": "MarkdownNote",
+      "pos": [
+        7512.568,
+        11261.001
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 43,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Conditioning Zero Out · Node 26",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 26,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Conditioning Zero Out · Node 26\n\n**Zweck:** Erzeugt, kombiniert oder gewichtet Konditionierungen, die das generative Modell während des Samplings steuern.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `conditioning` (CONDITIONING, Link 117): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CONDITIONING` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 111,
+      "type": "MarkdownNote",
+      "pos": [
+        9452.996,
+        10367.777
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 44,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · RandomNoise · Node 28",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 28,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · RandomNoise · Node 28\n\n**Zweck:** Erzeugt oder verändert das Start-Rauschen, das die Variation des generierten Ergebnisses bestimmt.\n\n**Einstellbare Werte**\n- `noise_seed` = `458324272576496` — Steuert diesen Parameter. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `noise_seed_control_after_generate` = `randomize` — Verhalten des Werts nach jedem Workflow-Lauf. `randomize` erzeugt pro Lauf eine neue Variation; `fixed` behält den Wert; andere Modi ändern ihn schrittweise.\n\n**Eingänge**\n- `noise_seed` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `NOISE` (NOISE, 2 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 112,
+      "type": "MarkdownNote",
+      "pos": [
+        9906.904,
+        11510.586
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 45,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · KSamplerSelect · Node 29",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 29,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · KSamplerSelect · Node 29\n\n**Zweck:** Steuert Sampling, Zeitplan oder Modell-Sampling für den schrittweisen Rauschabbau.\n\n**Einstellbare Werte**\n- `sampler_name` = `euler` — Steuert diesen Parameter. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n\n**Eingänge**\n- `sampler_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `SAMPLER` (SAMPLER, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 113,
+      "type": "MarkdownNote",
+      "pos": [
+        5691.324,
+        9135.802
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 46,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LTX Director · Node 46",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 46,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LTX Director · Node 46\n\n**Zweck:** Same as Prompt Relay Encode, but local prompts and segment lengths are edited visually as draggable blocks on a timeline. The duration_frames input only sets the timeline scale (pixel space) — actual frame count is still read from the latent.\n\n**Einstellbare Werte**\n- `start_second` = `A cheerful, stunning young Asian woman with a space-bun hairstyle and purple ribbons, ` — Start time in seconds of the timeline generation. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `end_second` = `168` — End time in seconds of the timeline generation. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `duration_seconds` = `7.000000000000002` — Total timeline duration in seconds (computed/synced from frames). Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `start_frame` = `{\"segments\":[{\"id\":\"1779289359147z6wlg\",\"start\":0,\"length\":48,\"prompt\":\"She spins slightly, transitions her h…` — Start frame of the timeline generation. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `end_frame` = `She spins slightly, transitions her hands to frame her face, winking playfully at the camera. | She stops the…` — End frame of the timeline generation. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `duration_frames` = `48,48,72` — Total timeline length in pixel-space frames. Used by the editor for visual scale only. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `timeline_data` = `0.001` — JSON state of the timeline editor (auto-managed; do not edit by hand). Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `local_prompts` = `1.00` — Auto-populated from the timeline editor. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `segment_lengths` = `False` — Auto-populated from the timeline editor (pixel-space frame counts). AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `epsilon` = `24` — Penalty decay parameter. Values below ~0.1 all produce sharp boundaries (paper default 0.001). For softer transitions, try 0.5 or higher. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `guide_strength` = `seconds` — Auto-populated from the timeline editor (comma-separated guide strengths for image segments). Höher verstärkt den Einfluss bzw. die Veränderung; niedriger bewahrt Eingang/Grundmodell stärker.\n- `use_custom_audio` = `720` — Toggle between using timeline audio (ON) and generating audio from scratch (OFF). AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `use_custom_motion` = `1280` — Toggle between using timeline motion guidance (ON) and ignoring motion video segments (OFF). AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `inpaint_audio` = `maintain aspect ratio` — Toggle whether empty gaps in the audio track are inpainted with generated audio. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `frame_rate` = `32` — Frames per second — only affects how time is displayed in the timeline editor when time_units is set to 'seconds'. Höher wirkt flüssiger und erzeugt/verarbeitet mehr Frames pro Sekunde; niedriger spart Rechenzeit/Dateigröße.\n- `display_mode` = `18` — Display the ruler, segment ranges, length input, and total in frames or seconds. Internal storage is always pixel-space frames. Die Auswahl bestimmt den Verarbeitungs- bzw. Dateimodus und dessen Kompatibilität.\n- `custom_width` = `` — Target output width for all image segments. Set to 0 to use the original image width. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `custom_height` = `0` — Target output height for all image segments. Set to 0 to use the original image height. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `resize_method` = `maintain aspect ratio` — How to resize image segments to fit the target dimensions. Die Auswahl ändert die Skalierungsmethode und damit Schärfe, Kanten und mögliche Artefakte.\n- `divisible_by` = `32` — Snap the final output image dimensions to be divisible by this number (e.g. 32 for LTX). Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `img_compression` = `18` — H.264 CRF compression to apply to each guide image. 0 = no compression, higher = more artefacts. Höher komprimiert Guide-Bilder stärker und spart Speicher/Bandbreite, kann aber Referenzdetails verlieren.\n- `override_audio` = `False` — Use the audio from the IC-LoRA video instead of using the audio track. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `model` (MODEL, Link 216): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `clip` (CLIP, Link 211): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audio_vae` (VAE, Link 113): Optional. Connect an Audio VAE to generate audio latents.\n- `optional_latent` (LATENT, nicht verbunden): Optional. Connect a latent to override the auto-generated one.\n- `global_prompt` (STRING, nicht verbunden): Conditions the entire video. Anchors persistent characters, objects, and scene context.\n- `duration_frames` (INT, nicht verbunden): Total timeline length in pixel-space frames. Used by the editor for visual scale only.\n- `duration_seconds` (FLOAT, nicht verbunden): Total timeline duration in seconds (computed/synced from frames).\n- `timeline_data` (STRING, nicht verbunden): JSON state of the timeline editor (auto-managed; do not edit by hand).\n- `local_prompts` (STRING, nicht verbunden): Auto-populated from the timeline editor.\n- `segment_lengths` (STRING, nicht verbunden): Auto-populated from the timeline editor (pixel-space frame counts).\n- `guide_strength` (STRING, nicht verbunden): Auto-populated from the timeline editor (comma-separated guide strengths for image segments).\n- `use_custom_audio` (BOOLEAN, nicht verbunden): Toggle between using timeline audio (ON) and generating audio from scratch (OFF).\n- `frame_rate` (FLOAT, nicht verbunden): Frames per second — only affects how time is displayed in the timeline editor when time_units is set to 'seconds'.\n- `custom_width` (INT, nicht verbunden): Target output width for all image segments. Set to 0 to use the original image width.\n- `custom_height` (INT, nicht verbunden): Target output height for all image segments. Set to 0 to use the original image height.\n- `resize_method` (COMBO, nicht verbunden): How to resize image segments to fit the target dimensions.\n\n**Ausgänge**\n- `model` (MODEL, 3 Verbindung(en)): Ergebnis dieses Nodes\n- `positive` (CONDITIONING, 2 Verbindung(en)): Ergebnis dieses Nodes\n- `video_latent` (LATENT, 1 Verbindung(en)): Auto-generated LTXV empty latent (only populated when no latent is connected).\n- `audio_latent` (LATENT, 1 Verbindung(en)): Auto-generated audio latent (uses custom audio if enabled).\n- `guide_data` (GUIDE_DATA, 2 Verbindung(en)): Ergebnis dieses Nodes\n- `frame_rate` (FLOAT, 2 Verbindung(en)): Ergebnis dieses Nodes\n- `combined_audio` (AUDIO, nicht verbunden): The frame rate used for the timeline."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 114,
+      "type": "MarkdownNote",
+      "pos": [
+        9439.586,
+        9145.77
+      ],
+      "size": [
+        390,
+        379
+      ],
+      "flags": {},
+      "order": 47,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · SamplerCustomAdvanced · Node 47",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 47,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · SamplerCustomAdvanced · Node 47\n\n**Zweck:** Steuert Sampling, Zeitplan oder Modell-Sampling für den schrittweisen Rauschabbau.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `noise` (NOISE, Link 157): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `guider` (GUIDER, Link 124): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampler` (SAMPLER, Link 125): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sigmas` (SIGMAS, Link 217): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `latent_image` (LATENT, Link 127): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `output` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `denoised_output` (LATENT, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 115,
+      "type": "MarkdownNote",
+      "pos": [
+        10022.586,
+        9145.77
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 48,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LTXVSeparateAVLatent · Node 48",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 48,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LTXVSeparateAVLatent · Node 48\n\n**Zweck:** LTXV Separate AV Latent\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `av_latent` (LATENT, Link 180): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `video_latent` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `audio_latent` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 116,
+      "type": "MarkdownNote",
+      "pos": [
+        8895.586,
+        9277.77
+      ],
+      "size": [
+        390,
+        345
+      ],
+      "flags": {},
+      "order": 49,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · CFG Guider · Node 49",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 49,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · CFG Guider · Node 49\n\n**Zweck:** Erzeugt, kombiniert oder gewichtet Konditionierungen, die das generative Modell während des Samplings steuern.\n\n**Einstellbare Werte**\n- `cfg` = `1` — Steuert diesen Parameter. Höher folgt der Vorgabe stärker, kann unnatürlich/übersättigt wirken; niedriger lässt mehr Freiheit.\n\n**Eingänge**\n- `model` (MODEL, Link 158): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `positive` (CONDITIONING, Link 152): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `negative` (CONDITIONING, Link 153): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `cfg` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `GUIDER` (GUIDER, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 117,
+      "type": "MarkdownNote",
+      "pos": [
+        8156.086,
+        9753.77
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 50,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LTXVConcatAVLatent · Node 50",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 50,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LTXVConcatAVLatent · Node 50\n\n**Zweck:** Führt mehrere kompatible Datenströme oder Konditionierungen zu einem Ergebnis zusammen.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `video_latent` (LATENT, Link 154): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audio_latent` (LATENT, Link 143): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `latent` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 118,
+      "type": "MarkdownNote",
+      "pos": [
+        7717.029,
+        9689.199
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 51,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LTXVLatentUpsampler · Node 52",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 52,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LTXVLatentUpsampler · Node 52\n\n**Zweck:** Steuert Sampling, Zeitplan oder Modell-Sampling für den schrittweisen Rauschabbau.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `samples` (LATENT, Link 135): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `upscale_model` (LATENT_UPSCALE_MODEL, Link 144): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `vae` (VAE, Link 145): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `LATENT` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 119,
+      "type": "MarkdownNote",
+      "pos": [
+        8895.586,
+        9694.77
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 52,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · KSamplerSelect · Node 53",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 53,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · KSamplerSelect · Node 53\n\n**Zweck:** Steuert Sampling, Zeitplan oder Modell-Sampling für den schrittweisen Rauschabbau.\n\n**Einstellbare Werte**\n- `sampler_name` = `euler` — Steuert diesen Parameter. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n\n**Eingänge**\n- `sampler_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `SAMPLER` (SAMPLER, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 120,
+      "type": "MarkdownNote",
+      "pos": [
+        7313.003,
+        8627.09
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 53,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LTXVCropGuides · Node 55",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 55,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LTXVCropGuides · Node 55\n\n**Zweck:** Erzeugt oder verarbeitet Bilddaten, etwa durch Skalierung, Zuschnitt, Maskierung oder Kombination.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `positive` (CONDITIONING, Link 188): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `negative` (CONDITIONING, Link 189): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `latent` (LATENT, Link 142): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `positive` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `negative` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `latent` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 121,
+      "type": "MarkdownNote",
+      "pos": [
+        7272.696,
+        9741.082
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 54,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Latent Upscale Model · Node 57",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 57,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Latent Upscale Model · Node 57\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `model_name` = `ltx-2.3-spatial-upscaler-x2-1.1.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n\n**Eingänge**\n- `model_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `LATENT_UPSCALE_MODEL` (LATENT_UPSCALE_MODEL, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 122,
+      "type": "MarkdownNote",
+      "pos": [
+        8324.699,
+        8436.92
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 55,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LTX Director Guide · Node 58",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 58,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LTX Director Guide · Node 58\n\n**Zweck:** Verarbeitet die Ein- und Ausgaben des Node-Typs `LTXDirectorGuide` gemäß seiner Workflow-Funktion.\n\n**Einstellbare Werte**\n- `scale_by` = `1` — Scale the latent by this factor. Höher vergrößert das Ergebnis proportional und erhöht Pixelzahl, Zeit und VRAM; unter 1 verkleinert es.\n- `upscale_method` = `bicubic` — Method used to upscale/downscale the latent. Die Auswahl ändert die Skalierungsmethode und damit Schärfe, Kanten und mögliche Artefakte.\n\n**Eingänge**\n- `positive` (CONDITIONING, Link 146): Positive conditioning to add guide keyframe info to.\n- `negative` (CONDITIONING, Link 147): Negative conditioning to add guide keyframe info to.\n- `vae` (VAE, Link 149): Video VAE used to encode the guide images.\n- `latent` (LATENT, Link 150): Video latent — guides are inserted into this latent.\n- `guide_data` (GUIDE_DATA, Link 151): Guide data produced by Prompt Relay Encode (Timeline).\n- `scale_by` (FLOAT, nicht verbunden): Scale the latent by this factor.\n- `upscale_method` (COMBO, nicht verbunden): Method used to upscale/downscale the latent.\n\n**Ausgänge**\n- `positive` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `negative` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `latent` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 123,
+      "type": "MarkdownNote",
+      "pos": [
+        3590.156,
+        9521.569
+      ],
+      "size": [
+        390,
+        396
+      ],
+      "flags": {},
+      "order": 56,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load CLIP (Dual) · Node 84",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 84,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load CLIP (Dual) · Node 84\n\n**Zweck:** Recipes: ↵ sdxl: clip-l, clip-g ↵ sd3: clip-l, clip-g / clip-l, t5 / clip-g, t5 ↵ flux: clip-l, t5 ↵ hidream: at least one of t5 or llama, recommended t5 and llama ↵ hunyuan_image: qwen2.5vl 7b and byt5 small ↵ newbie: gemma-3-4b-it, jina clip v2\n\n**Einstellbare Werte**\n- `clip_name1` = `Gemma\\gemma_3_12B_it_fp8_e4m3fn.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `clip_name2` = `LTX\\ltx-2.3_text_projection_bf16.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `type` = `ltxv` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `device` = `default` — Steuert diesen Parameter. Die Auswahl bestimmt das Rechen-Backend (z. B. GPU oder CPU) und damit Geschwindigkeit und Kompatibilität.\n\n**Eingänge**\n- `clip_name1` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `clip_name2` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `type` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `device` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CLIP` (CLIP, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 124,
+      "type": "MarkdownNote",
+      "pos": [
+        11497.444,
+        10093.364
+      ],
+      "size": [
+        390,
+        532
+      ],
+      "flags": {},
+      "order": 57,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Video Combine 🎥🅥🅗🅢 · Node 94",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 94,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Video Combine 🎥🅥🅗🅢 · Node 94\n\n**Zweck:** Video Combine 🎥🅥🅗🅢  Combine an image sequence into a video     [ - ]  Inputs:   [ - ]  images: The images to be turned into a video    [ - ]  audio: (optional) audio to add to the video    [ - ]  meta_batch: (optional) Connect to a Meta Batch manager to divide extremely long image sequences into sub batches. See the d…\n\n**Einstellbare Werte**\n- `frame_rate` = `None` — Steuert diesen Parameter. Höher wirkt flüssiger und erzeugt/verarbeitet mehr Frames pro Sekunde; niedriger spart Rechenzeit/Dateigröße.\n- `loop_count` = `None` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `filename_prefix` = `None` — Steuert diesen Parameter. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n- `format` = `image/gif` — Steuert diesen Parameter. Die Auswahl bestimmt den Verarbeitungs- bzw. Dateimodus und dessen Kompatibilität.\n- `pingpong` = `None` — Steuert diesen Parameter. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `save_output` = `None` — Steuert diesen Parameter. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `images` (IMAGE, Link 214): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audio` (AUDIO, Link 213): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `meta_batch` (VHS_BatchManager, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `vae` (VAE, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `frame_rate` (FLOAT, Link 215): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `loop_count` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `filename_prefix` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `format` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `pingpong` (BOOLEAN, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `save_output` (BOOLEAN, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `Filenames` (VHS_FILENAMES, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 125,
+      "type": "MarkdownNote",
+      "pos": [
+        3433.63,
+        9090.468
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 58,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Diffusion Model · Node 95",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 95,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Diffusion Model · Node 95\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `unet_name` = `LTX\\ltx-2.3-22b-distilled_transformer_only_fp8_input_scaled_v3.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `weight_dtype` = `default` — Steuert diesen Parameter. Die Auswahl ändert Rechenpräzision, Speicherbedarf und Hardware-Kompatibilität.\n\n**Eingänge**\n- `unet_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `weight_dtype` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `MODEL` (MODEL, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 126,
+      "type": "MarkdownNote",
+      "pos": [
+        9345.058,
+        9618.163
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 59,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · ManualSigmas · Node 96",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 96,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · ManualSigmas · Node 96\n\n**Zweck:** Steuert Sampling, Zeitplan oder Modell-Sampling für den schrittweisen Rauschabbau.\n\n**Einstellbare Werte**\n- `sigmas` = `0.85, 0.7250, 0.4219, 0.0` — Steuert diesen Parameter. Höher verschiebt den Rausch-/Sigma-Zeitplan und gewichtet andere Denoising-Phasen; zu starke Abweichungen können Qualität kosten.\n\n**Eingänge**\n- `sigmas` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `SIGMAS` (SIGMAS, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -2777,10 +3618,10 @@
       "id": 3,
       "title": "Models",
       "bounding": [
-        1230,
-        3800,
-        590,
-        943.5999755859375
+        2700.263,
+        9036.468,
+        1561.795,
+        2114.478
       ],
       "color": "#3f789e",
       "flags": {}
@@ -2789,10 +3630,10 @@
       "id": 4,
       "title": "Stage #1",
       "bounding": [
-        3026.507111111111,
-        4502.199111111127,
-        1380,
-        423.6000061035156
+        7396.728,
+        10092.288,
+        3441.714,
+        1740.298
       ],
       "color": "#3f789e",
       "flags": {}
@@ -2801,10 +3642,10 @@
       "id": 5,
       "title": "Stage #2 Upscale",
       "bounding": [
-        3010.2393333333334,
-        3765.64688888889,
-        1380,
-        430
+        7244.696,
+        8382.92,
+        3710.39,
+        1709.85
       ],
       "color": "#3f789e",
       "flags": {}
@@ -2813,10 +3654,10 @@
       "id": 6,
       "title": "Process Video",
       "bounding": [
-        4191.269528211792,
-        4234.214872612853,
-        930,
-        563.5999755859375
+        9966.815,
+        9654.682,
+        1020.705,
+        1560.986
       ],
       "color": "#3f789e",
       "flags": {}
@@ -2842,6 +3683,13 @@
         -252.27077038194489,
         -2755.3325735260305
       ]
+    },
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 29,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
     }
   },
   "version": 0.4

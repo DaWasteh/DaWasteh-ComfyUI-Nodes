@@ -8,8 +8,8 @@
       "id": 1,
       "type": "PixaromaLabel",
       "pos": [
-        60,
-        36
+        147.0,
+        84.6
       ],
       "size": [
         383,
@@ -36,8 +36,8 @@
       "id": 2,
       "type": "PixaromaLabel",
       "pos": [
-        60,
-        92
+        147.0,
+        216.2
       ],
       "size": [
         576,
@@ -64,8 +64,8 @@
       "id": 10,
       "type": "PixaromaLabel",
       "pos": [
-        60,
-        187
+        147.0,
+        439.45
       ],
       "size": [
         226,
@@ -92,8 +92,8 @@
       "id": 11,
       "type": "PixaromaLabel",
       "pos": [
-        430,
-        187
+        1053.5,
+        439.45
       ],
       "size": [
         162,
@@ -120,8 +120,8 @@
       "id": 12,
       "type": "PixaromaLabel",
       "pos": [
-        720,
-        187
+        1764.0,
+        439.45
       ],
       "size": [
         188,
@@ -148,8 +148,8 @@
       "id": 13,
       "type": "PixaromaLabel",
       "pos": [
-        1030,
-        187
+        2523.5,
+        439.45
       ],
       "size": [
         153,
@@ -176,8 +176,8 @@
       "id": 20,
       "type": "PixaromaLoopStart",
       "pos": [
-        60,
-        312
+        147.0,
+        733.2
       ],
       "size": [
         270,
@@ -275,8 +275,8 @@
       "id": 21,
       "type": "PixaromaCombine",
       "pos": [
-        430,
-        312
+        1053.5,
+        733.2
       ],
       "size": [
         165,
@@ -317,8 +317,8 @@
       "id": 22,
       "type": "PixaromaLoopEnd",
       "pos": [
-        720,
-        312
+        1764.0,
+        733.2
       ],
       "size": [
         168,
@@ -403,8 +403,8 @@
       "id": 23,
       "type": "PixaromaShowText",
       "pos": [
-        1030,
-        312
+        2523.5,
+        733.2
       ],
       "size": [
         260,
@@ -440,8 +440,8 @@
       "id": 30,
       "type": "PixaromaLabel",
       "pos": [
-        60,
-        512
+        147.0,
+        1203.2
       ],
       "size": [
         625,
@@ -468,8 +468,8 @@
       "id": 31,
       "type": "PixaromaRunTimer",
       "pos": [
-        60.0,
-        667.0
+        147.0,
+        1567.45
       ],
       "size": [
         226,
@@ -551,7 +551,14 @@
         93.41
       ]
     },
-    "frontendVersion": "1.45.15"
+    "frontendVersion": "1.45.15",
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 0,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

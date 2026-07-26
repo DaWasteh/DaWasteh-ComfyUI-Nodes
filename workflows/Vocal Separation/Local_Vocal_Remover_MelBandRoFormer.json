@@ -1,15 +1,15 @@
 {
   "id": "d5b95f6e-92bb-4d65-a3fd-2caa701e5039",
   "revision": 0,
-  "last_node_id": 12,
+  "last_node_id": 19,
   "last_link_id": 8,
   "nodes": [
     {
       "id": 1,
       "type": "MelBandRoFormerModelLoader",
       "pos": [
-        760,
-        610
+        1862.0,
+        1433.5
       ],
       "size": [
         430,
@@ -51,8 +51,8 @@
       "id": 2,
       "type": "LoadAudio",
       "pos": [
-        787.7777777777778,
-        785.5555555555555
+        1930.056,
+        1846.056
       ],
       "size": [
         320,
@@ -114,8 +114,8 @@
       "id": 3,
       "type": "MelBandRoFormerSampler",
       "pos": [
-        1290,
-        690
+        3160.5,
+        1621.5
       ],
       "size": [
         260,
@@ -168,8 +168,8 @@
       "id": 4,
       "type": "PreviewAudio",
       "pos": [
-        1690,
-        540
+        4140.5,
+        1269.0
       ],
       "size": [
         370,
@@ -214,8 +214,8 @@
       "id": 6,
       "type": "PreviewAudio",
       "pos": [
-        1690,
-        850
+        4140.5,
+        1997.5
       ],
       "size": [
         370,
@@ -260,8 +260,8 @@
       "id": 8,
       "type": "MarkdownNote",
       "pos": [
-        720,
-        310
+        1764.0,
+        728.5
       ],
       "size": [
         620,
@@ -283,8 +283,8 @@
       "id": 9,
       "type": "MarkdownNote",
       "pos": [
-        1390,
-        310
+        3405.5,
+        728.5
       ],
       "size": [
         640,
@@ -306,8 +306,8 @@
       "id": 10,
       "type": "SaveAudioAdvanced",
       "pos": [
-        1655.3467333333338,
-        676.0980555555557
+        4055.599,
+        1588.83
       ],
       "size": [
         429,
@@ -371,8 +371,8 @@
       "id": 11,
       "type": "SaveAudioAdvanced",
       "pos": [
-        1679.3467333333338,
-        992.0980555555557
+        4114.399,
+        2331.43
       ],
       "size": [
         417,
@@ -436,8 +436,8 @@
       "id": 12,
       "type": "PixaromaRunTimer",
       "pos": [
-        720.0,
-        1238.0980555555557
+        1764.0,
+        2909.53
       ],
       "size": [
         226,
@@ -465,6 +465,209 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 13,
+      "type": "MarkdownNote",
+      "pos": [
+        2338.0,
+        1433.5
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Mel-Band RoFormer Model Loader · Node 1",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 1,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Mel-Band RoFormer Model Loader · Node 1\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `model_name` = `MelBand\\MelBandRoformer_fp16.safetensors` — These models are loaded from the 'ComfyUI/models/diffusion_models' -folder Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n\n**Eingänge**\n- `model_name` (COMBO, nicht verbunden): These models are loaded from the 'ComfyUI/models/diffusion_models' -folder\n\n**Ausgänge**\n- `model` (MELROFORMERMODEL, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 14,
+      "type": "MarkdownNote",
+      "pos": [
+        2296.056,
+        1846.056
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Audio · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Audio · Node 2\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `audio` = `Opalite.mp3` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `audio` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audioUI` (AUDIO_UI, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `upload` (AUDIOUPLOAD, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `AUDIO` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 15,
+      "type": "MarkdownNote",
+      "pos": [
+        3466.5,
+        1621.5
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Mel-Band RoFormer Sampler · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 3,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Mel-Band RoFormer Sampler · Node 3\n\n**Zweck:** Steuert Sampling, Zeitplan oder Modell-Sampling für den schrittweisen Rauschabbau.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `model` (MELROFORMERMODEL, Link 1): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audio` (AUDIO, Link 2): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `vocals` (AUDIO, 2 Verbindung(en)): Ergebnis dieses Nodes\n- `instruments` (AUDIO, 2 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 16,
+      "type": "MarkdownNote",
+      "pos": [
+        4556.5,
+        1269.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Vocals anhören · Node 4",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 4,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Vocals anhören · Node 4\n\n**Zweck:** Preview the audio without saving it to the ComfyUI output directory.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `audio` (AUDIO, Link 3): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audioUI` (AUDIO_UI, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `audio` (AUDIO, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 17,
+      "type": "MarkdownNote",
+      "pos": [
+        4600.5,
+        1997.5
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Instrumental anhören · Node 6",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 6,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Instrumental anhören · Node 6\n\n**Zweck:** Preview the audio without saving it to the ComfyUI output directory.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `audio` (AUDIO, Link 5): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audioUI` (AUDIO_UI, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `audio` (AUDIO, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 18,
+      "type": "MarkdownNote",
+      "pos": [
+        5014.599,
+        1588.83
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Save Audio (Advanced) · Node 10",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 10,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Save Audio (Advanced) · Node 10\n\n**Zweck:** Saves the input audio to your ComfyUI output directory.\n\n**Einstellbare Werte**\n- `filename_prefix` = `audio_separation/Vocals` — The prefix for the file to save. May include formatting tokens such as %date:yyyy-MM-dd%. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n- `format` = `flac` — The file format in which to save the audio. Ändert die Verarbeitung dieses Nodes entsprechend dem angeschlossenen Datentyp.\n\n**Eingänge**\n- `audio` (AUDIO, Link 7): The audio to save.\n- `filename_prefix` (STRING, nicht verbunden): The prefix for the file to save. May include formatting tokens such as %date:yyyy-MM-dd%.\n- `format` (COMFY_DYNAMICCOMBO_V3, nicht verbunden): The file format in which to save the audio.\n- `audioUI` (AUDIO_UI, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `audio` (AUDIO, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 19,
+      "type": "MarkdownNote",
+      "pos": [
+        4577.399,
+        2375.43
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Save Audio (Advanced) · Node 11",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 11,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Save Audio (Advanced) · Node 11\n\n**Zweck:** Saves the input audio to your ComfyUI output directory.\n\n**Einstellbare Werte**\n- `filename_prefix` = `audio_separation/Instrumentals` — The prefix for the file to save. May include formatting tokens such as %date:yyyy-MM-dd%. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n- `format` = `flac` — The file format in which to save the audio. Ändert die Verarbeitung dieses Nodes entsprechend dem angeschlossenen Datentyp.\n\n**Eingänge**\n- `audio` (AUDIO, Link 8): The audio to save.\n- `filename_prefix` (STRING, nicht verbunden): The prefix for the file to save. May include formatting tokens such as %date:yyyy-MM-dd%.\n- `format` (COMFY_DYNAMICCOMBO_V3, nicht verbunden): The file format in which to save the audio.\n- `audioUI` (AUDIO_UI, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `audio` (AUDIO, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -522,10 +725,10 @@
       "id": 1,
       "title": "1 – Modell und Song",
       "bounding": [
-        700,
-        570,
-        510,
-        330
+        1834.0,
+        1379.5,
+        922.0,
+        822.556
       ],
       "color": "#3f789e",
       "flags": {}
@@ -534,10 +737,10 @@
       "id": 2,
       "title": "2 – Lokale Separation",
       "bounding": [
-        1240,
-        610,
-        350,
-        210
+        3132.5,
+        1567.5,
+        752.0,
+        410.0
       ],
       "color": "#6b5b95",
       "flags": {}
@@ -546,10 +749,10 @@
       "id": 3,
       "title": "3 – Ergebnisse",
       "bounding": [
-        1650,
-        470,
-        450,
-        660
+        4027.599,
+        1215.0,
+        1405.0,
+        1550.43
       ],
       "color": "#477a5b",
       "flags": {}
@@ -568,6 +771,13 @@
     "node_versions": {
       "comfy-core": "current",
       "ComfyUI-MelBandRoFormer": "main"
+    },
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 7,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
     }
   },
   "version": 0.4

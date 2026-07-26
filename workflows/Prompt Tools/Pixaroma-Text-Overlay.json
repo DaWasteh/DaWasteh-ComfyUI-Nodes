@@ -1,15 +1,15 @@
 {
   "id": "pix-text-overlay-demo",
   "revision": 0,
-  "last_node_id": 6,
+  "last_node_id": 7,
   "last_link_id": 2,
   "nodes": [
     {
       "id": 4,
       "type": "PixaromaLabel",
       "pos": [
-        80,
-        40
+        196.0,
+        94.0
       ],
       "size": [
         210,
@@ -37,8 +37,8 @@
       "id": 5,
       "type": "PixaromaLabel",
       "pos": [
-        80,
-        91
+        196.0,
+        213.85
       ],
       "size": [
         726,
@@ -66,8 +66,8 @@
       "id": 1,
       "type": "LoadImage",
       "pos": [
-        80,
-        211
+        196.0,
+        495.85
       ],
       "size": [
         290,
@@ -109,8 +109,8 @@
       "id": 3,
       "type": "PixaromaPreview",
       "pos": [
-        790,
-        211
+        1935.5,
+        495.85
       ],
       "size": [
         400,
@@ -158,8 +158,8 @@
       "id": 2,
       "type": "PixaromaTextOverlay",
       "pos": [
-        410,
-        211
+        1004.5,
+        495.85
       ],
       "size": [
         320,
@@ -223,8 +223,8 @@
       "id": 6,
       "type": "PixaromaRunTimer",
       "pos": [
-        80.0,
-        761.0
+        196.0,
+        1788.35
       ],
       "size": [
         226,
@@ -252,6 +252,35 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 7,
+      "type": "MarkdownNote",
+      "pos": [
+        532.0,
+        495.85
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Image · Node 1",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 1,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Image · Node 1\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -286,7 +315,14 @@
     "VHS_latentpreview": false,
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
-    "VHS_KeepIntermediate": true
+    "VHS_KeepIntermediate": true,
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 1,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

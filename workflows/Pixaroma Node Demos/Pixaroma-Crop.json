@@ -1,15 +1,15 @@
 {
   "id": "80ceab5b-a0d7-438e-b586-d713da768a19",
   "revision": 0,
-  "last_node_id": 6,
+  "last_node_id": 7,
   "last_link_id": 4,
   "nodes": [
     {
       "id": 2,
       "type": "PreviewImage",
       "pos": [
-        979.2106236072927,
-        405.5335588180974
+        2399.066,
+        953.004
       ],
       "size": [
         435.06181271771015,
@@ -37,8 +37,8 @@
       "id": 5,
       "type": "PixaromaCrop",
       "pos": [
-        648.487968050979,
-        406.2668809616521
+        1588.796,
+        954.727
       ],
       "size": [
         300,
@@ -83,8 +83,8 @@
       "id": 6,
       "type": "PixaromaRunTimer",
       "pos": [
-        648.487968050979,
-        963.3028191305332
+        1588.796,
+        2263.762
       ],
       "size": [
         226,
@@ -112,6 +112,35 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 7,
+      "type": "MarkdownNote",
+      "pos": [
+        2880.128,
+        953.004
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Preview Image · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Preview Image · Node 2\n\n**Zweck:** Preview the images without saving them to the ComfyUI output directory.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `images` (IMAGE, Link 4): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -138,7 +167,14 @@
     "VHS_latentpreview": false,
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
-    "VHS_KeepIntermediate": true
+    "VHS_KeepIntermediate": true,
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 1,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

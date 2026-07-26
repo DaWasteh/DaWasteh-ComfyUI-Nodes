@@ -1,15 +1,15 @@
 {
   "id": "6f8f9208-5490-43b4-b360-dd30c567f62a",
   "revision": 0,
-  "last_node_id": 32,
+  "last_node_id": 43,
   "last_link_id": 21,
   "nodes": [
     {
       "id": 5,
       "type": "CLIPTextEncode",
       "pos": [
-        532.5555213558519,
-        355.68993224450645
+        1304.761,
+        835.871
       ],
       "size": [
         273.25,
@@ -61,8 +61,8 @@
       "id": 9,
       "type": "ConditioningZeroOut",
       "pos": [
-        532.5555213558519,
-        519.1239713604122
+        1304.761,
+        1219.941
       ],
       "size": [
         225,
@@ -102,8 +102,8 @@
       "id": 8,
       "type": "KSampler",
       "pos": [
-        837.5444994702286,
-        355.68993224450645
+        2051.984,
+        835.871
       ],
       "size": [
         270,
@@ -223,8 +223,8 @@
       "id": 10,
       "type": "VAEDecodeAudio",
       "pos": [
-        1137.8301655038927,
-        355.68993224450645
+        2787.684,
+        835.871
       ],
       "size": [
         225,
@@ -270,8 +270,8 @@
       "id": 1,
       "type": "CheckpointLoaderSimple",
       "pos": [
-        45.7340606319765,
-        355.68993224450645
+        112.048,
+        835.871
       ],
       "size": [
         458,
@@ -330,8 +330,8 @@
       "id": 4,
       "type": "CLIPLoader",
       "pos": [
-        47.963227298643076,
-        520.1919348978762
+        117.51,
+        1222.451
       ],
       "size": [
         455.76666259765625,
@@ -398,8 +398,8 @@
       "id": 25,
       "type": "CLIPLoader",
       "pos": [
-        47.963227298643076,
-        692.693937551246
+        117.51,
+        1627.831
       ],
       "size": [
         455.76666259765625,
@@ -504,8 +504,8 @@
       "id": 30,
       "type": "PixaromaShowText",
       "pos": [
-        972.5444994702286,
-        863.7806338139094
+        2382.734,
+        2029.884
       ],
       "size": [
         390.6166687011719,
@@ -547,8 +547,8 @@
       "id": 12,
       "type": "EmptyLatentAudio",
       "pos": [
-        535.8014818661968,
-        716.693937551246
+        1312.714,
+        1684.231
       ],
       "size": [
         270,
@@ -603,8 +603,8 @@
       "id": 26,
       "type": "TextGenerate",
       "pos": [
-        532.5555213558519,
-        863.7806338139093
+        1304.761,
+        2029.884
       ],
       "size": [
         400,
@@ -790,8 +790,8 @@
       "id": 3,
       "type": "PixaromaLabel",
       "pos": [
-        -511.79373776057776,
-        239.10125645655216
+        -1253.895,
+        561.888
       ],
       "size": [
         538,
@@ -821,8 +821,8 @@
       "id": 31,
       "type": "StringConcatenate",
       "pos": [
-        47.963227298643076,
-        863.7806338139093
+        117.51,
+        2029.884
       ],
       "size": [
         455.76666259765625,
@@ -888,8 +888,8 @@
       "id": 13,
       "type": "PixaromaNumber",
       "pos": [
-        247.0445480751748,
-        1342.7004411996045
+        605.259,
+        3155.346
       ],
       "size": [
         256.6833190917969,
@@ -941,8 +941,8 @@
       "id": 11,
       "type": "SaveAudioMP3",
       "pos": [
-        1137.8301655038927,
-        481.6899322445065
+        2787.684,
+        1131.971
       ],
       "size": [
         357.8166809082031,
@@ -1003,8 +1003,8 @@
       "id": 32,
       "type": "PixaromaRunTimer",
       "pos": [
-        -511.79373776057776,
-        1550.7004411996045
+        -1253.895,
+        3644.146
       ],
       "size": [
         226,
@@ -1032,6 +1032,325 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 33,
+      "type": "MarkdownNote",
+      "pos": [
+        616.048,
+        835.871
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Checkpoint · Node 1",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 1,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Checkpoint · Node 1\n\n**Zweck:** Loads a diffusion model checkpoint, diffusion models are used to denoise latents.\n\n**Einstellbare Werte**\n- `ckpt_name` = `StableAudio\\stable_audio_3_medium.safetensors` — The name of the checkpoint (model) to load. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n\n**Eingänge**\n- `ckpt_name` (COMBO, nicht verbunden): The name of the checkpoint (model) to load.\n\n**Ausgänge**\n- `MODEL` (MODEL, 1 Verbindung(en)): The model used for denoising latents.\n- `CLIP` (CLIP, nicht verbunden): The CLIP model used for encoding text prompts.\n- `VAE` (VAE, 1 Verbindung(en)): The VAE model used for encoding and decoding images to and from latent space."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 34,
+      "type": "MarkdownNote",
+      "pos": [
+        619.277,
+        1222.451
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load CLIP 1 · Node 4",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 4,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load CLIP 1 · Node 4\n\n**Zweck:** Recipes: ↵ sd: clip-l ↵ stable cascade: clip-g ↵ sd3: t5 xxl / clip-g / clip-l ↵ stable audio: t5 base ↵ mochi: t5 xxl ↵ cogvideox: t5 xxl (226-token padding) ↵ cosmos: old t5 xxl ↵ lumina2: gemma 2 2B ↵ wan: umt5 xxl ↵ hidream: llama-3.1 (Recommend) or t5 ↵ omnigen2: qwen vl 2.5 3B ↵ joyimage: qwen3-vl 8B ↵ lens: gpt…\n\n**Einstellbare Werte**\n- `clip_name` = `T5\\t5gemma_b_b_ul2.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `type` = `stable_audio` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `device` = `default` — Steuert diesen Parameter. Die Auswahl bestimmt das Rechen-Backend (z. B. GPU oder CPU) und damit Geschwindigkeit und Kompatibilität.\n\n**Eingänge**\n- `clip_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `type` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `device` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CLIP` (CLIP, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 35,
+      "type": "MarkdownNote",
+      "pos": [
+        1624.011,
+        835.871
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · CLIP Text Encode (Prompt) · Node 5",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 5,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · CLIP Text Encode (Prompt) · Node 5\n\n**Zweck:** Encodes a text prompt using a CLIP model into an embedding that can be used to guide the diffusion model towards generating specific images.\n\n**Einstellbare Werte**\n- `text` = `` — The text to be encoded. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- `clip` (CLIP, Link 7): The CLIP model used for encoding the text.\n- `text` (STRING, Link 20): The text to be encoded.\n\n**Ausgänge**\n- `CONDITIONING` (CONDITIONING, 2 Verbindung(en)): A conditioning containing the embedded text used to guide the diffusion model."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 36,
+      "type": "MarkdownNote",
+      "pos": [
+        2015.984,
+        1187.871
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · KSampler · Node 8",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 8,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · KSampler · Node 8\n\n**Zweck:** Uses the provided model, positive and negative conditioning to denoise the latent image.\n\n**Einstellbare Werte**\n- `seed` = `430689942743672` — The random seed used for creating the noise. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `seed_control_after_generate` = `randomize` — Verhalten des Werts nach jedem Workflow-Lauf. `randomize` erzeugt pro Lauf eine neue Variation; `fixed` behält den Wert; andere Modi ändern ihn schrittweise.\n- `steps` = `8` — The number of steps used in the denoising process. Höher erhöht Laufzeit und mögliche Ausarbeitung, kann aber übertrainieren; niedriger ist schneller.\n- `cfg` = `1` — The Classifier-Free Guidance scale balances creativity and adherence to the prompt. Higher values result in images more closely matching the prompt however too high values will ne… Höher folgt der Vorgabe stärker, kann unnatürlich/übersättigt wirken; niedriger lässt mehr Freiheit.\n- `sampler_name` = `lcm` — The algorithm used when sampling, this can affect the quality, speed, and style of the generated output. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n- `scheduler` = `simple` — The scheduler controls how noise is gradually removed to form the image. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n- `denoise` = `1` — The amount of denoising applied, lower values will maintain the structure of the initial image allowing for image to image sampling. Höher verstärkt den Einfluss bzw. die Veränderung; niedriger bewahrt Eingang/Grundmodell stärker.\n\n**Eingänge**\n- `model` (MODEL, Link 1): The model used for denoising the input latent.\n- `positive` (CONDITIONING, Link 2): The conditioning describing the attributes you want to include in the image.\n- `negative` (CONDITIONING, Link 5): The conditioning describing the attributes you want to exclude from the image.\n- `latent_image` (LATENT, Link 13): The latent image to denoise.\n- `seed` (INT, nicht verbunden): The random seed used for creating the noise.\n- `steps` (INT, nicht verbunden): The number of steps used in the denoising process.\n- `cfg` (FLOAT, nicht verbunden): The Classifier-Free Guidance scale balances creativity and adherence to the prompt. Higher values result in images more closely matching the prompt h…\n- `sampler_name` (COMBO, nicht verbunden): The algorithm used when sampling, this can affect the quality, speed, and style of the generated output.\n- `scheduler` (COMBO, nicht verbunden): The scheduler controls how noise is gradually removed to form the image.\n- `denoise` (FLOAT, nicht verbunden): The amount of denoising applied, lower values will maintain the structure of the initial image allowing for image to image sampling.\n\n**Ausgänge**\n- `LATENT` (LATENT, 1 Verbindung(en)): The denoised latent."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 37,
+      "type": "MarkdownNote",
+      "pos": [
+        1575.761,
+        1219.941
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Conditioning Zero Out · Node 9",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 9,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Conditioning Zero Out · Node 9\n\n**Zweck:** Erzeugt, kombiniert oder gewichtet Konditionierungen, die das generative Modell während des Samplings steuern.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `conditioning` (CONDITIONING, Link 4): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CONDITIONING` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 38,
+      "type": "MarkdownNote",
+      "pos": [
+        3058.684,
+        747.871
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · VAE Decode Audio · Node 10",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 10,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · VAE Decode Audio · Node 10\n\n**Zweck:** Dekodiert Latents mit dem VAE zu sicht- oder hörbaren Mediendaten.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `samples` (LATENT, Link 8): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `vae` (VAE, Link 9): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `AUDIO` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 39,
+      "type": "MarkdownNote",
+      "pos": [
+        3191.501,
+        1131.971
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Save Audio (MP3) (DEPRECATED) · Node 11",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 11,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Save Audio (MP3) (DEPRECATED) · Node 11\n\n**Zweck:** Speichert das erzeugte Ergebnis mit den gewählten Ausgabeparametern.\n\n**Einstellbare Werte**\n- `filename_prefix` = `audio/stableaudio` — Steuert diesen Parameter. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n- `quality` = `V0` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `audio` (AUDIO, Link 10): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `filename_prefix` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `quality` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audioUI` (AUDIO_UI, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 40,
+      "type": "MarkdownNote",
+      "pos": [
+        1760.714,
+        1816.231
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Empty Latent Audio · Node 12",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 12,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Empty Latent Audio · Node 12\n\n**Zweck:** Erzeugt ein leeres Latent mit den vorgegebenen Abmessungen als Startpunkt der Generierung.\n\n**Einstellbare Werte**\n- `seconds` = `47.6` — Steuert diesen Parameter. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `batch_size` = `1` — The number of latent images in the batch. Höher verarbeitet mehr Beispiele parallel und braucht mehr VRAM; niedriger spart Speicher.\n\n**Eingänge**\n- `seconds` (FLOAT, Link 11): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `batch_size` (INT, nicht verbunden): The number of latent images in the batch.\n\n**Ausgänge**\n- `LATENT` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 41,
+      "type": "MarkdownNote",
+      "pos": [
+        619.277,
+        1627.831
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load CLIP 2 · Node 25",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 25,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load CLIP 2 · Node 25\n\n**Zweck:** Recipes: ↵ sd: clip-l ↵ stable cascade: clip-g ↵ sd3: t5 xxl / clip-g / clip-l ↵ stable audio: t5 base ↵ mochi: t5 xxl ↵ cogvideox: t5 xxl (226-token padding) ↵ cosmos: old t5 xxl ↵ lumina2: gemma 2 2B ↵ wan: umt5 xxl ↵ hidream: llama-3.1 (Recommend) or t5 ↵ omnigen2: qwen vl 2.5 3B ↵ joyimage: qwen3-vl 8B ↵ lens: gpt…\n\n**Einstellbare Werte**\n- `clip_name` = `Gemma\\gemma4_e4b_it_fp8_scaled.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `type` = `stable_diffusion` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `device` = `default` — Steuert diesen Parameter. Die Auswahl bestimmt das Rechen-Backend (z. B. GPU oder CPU) und damit Geschwindigkeit und Kompatibilität.\n\n**Eingänge**\n- `clip_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `type` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `device` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CLIP` (CLIP, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 42,
+      "type": "MarkdownNote",
+      "pos": [
+        1750.761,
+        2205.884
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Generate Text · Node 26",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 26,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Generate Text · Node 26\n\n**Zweck:** Erzeugt mit dem geladenen Sprachmodell Text aus Prompt und optionalen Bild-, Video- oder Audio-Eingaben.\n\n**Einstellbare Werte**\n- `prompt` = `` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `max_length` = `256` — Steuert diesen Parameter. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `sampling_mode` = `on` — Sampling Mode Ändert die Verarbeitung dieses Nodes entsprechend dem angeschlossenen Datentyp.\n- `temperature` = `0.7` — Steuert diesen Parameter. Höher macht die Auswahl vielfältiger/zufälliger; niedriger wird deterministischer und konservativer.\n- `top_k` = `64` — Steuert diesen Parameter. Höher erlaubt mehr Kandidaten und Vielfalt; niedriger begrenzt die Auswahl stärker.\n- `top_p` = `0.95` — Steuert diesen Parameter. Ändert den Wahrscheinlichkeitsfilter: großzügiger erhöht Vielfalt, strenger erhöht Fokus/Konsistenz.\n- `min_p` = `0.05` — Steuert diesen Parameter. Ändert den Wahrscheinlichkeitsfilter: großzügiger erhöht Vielfalt, strenger erhöht Fokus/Konsistenz.\n- `repetition_penalty` = `1.05` — Steuert diesen Parameter. Über 1 unterdrückt Wiederholungen zunehmend; zu hoch kann Wörter, Klang oder Kohärenz beschädigen, nahe 1 bleibt neutral.\n- `seed` = `0` — Steuert diesen Parameter. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `presence_penalty` = `0` — Steuert diesen Parameter. Höher bevorzugt neue Inhalte statt bereits verwendeter Tokens; 0 lässt die ursprüngliche Modellverteilung unverändert.\n- `thinking` = `False` — Operate in thinking mode if the model supports it. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `use_default_template` = `True` — Use the built in system prompt/template if the model has one. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `clip` (CLIP, Link 15): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `image` (IMAGE, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `video` (IMAGE, nicht verbunden): Video frames as image batch. Assumed to be 24 FPS; subsampled to 1 FPS internally.\n- `audio` (AUDIO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `prompt` (STRING, Link 21): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `max_length` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode` (COMFY_DYNAMICCOMBO_V3, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.temperature` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.top_k` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.top_p` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.min_p` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.repetition_penalty` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.seed` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.presence_penalty` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `thinking` (BOOLEAN, nicht verbunden): Operate in thinking mode if the model supports it.\n- `use_default_template` (BOOLEAN, nicht verbunden): Use the built in system prompt/template if the model has one.\n\n**Ausgänge**\n- `generated_text` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 43,
+      "type": "MarkdownNote",
+      "pos": [
+        619.277,
+        2029.884
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Formula + Prompt · Node 31",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 31,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Formula + Prompt · Node 31\n\n**Zweck:** Erzeugt, kombiniert, ersetzt oder extrahiert Text für nachfolgende Workflow-Schritte.\n\n**Einstellbare Werte**\n- `string_a` = `You are a prompt adapter for Stable Audio 3 Medium. Transform the user's short idea into one polished non-mus…` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `string_b` = `the sound of a man walking in the snow` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `delimiter` = ` ` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- `string_a` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `string_b` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `delimiter` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `STRING` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -1162,7 +1481,14 @@
     "VHS_latentpreview": false,
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
-    "VHS_KeepIntermediate": true
+    "VHS_KeepIntermediate": true,
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 11,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

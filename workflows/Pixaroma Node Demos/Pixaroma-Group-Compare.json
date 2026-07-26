@@ -1,15 +1,15 @@
 {
   "id": "group-compare---comfyui-vs-pixaroma",
   "revision": 0,
-  "last_node_id": 31,
+  "last_node_id": 35,
   "last_link_id": 0,
   "nodes": [
     {
       "id": 1,
       "type": "PixaromaLabel",
       "pos": [
-        60,
-        36
+        147.0,
+        84.6
       ],
       "size": [
         490,
@@ -36,8 +36,8 @@
       "id": 2,
       "type": "PixaromaLabel",
       "pos": [
-        60,
-        92
+        147.0,
+        216.2
       ],
       "size": [
         563,
@@ -64,8 +64,8 @@
       "id": 20,
       "type": "EmptyImage",
       "pos": [
-        95,
-        259
+        232.75,
+        608.65
       ],
       "size": [
         270,
@@ -97,8 +97,8 @@
       "id": 21,
       "type": "EmptyImage",
       "pos": [
-        95,
-        439
+        232.75,
+        1031.65
       ],
       "size": [
         270,
@@ -130,8 +130,8 @@
       "id": 22,
       "type": "EmptyImage",
       "pos": [
-        488,
-        269
+        1195.6,
+        632.15
       ],
       "size": [
         270,
@@ -163,8 +163,8 @@
       "id": 23,
       "type": "EmptyImage",
       "pos": [
-        488,
-        439
+        1195.6,
+        1031.65
       ],
       "size": [
         270,
@@ -196,8 +196,8 @@
       "id": 30,
       "type": "PixaromaLabel",
       "pos": [
-        60,
-        639
+        147.0,
+        1501.65
       ],
       "size": [
         565,
@@ -224,8 +224,8 @@
       "id": 31,
       "type": "PixaromaRunTimer",
       "pos": [
-        60.0,
-        890.0
+        147.0,
+        2091.5
       ],
       "size": [
         226,
@@ -253,6 +253,122 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 32,
+      "type": "MarkdownNote",
+      "pos": [
+        548.75,
+        608.65
+      ],
+      "size": [
+        390,
+        345
+      ],
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Empty Image · Node 20",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 20,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Empty Image · Node 20\n\n**Zweck:** Erzeugt eine leere Bildfläche mit den vorgegebenen Abmessungen.\n\n**Einstellbare Werte**\n- `width` = `512` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `height` = `512` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `batch_size` = `1` — Steuert diesen Parameter. Höher verarbeitet mehr Beispiele parallel und braucht mehr VRAM; niedriger spart Speicher.\n- `color` = `0` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 33,
+      "type": "MarkdownNote",
+      "pos": [
+        548.75,
+        1031.65
+      ],
+      "size": [
+        390,
+        345
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Empty Image · Node 21",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 21,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Empty Image · Node 21\n\n**Zweck:** Erzeugt eine leere Bildfläche mit den vorgegebenen Abmessungen.\n\n**Einstellbare Werte**\n- `width` = `512` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `height` = `512` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `batch_size` = `1` — Steuert diesen Parameter. Höher verarbeitet mehr Beispiele parallel und braucht mehr VRAM; niedriger spart Speicher.\n- `color` = `0` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 34,
+      "type": "MarkdownNote",
+      "pos": [
+        1511.6,
+        632.15
+      ],
+      "size": [
+        390,
+        345
+      ],
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Empty Image · Node 22",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 22,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Empty Image · Node 22\n\n**Zweck:** Erzeugt eine leere Bildfläche mit den vorgegebenen Abmessungen.\n\n**Einstellbare Werte**\n- `width` = `512` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `height` = `512` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `batch_size` = `1` — Steuert diesen Parameter. Höher verarbeitet mehr Beispiele parallel und braucht mehr VRAM; niedriger spart Speicher.\n- `color` = `0` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 35,
+      "type": "MarkdownNote",
+      "pos": [
+        1511.6,
+        1031.65
+      ],
+      "size": [
+        390,
+        345
+      ],
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Empty Image · Node 23",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 23,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Empty Image · Node 23\n\n**Zweck:** Erzeugt eine leere Bildfläche mit den vorgegebenen Abmessungen.\n\n**Einstellbare Werte**\n- `width` = `512` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `height` = `512` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `batch_size` = `1` — Steuert diesen Parameter. Höher verarbeitet mehr Beispiele parallel und braucht mehr VRAM; niedriger spart Speicher.\n- `color` = `0` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [],
@@ -261,10 +377,10 @@
       "id": 1,
       "title": "ComfyUI Group",
       "bounding": [
-        60,
-        189,
-        340,
-        420
+        204.75,
+        554.65,
+        762.0,
+        850.0
       ],
       "color": "#3f789e",
       "font_size": 24,
@@ -295,7 +411,14 @@
         "bodyAlpha": 0.5,
         "fontSize": 18
       }
-    ]
+    ],
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 4,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

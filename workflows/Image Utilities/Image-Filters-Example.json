@@ -1,15 +1,15 @@
 {
   "id": "bfa225fe-95af-46a5-8c11-8f71f1cca845",
   "revision": 0,
-  "last_node_id": 15,
+  "last_node_id": 23,
   "last_link_id": 25,
   "nodes": [
     {
       "id": 1,
       "type": "MarkdownNote",
       "pos": [
-        63.82598735521957,
-        315.191979275117
+        156.374,
+        740.701
       ],
       "size": [
         335.6154030821015,
@@ -34,8 +34,8 @@
       "id": 5,
       "type": "PreviewImage",
       "pos": [
-        2429.7304161356437,
-        367.0108194524597
+        5952.84,
+        862.475
       ],
       "size": [
         539.6489482813361,
@@ -63,8 +63,8 @@
       "id": 9,
       "type": "LayerUtility: ImageBlendAdvance V2",
       "pos": [
-        827.8410192252162,
-        365.13462039135277
+        2028.21,
+        858.066
       ],
       "size": [
         341.0787109375,
@@ -129,8 +129,8 @@
       "id": 8,
       "type": "LayerFilter: FilmV2",
       "pos": [
-        1192.6777109648092,
-        365.13462039135277
+        2922.06,
+        858.066
       ],
       "size": [
         281.01171875,
@@ -187,8 +187,8 @@
       "id": 13,
       "type": "LayerColor: BrightnessContrastV2",
       "pos": [
-        1497.4474105169022,
-        365.13462039135277
+        3668.746,
+        858.066
       ],
       "size": [
         333.4087890625,
@@ -229,8 +229,8 @@
       "id": 14,
       "type": "LayerColor: ColorBalance",
       "pos": [
-        1518.9830683142084,
-        534.4757627002512
+        3721.509,
+        1256.018
       ],
       "size": [
         270,
@@ -272,8 +272,8 @@
       "id": 12,
       "type": "AILab_LoadImage",
       "pos": [
-        423.84447686233574,
-        884.9591888325606
+        1038.419,
+        2079.654
       ],
       "size": [
         372.97055329030036,
@@ -330,8 +330,8 @@
       "id": 11,
       "type": "AILab_LoadImage",
       "pos": [
-        423.84447686233574,
-        314.95383396110606
+        1038.419,
+        740.142
       ],
       "size": [
         372.97055329030036,
@@ -388,8 +388,8 @@
       "id": 4,
       "type": "Image Comparer (rgthree)",
       "pos": [
-        1859.7867520332534,
-        367.0108194524597
+        4556.478,
+        862.475
       ],
       "size": [
         539.6489482813361,
@@ -437,8 +437,8 @@
       "id": 15,
       "type": "PixaromaRunTimer",
       "pos": [
-        63.82598735521957,
-        1485.769634507044
+        156.374,
+        3491.559
       ],
       "size": [
         226,
@@ -466,6 +466,238 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 16,
+      "type": "MarkdownNote",
+      "pos": [
+        5142.127,
+        862.475
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Image Comparer (rgthree) · Node 4",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 4,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Image Comparer (rgthree) · Node 4\n\n**Zweck:** Compares two images with a hover slider, or click from properties.\n\n**Einstellbare Werte**\n- `value` = `[{\"name\":\"A\",\"selected\":true,\"url\":\"/api/view?filename=rgthree.compare._temp_tlpua_00077_.png&type=temp&subfo…` — Direkter Primitive-Wert für verbundene Nodes. Höher gibt einen größeren Zahlenwert an verbundene Nodes weiter; niedriger einen kleineren, ohne eigene Zusatzwirkung.\n\n**Eingänge**\n- `image_a` (IMAGE, Link 17): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `image_b` (IMAGE, Link 24): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 17,
+      "type": "MarkdownNote",
+      "pos": [
+        6538.489,
+        862.475
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Preview Image · Node 5",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 5,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Preview Image · Node 5\n\n**Zweck:** Preview the images without saving them to the ComfyUI output directory.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `images` (IMAGE, Link 25): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 18,
+      "type": "MarkdownNote",
+      "pos": [
+        3249.072,
+        1034.066
+      ],
+      "size": [
+        390,
+        515
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LayerFilter: Film V2 · Node 8",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 8,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LayerFilter: Film V2 · Node 8\n\n**Zweck:** Wendet eine Bild-, Farb- oder Detailkorrektur mit den einstellbaren Intensitäten auf das Bild an.\n\n**Einstellbare Werte**\n- `center_x` = `0.5` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `center_y` = `0.5` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `saturation` = `0.9` — Steuert diesen Parameter. Höher intensiviert Farben; niedriger entsättigt bis hin zu Graustufen.\n- `vignette_intensity` = `0.12` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `grain_method` = `fastgrain` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `grain_power` = `0.15` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `grain_scale` = `1` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `grain_sat` = `0.5` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `filmgrainer_shadows` = `0.6` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `filmgrainer_highs` = `0.2` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `blur_strength` = `21` — Steuert diesen Parameter. Höher verstärkt den Einfluss bzw. die Veränderung; niedriger bewahrt Eingang/Grundmodell stärker.\n- `blur_focus_spread` = `2.2` — Steuert diesen Parameter. Höher verbreitert Übergänge/Überlappung und reduziert harte Nähte, kostet aber mehr Verarbeitung und kann Details weicher machen.\n- `focal_depth` = `0.9` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n\n**Eingänge**\n- `image` (IMAGE, Link 16): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `depth_map` (IMAGE, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `image` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 19,
+      "type": "MarkdownNote",
+      "pos": [
+        2415.289,
+        858.066
+      ],
+      "size": [
+        390,
+        515
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LayerUtility: ImageBlendAdvance V2 · Node 9",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 9,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LayerUtility: ImageBlendAdvance V2 · Node 9\n\n**Zweck:** Erzeugt oder verarbeitet Bilddaten, etwa durch Skalierung, Zuschnitt, Maskierung oder Kombination.\n\n**Einstellbare Werte**\n- `invert_mask` = `True` — Steuert diesen Parameter. AN kehrt Maske oder Ausgabe um; AUS behält Vordergrund und Hintergrund in der ursprünglichen Zuordnung.\n- `blend_mode` = `multiply` — Steuert diesen Parameter. Die Auswahl bestimmt den Verarbeitungs- bzw. Dateimodus und dessen Kompatibilität.\n- `opacity` = `70` — Steuert diesen Parameter. Höher macht die Ebene sichtbarer/deckender; niedriger lässt den Hintergrund stärker durchscheinen.\n- `x_percent` = `50` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `y_percent` = `50` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `mirror` = `None` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `scale` = `1` — Steuert diesen Parameter. Höher vergrößert das Ergebnis proportional und erhöht Pixelzahl, Zeit und VRAM; unter 1 verkleinert es.\n- `aspect_ratio` = `1` — Steuert diesen Parameter. Ändert Seitenverhältnis bzw. Rasterteilung; größere Vielfache erhöhen Kompatibilität, können Abmessungen aber stärker runden.\n- `rotate` = `0` — Steuert diesen Parameter. Ein höherer Wert dreht weiter in die positive Richtung; ein niedriger/negativer Wert dreht entgegengesetzt.\n- `transform_method` = `lanczos` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `anti_aliasing` = `0` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n\n**Eingänge**\n- `background_image` (IMAGE, Link 18): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `layer_image` (IMAGE, Link 19): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `layer_mask` (MASK, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `image` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `mask` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 20,
+      "type": "MarkdownNote",
+      "pos": [
+        1457.39,
+        740.142
+      ],
+      "size": [
+        390,
+        447
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Image (RMBG) 🖼️ · Node 11",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 11,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Image (RMBG) 🖼️ · Node 11\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image_path_or_URL` = `` — Steuert diesen Parameter. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `upscale_method` = `lanczos` — Steuert diesen Parameter. Die Auswahl ändert die Skalierungsmethode und damit Schärfe, Kanten und mögliche Artefakte.\n- `megapixels` = `0` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `scale_by` = `1` — Steuert diesen Parameter. Höher vergrößert das Ergebnis proportional und erhöht Pixelzahl, Zeit und VRAM; unter 1 verkleinert es.\n- `resize_mode` = `longest_side` — Steuert diesen Parameter. Die Auswahl ändert die Skalierungsmethode und damit Schärfe, Kanten und mögliche Artefakte.\n- `size` = `0` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 2 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes\n- `WIDTH` (INT, nicht verbunden): Ergebnis dieses Nodes\n- `HEIGHT` (INT, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 21,
+      "type": "MarkdownNote",
+      "pos": [
+        1457.39,
+        2079.654
+      ],
+      "size": [
+        390,
+        447
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Image (RMBG) 🖼️(Overlay Texture) · Node 12",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 12,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Image (RMBG) 🖼️(Overlay Texture) · Node 12\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image_path_or_URL` = `` — Steuert diesen Parameter. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `upscale_method` = `lanczos` — Steuert diesen Parameter. Die Auswahl ändert die Skalierungsmethode und damit Schärfe, Kanten und mögliche Artefakte.\n- `megapixels` = `0` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `scale_by` = `1` — Steuert diesen Parameter. Höher vergrößert das Ergebnis proportional und erhöht Pixelzahl, Zeit und VRAM; unter 1 verkleinert es.\n- `resize_mode` = `longest_side` — Steuert diesen Parameter. Die Auswahl ändert die Skalierungsmethode und damit Schärfe, Kanten und mögliche Artefakte.\n- `size` = `0` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes\n- `WIDTH` (INT, nicht verbunden): Ergebnis dieses Nodes\n- `HEIGHT` (INT, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 22,
+      "type": "MarkdownNote",
+      "pos": [
+        4048.155,
+        858.066
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LayerColor: Brightness Contrast V2 · Node 13",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 13,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LayerColor: Brightness Contrast V2 · Node 13\n\n**Zweck:** Wendet eine Bild-, Farb- oder Detailkorrektur mit den einstellbaren Intensitäten auf das Bild an.\n\n**Einstellbare Werte**\n- `brightness` = `1.11` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `contrast` = `1` — Steuert diesen Parameter. Höher spreizt helle und dunkle Bereiche stärker; niedriger macht das Bild flacher und weicher.\n- `saturation` = `1` — Steuert diesen Parameter. Höher intensiviert Farben; niedriger entsättigt bis hin zu Graustufen.\n\n**Eingänge**\n- `image` (IMAGE, Link 22): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `image` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 23,
+      "type": "MarkdownNote",
+      "pos": [
+        4037.509,
+        1256.018
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LayerColor: ColorBalance · Node 14",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 14,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LayerColor: ColorBalance · Node 14\n\n**Zweck:** Wendet eine Bild-, Farb- oder Detailkorrektur mit den einstellbaren Intensitäten auf das Bild an.\n\n**Einstellbare Werte**\n- `cyan_red` = `0.002` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `magenta_green` = `-0.011` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `yellow_blue` = `-0.012` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n\n**Eingänge**\n- `image` (IMAGE, Link 23): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `image` (IMAGE, 2 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -549,7 +781,14 @@
     "VHS_latentpreview": false,
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
-    "VHS_KeepIntermediate": true
+    "VHS_KeepIntermediate": true,
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 8,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

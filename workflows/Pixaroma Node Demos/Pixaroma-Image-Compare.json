@@ -1,15 +1,15 @@
 {
   "id": "445748e9-788e-4218-bc5e-09e7ec0df5af",
   "revision": 0,
-  "last_node_id": 4,
+  "last_node_id": 6,
   "last_link_id": 2,
   "nodes": [
     {
       "id": 2,
       "type": "LoadImage",
       "pos": [
-        481.6144784311822,
-        272.6199231393919
+        1179.955,
+        640.657
       ],
       "size": [
         282.798828125,
@@ -47,8 +47,8 @@
       "id": 3,
       "type": "LoadImage",
       "pos": [
-        481.6144784311822,
-        641.862338134065
+        1179.955,
+        1508.376
       ],
       "size": [
         282.798828125,
@@ -86,8 +86,8 @@
       "id": 1,
       "type": "PixaromaCompare",
       "pos": [
-        859.3162020529888,
-        368.93345335413306
+        2105.325,
+        866.994
       ],
       "size": [
         400,
@@ -118,8 +118,8 @@
       "id": 4,
       "type": "PixaromaRunTimer",
       "pos": [
-        481.6144784311822,
-        1035.8623381340649
+        1179.955,
+        2434.276
       ],
       "size": [
         226,
@@ -147,6 +147,64 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 5,
+      "type": "MarkdownNote",
+      "pos": [
+        1508.754,
+        640.657
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Image · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Image · Node 2\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 6,
+      "type": "MarkdownNote",
+      "pos": [
+        1508.754,
+        1508.376
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Image · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 3,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Image · Node 3\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -181,7 +239,14 @@
     "VHS_latentpreview": false,
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
-    "VHS_KeepIntermediate": true
+    "VHS_KeepIntermediate": true,
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 2,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

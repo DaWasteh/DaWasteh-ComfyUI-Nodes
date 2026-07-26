@@ -1,15 +1,15 @@
 {
   "id": "02a03903-e47f-476b-938b-0d60dca0a0b0",
   "revision": 0,
-  "last_node_id": 16,
+  "last_node_id": 18,
   "last_link_id": 10,
   "nodes": [
     {
       "id": 12,
       "type": "LoadImage",
       "pos": [
-        626.5312477620789,
-        -420.04786954012775
+        1535.002,
+        -987.112
       ],
       "size": [
         282.798828125,
@@ -49,8 +49,8 @@
       "id": 13,
       "type": "LoadImage",
       "pos": [
-        626.5312477620789,
-        -59.568046779518426
+        1535.002,
+        -139.985
       ],
       "size": [
         282.798828125,
@@ -90,8 +90,8 @@
       "id": 14,
       "type": "PixaromaPreview",
       "pos": [
-        1247.7103261312204,
-        -204.56804677951845
+        3056.89,
+        -480.735
       ],
       "size": [
         366.45323486328084,
@@ -139,8 +139,8 @@
       "id": 3,
       "type": "PixaromaLabel",
       "pos": [
-        -277.77885365716526,
-        -576.0478695401277
+        -680.558,
+        -1353.712
       ],
       "size": [
         210,
@@ -169,8 +169,8 @@
       "id": 5,
       "type": "PixaromaText",
       "pos": [
-        -277.77885365716526,
-        -374.3079581598231
+        -680.558,
+        -879.624
       ],
       "size": [
         290,
@@ -205,8 +205,8 @@
       "id": 6,
       "type": "PixaromaText",
       "pos": [
-        -277.77885365716526,
-        -112.3079581598231
+        -680.558,
+        -263.924
       ],
       "size": [
         290,
@@ -241,8 +241,8 @@
       "id": 7,
       "type": "PixaromaShowText",
       "pos": [
-        351.4145289111941,
-        -204.56804677951845
+        860.966,
+        -480.735
       ],
       "size": [
         210,
@@ -280,8 +280,8 @@
       "id": 15,
       "type": "PixaromaLabel",
       "pos": [
-        -277.77885365716526,
-        -525.0478695401277
+        -680.558,
+        -1233.862
       ],
       "size": [
         544,
@@ -309,8 +309,8 @@
       "id": 4,
       "type": "PixaromaSwitch",
       "pos": [
-        57.38114634283476,
-        -204.56804677951845
+        140.584,
+        -480.735
       ],
       "size": [
         255.16000000000008,
@@ -366,8 +366,8 @@
       "id": 10,
       "type": "PixaromaSwitch",
       "pos": [
-        957.8173329671567,
-        -204.56804677951845
+        2346.652,
+        -480.735
       ],
       "size": [
         258.3866174316406,
@@ -427,8 +427,8 @@
       "id": 16,
       "type": "PixaromaRunTimer",
       "pos": [
-        -277.77885365716526,
-        337.43195322048155
+        -680.558,
+        792.965
       ],
       "size": [
         226,
@@ -456,6 +456,64 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 17,
+      "type": "MarkdownNote",
+      "pos": [
+        1863.801,
+        -987.112
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Image · Node 12",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 12,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Image · Node 12\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 18,
+      "type": "MarkdownNote",
+      "pos": [
+        1863.801,
+        -139.985
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Image · Node 13",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 13,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Image · Node 13\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -522,7 +580,14 @@
     "VHS_latentpreview": false,
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
-    "VHS_KeepIntermediate": true
+    "VHS_KeepIntermediate": true,
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 2,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

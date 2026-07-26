@@ -1,15 +1,15 @@
 {
   "id": "88ac5dad-efd7-40bb-84fe-fbaefdee1fa9",
   "revision": 0,
-  "last_node_id": 110,
+  "last_node_id": 122,
   "last_link_id": 265,
   "nodes": [
     {
       "id": 104,
       "type": "UNETLoader",
       "pos": [
-        -222.71694101748983,
-        -880.000024323615
+        -545.657,
+        -2068.0
       ],
       "size": [
         456.5833435058594,
@@ -76,8 +76,8 @@
       "id": 106,
       "type": "VAELoader",
       "pos": [
-        -190.00002515932607,
-        -490.00007289229313
+        -465.5,
+        -1151.5
       ],
       "size": [
         380,
@@ -134,8 +134,8 @@
       "id": 99,
       "type": "PrimitiveNode",
       "pos": [
-        -140.000017634291,
-        -290.00004279215284
+        -343.0,
+        -681.5
       ],
       "size": [
         280,
@@ -171,8 +171,8 @@
       "id": 98,
       "type": "EmptyAceStep1.5LatentAudio",
       "pos": [
-        306.12772900432947,
-        -46.53193225108248
+        750.013,
+        -109.35
       ],
       "size": [
         271.01666259765625,
@@ -234,8 +234,8 @@
       "id": 47,
       "type": "ConditioningZeroOut",
       "pos": [
-        649.9999830520102,
-        -50.00005920943022
+        1592.5,
+        -117.5
       ],
       "size": [
         230,
@@ -280,8 +280,8 @@
       "id": 105,
       "type": "DualCLIPLoader",
       "pos": [
-        -190.00002515932607,
-        -720.0000352684666
+        -465.5,
+        -1692.0
       ],
       "size": [
         380,
@@ -374,8 +374,8 @@
       "id": 109,
       "type": "PrimitiveInt",
       "pos": [
-        -140.000017634291,
-        -110.00009888631575
+        -343.0,
+        -258.5
       ],
       "size": [
         270,
@@ -427,8 +427,8 @@
       "id": 94,
       "type": "TextEncodeAceStepAudio1.5",
       "pos": [
-        270,
-        -880
+        661.5,
+        -2068.0
       ],
       "size": [
         625.9833374023438,
@@ -617,8 +617,8 @@
       "id": 3,
       "type": "KSampler",
       "pos": [
-        939.9999413238642,
-        -750.0000551069093
+        2303.0,
+        -1762.5
       ],
       "size": [
         330,
@@ -744,8 +744,8 @@
       "id": 18,
       "type": "VAEDecodeAudio",
       "pos": [
-        1290.0000268350132,
-        -870.0000468982705
+        3160.5,
+        -2044.5
       ],
       "size": [
         230,
@@ -796,8 +796,8 @@
       "id": 107,
       "type": "SaveAudioMP3",
       "pos": [
-        1290,
-        -740
+        3160.5,
+        -1739.0
       ],
       "size": [
         700,
@@ -870,8 +870,8 @@
       "id": 78,
       "type": "ModelSamplingAuraFlow",
       "pos": [
-        939.9999413238642,
-        -880.000024323615
+        2303.0,
+        -2068.0
       ],
       "size": [
         330,
@@ -927,8 +927,8 @@
       "id": 110,
       "type": "PixaromaRunTimer",
       "pos": [
-        -222.71694101748983,
-        145.46806774891752
+        -545.657,
+        341.85
       ],
       "size": [
         226,
@@ -956,6 +956,354 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 111,
+      "type": "MarkdownNote",
+      "pos": [
+        2679.0,
+        -1762.5
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · KSampler · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 3,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · KSampler · Node 3\n\n**Zweck:** Uses the provided model, positive and negative conditioning to denoise the latent image.\n\n**Einstellbare Werte**\n- `seed` = `0` — The random seed used for creating the noise. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `seed_control_after_generate` = `fixed` — Verhalten des Werts nach jedem Workflow-Lauf. `randomize` erzeugt pro Lauf eine neue Variation; `fixed` behält den Wert; andere Modi ändern ihn schrittweise.\n- `steps` = `75` — The number of steps used in the denoising process. Höher erhöht Laufzeit und mögliche Ausarbeitung, kann aber übertrainieren; niedriger ist schneller.\n- `cfg` = `4` — The Classifier-Free Guidance scale balances creativity and adherence to the prompt. Higher values result in images more closely matching the prompt however too high values will ne… Höher folgt der Vorgabe stärker, kann unnatürlich/übersättigt wirken; niedriger lässt mehr Freiheit.\n- `sampler_name` = `euler` — The algorithm used when sampling, this can affect the quality, speed, and style of the generated output. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n- `scheduler` = `normal` — The scheduler controls how noise is gradually removed to form the image. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n- `denoise` = `1` — The amount of denoising applied, lower values will maintain the structure of the initial image allowing for image to image sampling. Höher verstärkt den Einfluss bzw. die Veränderung; niedriger bewahrt Eingang/Grundmodell stärker.\n\n**Eingänge**\n- `model` (MODEL, Link 175): The model used for denoising the input latent.\n- `positive` (CONDITIONING, Link 254): The conditioning describing the attributes you want to include in the image.\n- `negative` (CONDITIONING, Link 119): The conditioning describing the attributes you want to exclude from the image.\n- `latent_image` (LATENT, Link 249): The latent image to denoise.\n- `seed` (INT, Link 265): The random seed used for creating the noise.\n- `steps` (INT, nicht verbunden): The number of steps used in the denoising process.\n- `cfg` (FLOAT, nicht verbunden): The Classifier-Free Guidance scale balances creativity and adherence to the prompt. Higher values result in images more closely matching the prompt h…\n- `sampler_name` (COMBO, nicht verbunden): The algorithm used when sampling, this can affect the quality, speed, and style of the generated output.\n- `scheduler` (COMBO, nicht verbunden): The scheduler controls how noise is gradually removed to form the image.\n- `denoise` (FLOAT, nicht verbunden): The amount of denoising applied, lower values will maintain the structure of the initial image allowing for image to image sampling.\n\n**Ausgänge**\n- `LATENT` (LATENT, 1 Verbindung(en)): The denoised latent."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 112,
+      "type": "MarkdownNote",
+      "pos": [
+        3436.5,
+        -2088.5
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · VAE Decode Audio · Node 18",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 18,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · VAE Decode Audio · Node 18\n\n**Zweck:** Dekodiert Latents mit dem VAE zu sicht- oder hörbaren Mediendaten.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `samples` (LATENT, Link 256): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `vae` (VAE, Link 262): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `AUDIO` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 113,
+      "type": "MarkdownNote",
+      "pos": [
+        1868.5,
+        -117.5
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Conditioning Zero Out · Node 47",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 47,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Conditioning Zero Out · Node 47\n\n**Zweck:** Erzeugt, kombiniert oder gewichtet Konditionierungen, die das generative Modell während des Samplings steuern.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `conditioning` (CONDITIONING, Link 255): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CONDITIONING` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 114,
+      "type": "MarkdownNote",
+      "pos": [
+        2679.0,
+        -2112.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · ModelSamplingAuraFlow · Node 78",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 78,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · ModelSamplingAuraFlow · Node 78\n\n**Zweck:** Steuert Sampling, Zeitplan oder Modell-Sampling für den schrittweisen Rauschabbau.\n\n**Einstellbare Werte**\n- `shift` = `3` — Steuert diesen Parameter. Höher verschiebt den Rausch-/Sigma-Zeitplan und gewichtet andere Denoising-Phasen; zu starke Abweichungen können Qualität kosten.\n\n**Eingänge**\n- `model` (MODEL, Link 260): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `shift` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `MODEL` (MODEL, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 115,
+      "type": "MarkdownNote",
+      "pos": [
+        1333.483,
+        -2068.0
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · TextEncodeAceStepAudio1.5 · Node 94",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 94,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · TextEncodeAceStepAudio1.5 · Node 94\n\n**Zweck:** Kodiert Text bzw. Prompts mit CLIP in eine Konditionierung für das generative Modell.\n\n**Einstellbare Werte**\n- `tags` = `modern pop, synth-pop, melodic pop, female vocals, clear vocals, emotional, atmospheric` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `lyrics` = `Hi everyone. ... It's Taylor. ... I have a confession to make. ... You know I write a lot about love, ... abo…` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `seed` = `0` — Steuert diesen Parameter. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `seed_control_after_generate` = `fixed` — Verhalten des Werts nach jedem Workflow-Lauf. `randomize` erzeugt pro Lauf eine neue Variation; `fixed` behält den Wert; andere Modi ändern ihn schrittweise.\n- `bpm` = `180` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `duration` = `210` — Steuert diesen Parameter. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `timesignature` = `4` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `language` = `en` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `keyscale` = `E major` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `generate_audio_codes` = `True` — Enable the LLM that generates audio codes. This can be slow but will increase the quality of the generated audio. Turn this off if you are giving the model an audio reference. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `cfg_scale` = `2` — Steuert diesen Parameter. Höher folgt der Vorgabe stärker, kann unnatürlich/übersättigt wirken; niedriger lässt mehr Freiheit.\n- `temperature` = `0.8` — Steuert diesen Parameter. Höher macht die Auswahl vielfältiger/zufälliger; niedriger wird deterministischer und konservativer.\n- `top_p` = `1` — Steuert diesen Parameter. Ändert den Wahrscheinlichkeitsfilter: großzügiger erhöht Vielfalt, strenger erhöht Fokus/Konsistenz.\n- `top_k` = `0` — Steuert diesen Parameter. Höher erlaubt mehr Kandidaten und Vielfalt; niedriger begrenzt die Auswahl stärker.\n- `min_p` = `0` — Steuert diesen Parameter. Ändert den Wahrscheinlichkeitsfilter: großzügiger erhöht Vielfalt, strenger erhöht Fokus/Konsistenz.\n\n**Eingänge**\n- `clip` (CLIP, Link 261): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `tags` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `lyrics` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `seed` (INT, Link 264): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `bpm` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `duration` (FLOAT, Link 251): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `timesignature` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `language` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `keyscale` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `generate_audio_codes` (BOOLEAN, nicht verbunden): Enable the LLM that generates audio codes. This can be slow but will increase the quality of the generated audio. Turn this off if you are giving the…\n- `cfg_scale` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `temperature` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `top_p` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `top_k` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `min_p` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CONDITIONING` (CONDITIONING, 2 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 116,
+      "type": "MarkdownNote",
+      "pos": [
+        1067.03,
+        -109.35
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Empty Ace Step 1.5 Latent Audio · Node 98",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 98,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Empty Ace Step 1.5 Latent Audio · Node 98\n\n**Zweck:** Erzeugt, kombiniert oder transformiert Daten im Latent-Raum vor Sampling oder Decoding.\n\n**Einstellbare Werte**\n- `seconds` = `210` — Steuert diesen Parameter. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `batch_size` = `1` — The number of latent images in the batch. Höher verarbeitet mehr Beispiele parallel und braucht mehr VRAM; niedriger spart Speicher.\n\n**Eingänge**\n- `seconds` (FLOAT, Link 250): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `batch_size` (INT, nicht verbunden): The number of latent images in the batch.\n\n**Ausgänge**\n- `LATENT` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 117,
+      "type": "MarkdownNote",
+      "pos": [
+        -17.0,
+        -681.5
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Song Duration · Node 99",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 99,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Song Duration · Node 99\n\n**Zweck:** Stellt einen direkt einstellbaren Wert für verbundene Nodes bereit.\n\n**Einstellbare Werte**\n- `value` = `210` — Direkter Primitive-Wert für verbundene Nodes. Höher gibt einen größeren Zahlenwert an verbundene Nodes weiter; niedriger einen kleineren, ohne eigene Zusatzwirkung.\n- `value_control_after_generate` = `fixed` — Verhalten des Werts nach jedem Workflow-Lauf. `randomize` erzeugt pro Lauf eine neue Variation; `fixed` behält den Wert; andere Modi ändern ihn schrittweise.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `FLOAT` (FLOAT, 2 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 118,
+      "type": "MarkdownNote",
+      "pos": [
+        -43.074,
+        -2068.0
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Diffusion Model · Node 104",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 104,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Diffusion Model · Node 104\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `unet_name` = `ACE\\acestep_v1.5_xl_sft_bf16.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `weight_dtype` = `default` — Steuert diesen Parameter. Die Auswahl ändert Rechenpräzision, Speicherbedarf und Hardware-Kompatibilität.\n\n**Eingänge**\n- `unet_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `weight_dtype` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `MODEL` (MODEL, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 119,
+      "type": "MarkdownNote",
+      "pos": [
+        -39.5,
+        -1692.0
+      ],
+      "size": [
+        390,
+        396
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load CLIP (Dual) · Node 105",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 105,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load CLIP (Dual) · Node 105\n\n**Zweck:** Recipes: ↵ sdxl: clip-l, clip-g ↵ sd3: clip-l, clip-g / clip-l, t5 / clip-g, t5 ↵ flux: clip-l, t5 ↵ hidream: at least one of t5 or llama, recommended t5 and llama ↵ hunyuan_image: qwen2.5vl 7b and byt5 small ↵ newbie: gemma-3-4b-it, jina clip v2\n\n**Einstellbare Werte**\n- `clip_name1` = `ACE\\qwen_0.6b_ace15.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `clip_name2` = `ACE\\qwen_4b_ace15.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `type` = `ace` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `device` = `default` — Steuert diesen Parameter. Die Auswahl bestimmt das Rechen-Backend (z. B. GPU oder CPU) und damit Geschwindigkeit und Kompatibilität.\n\n**Eingänge**\n- `clip_name1` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `clip_name2` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `type` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `device` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CLIP` (CLIP, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 120,
+      "type": "MarkdownNote",
+      "pos": [
+        -39.5,
+        -1151.5
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load VAE · Node 106",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 106,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load VAE · Node 106\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `vae_name` = `ACE\\ace_1.5_vae.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n\n**Eingänge**\n- `vae_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `VAE` (VAE, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 121,
+      "type": "MarkdownNote",
+      "pos": [
+        3906.5,
+        -1739.0
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Save Audio (MP3) (DEPRECATED) · Node 107",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 107,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Save Audio (MP3) (DEPRECATED) · Node 107\n\n**Zweck:** Speichert das erzeugte Ergebnis mit den gewählten Ausgabeparametern.\n\n**Einstellbare Werte**\n- `filename_prefix` = `audio/IntroSong_` — Steuert diesen Parameter. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n- `quality` = `V0` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `audio` (AUDIO, Link 263): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `filename_prefix` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `quality` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audioUI` (AUDIO_UI, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `audio` (AUDIO, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 122,
+      "type": "MarkdownNote",
+      "pos": [
+        -27.0,
+        -258.5
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Int · Node 109",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 109,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Int · Node 109\n\n**Zweck:** Stellt einen direkt einstellbaren Wert für verbundene Nodes bereit.\n\n**Einstellbare Werte**\n- `value` = `907757030547666` — Steuert diesen Parameter. Höher gibt einen größeren Zahlenwert an verbundene Nodes weiter; niedriger einen kleineren, ohne eigene Zusatzwirkung.\n- `value_control_after_generate` = `randomize` — Verhalten des Werts nach jedem Workflow-Lauf. `randomize` erzeugt pro Lauf eine neue Variation; `fixed` behält den Wert; andere Modi ändern ihn schrittweise.\n\n**Eingänge**\n- `value` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `INT` (INT, 2 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -1077,10 +1425,10 @@
       "id": 1,
       "title": "Model",
       "bounding": [
-        -210,
-        -950,
-        447.22598026477124,
-        574.6629131689834
+        -573.657,
+        -2122.0,
+        952.157,
+        1292.5
       ],
       "color": "#3f789e",
       "flags": {}
@@ -1089,10 +1437,10 @@
       "id": 2,
       "title": "Duration",
       "bounding": [
-        -210,
-        -350,
-        450,
-        170
+        -371.0,
+        -735.5,
+        772.0,
+        393.0
       ],
       "color": "#3f789e",
       "flags": {}
@@ -1101,10 +1449,10 @@
       "id": 3,
       "title": "Prompt",
       "bounding": [
-        260,
-        -950,
-        640,
-        960
+        633.5,
+        -2122.0,
+        1653.0,
+        2368.65
       ],
       "color": "#3f789e",
       "flags": {}
@@ -1124,7 +1472,14 @@
     "VHS_latentpreview": false,
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
-    "VHS_KeepIntermediate": true
+    "VHS_KeepIntermediate": true,
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 12,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

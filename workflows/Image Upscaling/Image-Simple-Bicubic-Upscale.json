@@ -1,15 +1,15 @@
 {
   "id": "23b41169-8935-4a6e-8fa6-010f051cf667",
   "revision": 0,
-  "last_node_id": 7,
+  "last_node_id": 11,
   "last_link_id": 4,
   "nodes": [
     {
       "id": 2,
       "type": "LoadImage",
       "pos": [
-        -600.3305961569945,
-        216.6464284945099
+        -1470.81,
+        509.119
       ],
       "size": [
         412.93467192717935,
@@ -48,8 +48,8 @@
       "id": 6,
       "type": "Image Comparer (rgthree)",
       "pos": [
-        146.22581581739882,
-        216.6464284945099
+        358.253,
+        509.119
       ],
       "size": [
         412.93467192717935,
@@ -97,8 +97,8 @@
       "id": 4,
       "type": "SaveImage",
       "pos": [
-        590.9713577681852,
-        216.6464284945099
+        1447.88,
+        509.119
       ],
       "size": [
         412.93467192717935,
@@ -128,8 +128,8 @@
       "id": 1,
       "type": "MarkdownNote",
       "pos": [
-        -1133.7977902308317,
-        216.6464284945099
+        -2777.805,
+        509.119
       ],
       "size": [
         501.6563240502302,
@@ -154,8 +154,8 @@
       "id": 3,
       "type": "ImageScaleBy",
       "pos": [
-        -155.58505420620816,
-        216.6464284945099
+        -381.183,
+        509.119
       ],
       "size": [
         270,
@@ -197,8 +197,8 @@
       "id": 7,
       "type": "PixaromaRunTimer",
       "pos": [
-        -1133.7977902308317,
-        792.7172810582151
+        -2777.805,
+        1862.886
       ],
       "size": [
         226,
@@ -226,6 +226,122 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 8,
+      "type": "MarkdownNote",
+      "pos": [
+        -1011.875,
+        509.119
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Image · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Image · Node 2\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 2 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 9,
+      "type": "MarkdownNote",
+      "pos": [
+        -197.183,
+        641.119
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Upscale Image By · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 3,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Upscale Image By · Node 3\n\n**Zweck:** Erzeugt oder verarbeitet Bilddaten, etwa durch Skalierung, Zuschnitt, Maskierung oder Kombination.\n\n**Einstellbare Werte**\n- `upscale_method` = `lanczos` — Steuert diesen Parameter. Die Auswahl ändert die Skalierungsmethode und damit Schärfe, Kanten und mögliche Artefakte.\n- `scale_by` = `4` — Steuert diesen Parameter. Höher vergrößert das Ergebnis proportional und erhöht Pixelzahl, Zeit und VRAM; unter 1 verkleinert es.\n\n**Eingänge**\n- `image` (IMAGE, Link 1): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 2 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 10,
+      "type": "MarkdownNote",
+      "pos": [
+        1906.815,
+        509.119
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Save Image · Node 4",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 4,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Save Image · Node 4\n\n**Zweck:** Saves the input images to your ComfyUI output directory.\n\n**Einstellbare Werte**\n- `filename_prefix` = `Up` — The prefix for the file to save. This may include formatting information such as %date:yyyy-MM-dd% or %Empty Latent Image.width% to include values from nodes. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n\n**Eingänge**\n- `images` (IMAGE, Link 2): The images to save.\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 11,
+      "type": "MarkdownNote",
+      "pos": [
+        817.188,
+        509.119
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Image Comparer (rgthree) · Node 6",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 6,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Image Comparer (rgthree) · Node 6\n\n**Zweck:** Compares two images with a hover slider, or click from properties.\n\n**Einstellbare Werte**\n- `value` = `[{\"name\":\"A\",\"selected\":true,\"url\":\"/api/view?filename=rgthree.compare._temp_dcqno_00009_.png&type=temp&subfo…` — Direkter Primitive-Wert für verbundene Nodes. Höher gibt einen größeren Zahlenwert an verbundene Nodes weiter; niedriger einen kleineren, ohne eigene Zusatzwirkung.\n\n**Eingänge**\n- `image_a` (IMAGE, Link 3): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `image_b` (IMAGE, Link 4): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -277,7 +393,14 @@
     "VHS_latentpreview": false,
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
-    "VHS_KeepIntermediate": true
+    "VHS_KeepIntermediate": true,
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 4,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

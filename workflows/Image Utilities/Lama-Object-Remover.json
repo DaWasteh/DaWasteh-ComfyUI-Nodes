@@ -1,15 +1,15 @@
 {
   "id": "78224ffd-171f-4565-80ea-bb100e63c26e",
   "revision": 0,
-  "last_node_id": 8,
+  "last_node_id": 11,
   "last_link_id": 6,
   "nodes": [
     {
       "id": 4,
       "type": "MarkdownNote",
       "pos": [
-        109.41784385726716,
-        304.0392977727331
+        268.074,
+        714.492
       ],
       "size": [
         292.07062631712154,
@@ -34,8 +34,8 @@
       "id": 6,
       "type": "AILab_LamaRemover",
       "pos": [
-        817.2566861904812,
-        306.2682594908963
+        2002.279,
+        719.73
       ],
       "size": [
         300,
@@ -81,8 +81,8 @@
       "id": 3,
       "type": "SaveImage",
       "pos": [
-        1142.7739255061101,
-        306.2431461149981
+        2799.796,
+        719.671
       ],
       "size": [
         360.798828125,
@@ -112,8 +112,8 @@
       "id": 7,
       "type": "MarkdownNote",
       "pos": [
-        427.6561888851692,
-        802.0686565422935
+        1047.758,
+        1884.861
       ],
       "size": [
         360.798828125,
@@ -136,8 +136,8 @@
       "id": 1,
       "type": "LoadImage",
       "pos": [
-        427.6561888851692,
-        304.0392977727331
+        1047.758,
+        714.492
       ],
       "size": [
         360.798828125,
@@ -178,8 +178,8 @@
       "id": 8,
       "type": "PixaromaRunTimer",
       "pos": [
-        109.41784385726716,
-        970.0686565422935
+        268.074,
+        2279.661
       ],
       "size": [
         226,
@@ -207,6 +207,93 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 9,
+      "type": "MarkdownNote",
+      "pos": [
+        1454.557,
+        714.492
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Load Image · Node 1",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 1,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Load Image · Node 1\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 10,
+      "type": "MarkdownNote",
+      "pos": [
+        3206.595,
+        719.671
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Save Image · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 3,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Save Image · Node 3\n\n**Zweck:** Saves the input images to your ComfyUI output directory.\n\n**Einstellbare Werte**\n- `filename_prefix` = `PNG` — The prefix for the file to save. This may include formatting information such as %date:yyyy-MM-dd% or %Empty Latent Image.width% to include values from nodes. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n\n**Eingänge**\n- `images` (IMAGE, Link 6): The images to save.\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 11,
+      "type": "MarkdownNote",
+      "pos": [
+        2348.279,
+        719.73
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Lama Remover (RMBG) · Node 6",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 6,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Lama Remover (RMBG) · Node 6\n\n**Zweck:** Verarbeitet die Ein- und Ausgaben des Node-Typs `AILab_LamaRemover` gemäß seiner Workflow-Funktion.\n\n**Einstellbare Werte**\n- `removal_strength` = `230` — Strength of the removal effect (higher values increase the effect area) Höher verstärkt den Einfluss bzw. die Veränderung; niedriger bewahrt Eingang/Grundmodell stärker.\n- `edge_smoothness` = `8` — Controls edge smoothness (higher values create smoother transitions) Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n\n**Eingänge**\n- `images` (IMAGE, Link 4): Input images to be processed\n- `masks` (MASK, Link 5): Masks defining areas to be removed (white=remove)\n\n**Ausgänge**\n- `images` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -250,7 +337,14 @@
     "VHS_latentpreview": false,
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
-    "VHS_KeepIntermediate": true
+    "VHS_KeepIntermediate": true,
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 3,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

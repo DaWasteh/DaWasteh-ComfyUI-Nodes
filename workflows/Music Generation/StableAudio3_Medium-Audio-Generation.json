@@ -1,15 +1,15 @@
 {
   "id": "5fa61cc8-29d9-4deb-9f90-02d3c00b63b3",
   "revision": 0,
-  "last_node_id": 57,
+  "last_node_id": 59,
   "last_link_id": 67,
   "nodes": [
     {
       "id": 19,
       "type": "SaveAudioMP3",
       "pos": [
-        946.1190288335074,
-        1118.461963063006
+        2317.992,
+        2628.386
       ],
       "size": [
         630,
@@ -75,8 +75,8 @@
       "id": 52,
       "type": "8b66c757-fe2f-4184-91f3-479a19deb565",
       "pos": [
-        370,
-        1120
+        906.5,
+        2632.0
       ],
       "size": [
         533.816650390625,
@@ -213,8 +213,8 @@
       "id": 55,
       "type": "MarkdownNote",
       "pos": [
-        -150,
-        1120
+        -367.5,
+        2632.0
       ],
       "size": [
         490,
@@ -237,8 +237,8 @@
       "id": 56,
       "type": "MarkdownNote",
       "pos": [
-        -670,
-        1120
+        -1641.5,
+        2632.0
       ],
       "size": [
         480,
@@ -261,8 +261,8 @@
       "id": 57,
       "type": "PixaromaRunTimer",
       "pos": [
-        -670.0,
-        2050.0
+        -1641.5,
+        4817.5
       ],
       "size": [
         226,
@@ -290,6 +290,64 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 58,
+      "type": "MarkdownNote",
+      "pos": [
+        2993.992,
+        2628.386
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Save Audio (MP3) (DEPRECATED) · Node 19",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 19,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Save Audio (MP3) (DEPRECATED) · Node 19\n\n**Zweck:** Speichert das erzeugte Ergebnis mit den gewählten Ausgabeparametern.\n\n**Einstellbare Werte**\n- `filename_prefix` = `audio/stable_audio_3` — Steuert diesen Parameter. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n- `quality` = `V0` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `audio` (AUDIO, Link 67): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `filename_prefix` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `quality` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audioUI` (AUDIO_UI, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 59,
+      "type": "MarkdownNote",
+      "pos": [
+        1486.317,
+        2632.0
+      ],
+      "size": [
+        390,
+        413
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Audio Generation (Stable Audio 3 Medium) · Node 52",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 52,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Audio Generation (Stable Audio 3 Medium) · Node 52\n\n**Zweck:** Führt den eingebetteten Subgraph „Audio Generation (Stable Audio 3 Medium)“ aus.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `user_input` (STRING, nicht verbunden): Subgraph-Eingang\n- `duration` (FLOAT, nicht verbunden): Subgraph-Eingang\n- `seed` (INT, nicht verbunden): Subgraph-Eingang\n- `use_reprompt` (BOOLEAN, nicht verbunden): Subgraph-Eingang\n- `category` (COMBO, nicht verbunden): Subgraph-Eingang\n- `ckpt_name` (COMBO, nicht verbunden): Subgraph-Eingang\n- `sa_clip` (COMBO, nicht verbunden): Subgraph-Eingang\n- `qwen_clip` (COMBO, nicht verbunden): Subgraph-Eingang\n\n**Ausgänge**\n- `AUDIO` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -462,8 +520,8 @@
             "id": 7,
             "type": "CLIPTextEncode",
             "pos": [
-              620,
-              420
+              1519.0,
+              987.0
             ],
             "size": [
               440,
@@ -522,8 +580,8 @@
             "id": 12,
             "type": "VAEDecodeAudio",
             "pos": [
-              1450,
-              110
+              3552.5,
+              258.5
             ],
             "size": [
               230,
@@ -575,8 +633,8 @@
             "id": 11,
             "type": "EmptyLatentAudio",
             "pos": [
-              630,
-              610
+              1543.5,
+              1433.5
             ],
             "size": [
               430,
@@ -636,8 +694,8 @@
             "id": 3,
             "type": "KSampler",
             "pos": [
-              1100,
-              100
+              2695.0,
+              235.0
             ],
             "size": [
               320,
@@ -763,8 +821,8 @@
             "id": 29,
             "type": "CLIPLoader",
             "pos": [
-              690,
-              1580
+              1690.5,
+              3713.0
             ],
             "size": [
               430,
@@ -843,8 +901,8 @@
             "id": 6,
             "type": "CLIPTextEncode",
             "pos": [
-              610,
-              130
+              1494.5,
+              305.5
             ],
             "size": [
               450,
@@ -903,8 +961,8 @@
             "id": 34,
             "type": "ComfySwitchNode",
             "pos": [
-              210,
-              610
+              514.5,
+              1433.5
             ],
             "size": [
               270,
@@ -957,8 +1015,8 @@
             "id": 41,
             "type": "ComfyMathExpression",
             "pos": [
-              1370,
-              1360
+              3356.5,
+              3196.0
             ],
             "size": [
               230,
@@ -1028,8 +1086,8 @@
             "id": 42,
             "type": "PreviewAny",
             "pos": [
-              1370,
-              1310
+              3356.5,
+              3078.5
             ],
             "size": [
               230,
@@ -1071,8 +1129,8 @@
             "id": 39,
             "type": "StringReplace",
             "pos": [
-              1040,
-              900
+              2548.0,
+              2115.0
             ],
             "size": [
               270,
@@ -1134,8 +1192,8 @@
             "id": 28,
             "type": "TextGenerate",
             "pos": [
-              1200,
-              1580
+              2940.0,
+              3713.0
             ],
             "size": [
               430,
@@ -1326,8 +1384,8 @@
             "id": 31,
             "type": "PrimitiveStringMultiline",
             "pos": [
-              -390,
-              160
+              -955.5,
+              376.0
             ],
             "size": [
               400,
@@ -1370,8 +1428,8 @@
             "id": 43,
             "type": "CustomCombo",
             "pos": [
-              140,
-              910
+              343.0,
+              2138.5
             ],
             "size": [
               550,
@@ -1425,8 +1483,8 @@
             "id": 49,
             "type": "JsonExtractString",
             "pos": [
-              720,
-              1200
+              1764.0,
+              2820.0
             ],
             "size": [
               300,
@@ -1477,8 +1535,8 @@
             "id": 40,
             "type": "StringReplace",
             "pos": [
-              1350,
-              900
+              3307.5,
+              2115.0
             ],
             "size": [
               260,
@@ -1540,8 +1598,8 @@
             "id": 38,
             "type": "StringReplace",
             "pos": [
-              720,
-              900
+              1764.0,
+              2115.0
             ],
             "size": [
               290,
@@ -1603,8 +1661,8 @@
             "id": 35,
             "type": "PrimitiveBoolean",
             "pos": [
-              -390,
-              570
+              -955.5,
+              1339.5
             ],
             "size": [
               400,
@@ -1646,8 +1704,8 @@
             "id": 36,
             "type": "PrimitiveFloat",
             "pos": [
-              -390,
-              410
+              -955.5,
+              963.5
             ],
             "size": [
               400,
@@ -1690,8 +1748,8 @@
             "id": 25,
             "type": "CheckpointLoaderSimple",
             "pos": [
-              100,
-              130
+              245.0,
+              305.5
             ],
             "size": [
               440,
@@ -1762,8 +1820,8 @@
             "id": 26,
             "type": "CLIPLoader",
             "pos": [
-              100,
-              390
+              245.0,
+              916.5
             ],
             "size": [
               440,
@@ -1842,8 +1900,8 @@
             "id": 54,
             "type": "PreviewAny",
             "pos": [
-              1720,
-              1580
+              4214.0,
+              3713.0
             ],
             "size": [
               420,
@@ -1876,6 +1934,615 @@
               null,
               null
             ]
+          },
+          {
+            "id": 55,
+            "type": "MarkdownNote",
+            "pos": [
+              3061.0,
+              235.0
+            ],
+            "size": [
+              390,
+              540
+            ],
+            "flags": {},
+            "order": 21,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · KSampler · Node 3",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 3,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · KSampler · Node 3\n\n**Zweck:** Uses the provided model, positive and negative conditioning to denoise the latent image.\n\n**Einstellbare Werte**\n- `seed` = `1038503484137406` — The random seed used for creating the noise. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `seed_control_after_generate` = `randomize` — Verhalten des Werts nach jedem Workflow-Lauf. `randomize` erzeugt pro Lauf eine neue Variation; `fixed` behält den Wert; andere Modi ändern ihn schrittweise.\n- `steps` = `8` — The number of steps used in the denoising process. Höher erhöht Laufzeit und mögliche Ausarbeitung, kann aber übertrainieren; niedriger ist schneller.\n- `cfg` = `1` — The Classifier-Free Guidance scale balances creativity and adherence to the prompt. Higher values result in images more closely matching the prompt however too high values will ne… Höher folgt der Vorgabe stärker, kann unnatürlich/übersättigt wirken; niedriger lässt mehr Freiheit.\n- `sampler_name` = `lcm` — The algorithm used when sampling, this can affect the quality, speed, and style of the generated output. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n- `scheduler` = `simple` — The scheduler controls how noise is gradually removed to form the image. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n- `denoise` = `1` — The amount of denoising applied, lower values will maintain the structure of the initial image allowing for image to image sampling. Höher verstärkt den Einfluss bzw. die Veränderung; niedriger bewahrt Eingang/Grundmodell stärker.\n\n**Eingänge**\n- `model` (MODEL, Link 30): The model used for denoising the input latent.\n- `positive` (CONDITIONING, Link 4): The conditioning describing the attributes you want to include in the image.\n- `negative` (CONDITIONING, Link 6): The conditioning describing the attributes you want to exclude from the image.\n- `latent_image` (LATENT, Link 12): The latent image to denoise.\n- `seed` (INT, Link 76): The random seed used for creating the noise.\n- `steps` (INT, nicht verbunden): The number of steps used in the denoising process.\n- `cfg` (FLOAT, nicht verbunden): The Classifier-Free Guidance scale balances creativity and adherence to the prompt. Higher values result in images more closely matching the prompt h…\n- `sampler_name` (COMBO, nicht verbunden): The algorithm used when sampling, this can affect the quality, speed, and style of the generated output.\n- `scheduler` (COMBO, nicht verbunden): The scheduler controls how noise is gradually removed to form the image.\n- `denoise` (FLOAT, nicht verbunden): The amount of denoising applied, lower values will maintain the structure of the initial image allowing for image to image sampling.\n\n**Ausgänge**\n- `LATENT` (LATENT, 1 Verbindung(en)): The denoised latent."
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 56,
+            "type": "MarkdownNote",
+            "pos": [
+              1990.5,
+              305.5
+            ],
+            "size": [
+              390,
+              311
+            ],
+            "flags": {},
+            "order": 22,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · CLIP Text Encode (Prompt) · Node 6",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 6,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · CLIP Text Encode (Prompt) · Node 6\n\n**Zweck:** Encodes a text prompt using a CLIP model into an embedding that can be used to guide the diffusion model towards generating specific images.\n\n**Einstellbare Werte**\n- `text` = `` — The text to be encoded. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- `clip` (CLIP, Link 34): The CLIP model used for encoding the text.\n- `text` (STRING, Link 49): The text to be encoded.\n\n**Ausgänge**\n- `CONDITIONING` (CONDITIONING, 1 Verbindung(en)): A conditioning containing the embedded text used to guide the diffusion model."
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 57,
+            "type": "MarkdownNote",
+            "pos": [
+              2005.0,
+              987.0
+            ],
+            "size": [
+              390,
+              311
+            ],
+            "flags": {},
+            "order": 23,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · CLIP Text Encode (Prompt) · Node 7",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 7,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · CLIP Text Encode (Prompt) · Node 7\n\n**Zweck:** Encodes a text prompt using a CLIP model into an embedding that can be used to guide the diffusion model towards generating specific images.\n\n**Einstellbare Werte**\n- `text` = `` — The text to be encoded. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- `clip` (CLIP, Link 35): The CLIP model used for encoding the text.\n- `text` (STRING, nicht verbunden): The text to be encoded.\n\n**Ausgänge**\n- `CONDITIONING` (CONDITIONING, 1 Verbindung(en)): A conditioning containing the embedded text used to guide the diffusion model."
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 58,
+            "type": "MarkdownNote",
+            "pos": [
+              2019.5,
+              1433.5
+            ],
+            "size": [
+              390,
+              328
+            ],
+            "flags": {},
+            "order": 24,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · Empty Latent Audio · Node 11",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 11,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · Empty Latent Audio · Node 11\n\n**Zweck:** Erzeugt ein leeres Latent mit den vorgegebenen Abmessungen als Startpunkt der Generierung.\n\n**Einstellbare Werte**\n- `seconds` = `60` — Steuert diesen Parameter. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `batch_size` = `1` — The number of latent images in the batch. Höher verarbeitet mehr Beispiele parallel und braucht mehr VRAM; niedriger spart Speicher.\n\n**Eingänge**\n- `seconds` (FLOAT, Link 50): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `batch_size` (INT, nicht verbunden): The number of latent images in the batch.\n\n**Ausgänge**\n- `LATENT` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 59,
+            "type": "MarkdownNote",
+            "pos": [
+              3828.5,
+              258.5
+            ],
+            "size": [
+              390,
+              311
+            ],
+            "flags": {},
+            "order": 25,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · VAE Decode Audio · Node 12",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 12,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · VAE Decode Audio · Node 12\n\n**Zweck:** Dekodiert Latents mit dem VAE zu sicht- oder hörbaren Mediendaten.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `samples` (LATENT, Link 13): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `vae` (VAE, Link 39): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `AUDIO` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 60,
+            "type": "MarkdownNote",
+            "pos": [
+              731.0,
+              305.5
+            ],
+            "size": [
+              390,
+              328
+            ],
+            "flags": {},
+            "order": 26,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · Load Checkpoint · Node 25",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 25,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · Load Checkpoint · Node 25\n\n**Zweck:** Loads a diffusion model checkpoint, diffusion models are used to denoise latents.\n\n**Einstellbare Werte**\n- `ckpt_name` = `StableAudio\\stable_audio_3_medium.safetensors` — The name of the checkpoint (model) to load. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n\n**Eingänge**\n- `ckpt_name` (COMBO, Link 79): The name of the checkpoint (model) to load.\n\n**Ausgänge**\n- `MODEL` (MODEL, 1 Verbindung(en)): The model used for denoising latents.\n- `CLIP` (CLIP, nicht verbunden): The CLIP model used for encoding text prompts.\n- `VAE` (VAE, 1 Verbindung(en)): The VAE model used for encoding and decoding images to and from latent space."
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 61,
+            "type": "MarkdownNote",
+            "pos": [
+              731.0,
+              916.5
+            ],
+            "size": [
+              390,
+              362
+            ],
+            "flags": {},
+            "order": 27,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · Load CLIP · Node 26",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 26,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · Load CLIP · Node 26\n\n**Zweck:** Recipes: ↵ sd: clip-l ↵ stable cascade: clip-g ↵ sd3: t5 xxl / clip-g / clip-l ↵ stable audio: t5 base ↵ mochi: t5 xxl ↵ cogvideox: t5 xxl (226-token padding) ↵ cosmos: old t5 xxl ↵ lumina2: gemma 2 2B ↵ wan: umt5 xxl ↵ hidream: llama-3.1 (Recommend) or t5 ↵ omnigen2: qwen vl 2.5 3B ↵ joyimage: qwen3-vl 8B ↵ lens: gpt…\n\n**Einstellbare Werte**\n- `clip_name` = `T5\\t5gemma_b_b_ul2.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `type` = `stable_audio` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `device` = `default` — Steuert diesen Parameter. Die Auswahl bestimmt das Rechen-Backend (z. B. GPU oder CPU) und damit Geschwindigkeit und Kompatibilität.\n\n**Eingänge**\n- `clip_name` (COMBO, Link 80): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `type` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `device` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CLIP` (CLIP, 2 Verbindung(en)): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 62,
+            "type": "MarkdownNote",
+            "pos": [
+              3416.0,
+              3713.0
+            ],
+            "size": [
+              390,
+              540
+            ],
+            "flags": {},
+            "order": 28,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · Generate Text · Node 28",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 28,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · Generate Text · Node 28\n\n**Zweck:** Erzeugt mit dem geladenen Sprachmodell Text aus Prompt und optionalen Bild-, Video- oder Audio-Eingaben.\n\n**Einstellbare Werte**\n- `prompt` = `` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `max_length` = `256` — Steuert diesen Parameter. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `sampling_mode` = `on` — Sampling Mode Ändert die Verarbeitung dieses Nodes entsprechend dem angeschlossenen Datentyp.\n- `temperature` = `0.7` — Steuert diesen Parameter. Höher macht die Auswahl vielfältiger/zufälliger; niedriger wird deterministischer und konservativer.\n- `top_k` = `64` — Steuert diesen Parameter. Höher erlaubt mehr Kandidaten und Vielfalt; niedriger begrenzt die Auswahl stärker.\n- `top_p` = `0.95` — Steuert diesen Parameter. Ändert den Wahrscheinlichkeitsfilter: großzügiger erhöht Vielfalt, strenger erhöht Fokus/Konsistenz.\n- `min_p` = `0.05` — Steuert diesen Parameter. Ändert den Wahrscheinlichkeitsfilter: großzügiger erhöht Vielfalt, strenger erhöht Fokus/Konsistenz.\n- `repetition_penalty` = `1.05` — Steuert diesen Parameter. Über 1 unterdrückt Wiederholungen zunehmend; zu hoch kann Wörter, Klang oder Kohärenz beschädigen, nahe 1 bleibt neutral.\n- `seed` = `0` — Steuert diesen Parameter. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `presence_penalty` = `0` — Steuert diesen Parameter. Höher bevorzugt neue Inhalte statt bereits verwendeter Tokens; 0 lässt die ursprüngliche Modellverteilung unverändert.\n- `thinking` = `False` — Operate in thinking mode if the model supports it. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `use_default_template` = `True` — Use the built in system prompt/template if the model has one. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `clip` (CLIP, Link 40): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `image` (IMAGE, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `video` (IMAGE, nicht verbunden): Video frames as image batch. Assumed to be 24 FPS; subsampled to 1 FPS internally.\n- `audio` (AUDIO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `prompt` (STRING, Link 60): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `max_length` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode` (COMFY_DYNAMICCOMBO_V3, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.temperature` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.top_k` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.top_p` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.min_p` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.repetition_penalty` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.seed` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampling_mode.presence_penalty` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `thinking` (BOOLEAN, nicht verbunden): Operate in thinking mode if the model supports it.\n- `use_default_template` (BOOLEAN, nicht verbunden): Use the built in system prompt/template if the model has one.\n\n**Ausgänge**\n- `generated_text` (STRING, 2 Verbindung(en)): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 63,
+            "type": "MarkdownNote",
+            "pos": [
+              2166.5,
+              3713.0
+            ],
+            "size": [
+              390,
+              362
+            ],
+            "flags": {},
+            "order": 29,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · Load CLIP · Node 29",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 29,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · Load CLIP · Node 29\n\n**Zweck:** Recipes: ↵ sd: clip-l ↵ stable cascade: clip-g ↵ sd3: t5 xxl / clip-g / clip-l ↵ stable audio: t5 base ↵ mochi: t5 xxl ↵ cogvideox: t5 xxl (226-token padding) ↵ cosmos: old t5 xxl ↵ lumina2: gemma 2 2B ↵ wan: umt5 xxl ↵ hidream: llama-3.1 (Recommend) or t5 ↵ omnigen2: qwen vl 2.5 3B ↵ joyimage: qwen3-vl 8B ↵ lens: gpt…\n\n**Einstellbare Werte**\n- `clip_name` = `Qwen\\qwen3.5_2b_bf16.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `type` = `stable_diffusion` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `device` = `default` — Steuert diesen Parameter. Die Auswahl bestimmt das Rechen-Backend (z. B. GPU oder CPU) und damit Geschwindigkeit und Kompatibilität.\n\n**Eingänge**\n- `clip_name` (COMBO, Link 81): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `type` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `device` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CLIP` (CLIP, 1 Verbindung(en)): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 64,
+            "type": "MarkdownNote",
+            "pos": [
+              -509.5,
+              376.0
+            ],
+            "size": [
+              390,
+              294
+            ],
+            "flags": {},
+            "order": 30,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · User: short description (USER_INPUT in template) · Node 31",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 31,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · User: short description (USER_INPUT in template) · Node 31\n\n**Zweck:** Stellt einen direkt einstellbaren Wert für verbundene Nodes bereit.\n\n**Einstellbare Werte**\n- `value` = `Tropical house track with marimba, steel drums, soft synths, smooth bass, layered percussion, and light piano…` — Steuert diesen Parameter. Höher gibt einen größeren Zahlenwert an verbundene Nodes weiter; niedriger einen kleineren, ohne eigene Zusatzwirkung.\n\n**Eingänge**\n- `value` (STRING, Link 68): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `STRING` (STRING, 2 Verbindung(en)): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 65,
+            "type": "MarkdownNote",
+            "pos": [
+              830.5,
+              1433.5
+            ],
+            "size": [
+              390,
+              328
+            ],
+            "flags": {},
+            "order": 31,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · If/Else Switch · Node 34",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 34,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · If/Else Switch · Node 34\n\n**Zweck:** Wählt abhängig von der Einstellung einen von mehreren Daten- oder Verarbeitungspfaden aus.\n\n**Einstellbare Werte**\n- `switch` = `False` — Steuert diesen Parameter. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `on_false` (STRING, Link 47): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `on_true` (STRING, Link 46): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `switch` (BOOLEAN, Link 48): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `output` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 66,
+            "type": "MarkdownNote",
+            "pos": [
+              -509.5,
+              1339.5
+            ],
+            "size": [
+              390,
+              294
+            ],
+            "flags": {},
+            "order": 32,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · Boolean (Enable_Reprompt) · Node 35",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 35,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · Boolean (Enable_Reprompt) · Node 35\n\n**Zweck:** Stellt einen direkt einstellbaren Wert für verbundene Nodes bereit.\n\n**Einstellbare Werte**\n- `value` = `True` — Steuert diesen Parameter. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `value` (BOOLEAN, Link 83): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `BOOLEAN` (BOOLEAN, 1 Verbindung(en)): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 67,
+            "type": "MarkdownNote",
+            "pos": [
+              -509.5,
+              963.5
+            ],
+            "size": [
+              390,
+              294
+            ],
+            "flags": {},
+            "order": 33,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · Float (Duration) · Node 36",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 36,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · Float (Duration) · Node 36\n\n**Zweck:** Stellt einen direkt einstellbaren Wert für verbundene Nodes bereit.\n\n**Einstellbare Werte**\n- `value` = `150` — Steuert diesen Parameter. Höher gibt einen größeren Zahlenwert an verbundene Nodes weiter; niedriger einen kleineren, ohne eigene Zusatzwirkung.\n\n**Eingänge**\n- `value` (FLOAT, Link 82): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `FLOAT` (FLOAT, 2 Verbindung(en)): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 68,
+            "type": "MarkdownNote",
+            "pos": [
+              2100.0,
+              2115.0
+            ],
+            "size": [
+              390,
+              362
+            ],
+            "flags": {},
+            "order": 34,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · Text Replace (PROMPT TEMPLATE) · Node 38",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 38,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · Text Replace (PROMPT TEMPLATE) · Node 38\n\n**Zweck:** Erzeugt, kombiniert, ersetzt oder extrahiert Text für nachfolgende Workflow-Schritte.\n\n**Einstellbare Werte**\n- `string` = `SYSTEM_PROMPTS ↵  ↵ Input: USER_INPUT ↵ Target audio length: AUDIO_LENGTH seconds. ↵ Output:` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `find` = `SYSTEM_PROMPTS` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `replace` = `` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- `string` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `find` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `replace` (STRING, Link 66): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `STRING` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 69,
+            "type": "MarkdownNote",
+            "pos": [
+              2864.0,
+              2115.0
+            ],
+            "size": [
+              390,
+              362
+            ],
+            "flags": {},
+            "order": 35,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · Text Replace (USER INPUT) · Node 39",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 39,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · Text Replace (USER INPUT) · Node 39\n\n**Zweck:** Erzeugt, kombiniert, ersetzt oder extrahiert Text für nachfolgende Workflow-Schritte.\n\n**Einstellbare Werte**\n- `string` = `` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `find` = `USER_INPUT` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `replace` = `` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- `string` (STRING, Link 52): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `find` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `replace` (STRING, Link 53): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `STRING` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 70,
+            "type": "MarkdownNote",
+            "pos": [
+              3613.5,
+              2115.0
+            ],
+            "size": [
+              390,
+              362
+            ],
+            "flags": {},
+            "order": 36,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · Text Replace (AUDIO LENGTH) · Node 40",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 40,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · Text Replace (AUDIO LENGTH) · Node 40\n\n**Zweck:** Erzeugt, kombiniert, ersetzt oder extrahiert Text für nachfolgende Workflow-Schritte.\n\n**Einstellbare Werte**\n- `string` = `` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `find` = `AUDIO_LENGTH` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `replace` = `` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- `string` (STRING, Link 59): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `find` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `replace` (STRING, Link 58): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `STRING` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 71,
+            "type": "MarkdownNote",
+            "pos": [
+              3632.5,
+              3196.0
+            ],
+            "size": [
+              390,
+              362
+            ],
+            "flags": {},
+            "order": 37,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · Math Expression · Node 41",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 41,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · Math Expression · Node 41\n\n**Zweck:** Berechnet oder konvertiert numerische Werte für nachfolgende Nodes.\n\n**Einstellbare Werte**\n- `expression` = `a` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- `values.a` (FLOAT,INT,BOOLEAN, Link 56): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `values.b` (FLOAT,INT,BOOLEAN, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `expression` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `FLOAT` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `INT` (INT, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `BOOL` (BOOLEAN, nicht verbunden): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 72,
+            "type": "MarkdownNote",
+            "pos": [
+              3632.5,
+              2858.5
+            ],
+            "size": [
+              390,
+              294
+            ],
+            "flags": {},
+            "order": 38,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · Preview as Text · Node 42",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 42,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · Preview as Text · Node 42\n\n**Zweck:** Preview any input value as text.\n\n**Einstellbare Werte**\n- `value` = `None` — Direkter Primitive-Wert für verbundene Nodes. Höher gibt einen größeren Zahlenwert an verbundene Nodes weiter; niedriger einen kleineren, ohne eigene Zusatzwirkung.\n\n**Eingänge**\n- `source` (*, Link 57): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `STRING` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 73,
+            "type": "MarkdownNote",
+            "pos": [
+              939.0,
+              2138.5
+            ],
+            "size": [
+              390,
+              311
+            ],
+            "flags": {},
+            "order": 39,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · Custom Combo (Category index) · Node 43",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 43,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · Custom Combo (Category index) · Node 43\n\n**Zweck:** Wählt abhängig von der Einstellung einen von mehreren Daten- oder Verarbeitungspfaden aus.\n\n**Einstellbare Werte**\n- `choice` = `Music` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `choice` (COMBO, Link 78): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `STRING` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `INDEX` (INT, nicht verbunden): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 74,
+            "type": "MarkdownNote",
+            "pos": [
+              2110.0,
+              2820.0
+            ],
+            "size": [
+              390,
+              328
+            ],
+            "flags": {},
+            "order": 40,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · Extract Text from JSON · Node 49",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 49,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · Extract Text from JSON · Node 49\n\n**Zweck:** Erzeugt, kombiniert, ersetzt oder extrahiert Text für nachfolgende Workflow-Schritte.\n\n**Einstellbare Werte**\n- `json_string` = `{ ↵   \"Music\": \"You are an expert musician and musicologist and prompt engineer. Transform the user's input i…` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `key` = `Music` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- `json_string` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `key` (STRING, Link 65): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `STRING` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
+          },
+          {
+            "id": 75,
+            "type": "MarkdownNote",
+            "pos": [
+              4680.0,
+              3713.0
+            ],
+            "size": [
+              390,
+              294
+            ],
+            "flags": {},
+            "order": 41,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [],
+            "title": "Erklärung · Preview as Text · Node 54",
+            "properties": {
+              "Node name for S&R": "MarkdownNote",
+              "cnr_id": "comfy-core",
+              "dawasteh_note_for": 54,
+              "dawasteh_generated_note": true
+            },
+            "widgets_values": [
+              "# Erklärung · Preview as Text · Node 54\n\n**Zweck:** Preview any input value as text.\n\n**Einstellbare Werte**\n- `value` = `None` — Direkter Primitive-Wert für verbundene Nodes. Höher gibt einen größeren Zahlenwert an verbundene Nodes weiter; niedriger einen kleineren, ohne eigene Zusatzwirkung.\n\n**Eingänge**\n- `source` (*, Link 84): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `STRING` (STRING, nicht verbunden): Ergebnis dieses Nodes"
+            ],
+            "color": "#1b2638",
+            "bgcolor": "#101722"
           }
         ],
         "groups": [
@@ -1883,10 +2550,10 @@
             "id": 1,
             "title": "Loaders: checkpoint & CLIP",
             "bounding": [
-              80,
-              50,
-              485.721654232725,
-              527.2848777754299
+              217.0,
+              251.5,
+              932.0,
+              1055.0
             ],
             "color": "#3f789e",
             "flags": {}
@@ -1895,10 +2562,10 @@
             "id": 2,
             "title": "CLIP encode: conditioning",
             "bounding": [
-              600,
-              60,
-              470,
-              510
+              1466.5,
+              251.5,
+              956.5,
+              1074.5
             ],
             "color": "#3f789e",
             "flags": {}
@@ -1907,10 +2574,10 @@
             "id": 3,
             "title": "User inputs: prompt & duration",
             "bounding": [
-              -400,
-              10,
-              430,
-              740
+              -983.5,
+              322.0,
+              892.0,
+              1339.5
             ],
             "color": "#3f789e",
             "flags": {}
@@ -1919,10 +2586,10 @@
             "id": 7,
             "title": "Reprompt: full branch (template + LLM)",
             "bounding": [
-              60,
-              780,
-              1630,
-              1360
+              315.0,
+              2061.0,
+              3735.5,
+              2220.0
             ],
             "color": "#444",
             "flags": {}
@@ -1931,10 +2598,10 @@
             "id": 4,
             "title": "Reprompt: JSON extract & template fills",
             "bounding": [
-              120,
-              820,
-              1520,
-              650
+              315.0,
+              2061.0,
+              3735.5,
+              1525.0
             ],
             "color": "#444",
             "flags": {}
@@ -1943,10 +2610,10 @@
             "id": 5,
             "title": "Helpers: duration to string",
             "bounding": [
-              1340,
-              1180,
-              280,
-              250
+              3328.5,
+              2804.5,
+              722.0,
+              781.5
             ],
             "color": "#444",
             "flags": {}
@@ -1955,10 +2622,10 @@
             "id": 6,
             "title": "Reprompt: Qwen TextGenerate",
             "bounding": [
-              680,
-              1510,
-              960,
-              614.65625
+              1662.5,
+              3659.0,
+              2171.5,
+              622.0
             ],
             "color": "#444",
             "flags": {}
@@ -1967,10 +2634,10 @@
             "id": 8,
             "title": "Audio generation: Stable Audio",
             "bounding": [
-              60,
-              10,
-              1627.3616782294932,
-              737.0545987464304
+              217.0,
+              181.0,
+              4029.5,
+              1608.5
             ],
             "color": "#3f789e",
             "flags": {}
@@ -2242,7 +2909,16 @@
             "type": "STRING"
           }
         ],
-        "extra": {}
+        "extra": {
+          "dawasteh_workflow_refinement": {
+            "version": 1,
+            "generated_notes": 21,
+            "x_scale": 2.45,
+            "y_scale": 2.35,
+            "gap": 34.0
+          }
+        },
+        "last_node_id": 75
       }
     ]
   },
@@ -2259,7 +2935,14 @@
     "VHS_latentpreview": false,
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
-    "VHS_KeepIntermediate": true
+    "VHS_KeepIntermediate": true,
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 2,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

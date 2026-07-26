@@ -1,15 +1,15 @@
 {
   "id": "43111c77-c004-409c-aaef-2ef4d278b26c",
   "revision": 0,
-  "last_node_id": 37,
+  "last_node_id": 39,
   "last_link_id": 94,
   "nodes": [
     {
       "id": 3,
       "type": "LoadAudio",
       "pos": [
-        454.0291748046875,
-        563.7969339027553
+        1112.371,
+        1324.923
       ],
       "size": [
         282.798828125,
@@ -44,8 +44,8 @@
       "id": 1,
       "type": "LoadImage",
       "pos": [
-        454.0291748046875,
-        199.72863316107575
+        1112.371,
+        469.362
       ],
       "size": [
         282.798828125,
@@ -84,8 +84,8 @@
       "id": 31,
       "type": "PixaromaAudioStudio",
       "pos": [
-        757.9595429732206,
-        199.72863316107575
+        1857.001,
+        469.362
       ],
       "size": [
         210,
@@ -182,8 +182,8 @@
       "id": 35,
       "type": "PixaromaSaveMp4",
       "pos": [
-        989.0910830167536,
-        199.72863316107575
+        2423.273,
+        469.362
       ],
       "size": [
         320,
@@ -232,8 +232,8 @@
       "id": 36,
       "type": "PixaromaRunTimer",
       "pos": [
-        454.0291748046875,
-        779.7969339027553
+        1112.371,
+        1832.523
       ],
       "size": [
         226,
@@ -266,8 +266,8 @@
       "id": 37,
       "type": "MarkdownNote",
       "pos": [
-        454.0,
-        -170.0
+        1112.3,
+        -399.5
       ],
       "size": [
         780,
@@ -289,6 +289,64 @@
       ],
       "color": "#222",
       "bgcolor": "#111"
+    },
+    {
+      "id": 38,
+      "type": "MarkdownNote",
+      "pos": [
+        1441.17,
+        645.362
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 1 · Referenzbild laden · Node 1",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 1,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 1 · Referenzbild laden · Node 1\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 39,
+      "type": "MarkdownNote",
+      "pos": [
+        1441.17,
+        1324.923
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 2 · Sound laden · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 3,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 2 · Sound laden · Node 3\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `audio` = `Basti_Ref_Audio.mp3` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `AUDIO` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -347,7 +405,14 @@
     "VHS_latentpreview": false,
     "VHS_latentpreviewrate": 0,
     "VHS_MetadataImage": true,
-    "VHS_KeepIntermediate": true
+    "VHS_KeepIntermediate": true,
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 2,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
   },
   "version": 0.4
 }

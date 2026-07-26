@@ -8430,7 +8430,7 @@
             "name": "value_2",
             "type": "INT",
             "linkIds": [
-              1210
+              1168
             ],
             "label": "frame_count (auto from audio)",
             "pos": [
@@ -8507,7 +8507,7 @@
             "name": "INT",
             "type": "INT",
             "linkIds": [
-              1210
+              729
             ],
             "label": "frame_count",
             "pos": [
@@ -9528,6 +9528,54 @@
             ],
             "color": "#222",
             "bgcolor": "#000"
+          },
+          {
+            "id": 365,
+            "type": "PrimitiveInt",
+            "pos": [
+              3040,
+              6380
+            ],
+            "size": [
+              225,
+              90
+            ],
+            "flags": {},
+            "order": 18,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "value",
+                "name": "value",
+                "type": "INT",
+                "widget": {
+                  "name": "value"
+                },
+                "link": 1168
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "INT",
+                "name": "INT",
+                "type": "INT",
+                "links": [
+                  729
+                ]
+              }
+            ],
+            "title": "frame_count passthrough",
+            "properties": {
+              "Node name for S&R": "PrimitiveInt",
+              "cnr_id": "comfy-core",
+              "ver": "0.19.3"
+            },
+            "widgets_values": [
+              1,
+              "fixed"
+            ],
+            "color": "#222",
+            "bgcolor": "#000"
           }
         ],
         "groups": [],
@@ -9701,9 +9749,17 @@
             "type": "CONDITIONING"
           },
           {
-            "id": 1210,
+            "id": 1168,
             "origin_id": -10,
             "origin_slot": 2,
+            "target_id": 365,
+            "target_slot": 0,
+            "type": "INT"
+          },
+          {
+            "id": 729,
+            "origin_id": 365,
+            "origin_slot": 0,
             "target_id": -20,
             "target_slot": 5,
             "type": "INT"

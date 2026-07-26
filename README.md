@@ -102,8 +102,8 @@ Automatisch geprüft wurden alle 175 Workflows gegen den aktuellen ComfyUI-`obje
 - 175/175 gültige JSON-Dateien
 - 175/175 Workflows mit genau einem `PixaromaRunTimer`
 - 212 Haupt- und Untergraphen rekursiv geprüft
-- 3.257 Nodes und 3.836 Graph-Links konsistent und bidirektional referenziert
-- alle 486 Subgraph-Interface-Links (`inputNode`/`outputNode`) erhalten und geprüft
+- 3.258 Nodes und 3.837 Graph-Links konsistent und bidirektional referenziert
+- alle 487 Subgraph-Interface-Links (`inputNode`/`outputNode`) erhalten und geprüft
 - keine fehlenden installierten Node-Typen (Frontend-/Subgraph-Knoten berücksichtigt)
 - 510 Modellreferenzen einschließlich Untergraphen geprüft
 - 135 Input-/Medienreferenzen einschließlich Untergraphen geprüft

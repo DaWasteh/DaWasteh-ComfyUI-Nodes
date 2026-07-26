@@ -17,14 +17,14 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 
 ## Ergebnis
 
-- **174 kuratierte Workflow-Dateien** in 27 Kategorien
-- alle 174 Workflows enthalten einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
+- **175 kuratierte Workflow-Dateien** in 27 Kategorien
+- alle 175 Workflows enthalten einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
 - 59 vorhandene Workflows beibehalten
 - 114 funktional ergänzende Workflows übernommen:
   - 33 aus `DaWasteh`
   - 78 aus `Pixaroma`
   - 3 aus `WhatDreamsCost`
-- 1 neuer Audio-Kontext-Workflow aus den lokal installierten Gemma-, FLUX2- und Pixaroma-Nodes aufgebaut
+- 2 neue Audio-zu-Video-Workflows aufgebaut: ein klar als AudioReact gekennzeichneter Gemma-/FLUX2-/Pixaroma-Workflow und ein echtes generatives LTX-2.3-Video mit Custom Audio
 - exakte und funktionale Tutorial-Duplikate nicht erneut übernommen
 - NVIDIA-/CUDA-exklusive Varianten durch lokale AMD-taugliche Varianten ersetzt oder ausgelassen
 - vorhandene Modell- und Input-Referenzen auf die lokale Installation angepasst
@@ -43,7 +43,7 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 | `Music Generation` | 8 | ACE-Step und Stable Audio 3 |
 | `Voice Design` | 8 | Qwen3-TTS Custom Voice, Voice Design, Clone und Dialog |
 | `Text to Video` | 5 | LTX 2.3 und WAN 2.2 |
-| `Audio to Video` | 2 | Referenzbild+Sound sowie audiokontextbasierte Videoerzeugung in Soundlänge |
+| `Audio to Video` | 3 | zwei AudioReact-Varianten sowie echtes generatives LTX-2.3-Bild+Audio→Video in Soundlänge |
 | `NSFW` | 4 | getrennte SDXL-NSFW-/AniToReal-Workflows |
 | `Character & Consistency` | 3 | FLUX Kontext und SDXL/IPAdapter Character Keep |
 | `Character Animation` | 3 | SCAIL-2 Animation und Character Replacement |
@@ -97,19 +97,19 @@ Diese Dateien bleiben in ihren Quellordnern als Referenz, gehören aber nicht in
 
 ## Validierung
 
-Automatisch geprüft wurden alle 174 Workflows gegen den aktuellen ComfyUI-`object_info`-Snapshot:
+Automatisch geprüft wurden alle 175 Workflows gegen den aktuellen ComfyUI-`object_info`-Snapshot:
 
-- 174/174 gültige JSON-Dateien
-- 174/174 Workflows mit genau einem `PixaromaRunTimer`
-- 203 Haupt- und Untergraphen rekursiv geprüft
-- 3.180 Nodes und 3.665 Graph-Links konsistent und bidirektional referenziert
-- alle 408 Subgraph-Interface-Links (`inputNode`/`outputNode`) erhalten und geprüft
+- 175/175 gültige JSON-Dateien
+- 175/175 Workflows mit genau einem `PixaromaRunTimer`
+- 212 Haupt- und Untergraphen rekursiv geprüft
+- 3.257 Nodes und 3.836 Graph-Links konsistent und bidirektional referenziert
+- alle 486 Subgraph-Interface-Links (`inputNode`/`outputNode`) erhalten und geprüft
 - keine fehlenden installierten Node-Typen (Frontend-/Subgraph-Knoten berücksichtigt)
-- 502 Modellreferenzen einschließlich Untergraphen geprüft
-- 133 Input-/Medienreferenzen einschließlich Untergraphen geprüft
+- 510 Modellreferenzen einschließlich Untergraphen geprüft
+- 135 Input-/Medienreferenzen einschließlich Untergraphen geprüft
 - keine fehlenden Modell- oder Input-Dateien
 - keine NVIDIA-/CUDA-only-Risiko-Widgets
 - keine eingebetteten `Rh-Comfy-Auth`-Tokens/JWTs
 - unabhängiger abschließender Reviewer-Check: **PASS**, keine verbleibenden Blocker oder Fehler
 
-Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und statische RDNA4-Kompatibilität. Ein vollständiger GPU-End-to-End-Lauf aller 174 Workflows wäre sehr rechen- und zeitintensiv; besonders große WAN-/LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.
+Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und statische RDNA4-Kompatibilität. Ein vollständiger GPU-End-to-End-Lauf aller 175 Workflows wäre sehr rechen- und zeitintensiv; besonders große WAN-/LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.

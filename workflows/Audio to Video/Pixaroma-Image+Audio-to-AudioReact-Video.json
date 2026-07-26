@@ -278,14 +278,14 @@
       "mode": 0,
       "inputs": [],
       "outputs": [],
-      "title": "Anleitung · Bild + Sound → Video in Soundlänge",
+      "title": "AudioReact · Bildbewegung, kein generatives Video",
       "properties": {
         "Node name for S&R": "MarkdownNote",
         "cnr_id": "comfy-core",
         "ver": "0.3.68"
       },
       "widgets_values": [
-        "# Bild + Sound → Video in exakt der Soundlänge\n\n1. Im Node **Referenzbild laden** ein Bild wählen.\n2. Im Node **Sound laden** eine Audio-Datei wählen.\n3. Im **Pixaroma Audio Studio** Stil, Bewegung und Audio-Reaktion einstellen.\n4. Workflow starten. `PixaromaSaveMp4` übernimmt den Originalsound und die vom Audio Studio berechnete FPS/Framezahl.\n\n**Ergebnis:** Das MP4 endet mit dem Sound; die Videolänge wird direkt aus der Audio-Länge erzeugt."
+        "# AudioReact: Bild + Sound → reagierende Bildanimation\n\n**Wichtig:** Dieser Workflow erzeugt kein neues Diffusionsvideo. Er bewegt und verfremdet nur das vorhandene Referenzbild passend zum Sound.\n\n1. Im Node **Referenzbild laden** ein Bild wählen.\n2. Im Node **Sound laden** eine Audio-Datei wählen.\n3. Im **Pixaroma Audio Studio** Stil, Bewegung und Audio-Reaktion einstellen.\n4. Workflow starten. `PixaromaSaveMp4` übernimmt den Originalsound und die vom Audio Studio berechnete FPS/Framezahl.\n\nFür echte neu generierte Videoframes den separaten LTX-2.3-Workflow in diesem Ordner verwenden."
       ],
       "color": "#222",
       "bgcolor": "#111"

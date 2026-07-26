@@ -524,8 +524,7 @@
       "properties": {
         "Node name for S&R": "PixaromaRunTimer",
         "cnr_id": "ComfyUI-Pixaroma",
-        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805",
-        "runTimerLastMs": 199715
+        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
       },
       "widgets_values": [
         {
@@ -948,7 +947,7 @@
         "aux_id": "pixaroma/ComfyUI-Pixaroma"
       },
       "widgets_values": [
-        "{\"text\":\"Audio Context → Matching-Length Video\",\"fontSize\":31,\"fontFamily\":\"Arial\",\"fontColor\":\"#ffffff\",\"textAlign\":\"left\",\"backgroundColor\":\"#f66744\",\"padding\":10,\"borderRadius\":0,\"opacity\":1,\"fontWeight\":\"normal\",\"lineHeight\":1}"
+        "{\"text\":\"Audio Context → AudioReact Video\",\"fontSize\":31,\"fontFamily\":\"Arial\",\"fontColor\":\"#ffffff\",\"textAlign\":\"left\",\"backgroundColor\":\"#f66744\",\"padding\":10,\"borderRadius\":0,\"opacity\":1,\"fontWeight\":\"normal\",\"lineHeight\":1}"
       ],
       "color": "transparent",
       "bgcolor": "transparent"
@@ -969,14 +968,14 @@
       "mode": 0,
       "inputs": [],
       "outputs": [],
-      "title": "Anleitung · Sound → kontextbasiertes Video",
+      "title": "Audio-Kontext → AudioReact · kein generatives Video",
       "properties": {
         "Node name for S&R": "MarkdownNote",
         "cnr_id": "comfy-core",
         "ver": "0.3.68"
       },
       "widgets_values": [
-        "# Sound → kontextbasiertes Video in Soundlänge\n\n1. Unter **Sound laden** eine Audio-Datei wählen.\n2. Gemma 4 analysiert Sprache, Musik, Stimmung und hörbare Ereignisse und schreibt daraus einen englischen visuellen Prompt.\n3. FLUX.2 Klein 4B erzeugt daraus ein passendes Kontextbild.\n4. Pixaroma Audio Studio animiert dieses Bild passend zum Audio.\n5. `PixaromaSaveMp4` speichert das Video mit dem unveränderten Originalsound und der daraus berechneten Dauer.\n\n**Hinweis:** Dies ist bewusst ein beliebig langer, audio-reaktiver Workflow. Ein Diffusions-Videomodell wie LTX müsste lange Audios in kurze Clips segmentieren und wäre nicht längenunabhängig."
+        "# Audio-Kontext → AudioReact-Bildanimation\n\n**Wichtig:** Gemma 4 und FLUX.2 erzeugen hier nur ein passendes Standbild. Pixaroma Audio Studio bewegt dieses Bild anschließend audio-reaktiv; es entstehen keine generativ fortgeschriebenen Szenen.\n\n1. Unter **Sound laden** eine Audio-Datei wählen.\n2. Gemma 4 analysiert Sprache, Musik, Stimmung und hörbare Ereignisse.\n3. FLUX.2 Klein 4B erzeugt daraus ein Kontextbild.\n4. Pixaroma Audio Studio animiert dieses Bild passend zum Audio.\n5. `PixaromaSaveMp4` speichert die Animation mit dem Originalsound.\n\nFür echte neu generierte Videoframes den separaten LTX-2.3-Workflow in diesem Ordner verwenden."
       ],
       "color": "#222",
       "bgcolor": "#111"

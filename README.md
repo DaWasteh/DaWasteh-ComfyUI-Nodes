@@ -17,14 +17,15 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 
 ## Ergebnis
 
-- **175 kuratierte Workflow-Dateien** in 27 Kategorien
-- alle 175 Workflows enthalten einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
+- **176 kuratierte Workflow-Dateien** in 28 Kategorien
+- alle 176 Workflows enthalten einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
 - 59 vorhandene Workflows beibehalten
 - 114 funktional ergänzende Workflows übernommen:
   - 33 aus `DaWasteh`
   - 78 aus `Pixaroma`
   - 3 aus `WhatDreamsCost`
 - 2 neue Audio-zu-Video-Workflows aufgebaut: ein klar als AudioReact gekennzeichneter Gemma-/FLUX2-/Pixaroma-Workflow und ein echtes generatives LTX-2.3-Video mit Custom Audio
+- 1 neuer Audio-zu-Bild-Workflow: Gemma 4 analysiert das Audio, FLUX.2 Klein 4B erzeugt das Kontextbild, `PixaromaResolution` bietet frei wählbare Formate und `PixaromaNote` dokumentiert Bedienung und Downloads
 - exakte und funktionale Tutorial-Duplikate nicht erneut übernommen
 - NVIDIA-/CUDA-exklusive Varianten durch lokale AMD-taugliche Varianten ersetzt oder ausgelassen
 - vorhandene Modell- und Input-Referenzen auf die lokale Installation angepasst
@@ -44,6 +45,7 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 | `Voice Design` | 8 | Qwen3-TTS Custom Voice, Voice Design, Clone und Dialog |
 | `Text to Video` | 5 | LTX 2.3 und WAN 2.2 |
 | `Audio to Video` | 3 | zwei AudioReact-Varianten sowie echtes generatives LTX-2.3-Bild+Audio→Video in Soundlänge |
+| `Audio to Image` | 1 | Gemma-4-Audioverständnis → visueller Prompt → FLUX.2-Klein-4B-Kontextbild |
 | `NSFW` | 4 | getrennte SDXL-NSFW-/AniToReal-Workflows |
 | `Character & Consistency` | 3 | FLUX Kontext und SDXL/IPAdapter Character Keep |
 | `Character Animation` | 3 | SCAIL-2 Animation und Character Replacement |
@@ -97,19 +99,19 @@ Diese Dateien bleiben in ihren Quellordnern als Referenz, gehören aber nicht in
 
 ## Validierung
 
-Automatisch geprüft wurden alle 175 Workflows gegen den aktuellen ComfyUI-`object_info`-Snapshot:
+Automatisch geprüft wurden alle 176 Workflows gegen den aktuellen ComfyUI-`object_info`-Snapshot:
 
-- 175/175 gültige JSON-Dateien
-- 175/175 Workflows mit genau einem `PixaromaRunTimer`
-- 212 Haupt- und Untergraphen rekursiv geprüft
-- 3.258 Nodes und 3.837 Graph-Links konsistent und bidirektional referenziert
+- 176/176 gültige JSON-Dateien
+- 176/176 Workflows mit genau einem `PixaromaRunTimer`
+- 213 Haupt- und Untergraphen rekursiv geprüft
+- 3.277 Nodes und 3.854 Graph-Links konsistent und bidirektional referenziert
 - alle 487 Subgraph-Interface-Links (`inputNode`/`outputNode`) erhalten und geprüft
 - keine fehlenden installierten Node-Typen (Frontend-/Subgraph-Knoten berücksichtigt)
-- 510 Modellreferenzen einschließlich Untergraphen geprüft
-- 135 Input-/Medienreferenzen einschließlich Untergraphen geprüft
+- 514 Modellreferenzen einschließlich Untergraphen geprüft
+- 136 Input-/Medienreferenzen einschließlich Untergraphen geprüft
 - keine fehlenden Modell- oder Input-Dateien
 - keine NVIDIA-/CUDA-only-Risiko-Widgets
 - keine eingebetteten `Rh-Comfy-Auth`-Tokens/JWTs
 - unabhängiger abschließender Reviewer-Check: **PASS**, keine verbleibenden Blocker oder Fehler
 
-Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und statische RDNA4-Kompatibilität. Ein vollständiger GPU-End-to-End-Lauf aller 175 Workflows wäre sehr rechen- und zeitintensiv; besonders große WAN-/LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.
+Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und statische RDNA4-Kompatibilität. Der neue Audio-to-Image-Workflow wurde zusätzlich vollständig mit Gemma 4 und FLUX.2 Klein 4B auf der lokalen ComfyUI-Installation ausgeführt. Ein vollständiger GPU-End-to-End-Lauf aller 176 Workflows wäre sehr rechen- und zeitintensiv; besonders große WAN-/LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.

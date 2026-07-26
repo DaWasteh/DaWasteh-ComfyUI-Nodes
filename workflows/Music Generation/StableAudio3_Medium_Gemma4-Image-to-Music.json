@@ -728,20 +728,21 @@
       },
       "widgets_values": [
         "",
-        256,
+        192,
         "on",
-        0.7,
-        64,
-        0.95,
-        0.05,
-        1.05,
+        0.15,
+        20,
+        0.8,
+        0.0,
+        1.08,
         0,
-        0,
+        0.0,
         false,
         true
       ],
       "color": "#1d1d1d",
-      "bgcolor": "#2a2a2a"
+      "bgcolor": "#2a2a2a",
+      "title": "Gemma 4 Image Analysis — Thinking OFF"
     },
     {
       "id": 28,
@@ -785,7 +786,7 @@
         "ver": "c82f95989e0347b5cc48ddf52a51f2d776a1f83b"
       },
       "widgets_values": [
-        "Analyze the image and create one detailed music prompt for Stable Audio 3 Medium.\n\nThe prompt must describe music that fits the visual mood, subject, style, colors, setting, and emotional tone of the image. Convert visual elements into musical choices.\n\nInclude:\ngenre, subgenre, instrumentation, rhythm, tempo or BPM, mood, arrangement, production style, sound texture, and cinematic use case.\n\nRules:\nOutput only one final music prompt.\nDo not describe the image directly unless it helps the music.\nDo not mention Stable Audio.\nDo not use bullet points.\nDo not add explanations.\nDo not write labels like Genre, Mood, BPM, TrackType, or Music.\nDo not include vocals unless the image clearly suggests vocal textures.\nIf vocals are included, make them wordless, non-lyrical, or atmospheric.\nKeep the prompt between 70 and 120 words.\nMake it suitable for an instrumental music generation model.\n\nCreate a polished prompt that sounds like a professional music direction brief.",
+        "Analyze the image silently and create one detailed music-generation prompt that matches its visual mood, subject, style, colors, setting, energy, and emotional tone. Translate visual qualities into musical decisions.\n\nThe final prompt must include genre and subgenre, instrumentation, rhythm, tempo or BPM, mood, arrangement, production style, sound texture, and a suitable cinematic or media use case.\n\nSTRICT OUTPUT CONTRACT:\nOutput exactly one polished English paragraph containing only the finished music prompt.\nBegin immediately with the genre, mood, or instrumentation.\nDo not reveal analysis, reasoning, chain-of-thought, internal notes, planning, interpretation steps, or hidden thinking.\nDo not output thinking tags or markers such as <think>, </think>, analysis, reasoning, notes, plan, answer, final, or similar headings.\nDo not say “I”, “we”, “the image shows”, “this image”, “I will”, “we need”, or describe what you are doing.\nDo not use bullet points, labels, headings, Markdown, code fences, quotation marks around the whole prompt, prefixes, suffixes, or explanations.\nDo not mention Gemma, Stable Audio, an AI model, or the instruction itself.\nDo not describe the image directly unless a concrete visual detail is necessary to define the music.\nUse 70 to 120 words.\nKeep it suitable for instrumental music generation.\nDo not include vocals unless the image clearly suggests vocal texture; any vocals must be wordless, non-lyrical, or atmospheric.\nIf uncertain, still output only a clean instrumental music prompt and nothing else.",
         ""
       ],
       "color": "#1d1d1d",
@@ -829,10 +830,11 @@
         "ver": "76fc4b204ebad66201a569ab041d0f110816b30d"
       },
       "widgets_values": [
-        "Uplifting orchestral adventure score with a whimsical, pastoral feel. Instrumentation should feature bright woodwinds like flutes and oboes, supported by gentle strings and a light, driving percussion using snare drums and timpani accents. The rhythm should be moderately brisk, around 120 BPM, evoking a determined yet cheerful journey through a verdant landscape. The arrangement needs a warm, slightly vintage production quality, with a bright, airy sound texture perfect for an animated short film's heroic introduction sequence."
+        "The generated clean music prompt will appear here."
       ],
       "color": "#1d1d1d",
-      "bgcolor": "#2a2a2a"
+      "bgcolor": "#2a2a2a",
+      "title": "Clean Music Prompt Output"
     },
     {
       "id": 3,

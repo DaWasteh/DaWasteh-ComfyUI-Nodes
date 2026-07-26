@@ -1,7 +1,7 @@
 {
-  "id": "2461414c-34c1-4353-b6ec-317306eedd55",
+  "id": "43111c77-c004-409c-aaef-2ef4d278b26c",
   "revision": 0,
-  "last_node_id": 36,
+  "last_node_id": 37,
   "last_link_id": 94,
   "nodes": [
     {
@@ -34,10 +34,11 @@
         "Node name for S&R": "LoadAudio"
       },
       "widgets_values": [
-        "Basti_Ref_Audio.wav",
+        "Basti_Ref_Audio.mp3",
         null,
         null
-      ]
+      ],
+      "title": "2 · Sound laden"
     },
     {
       "id": 1,
@@ -76,7 +77,8 @@
       "widgets_values": [
         "example.png",
         "image"
-      ]
+      ],
+      "title": "1 · Referenzbild laden"
     },
     {
       "id": 31,
@@ -173,7 +175,8 @@
       },
       "widgets_values": [
         null
-      ]
+      ],
+      "title": "3 · Audio-reaktives Video erzeugen"
     },
     {
       "id": 35,
@@ -218,11 +221,12 @@
       },
       "widgets_values": [
         24,
-        "Video",
+        "AudioVideo/ImageReference",
         "save",
         true,
         ""
-      ]
+      ],
+      "title": "4 · MP4 mit Originalsound speichern"
     },
     {
       "id": 36,
@@ -257,6 +261,34 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 37,
+      "type": "MarkdownNote",
+      "pos": [
+        454.0,
+        -170.0
+      ],
+      "size": [
+        780,
+        260
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Anleitung · Bild + Sound → Video in Soundlänge",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.68"
+      },
+      "widgets_values": [
+        "# Bild + Sound → Video in exakt der Soundlänge\n\n1. Im Node **Referenzbild laden** ein Bild wählen.\n2. Im Node **Sound laden** eine Audio-Datei wählen.\n3. Im **Pixaroma Audio Studio** Stil, Bewegung und Audio-Reaktion einstellen.\n4. Workflow starten. `PixaromaSaveMp4` übernimmt den Originalsound und die vom Audio Studio berechnete FPS/Framezahl.\n\n**Ergebnis:** Das MP4 endet mit dem Sound; die Videolänge wird direkt aus der Audio-Länge erzeugt."
+      ],
+      "color": "#222",
+      "bgcolor": "#111"
     }
   ],
   "links": [

@@ -17,13 +17,14 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 
 ## Ergebnis
 
-- **173 kuratierte Workflow-Dateien** in 27 Kategorien
-- alle 173 Workflows enthalten einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
+- **174 kuratierte Workflow-Dateien** in 27 Kategorien
+- alle 174 Workflows enthalten einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
 - 59 vorhandene Workflows beibehalten
 - 114 funktional ergänzende Workflows übernommen:
   - 33 aus `DaWasteh`
   - 78 aus `Pixaroma`
   - 3 aus `WhatDreamsCost`
+- 1 neuer Audio-Kontext-Workflow aus den lokal installierten Gemma-, FLUX2- und Pixaroma-Nodes aufgebaut
 - exakte und funktionale Tutorial-Duplikate nicht erneut übernommen
 - NVIDIA-/CUDA-exklusive Varianten durch lokale AMD-taugliche Varianten ersetzt oder ausgelassen
 - vorhandene Modell- und Input-Referenzen auf die lokale Installation angepasst
@@ -42,13 +43,14 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 | `Music Generation` | 8 | ACE-Step und Stable Audio 3 |
 | `Voice Design` | 8 | Qwen3-TTS Custom Voice, Voice Design, Clone und Dialog |
 | `Text to Video` | 5 | LTX 2.3 und WAN 2.2 |
+| `Audio to Video` | 2 | Referenzbild+Sound sowie audiokontextbasierte Videoerzeugung in Soundlänge |
 | `NSFW` | 4 | getrennte SDXL-NSFW-/AniToReal-Workflows |
 | `Character & Consistency` | 3 | FLUX Kontext und SDXL/IPAdapter Character Keep |
 | `Character Animation` | 3 | SCAIL-2 Animation und Character Replacement |
 | `Image Inpainting` | 3 | FLUX2 Klein 4B/9B Inpainting |
 | `Image Upscaling` | 3 | einfache, Modell- und Z-Image-Upscaler |
 | `Batch Processing` | 2 | Ordner-Batches und Batch-Image-Edit |
-| weitere Einzelordner | je 1 | Audio Reaction, Controlled Video, Image Fusion, 3D, Outpainting, Training, Talking Video, Tests, Video Editing, Video-to-Audio, Vocal Separation |
+| weitere Einzelordner | je 1 | Controlled Video, Image Fusion, 3D, Outpainting, Training, Talking Video, Tests, Video Editing, Video-to-Audio, Vocal Separation |
 
 ## Benennung
 
@@ -95,19 +97,19 @@ Diese Dateien bleiben in ihren Quellordnern als Referenz, gehören aber nicht in
 
 ## Validierung
 
-Automatisch geprüft wurden alle 173 Workflows gegen den aktuellen ComfyUI-`object_info`-Snapshot:
+Automatisch geprüft wurden alle 174 Workflows gegen den aktuellen ComfyUI-`object_info`-Snapshot:
 
-- 173/173 gültige JSON-Dateien
-- 173/173 Workflows mit genau einem `PixaromaRunTimer`
-- 202 Haupt- und Untergraphen rekursiv geprüft
-- 3.161 Nodes und 3.647 Graph-Links konsistent und bidirektional referenziert
+- 174/174 gültige JSON-Dateien
+- 174/174 Workflows mit genau einem `PixaromaRunTimer`
+- 203 Haupt- und Untergraphen rekursiv geprüft
+- 3.180 Nodes und 3.665 Graph-Links konsistent und bidirektional referenziert
 - alle 408 Subgraph-Interface-Links (`inputNode`/`outputNode`) erhalten und geprüft
 - keine fehlenden installierten Node-Typen (Frontend-/Subgraph-Knoten berücksichtigt)
-- 498 Modellreferenzen einschließlich Untergraphen geprüft
-- 132 Input-/Medienreferenzen einschließlich Untergraphen geprüft
+- 502 Modellreferenzen einschließlich Untergraphen geprüft
+- 133 Input-/Medienreferenzen einschließlich Untergraphen geprüft
 - keine fehlenden Modell- oder Input-Dateien
 - keine NVIDIA-/CUDA-only-Risiko-Widgets
 - keine eingebetteten `Rh-Comfy-Auth`-Tokens/JWTs
 - unabhängiger abschließender Reviewer-Check: **PASS**, keine verbleibenden Blocker oder Fehler
 
-Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und statische RDNA4-Kompatibilität. Ein vollständiger GPU-End-to-End-Lauf aller 173 Workflows wäre sehr rechen- und zeitintensiv; besonders große WAN-/LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.
+Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und statische RDNA4-Kompatibilität. Ein vollständiger GPU-End-to-End-Lauf aller 174 Workflows wäre sehr rechen- und zeitintensiv; besonders große WAN-/LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.

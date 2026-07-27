@@ -195,7 +195,7 @@ def main() -> int:
                 # A workflow absent from HEAD is a newly added collection item;
                 # there is no existing graph whose links/notes need protection.
                 pass
-    expected = {"files": 181, "graphs": 218, "nodes": 6029, "notes": 2687, "links": 3920, "timers": 181}
+    expected = {"files": 183, "graphs": 220, "nodes": 6049, "notes": 2695, "links": 3926, "timers": 183}
     actual = {"files": len(paths), **{k: totals[k] for k in ("graphs", "nodes", "notes", "links", "timers")}}
     for key, value in expected.items():
         if actual[key] != value:

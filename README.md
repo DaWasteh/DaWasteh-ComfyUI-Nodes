@@ -17,10 +17,10 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 
 ## Ergebnis
 
-- **181 kuratierte Workflow-Dateien** in 28 Kategorien
-- alle 181 Workflows enthalten exakt einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
+- **183 kuratierte Workflow-Dateien** in 28 Kategorien
+- alle 183 Workflows enthalten exakt einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
 - alle vorhandenen Workflows wurden mit deutlich größeren, kollisionsfreien Abständen neu angeordnet
-- **2.687 automatisch zugeordnete Parameter-Notes** erklären jeden Nicht-Pixaroma-/Nicht-Dokumentations-Node einschließlich aktueller Werte, Schalterwirkung, Ein-/Ausgänge und höher-/niedriger-Auswirkung
+- **2.695 automatisch zugeordnete Parameter-Notes** erklären jeden Nicht-Pixaroma-/Nicht-Dokumentations-Node einschließlich aktueller Werte, Schalterwirkung, Ein-/Ausgänge und höher-/niedriger-Auswirkung
 - 59 vorhandene Workflows beibehalten
 - 114 funktional ergänzende Workflows übernommen:
   - 33 aus `DaWasteh`
@@ -28,6 +28,7 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
   - 3 aus `WhatDreamsCost`
 - 2 neue Audio-zu-Video-Workflows aufgebaut: ein klar als AudioReact gekennzeichneter Gemma-/FLUX2-/Pixaroma-Workflow und ein echtes generatives LTX-2.3-Video mit Custom Audio
 - 1 neuer Audio-zu-Bild-Workflow: Gemma 4 analysiert das Audio, FLUX.2 Klein 4B erzeugt das Kontextbild, `PixaromaResolution` bietet frei wählbare Formate und `PixaromaNote` dokumentiert Bedienung und Downloads
+- 2 neue MOSS-TTS-Local-v1.5-Workflows: Audio + exaktes Transkript + neuer Text als Continuation sowie Text + Audio-Stimmenvorlage als Zero-shot Voice Clone; beide enthalten direkte Downloads und Zielordner
 - 5 neue lokale Bild-LoRA-Trainingsworkflows mit offiziellen ComfyUI-Core-Trainingsnodes: Z-Image Base, Boogu Image Base, FLUX.1 Dev, FLUX.2 Klein 4B Base und SDXL
 - der ACE-Step-1.5-Workflow enthält zusätzlich einen ausführlichen Rank-Guide für Rank 16/32/64/128
 - exakte und funktionale Tutorial-Duplikate nicht erneut übernommen
@@ -47,7 +48,7 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 | `Text+Image to Video` | 10 | WAN, LTX Director, First/Last Frame, Kandinsky |
 | `Prompt Enhancer` | 11 | Gemma/Qwen Prompt-, Bild-, Audio- und Videoverständnis |
 | `Music Generation` | 8 | ACE-Step und Stable Audio 3 |
-| `Voice Design` | 8 | Qwen3-TTS Custom Voice, Voice Design, Clone und Dialog |
+| `Voice Design` | 10 | Qwen3-TTS sowie MOSS-TTS Local v1.5: Custom Voice, Continuation, Clone und Dialog |
 | `Text to Video` | 5 | LTX 2.3 und WAN 2.2 |
 | `Audio to Video` | 3 | zwei AudioReact-Varianten sowie echtes generatives LTX-2.3-Bild+Audio→Video in Soundlänge |
 | `Audio to Image` | 1 | Gemma-4-Audioverständnis → visueller Prompt → FLUX.2-Klein-4B-Kontextbild |
@@ -84,7 +85,7 @@ Die fünf neuen Bildtrainer verwenden ausschließlich die **offiziellen experime
 
 **Krea 2 RAW wurde nach einem reproduzierbaren OOM auf der R9700 trotz aktiviertem Offloading wieder entfernt.** Das 24,5-GB-BF16-Modell zusammen mit Textencoder und Trainingszustand überschreitet die sichere 32-GB-VRAM-/48-GB-RAM-Grenze dieses Systems. Entsprechend der Stabilitätsregel wird kein Workflow ausgeliefert, der auf der Zielhardware nicht sicher nutzbar ist.
 
-Bewusst nicht als lokaler RDNA4-LoRA-Trainer aufgenommen wurden LTX-2 (offizieller Trainer verlangt CUDA/Triton), WAN 2.x (kein offizieller Herstellertrainer), HunyuanVideo/CogVideoX (kein bestätigter gfx1201-Pfad), Stable Audio 3 (kein passender ComfyUI-Core-Datasetpfad) sowie Qwen3-TTS (vorhandener Node ist Full-Finetuning statt LoRA).
+Bewusst nicht als lokaler RDNA4-LoRA-Trainer aufgenommen wurden LTX-2 (offizieller Trainer verlangt CUDA/Triton), WAN 2.x (kein offizieller Herstellertrainer), HunyuanVideo/CogVideoX (kein bestätigter gfx1201-Pfad), Stable Audio 3 (kein passender ComfyUI-Core-Datasetpfad), Qwen3-TTS (vorhandener Node ist Full-Finetuning statt LoRA) sowie MOSS-TTS Local v1.5. OpenMOSS dokumentiert für Local v1.5 Full-SFT, aber keinen allgemeinen v1.5-LoRA-Pfad; das vorhandene Community-LoRA-Beispiel zielt auf das ältere 8B-Modell, und der verwendete ComfyUI-v1.5-Node kann keine LoRAs trainieren oder laden.
 
 ## RDNA4-Anpassungen
 
@@ -119,20 +120,21 @@ Diese Dateien bleiben in ihren Quellordnern als Referenz, gehören aber nicht in
 
 ## Validierung
 
-Automatisch geprüft wurden alle 181 Workflows gegen den aktuellen ComfyUI-`object_info`-Stand:
+Automatisch geprüft wurden alle 183 Workflows; die zwei MOSS-TTS-Ergänzungen wurden statisch gegen das veröffentlichte v1.5-Node-Schema geprüft, weil Custom Node und Modell lokal noch nicht installiert sind:
 
-- 181/181 gültige JSON-Dateien
-- 181/181 Workflows mit genau einem `PixaromaRunTimer`
-- 218 Haupt- und Untergraphen rekursiv geprüft
-- 6.029 Nodes, davon 2.687 eindeutig zugeordnete Parameter-Notes
-- 3.920 Graph-Links konsistent und bidirektional referenziert
+- 183/183 gültige JSON-Dateien
+- 183/183 Workflows mit genau einem `PixaromaRunTimer`
+- 220 Haupt- und Untergraphen rekursiv geprüft
+- 6.049 Nodes, davon 2.695 eindeutig zugeordnete Parameter-Notes
+- 3.926 Graph-Links konsistent und bidirektional referenziert
 - bestehende 3.854 Links sowie alle Subgraph-Interface-Links unverändert erhalten
 - keine doppelten Node-/Link-IDs und keine überlappenden Node-Rechtecke
 - vorhandene `PixaromaNote`-Dictionaries einschließlich Position, Größe und Inhalt unverändert
 - alle fünf neuen Trainer verwenden installierte Core-Nodes und vorhandene lokale Modelle
 - alle fünf Trainer erfolgreich mit einem vollständigen einmaligen 1-Step-Train-und-Save-Smoke-Test auf der Radeon AI Pro R9700 / ROCm 7.15 ausgeführt; die ausgelieferten Workflows starten bewusst mit 2 Schritten für den ersten eigenen Smoke-Test, und die erzeugten Test-Safetensors enthielten nichtleere Adaptergewichte
 - Boogu erst nach aktiviertem `offloading=true` OOM-frei validiert; diese sichere Einstellung ist im Workflow fest voreingestellt
+- MOSS-TTS Local v1.5 verwendet `dtype=auto` und `attention=sdpa`; die Gewichte belegen zusammen rund 17,6 GB (9,1 GB Modell plus 8,5 GB Codec). Voice Clone und Continuation wurden auf der R9700 erfolgreich bis zu nichtleeren 48-kHz-Stereo-FLACs ausgeführt; für statisches ComfyUI-Offloading war ein lokaler Comfy-Cast-Fix für `MossQwen3RMSNorm` nötig
 - keine NVIDIA-/CUDA-only-Risiko-Widgets und keine eingebetteten `Rh-Comfy-Auth`-Tokens/JWTs
 - Generator, Refinement und Validator sind reproduzierbar und idempotent; die fokussierte Unit-Test-Suite prüft dynamische Widgets, Seed-Kontrollen, VHS-Dictionary-Werte, Subgraphs und TrainLora-Widgetreihenfolge
 
-Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und RDNA4-Kompatibilität. Die fünf neuen Bild-LoRA-Trainer wurden lokal bis zum gespeicherten Adapter ausgeführt; Krea 2 RAW wurde nach dem OOM konsequent entfernt. Der Audio-to-Image-Workflow wurde vollständig mit Gemma 4 und FLUX.2 Klein 4B auf der lokalen ComfyUI-Installation ausgeführt. Ein vollständiger GPU-End-to-End-Lauf aller 181 Workflows wäre sehr rechen- und zeitintensiv; besonders große WAN-/LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.
+Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und RDNA4-Kompatibilität. Die fünf neuen Bild-LoRA-Trainer wurden lokal bis zum gespeicherten Adapter ausgeführt; Krea 2 RAW wurde nach dem OOM konsequent entfernt. Der Audio-to-Image-Workflow wurde vollständig mit Gemma 4 und FLUX.2 Klein 4B auf der lokalen ComfyUI-Installation ausgeführt. Ein vollständiger GPU-End-to-End-Lauf aller 183 Workflows wäre sehr rechen- und zeitintensiv; besonders große WAN-/LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.

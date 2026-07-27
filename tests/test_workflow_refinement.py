@@ -131,6 +131,7 @@ class WidgetMappingTests(unittest.TestCase):
             self.assertIn(expected, _effect(name, "FLOAT", {}, 1.0), name)
         self.assertIn("Bild-, Farb- oder Detailkorrektur", _fallback_purpose("LayerFilter: FilmV2"))
         self.assertIn("Konditionierungen", _fallback_purpose("ConditioningZeroOut"))
+        self.assertIn("Text bzw. die Anweisung", _effect("prefix_text", "STRING", {}, "transcript"))
 
     def test_generated_train_lora_widgets_follow_live_schema(self):
         expected_names = [

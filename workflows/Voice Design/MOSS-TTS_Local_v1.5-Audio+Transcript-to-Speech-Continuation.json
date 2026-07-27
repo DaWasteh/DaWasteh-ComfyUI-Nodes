@@ -1,0 +1,424 @@
+{
+  "id": "0333efe1-37dc-55f9-9331-116438bb2de6",
+  "revision": 0,
+  "last_node_id": 10,
+  "last_link_id": 3,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "MossTTSModelLoader",
+      "pos": [
+        0.0,
+        -188.0
+      ],
+      "size": [
+        281.9140625,
+        130
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "mosstts_model",
+          "type": "MOSSTTS_MODEL",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "Saganaki22/Moss_TTS-ComfyUI",
+        "ver": "unknown",
+        "Node name for S&R": "MossTTSModelLoader",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "widgets_values": [
+        "MOSS-TTS Local Transformer v1.5 BF16 - OpenMOSS-Team (auto-download)",
+        "auto",
+        "sdpa",
+        true
+      ],
+      "title": "1 · MOSS-TTS Local v1.5 laden"
+    },
+    {
+      "id": 2,
+      "type": "LoadAudio",
+      "pos": [
+        0.0,
+        705.0
+      ],
+      "size": [
+        317.5202467558629,
+        136
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.25.0",
+        "Node name for S&R": "LoadAudio",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "widgets_values": [
+        "MOSS-TTS_Stimmenvorlage.wav",
+        null,
+        null
+      ],
+      "title": "2 · Audio-Stimmenvorlage laden"
+    },
+    {
+      "id": 3,
+      "type": "MossTTSContinueSpeech",
+      "pos": [
+        1470.0,
+        0.0
+      ],
+      "size": [
+        400,
+        624
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mosstts_model",
+          "type": "MOSSTTS_MODEL",
+          "link": 1
+        },
+        {
+          "name": "prefix_audio",
+          "type": "AUDIO",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "Saganaki22/Moss_TTS-ComfyUI",
+        "ver": "unknown",
+        "Node name for S&R": "MossTTSContinueSpeech",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "widgets_values": [
+        "Dies ist der exakte Wortlaut der Audio-Stimmenvorlage.",
+        "Dieser neue Text wird nahtlos mit derselben Stimme fortgesetzt.",
+        false,
+        "German",
+        "Continue seamlessly in the same voice and speaking style.",
+        0,
+        "clean studio speech",
+        "",
+        "",
+        4096,
+        true,
+        1.0,
+        1.0,
+        50,
+        1.7,
+        0.8,
+        25,
+        1.0,
+        246813579,
+        "randomize"
+      ],
+      "title": "3 · Audio + Transkript + neuen Text fortsetzen"
+    },
+    {
+      "id": 4,
+      "type": "SaveAudioAdvanced",
+      "pos": [
+        3185.0,
+        235.0
+      ],
+      "size": [
+        270,
+        136
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 3
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.25.0",
+        "Node name for S&R": "SaveAudioAdvanced",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        }
+      },
+      "widgets_values": [
+        "audio/MOSS-TTS-v1.5/continuation",
+        "flac"
+      ],
+      "title": "4 · 48-kHz-Stereo-Audio speichern"
+    },
+    {
+      "id": 5,
+      "type": "PixaromaNote",
+      "pos": [
+        -2400,
+        -200
+      ],
+      "size": [
+        1100,
+        2100
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaNote"
+      },
+      "widgets_values": [
+        "{\"version\":1,\"content\":\"<h1>MOSS-TTS v1.5 \\u00b7 Audio + Transkript + neuer Text</h1><p>Dieser Workflow nutzt den offiziellen Continuation-Modus. Audio und Transkript m\\u00fcssen inhaltlich exakt zusammenpassen.</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #777777\\\"><h2>Bedienung</h2><ol><li>Im <b>Load Audio</b>-Node eine saubere, einzelne Stimme laden (empfohlen: 5\\u201330 Sekunden).</li><li>Im <b>MOSS-TTS Continue Speech</b>-Node unter <code>prefix_text</code> den exakten Wortlaut des Referenz-Audios eintragen.</li><li>Unter <code>continuation_text</code> den neuen Text eintragen. <code>return_full_audio</code> gibt bei Bedarf Referenz und Fortsetzung gemeinsam aus.</li><li>Sprache passend w\\u00e4hlen und den Workflow starten. Ausgabe: <code>ComfyUI/output/audio/MOSS-TTS-v1.5/</code>.</li></ol><p><b>RDNA4-Einstellung:</b> <code>dtype=auto</code> und <code>attention=sdpa</code> sind im Workflow gesetzt. Das 4B-Local-Modell ist f\\u00fcr die R9700 mit 32 GB die realistische Inferenzvariante.</p><p><span data-ic=\\\"warning-v1\\\" class=\\\"pix-note-ic\\\" contenteditable=\\\"false\\\" style=\\\"color: #f66744\\\"></span>&nbsp;Stimmen nur mit eigener Stimme oder ausdr\\u00fccklicher Erlaubnis klonen.</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #777777\\\"><h2>1 \\u00b7 Ben\\u00f6tigten Custom Node installieren</h2><p>ComfyUI Manager \\u2192 <b>Install via Git URL</b> \\u2192 <code>https://github.com/Saganaki22/Moss_TTS-ComfyUI</code> \\u2192 ComfyUI neu starten.</p><p><a href=\\\"https://github.com/Saganaki22/Moss_TTS-ComfyUI\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Moss_TTS-ComfyUI \\u00f6ffnen</a></p><p>Der Node bringt die kleinen Architektur-, Config- und Tokenizer-Dateien unter <code>ComfyUI/custom_nodes/Moss_TTS-ComfyUI/assets/</code> bereits mit.</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #777777\\\"><h2>2 \\u00b7 MOSS-TTS Local Transformer v1.5</h2><p><span class=\\\"pix-note-btnblock\\\"><a class=\\\"pix-note-dl\\\" style=\\\"background-color: #f66744\\\" href=\\\"https://huggingface.co/OpenMOSS-Team/MOSS-TTS-Local-Transformer-v1.5/resolve/main/model.safetensors?download=true\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Download model.safetensors (ca. 9,1 GB)</a></span></p><div class=\\\"pix-note-folderhint\\\" style=\\\"color: #888888\\\">ComfyUI/models/mosstts/moss-tts-local-transformer-v1.5/model.safetensors</div><p><b>Wichtig:</b> F\\u00fcr diese Workflows wird der 4B-Local-Transformer verwendet. Die vier Shards aus <code>OpenMOSS-Team/MOSS-TTS-v1.5</code> geh\\u00f6ren zum separaten 8B-Delay-Modell und werden hier nicht geladen.</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #777777\\\"><h2>3 \\u00b7 MOSS-Audio-Tokenizer-v2 (alle vier Dateien erforderlich)</h2><p>Die drei Codec-Shards plus Index belegen zusammen rund <b>8,5 GB</b>; mit dem Hauptmodell sind es insgesamt rund <b>17,6 GB</b>.</p><p><span class=\\\"pix-note-btnblock\\\"><a class=\\\"pix-note-dl\\\" style=\\\"background-color: #f66744\\\" href=\\\"https://huggingface.co/OpenMOSS-Team/MOSS-Audio-Tokenizer-v2/resolve/main/model.safetensors.index.json?download=true\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Download model.safetensors.index.json</a></span></p><div class=\\\"pix-note-folderhint\\\" style=\\\"color: #888888\\\">ComfyUI/models/mosstts/moss-audio-tokenizer-v2/</div><p><span class=\\\"pix-note-btnblock\\\"><a class=\\\"pix-note-dl\\\" style=\\\"background-color: #f66744\\\" href=\\\"https://huggingface.co/OpenMOSS-Team/MOSS-Audio-Tokenizer-v2/resolve/main/model-00001-of-00003.safetensors?download=true\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Download model-00001-of-00003.safetensors</a></span></p><div class=\\\"pix-note-folderhint\\\" style=\\\"color: #888888\\\">ComfyUI/models/mosstts/moss-audio-tokenizer-v2/</div><p><span class=\\\"pix-note-btnblock\\\"><a class=\\\"pix-note-dl\\\" style=\\\"background-color: #f66744\\\" href=\\\"https://huggingface.co/OpenMOSS-Team/MOSS-Audio-Tokenizer-v2/resolve/main/model-00002-of-00003.safetensors?download=true\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Download model-00002-of-00003.safetensors</a></span></p><div class=\\\"pix-note-folderhint\\\" style=\\\"color: #888888\\\">ComfyUI/models/mosstts/moss-audio-tokenizer-v2/</div><p><span class=\\\"pix-note-btnblock\\\"><a class=\\\"pix-note-dl\\\" style=\\\"background-color: #f66744\\\" href=\\\"https://huggingface.co/OpenMOSS-Team/MOSS-Audio-Tokenizer-v2/resolve/main/model-00003-of-00003.safetensors?download=true\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Download model-00003-of-00003.safetensors</a></span></p><div class=\\\"pix-note-folderhint\\\" style=\\\"color: #888888\\\">ComfyUI/models/mosstts/moss-audio-tokenizer-v2/</div><p>Alternativ kann <code>download_if_missing=true</code> im Loader die fehlenden Gewichte automatisch in genau diese Ordner laden.</p><hr class=\\\"pix-note-hr-solid\\\" style=\\\"color: #777777\\\"><h2>Warum kein LoRA-Workflow enthalten ist</h2><p>OpenMOSS dokumentiert f\\u00fcr Local v1.5 einen vollst\\u00e4ndigen SFT-Trainer, aber keinen allgemeinen v1.5-LoRA-Pfad. Das vorhandene Community-LoRA-Beispiel zielt auf das \\u00e4ltere 8B-Modell; der ComfyUI-v1.5-Node kann au\\u00dferdem keine LoRA laden oder trainieren. Ohne belastbaren v1.5-LoRA-Loader und sicheren Smoke-Test w\\u00e4re ein Trainer auf 32 GB VRAM / 48 GB RAM spekulativ und wird deshalb nicht ausgeliefert.</p><p><a href=\\\"https://github.com/OpenMOSS/MOSS-TTS\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Offizielles OpenMOSS/MOSS-TTS Repository</a></p>\",\"buttonColor\":\"#f66744\",\"lineColor\":\"#f66744\",\"width\":1100,\"height\":2100,\"backgroundColor\":\"#2a2a2a\"}",
+        ""
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a",
+      "title": "Workflow-Anleitung und direkte Downloads"
+    },
+    {
+      "id": 6,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        3234.0,
+        1222.0
+      ],
+      "size": [
+        210,
+        14
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 7,
+      "type": "MarkdownNote",
+      "pos": [
+        327.914,
+        -188.0
+      ],
+      "size": [
+        390,
+        345
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 1 · MOSS-TTS Local v1.5 laden · Node 1",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 1,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 1 · MOSS-TTS Local v1.5 laden · Node 1\n\n**Zweck:** Load MOSS-TTS Local Transformer v1.5 and its 48 kHz stereo audio tokenizer with ComfyUI/AIMDO memory tracking.\n\n**Einstellbare Werte**\n- `model` = `MOSS-TTS Local Transformer v1.5 BF16 - OpenMOSS-Team (auto-download)` — Cataloged OpenMOSS MOSS-TTS Local Transformer v1.5. Main weights are stored in ComfyUI/models/mosstts/moss-tts-local-transformer-v1.5/. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `dtype` = `auto` — auto uses the dtype declared by the bundled model config. Manual options are bf16 and fp16. Die Auswahl ändert Rechenpräzision, Speicherbedarf und Hardware-Kompatibilität.\n- `attention` = `sdpa` — auto uses FlashAttention 2 when compatible, SDPA on CUDA fallback, and eager on CPU. Manual eager forces the main model's plain attention path; the codec uses SDPA. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `download_if_missing` = `True` — Download missing main model and required audio-tokenizer model files. Disable for offline operation. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `mosstts_model` (MOSSTTS_MODEL, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 8,
+      "type": "MarkdownNote",
+      "pos": [
+        363.52,
+        705.0
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 2 · Audio-Stimmenvorlage laden · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 2 · Audio-Stimmenvorlage laden · Node 2\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `audio` = `MOSS-TTS_Stimmenvorlage.wav` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `AUDIO` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 9,
+      "type": "MarkdownNote",
+      "pos": [
+        1916.0,
+        0.0
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 3 · Audio + Transkript + neuen Text fortsetzen · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 3,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 3 · Audio + Transkript + neuen Text fortsetzen · Node 3\n\n**Zweck:** Continuation-based cloning for finishing a sentence or extending prefix audio.\n\n**Einstellbare Werte**\n- `prefix_text` = `Dies ist der exakte Wortlaut der Audio-Stimmenvorlage.` — Text to synthesize. Inline [pause 0.5s], Pinyin, and IPA are passed through to MOSS-TTS. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `continuation_text` = `Dieser neue Text wird nahtlos mit derselben Stimme fortgesetzt.` — Text to synthesize. Inline [pause 0.5s], Pinyin, and IPA are passed through to MOSS-TTS. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `return_full_audio` = `False` — When enabled, concatenate the original prefix audio with the generated continuation. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `language` = `German` — Language hint. v1.5 performs best when the language is specified. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `instruction` = `Continue seamlessly in the same voice and speaking style.` — Optional free-form style or delivery instruction. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `duration_tokens` = `0` — Optional duration target in audio tokens. 0 omits the field. MOSS runs around 12.5 tokens per second. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `quality` = `clean studio speech` — Optional quality hint field exposed by the MOSS user-message schema. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `sound_event` = `` — Optional sound-event hint field exposed by the MOSS user-message schema. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `ambient_sound` = `` — Optional ambient-sound hint field exposed by the MOSS user-message schema. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `max_new_tokens` = `4096` — Generation budget in audio frames. At 12.5 frames per second, 4096 is roughly 5.5 minutes. Höher erlaubt längere Text-/Sprachausgaben und benötigt mehr Zeit/Speicher; niedriger kürzt früher ab.\n- `do_sample` = `True` — Use stochastic sampling. Disable for deterministic greedy decoding. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `text_temperature` = `1.0` — Sampling temperature for assistant text/audio-control tokens. Höher macht die Auswahl vielfältiger/zufälliger; niedriger wird deterministischer und konservativer.\n- `text_top_p` = `1.0` — Nucleus sampling for assistant text/audio-control tokens. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `text_top_k` = `50` — Top-K sampling for assistant text/audio-control tokens. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `audio_temperature` = `1.7` — Recommended v1.5 audio sampling temperature. Höher macht die Auswahl vielfältiger/zufälliger; niedriger wird deterministischer und konservativer.\n- `audio_top_p` = `0.8` — Recommended v1.5 nucleus sampling cutoff for audio codebooks. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `audio_top_k` = `25` — Recommended v1.5 Top-K cutoff for audio codebooks. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `audio_repetition_penalty` = `1.0` — Penalty for repeated acoustic code patterns. Über 1 unterdrückt Wiederholungen zunehmend; zu hoch kann Wörter, Klang oder Kohärenz beschädigen, nahe 1 bleibt neutral.\n- `seed` = `246813579` — 0 leaves sampling unseeded. Positive values make identical settings repeatable. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `seed_control_after_generate` = `randomize` — Verhalten des Werts nach jedem Workflow-Lauf. `randomize` erzeugt pro Lauf eine neue Variation; `fixed` behält den Wert; andere Modi ändern ihn schrittweise.\n\n**Eingänge**\n- `mosstts_model` (MOSSTTS_MODEL, Link 1): Loaded MOSS-TTS model bundle.\n- `prefix_audio` (AUDIO, Link 2): Prefix audio to continue from. Provide a matching transcript below.\n\n**Ausgänge**\n- `audio` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 10,
+      "type": "MarkdownNote",
+      "pos": [
+        3501.0,
+        235.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 4 · 48-kHz-Stereo-Audio speichern · Node 4",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 4,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 4 · 48-kHz-Stereo-Audio speichern · Node 4\n\n**Zweck:** Saves the input audio to your ComfyUI output directory.\n\n**Einstellbare Werte**\n- `filename_prefix` = `audio/MOSS-TTS-v1.5/continuation` — The prefix for the file to save. May include formatting tokens such as %date:yyyy-MM-dd%. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n- `format` = `flac` — The file format in which to save the audio. Ändert die Verarbeitung dieses Nodes entsprechend dem angeschlossenen Datentyp.\n\n**Eingänge**\n- `audio` (AUDIO, Link 3): The audio to save.\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      3,
+      0,
+      "MOSSTTS_MODEL"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      1,
+      "AUDIO"
+    ],
+    [
+      3,
+      3,
+      0,
+      4,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "ds": {
+      "scale": 0.7,
+      "offset": [
+        1540,
+        740
+      ]
+    },
+    "frontendVersion": "1.39.19",
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 4,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
+  },
+  "version": 0.4
+}

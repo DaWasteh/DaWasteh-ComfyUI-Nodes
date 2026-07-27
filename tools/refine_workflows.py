@@ -346,6 +346,8 @@ def _effect(name: str, kind: Any, cfg: dict[str, Any], value: Any) -> str:
     if kind == "STRING":
         if any(x in n for x in ("model", "checkpoint", "lora", "vae", "clip")):
             return "Ein anderer kompatibler Eintrag wechselt Modell/Adapter und verändert Stil, Qualität und Speicherbedarf."
+        if any(x in n for x in ("text", "transcript", "caption", "prompt", "instruction")):
+            return "Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet."
         if any(x in n for x in ("path", "folder", "directory", "filename", "prefix")):
             return "Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort."
         return "Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet."

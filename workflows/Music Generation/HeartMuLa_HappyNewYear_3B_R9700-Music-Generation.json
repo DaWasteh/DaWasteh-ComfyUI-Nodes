@@ -1,0 +1,537 @@
+{
+  "id": "c3a7a345-d76f-4fcd-87f6-95ce8496f6b2",
+  "revision": 0,
+  "last_node_id": 14,
+  "last_link_id": 5,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "HeartMuLaLoader",
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        440,
+        210
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "HEARTMULA_MODEL",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HeartMuLaLoader",
+        "cnr_id": "ComfyUI-HeartMuLa"
+      },
+      "widgets_values": [
+        "HeartMuLa",
+        "HeartMuLa-oss-3B-happy-new-year",
+        false,
+        "eager",
+        "default",
+        null
+      ],
+      "title": "HeartMuLa HNY 3B · BF16 · kein Compile"
+    },
+    {
+      "id": 2,
+      "type": "HeartMuLaCodecLoader",
+      "pos": [
+        0,
+        330
+      ],
+      "size": [
+        440,
+        140
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "codec",
+          "type": "HEARTMULA_CODEC",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HeartMuLaCodecLoader",
+        "cnr_id": "ComfyUI-HeartMuLa"
+      },
+      "widgets_values": [
+        "HeartMuLa",
+        "HeartCodec-oss-20260123",
+        null
+      ],
+      "title": "HeartCodec 20260123 · FP32"
+    },
+    {
+      "id": 3,
+      "type": "HeartMuLaMusicGenerator",
+      "pos": [
+        580,
+        0
+      ],
+      "size": [
+        500,
+        610
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "HEARTMULA_MODEL",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "tokens",
+          "type": "HEARTMULA_TOKENS",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HeartMuLaMusicGenerator",
+        "cnr_id": "ComfyUI-HeartMuLa"
+      },
+      "widgets_values": [
+        "[Intro]\n\n[Verse]\nCity lights are drawing constellations in the rain\nEvery little heartbeat calls your name again\n\n[Prechorus]\nWe turn the silence into sound\nWe lift our feet above the ground\n\n[Chorus]\nCarry me home through the midnight glow\nWhere the rivers of neon flow\nEvery broken dream can start again\nWhen the morning finds us in the rain\n\n[Outro]\nCarry me home\nCarry me home",
+        "synthpop, female vocal, uplifting, cinematic, bright synthesizers, punchy electronic drums, emotional, polished studio production",
+        30.0,
+        173489082,
+        "randomize",
+        1.0,
+        50,
+        1.5
+      ],
+      "title": "Lyrics + Tags → HeartMuLa Tokens"
+    },
+    {
+      "id": 4,
+      "type": "HeartMuLaAudioDecoder",
+      "pos": [
+        1220,
+        0
+      ],
+      "size": [
+        340,
+        100
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "tokens",
+          "type": "HEARTMULA_TOKENS",
+          "link": 3
+        },
+        {
+          "name": "codec",
+          "type": "HEARTMULA_CODEC",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HeartMuLaAudioDecoder",
+        "cnr_id": "ComfyUI-HeartMuLa"
+      },
+      "widgets_values": [],
+      "title": "HeartCodec Audio Decoder"
+    },
+    {
+      "id": 5,
+      "type": "HeartMuLaPostProcessor",
+      "pos": [
+        1700,
+        0
+      ],
+      "size": [
+        360,
+        220
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HeartMuLaPostProcessor",
+        "cnr_id": "ComfyUI-HeartMuLa"
+      },
+      "widgets_values": [
+        true,
+        1.0,
+        80,
+        18000,
+        0.0
+      ],
+      "title": "Normalisieren + Audio filtern"
+    },
+    {
+      "id": 6,
+      "type": "SaveAudioMP3",
+      "pos": [
+        2200,
+        0
+      ],
+      "size": [
+        420,
+        170
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveAudioMP3",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "audio/HeartMuLa_HNY3B_R9700_",
+        "V0"
+      ],
+      "title": "HeartMuLa als MP3 speichern"
+    },
+    {
+      "id": 7,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        0,
+        650
+      ],
+      "size": [
+        226,
+        136
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 8,
+      "type": "MarkdownNote",
+      "pos": [
+        0,
+        820
+      ],
+      "size": [
+        440,
+        430
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · HeartMuLa Loader · Node 1",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "dawasteh_generated_note": true,
+        "dawasteh_note_for": 1
+      },
+      "widgets_values": [
+        "# Erklärung · HeartMuLa Loader\n\n**Zweck:** Lädt die offiziell empfohlene `HeartMuLa-oss-3B-happy-new-year`-Variante in BF16.\n\n**R9700-Einstellung**\n- `torch_compile=False` und Backend `eager`: kein Triton/Inductor auf Windows-ROCm.\n- Der modulare Node verschiebt das 3B-Modell nach der Token-Erzeugung zurück in den RAM, bevor der Codec auf die GPU geht."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 9,
+      "type": "MarkdownNote",
+      "pos": [
+        0,
+        1280
+      ],
+      "size": [
+        440,
+        350
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · HeartCodec Loader · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "dawasteh_generated_note": true,
+        "dawasteh_note_for": 2
+      },
+      "widgets_values": [
+        "# Erklärung · HeartCodec Loader\n\n**Zweck:** Lädt den zur Happy-New-Year-Version passenden Codec `HeartCodec-oss-20260123`.\n\nDer Codec bleibt in FP32, weil niedrigere Präzision hörbare Hochfrequenz-Artefakte erzeugen kann."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 10,
+      "type": "MarkdownNote",
+      "pos": [
+        580,
+        690
+      ],
+      "size": [
+        500,
+        520
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · HeartMuLa Generator · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "dawasteh_generated_note": true,
+        "dawasteh_note_for": 3
+      },
+      "widgets_values": [
+        "# Erklärung · HeartMuLa Generator\n\n**Zweck:** Erzeugt autoregressive Audiotokens aus Lyrics und Stil-Tags.\n\n**Startwerte**\n- `duration_seconds=30`: kurzer, sicherer Funktionstest.\n- `temperature=1.0`, `top_k=50`, `cfg_scale=1.5`: offizielle robuste Basiswerte.\n- Derselbe Seed reproduziert eine Variante; `randomize` erzeugt nach jedem Lauf einen neuen Seed.\n\nLängere Songs erst nach dem 30-Sekunden-Test schrittweise probieren."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 11,
+      "type": "MarkdownNote",
+      "pos": [
+        1220,
+        180
+      ],
+      "size": [
+        340,
+        390
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · HeartMuLa Decoder · Node 4",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "dawasteh_generated_note": true,
+        "dawasteh_note_for": 4
+      },
+      "widgets_values": [
+        "# Erklärung · HeartMuLa Audio Decoder\n\n**Zweck:** Dekodiert die 12,5-Hz-Tokens mit HeartCodec zu 48-kHz-Audio.\n\nDer lokale Patch berechnet die Decodierdauer aus der tatsächlichen Tokenanzahl; dadurch funktionieren auch andere Längen als 30 Sekunden korrekt."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 12,
+      "type": "MarkdownNote",
+      "pos": [
+        1700,
+        300
+      ],
+      "size": [
+        360,
+        400
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · HeartMuLa Post-Processing · Node 5",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "dawasteh_generated_note": true,
+        "dawasteh_note_for": 5
+      },
+      "widgets_values": [
+        "# Erklärung · Audio Post-Processor\n\n**Zweck:** Normalisiert Pegel, entfernt Subbass unter 80 Hz und begrenzt unnötige Höhen über 18 kHz.\n\n`stereo_width=1.0` erhält die natürliche Stereobreite. Gain zunächst bei 0 dB lassen."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 13,
+      "type": "MarkdownNote",
+      "pos": [
+        2200,
+        250
+      ],
+      "size": [
+        420,
+        350
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · HeartMuLa MP3 speichern · Node 6",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "dawasteh_generated_note": true,
+        "dawasteh_note_for": 6
+      },
+      "widgets_values": [
+        "# Erklärung · HeartMuLa MP3 speichern\n\n**Zweck:** Speichert das fertige Ergebnis unter `output/audio/` als hochwertiges MP3.\n\n`V0` ist die höchste variable MP3-Qualitätsstufe."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 14,
+      "type": "MarkdownNote",
+      "pos": [
+        2200,
+        680
+      ],
+      "size": [
+        570,
+        500
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "HeartMuLa · RDNA4- und LoRA-Hinweise",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# HeartMuLa auf diesem System\n\nDieser Workflow nutzt getrennte Modell-/Codec-Loader, damit die rund 21 GB Gewichte nicht gleichzeitig im VRAM liegen. Ziel ist die **R9700 mit 32 GB VRAM**.\n\n## Warum kein HeartMuLa-LoRA-Workflow?\nDas offizielle HeartLib veröffentlicht nur Inferenz. SimpleTuner bietet experimentelles Drittanbieter-LoRA-Training, benötigt aber vorab erzeugte Audio-Tokens und ist auf nativem Windows-RDNA4 nicht als Trainingspfad unterstützt. Die installierte ComfyUI-Extension besitzt weder LoRA-Trainer noch Adapter-Lader. Deshalb wurde kein nicht funktionierender Pseudo-Workflow angelegt.\n\nFür LoRA wäre künftig ein separater Linux-ROCm-Trainer plus ein kompatibler Adapter-Lader nötig."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      3,
+      0,
+      "HEARTMULA_MODEL"
+    ],
+    [
+      2,
+      2,
+      0,
+      4,
+      1,
+      "HEARTMULA_CODEC"
+    ],
+    [
+      3,
+      3,
+      0,
+      4,
+      0,
+      "HEARTMULA_TOKENS"
+    ],
+    [
+      4,
+      4,
+      0,
+      5,
+      0,
+      "AUDIO"
+    ],
+    [
+      5,
+      5,
+      0,
+      6,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.85,
+      "offset": [
+        120,
+        120
+      ]
+    },
+    "workflowRendererVersion": "LG",
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "target_gpu": "AMD Radeon AI PRO R9700 32GB"
+    }
+  },
+  "version": 0.4
+}

@@ -1,0 +1,495 @@
+diff --git a/inference/infer.py b/inference/infer.py
+index 5a11303..24e98c7 100644
+--- a/inference/infer.py
++++ b/inference/infer.py
+@@ -12,8 +12,8 @@ from collections import Counter
+ import numpy as np
+ import torch
+ import torchaudio
++import soundfile as sf
+ from torchaudio.transforms import Resample
+-# import soundfile as sf
+ # from einops import rearrange
+ from transformers import AutoTokenizer, AutoModelForCausalLM, LogitsProcessor, LogitsProcessorList
+ # from omegaconf import OmegaConf
+@@ -112,7 +112,8 @@ class BlockTokenRangeProcessor(LogitsProcessor):
+         return scores
+ 
+ def load_audio_mono(filepath, sampling_rate=16000):
+-    audio, sr = torchaudio.load(filepath)
++    audio_np, sr = sf.read(filepath, always_2d=True)
++    audio = torch.from_numpy(audio_np.T).float()
+     # Convert to mono
+     audio = torch.mean(audio, dim=0, keepdim=True)
+     # Resample if needed
+@@ -409,8 +410,10 @@ def save_audio(wav: torch.Tensor, path, sample_rate: int, rescale: bool = False)
+     limit = 0.99
+     max_val = wav.abs().max()
+     wav = wav * min(limit / max_val, 1) if rescale else wav.clamp(-limit, limit)
+-    wav = wav.cpu()
+-    torchaudio.save(str(path), wav, sample_rate=sample_rate, encoding='PCM_S', bits_per_sample=16)
++    audio = wav.detach().cpu().float().numpy()
++    if audio.ndim == 2:
++        audio = audio.T
++    sf.write(str(path), audio, sample_rate, subtype="PCM_16")
+ # # reconstruct tracks
+ # recons_output_dir = os.path.join(args.output_dir, "recons")
+ # recons_mix_dir = os.path.join(recons_output_dir, 'mix')
+diff --git a/inference/xcodec_mini_infer/post_process_audio.py b/inference/xcodec_mini_infer/post_process_audio.py
+index 5d68067..d1ef8a7 100644
+--- a/inference/xcodec_mini_infer/post_process_audio.py
++++ b/inference/xcodec_mini_infer/post_process_audio.py
+@@ -1,7 +1,7 @@
+ import os
+ import sys
+ import torch
+-import torchaudio
++import soundfile as sf
+ import torchaudio.functional as F
+ import torchaudio.transforms as T
+ import re
+@@ -31,8 +31,10 @@ def replace_low_freq_with_energy_matched(
+     # ----------------------------------------------------------
+     # 1. Load the two files
+     # ----------------------------------------------------------
+-    wave_a, sr_a = torchaudio.load(a_file)
+-    wave_b, sr_b = torchaudio.load(b_file)
++    audio_a, sr_a = sf.read(a_file, always_2d=True)
++    audio_b, sr_b = sf.read(b_file, always_2d=True)
++    wave_a = torch.from_numpy(audio_a.T).float()
++    wave_b = torch.from_numpy(audio_b.T).float()
+     
+     # If 'a' doesn't match 'b' sample rate, resample it
+     if sr_a != sr_b:
+@@ -95,9 +97,10 @@ def replace_low_freq_with_energy_matched(
+     # wave_combined /= max(wave_combined.abs().max(), 1.0)
+     
+     # ----------------------------------------------------------
+-    # 7. Save to c.mp3
++    # 7. Save as PCM WAV (TorchCodec-free on Windows ROCm)
+     # ----------------------------------------------------------
+-    torchaudio.save(c_file, wave_combined, sample_rate=sr_b)
++    output = wave_combined.detach().cpu().float().numpy().T
++    sf.write(c_file, output, sr_b, subtype="PCM_16")
+     
+     print(f"Successfully created '{os.path.basename(c_file)}' with matched low-frequency energy.")
+ 
+diff --git a/inference/xcodec_mini_infer/vocoder.py b/inference/xcodec_mini_infer/vocoder.py
+index e637507..fe5274d 100644
+--- a/inference/xcodec_mini_infer/vocoder.py
++++ b/inference/xcodec_mini_infer/vocoder.py
+@@ -6,6 +6,7 @@ import torchaudio
+ import numpy as np
+ from time import time
+ import torch
++import soundfile as sf
+ import typing as tp
+ from omegaconf import OmegaConf
+ from tqdm import tqdm
+@@ -33,8 +34,11 @@ def save_audio(wav: torch.Tensor, path: tp.Union[Path, str], sample_rate: int, r
+     else:
+         wav = wav.clamp(-limit, limit)
+     
+-    path = str(Path(path).with_suffix('.mp3'))
+-    torchaudio.save(path, wav, sample_rate=sample_rate)
++    path = str(Path(path).with_suffix('.wav'))
++    audio = wav.detach().cpu().float().numpy()
++    if audio.ndim == 2:
++        audio = audio.T
++    sf.write(path, audio, sample_rate, subtype="PCM_16")
+ 
+ def process_audio(input_file, output_file, rescale, args, decoder, soundstream):
+     compressed = np.load(input_file, allow_pickle=True).astype(np.int16)
+diff --git a/yue_node.py b/yue_node.py
+index 1e75e7f..b2c303a 100644
+--- a/yue_node.py
++++ b/yue_node.py
+@@ -1,6 +1,7 @@
+ # !/usr/bin/env python
+ # -*- coding: UTF-8 -*-
+ import os
++import sys
+ import torch
+ import gc
+ import numpy as np
+@@ -10,6 +11,7 @@ from tqdm import tqdm
+ import random
+ from einops import rearrange
+ import soundfile as sf
++import torchaudio
+ from transformers import AutoModelForCausalLM, LogitsProcessorList,BitsAndBytesConfig
+ from .inference.mmtokenizer import _MMSentencePieceTokenizer
+ from .inference.codecmanipulator import CodecManipulator
+@@ -29,6 +31,74 @@ current_node_path = os.path.dirname(os.path.abspath(__file__))
+ device = torch.device(
+     "cuda:0") if torch.cuda.is_available() else torch.device("cpu")
+ 
++
++def _compile_if_supported(model, mode=None):
++    """Avoid TorchInductor/Triton on native Windows ROCm; use eager execution."""
++    if sys.platform == "win32" and torch.version.hip:
++        print("[ComfyUI_YuE] Native Windows ROCm detected: torch.compile disabled.")
++        return model
++    try:
++        kwargs = {"mode": mode} if mode else {}
++        return torch.compile(model, **kwargs)
++    except Exception as exc:
++        print(f"[ComfyUI_YuE] torch.compile unavailable, using eager mode: {exc}")
++        return model
++
++
++def _plan_segment_tokens(target_duration_seconds, max_sections, available_sections, max_new_tokens):
++    """Allocate an exact even number of interleaved codec tokens per section."""
++    section_limit = min(int(max_sections), int(available_sections))
++    token_limit = int(max_new_tokens) // 2 * 2
++    target_tokens = max(2, int(round(float(target_duration_seconds) * 100.0 / 2.0)) * 2)
++    if section_limit < 1:
++        raise ValueError("At least one [section] block is required in lyrics_prompt")
++    if token_limit < 100:
++        raise ValueError("max_new_tokens must be at least 100")
++
++    required_sections = (target_tokens + token_limit - 1) // token_limit
++    if required_sections > section_limit:
++        maximum_seconds = section_limit * token_limit / 100.0
++        raise ValueError(
++            f"target_duration_seconds={target_duration_seconds:g} needs {required_sections} lyric sections, "
++            f"but only {section_limit} are enabled/available. Maximum with the current lyrics and "
++            f"max_new_tokens is {maximum_seconds:.2f} seconds."
++        )
++
++    target_pairs = target_tokens // 2
++    base_pairs, extra_pairs = divmod(target_pairs, required_sections)
++    return [
++        2 * (base_pairs + (1 if index < extra_pairs else 0))
++        for index in range(required_sections)
++    ]
++
++
++def _prepare_reference_audio(reference_audio, start_time, end_time, target_sample_rate=16000):
++    """Convert a ComfyUI AUDIO value to cropped mono audio for YuE ICL."""
++    if not isinstance(reference_audio, dict) or "waveform" not in reference_audio:
++        raise ValueError("reference_audio must be a connected ComfyUI AUDIO input")
++    waveform = reference_audio["waveform"].detach().float().cpu()
++    sample_rate = int(reference_audio.get("sample_rate", target_sample_rate))
++    if waveform.ndim == 3:
++        waveform = waveform[0]
++    if waveform.ndim == 1:
++        waveform = waveform.unsqueeze(0)
++    if waveform.ndim != 2:
++        raise ValueError(f"Unsupported reference_audio shape: {tuple(waveform.shape)}")
++    waveform = waveform.mean(dim=0, keepdim=True)
++
++    start_sample = max(0, int(round(float(start_time) * sample_rate)))
++    end_sample = int(round(float(end_time) * sample_rate))
++    if end_sample <= start_sample:
++        end_sample = waveform.shape[-1]
++    end_sample = min(end_sample, waveform.shape[-1])
++    if start_sample >= end_sample:
++        raise ValueError("The selected reference-audio time range is empty")
++    waveform = waveform[:, start_sample:end_sample]
++    if sample_rate != target_sample_rate:
++        waveform = torchaudio.functional.resample(waveform, sample_rate, target_sample_rate)
++    return waveform
++
++
+ # add checkpoints dir
+ YUE_weigths_path = os.path.join(folder_paths.models_dir, "yue")
+ if not os.path.exists(YUE_weigths_path):
+@@ -48,10 +118,12 @@ class YUE_Stage_A_Loader:
+                 "stage_A_repo": ("STRING",{"default": "m-a-p/YuE-s1-7B-anneal-en-cot"},),
+                 "xcodec_ckpt": (["none"] + ckpt_list_xcodec,),
+                 "quantization_model":(["fp16","int8","int4","exllamav2"],),
+-                "use_mmgp":("BOOLEAN",{"default":True}),
++                "use_mmgp":("BOOLEAN",{"default":False}),
+                 "stage1_cache_size": ("INT",{"default": 16384, "min": 8192, "max": MAX_SEED, "step": 64, "display": "number"}),
+                 "exllamav2_cache_mode": (["FP16","Q8","Q6", "Q4"],),
+-                "mmgp_profile": ([0,1,2,3,4,5],),
++                # Keep combo values as strings because the ComfyUI frontend serializes
++                # manually selected combo entries as strings. Normalize in loader_main.
++                "mmgp_profile": (["0", "1", "2", "3", "4", "5"],),
+             },
+         }
+ 
+@@ -60,7 +132,25 @@ class YUE_Stage_A_Loader:
+     FUNCTION = "loader_main"
+     CATEGORY = "YUE"
+ 
++    @classmethod
++    def VALIDATE_INPUTS(cls, mmgp_profile):
++        """Accept legacy integer profiles and current string combo values."""
++        try:
++            profile = int(mmgp_profile)
++        except (TypeError, ValueError):
++            return "mmgp_profile must be an integer from 0 through 5"
++        if isinstance(mmgp_profile, bool) or not 0 <= profile <= 5:
++            return "mmgp_profile must be between 0 and 5"
++        return True
++
+     def loader_main(self, stage_A_repo, xcodec_ckpt,quantization_model,use_mmgp,stage1_cache_size,exllamav2_cache_mode,mmgp_profile):
++        # Workflows created before this fix may still contain an integer here.
++        try:
++            mmgp_profile = int(mmgp_profile)
++        except (TypeError, ValueError) as exc:
++            raise ValueError("mmgp_profile must be an integer from 0 through 5") from exc
++        if not 0 <= mmgp_profile <= 5:
++            raise ValueError("mmgp_profile must be between 0 and 5")
+         basic_model_config=os.path.join(current_node_path, "inference/xcodec_mini_infer/final_ckpt/config.yaml")
+         model_config = OmegaConf.load(basic_model_config)
+         resume_path=folder_paths.get_full_path("yue", xcodec_ckpt)
+@@ -107,7 +197,7 @@ class YUE_Stage_A_Loader:
+                     stage_A_repo, 
+                     torch_dtype=torch.bfloat16,
+                     quantization_config=quantization_config,
+-                    attn_implementation="flash_attention_2",  # To enable flashattn, you have to install flash-attn
++                    attn_implementation="sdpa",
+                 )
+             elif quantization_model=="int4":
+                 # Load 4-bit quantized model using bitsandbytes
+@@ -121,19 +211,19 @@ class YUE_Stage_A_Loader:
+                     stage_A_repo, 
+                     torch_dtype=torch.bfloat16,
+                     quantization_config=quantization_config,
+-                    attn_implementation="flash_attention_2",)         
++                    attn_implementation="sdpa",)
+             else:
+                 # Load model without quantization
+                 
+                 stage_1_model = AutoModelForCausalLM.from_pretrained(
+                     stage_A_repo, 
+                     torch_dtype=torch.bfloat16,
+-                    attn_implementation="flash_attention_2",  # To enable flashattn, you have to install flash-attn
++                    attn_implementation="sdpa",
+                 )
+         
+ 
+             if torch.__version__ >= "2.0.0":
+-                stage_1_model = torch.compile(stage_1_model,mode="max-autotune")
++                stage_1_model = _compile_if_supported(stage_1_model, mode="max-autotune")
+             # tokenizer = AutoTokenizer.from_pretrained(os.path.join(current_node_path, "mm_tokenizer_v0.2_hf"))
+             # stage_1_model = AutoModel.from_pretrained(folder_paths.get_full_path("yue", stage_A))
+             # to device, if gpu is available
+@@ -170,7 +260,7 @@ class YUE_Stage_A_Loader:
+         torch.cuda.empty_cache()
+         gc.collect()
+         
+-        return ({"stage_1_model":stage_1_model,"codectool_stage2":codectool_stage2,"codectool":codectool,"codec_model":codec_model,"mmtokenizer":mmtokenizer,"quantization_model":quantization_model,"mmgp_profile":mmgp_profile},)
++        return ({"stage_1_model":stage_1_model,"codectool_stage2":codectool_stage2,"codectool":codectool,"codec_model":codec_model,"mmtokenizer":mmtokenizer,"quantization_model":quantization_model,"mmgp_profile":mmgp_profile,"stage_A_repo":stage_A_repo},)
+ 
+ 
+ class YUE_Stage_A_Sampler:
+@@ -191,7 +281,8 @@ class YUE_Stage_A_Sampler:
+                     "[bridge]\nNo, I won't back down, won't turn around.\nUntil you're back where you belong.\nI'll cross the oceans wide, stand by your side.\nTogether we are strong. \n\n"
+                     "[outro]\nEvery road you take, I'll be one step behind.\nEvery dream you chase, love's the tie that binds.\nYou can't fight this feeling now.\nI won't back down.", "multiline": True}),
+                 "seed": ("INT", {"default": 0, "min": 0, "max": MAX_SEED}),
+-                "run_n_segment": ("INT", {"default": 2, "min": 1, "max": 10, "step": 1, "display": "number"}),
++                "run_n_segment": ("INT", {"default": 20, "min": 1, "max": 24, "step": 1, "display": "number"}),
++                "target_duration_seconds": ("FLOAT", {"default": 540.0, "min": 5.0, "max": 600.0, "step": 1.0}),
+                 "repetition_penalty": ("FLOAT", {"default": 1.1, "min": 1.0, "max": 2.0, "step": 0.1}),
+                 "prompt_start_time": ("FLOAT", {"default": 0.0, "min": 0.0, "max": 1024.0, "step": 0.5}),
+                 "prompt_end_time": ("FLOAT", {"default": 30.0, "min": 1.0, "max": 1024.0, "step": 0.5}),
+@@ -201,15 +292,39 @@ class YUE_Stage_A_Sampler:
+                 "offload_model":("BOOLEAN",{"default":True}),
+                 "stage1_no_guidance":("BOOLEAN",{"default":True}),
+ 
+-            }}
++            },
++            "optional": {
++                "reference_audio": ("AUDIO",),
++            },
++        }
+ 
+     RETURN_TYPES = ("STAGE_SET", "quantization_model",)
+     RETURN_NAMES = ("stage1_set","info")
+     FUNCTION = "sampler_main"
+     CATEGORY = "YUE"
+ 
+-    def sampler_main(self, model,genres_prompt, lyrics_prompt,seed, run_n_segment, repetition_penalty,prompt_start_time,prompt_end_time,max_new_tokens,
+-                     use_dual_tracks_prompt,use_audio_prompt,offload_model,stage1_no_guidance):
++    @classmethod
++    def VALIDATE_INPUTS(cls, lyrics_prompt, run_n_segment, target_duration_seconds, max_new_tokens):
++        """Reject impossible duration/section combinations before model loading."""
++        if not 1 <= int(run_n_segment) <= 24:
++            return "run_n_segment must be between 1 and 24"
++        if not 5.0 <= float(target_duration_seconds) <= 600.0:
++            return "target_duration_seconds must be between 5 and 600"
++        if not 2944 <= int(max_new_tokens) <= 16384:
++            return "max_new_tokens must be between 2944 and 16384"
++        try:
++            _plan_segment_tokens(
++                target_duration_seconds,
++                run_n_segment,
++                len(split_lyrics(str(lyrics_prompt).strip())),
++                max_new_tokens,
++            )
++        except (TypeError, ValueError) as exc:
++            return str(exc)
++        return True
++
++    def sampler_main(self, model,genres_prompt, lyrics_prompt,seed, run_n_segment, target_duration_seconds, repetition_penalty,prompt_start_time,prompt_end_time,max_new_tokens,
++                     use_dual_tracks_prompt,use_audio_prompt,offload_model,stage1_no_guidance,reference_audio=None):
+         
+         instrumental_track_prompt_path=os.path.join(current_node_path, "prompt_egs/pop.00001.Instrumental.mp3")
+         vocal_track_prompt_path=os.path.join(current_node_path, "prompt_egs/pop.00001.Vocals.mp3")
+@@ -227,6 +342,17 @@ class YUE_Stage_A_Sampler:
+         codectool=model.get("codectool")
+         codectool_stage2=model.get("codectool_stage2")
+         mmgp_profile=model.get("mmgp_profile")
++        stage_A_repo=str(model.get("stage_A_repo", ""))
++
++        if (use_dual_tracks_prompt or use_audio_prompt) and "icl" not in stage_A_repo.lower():
++            raise ValueError(
++                "YuE audio/reference prompting requires an ICL Stage-1 checkpoint "
++                "such as YuE-s1-7B-anneal-en-icl; the CoT checkpoint does not support it reliably."
++            )
++        if use_audio_prompt and reference_audio is None:
++            raise ValueError("Connect reference_audio when use_audio_prompt is enabled")
++        if reference_audio is not None and not use_audio_prompt:
++            print("[ComfyUI_YuE] reference_audio is connected but use_audio_prompt is disabled; ignoring it.")
+         
+         if quantization_model=="exllamav2":
+             from .inference.infer_stage1 import SampleSettings
+@@ -286,8 +412,21 @@ class YUE_Stage_A_Sampler:
+             start_of_segment = mmtokenizer.tokenize('[start_of_segment]')
+             end_of_segment = mmtokenizer.tokenize('[end_of_segment]')
+             # Format text prompt
+-            #run_n_segments = min(run_n_segment+1, len(lyrics_prompt))
+-            run_n_segments = min(run_n_segment, len(lyrics_prompt))
++            # YuE emits 100 interleaved codec IDs per second (50 per track).
++            # Force min=max per section so EOA cannot shorten a requested song to a
++            # small fraction of target_duration_seconds.
++            segment_token_targets = _plan_segment_tokens(
++                target_duration_seconds,
++                run_n_segment,
++                len(lyrics),
++                max_new_tokens,
++            )
++            run_n_segments = len(segment_token_targets) + 1
++            planned_seconds = sum(segment_token_targets) / 100.0
++            print(
++                f"[ComfyUI_YuE] Duration plan: {len(segment_token_targets)} sections, "
++                f"{sum(segment_token_targets)} codec IDs, approximately {planned_seconds:.2f}s."
++            )
+             for i, p in enumerate(tqdm(prompt_texts[:run_n_segments], desc="Stage1 inference...")):
+                 section_text = p.replace('[start_of_segment]', '').replace('[end_of_segment]', '')
+                 guidance_scale = 1.5 if i <=1 else 1.2
+@@ -306,11 +445,15 @@ class YUE_Stage_A_Sampler:
+                             audio_prompt_codec = ids_segment_interleaved[int(prompt_start_time*50*2): int(prompt_end_time*50*2)]
+                             audio_prompt_codec = audio_prompt_codec.tolist()
+                         elif use_audio_prompt:
+-                            audio_prompt = load_audio_mono(audio_prompt_path)
++                            audio_prompt = _prepare_reference_audio(
++                                reference_audio,
++                                prompt_start_time,
++                                prompt_end_time,
++                            )
+                             raw_codes = encode_audio(codec_model, audio_prompt, device, target_bw=0.5)
+-                            # Format audio prompt
+-                            code_ids = codectool.npy2ids(raw_codes[0])
+-                            audio_prompt_codec = code_ids[int(prompt_start_time *50): int(prompt_end_time *50)] # 50 is tps of xcodec
++                            # The ComfyUI audio was already cropped above. Single-track
++                            # ICL may use a mix, an isolated vocal, or an instrumental.
++                            audio_prompt_codec = codectool.npy2ids(raw_codes[0])
+                         audio_prompt_codec_ids = [mmtokenizer.soa] + codectool.sep_ids + audio_prompt_codec + [mmtokenizer.eoa]
+                         sentence_ids = mmtokenizer.tokenize("[start_of_reference]") +  audio_prompt_codec_ids + mmtokenizer.tokenize("[end_of_reference]")
+                         head_id = mmtokenizer.tokenize(prompt_texts[0]) + sentence_ids
+@@ -322,16 +465,17 @@ class YUE_Stage_A_Sampler:
+ 
+                 prompt_ids = torch.as_tensor(prompt_ids).unsqueeze(0).to(device) 
+                 input_ids = torch.cat([raw_output, prompt_ids], dim=1) if i > 1 else prompt_ids
+-                # Use window slicing in case output sequence exceeds the context of model
+-                max_context = 16384-max_new_tokens-1
++                # Use window slicing in case output sequence exceeds the context of model.
++                segment_new_tokens = segment_token_targets[i - 1]
++                max_context = 16384-segment_new_tokens-1
+                 if input_ids.shape[-1] > max_context:
+                     print(f'Section {i}: output length {input_ids.shape[-1]} exceeding context length {max_context}, now using the last {max_context} tokens.')
+                     input_ids = input_ids[:, -(max_context):]
+                 with torch.no_grad():
+                     output_seq = stage_1_model.generate(
+                         input_ids=input_ids, 
+-                        max_new_tokens=max_new_tokens, 
+-                        min_new_tokens=100, 
++                        max_new_tokens=segment_new_tokens,
++                        min_new_tokens=segment_new_tokens,
+                         do_sample=True, 
+                         top_p=top_p,
+                         temperature=temperature, 
+@@ -401,7 +545,7 @@ class YUE_Stage_B_Loader:
+                 "stage2_cache_size": ("INT",{"default": 8192, "min": 4096, "max": MAX_SEED, "step": 64, "display": "number"}),
+                 "stage2_batch_size": ("INT",{"default": 2, "min": 1, "max": 64, "step": 1, "display": "number"}),
+                 "exllamav2_cache_mode": (["FP16","Q8","Q6", "Q4"],),
+-                "use_mmgp":("BOOLEAN",{"default":True}),
++                "use_mmgp":("BOOLEAN",{"default":False}),
+             },
+         }
+ 
+@@ -432,7 +576,7 @@ class YUE_Stage_B_Loader:
+                         stage_B_repo, 
+                         torch_dtype=torch.bfloat16,
+                         quantization_config=quantization_config,
+-                        attn_implementation="flash_attention_2",
++                        attn_implementation="sdpa",
+                         #device_map="auto"
+                         )
+                 elif quantization_model=="int4":
+@@ -446,17 +590,17 @@ class YUE_Stage_B_Loader:
+                         stage_B_repo, 
+                         torch_dtype=torch.bfloat16,
+                         quantization_config=quantization_config,
+-                        attn_implementation="flash_attention_2",)       
++                        attn_implementation="sdpa",)
+                 else:
+                     print("**********Loading fp16*********")
+                     model_stage2 = AutoModelForCausalLM.from_pretrained(
+                         stage_B_repo, 
+                         torch_dtype=torch.bfloat16,
+-                        attn_implementation="flash_attention_2",
++                        attn_implementation="sdpa",
+                         # device_map="auto",
+                         )
+                 if torch.__version__ >= "2.0.0":
+-                    model_stage2 = torch.compile(model_stage2)
++                    model_stage2 = _compile_if_supported(model_stage2)
+ 
+                 if quantization_model=="fp16":
+                     model_stage2 = model_stage2.to('cuda:0')
+@@ -467,10 +611,10 @@ class YUE_Stage_B_Loader:
+             model_stage2 = AutoModelForCausalLM.from_pretrained(
+                     stage_B_repo, 
+                     torch_dtype=torch.float16,
+-                    attn_implementation="flash_attention_2"
++                    attn_implementation="sdpa"
+                     )
+             if torch.__version__ >= "2.0.0":
+-                    model_stage2 = torch.compile(model_stage2)
++                    model_stage2 = _compile_if_supported(model_stage2)
+             model_stage2.to("cpu")
+             model_stage2.eval()
+             compile= True
+@@ -554,7 +698,7 @@ class YUE_Stage_B_Sampler:
+                 decoded_waveform = decoded_waveform.cpu().squeeze(0)
+                 decodec_rlt.append(torch.as_tensor(decoded_waveform))
+                 decodec_rlt = torch.cat(decodec_rlt, dim=-1)
+-                save_path = os.path.join(recons_output_dir, os.path.splitext(os.path.basename(npy))[0] + ".mp3")
++                save_path = os.path.join(recons_output_dir, os.path.splitext(os.path.basename(npy))[0] + ".wav")
+                 tracks.append(save_path)
+                 save_audio(decodec_rlt, save_path, 16000)
+             # mix tracks
+@@ -588,7 +732,7 @@ class YUE_Stage_B_Sampler:
+                     # Process instrumental
+                     instrumental_output = process_audio(
+                         npy,
+-                        os.path.join(vocoder_stems_dir, 'itrack.mp3'),
++                        os.path.join(vocoder_stems_dir, 'itrack.wav'),
+                         rescale,
+                         args,
+                         inst_decoder,
+@@ -598,7 +742,7 @@ class YUE_Stage_B_Sampler:
+                     # Process vocal
+                     vocal_output = process_audio(
+                         npy,
+-                        os.path.join(vocoder_stems_dir, 'vtrack.mp3'),
++                        os.path.join(vocoder_stems_dir, 'vtrack.wav'),
+                         rescale,
+                         args,
+                         vocal_decoder,

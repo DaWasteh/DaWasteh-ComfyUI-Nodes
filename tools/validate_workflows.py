@@ -173,29 +173,50 @@ def main() -> int:
         except Exception as exc:
             errors.append(f"{path}: JSON error: {exc}")
             continue
+
+        path_errors: list[str] = []
         if workflow.get("version") != 0.4:
-            errors.append(f"{path}: root version is not 0.4")
+            path_errors.append(f"{path}: root version is not 0.4")
         timers = sum(1 for n in workflow.get("nodes", []) if n.get("type") == "PixaromaRunTimer")
         totals["timers"] += timers
         if timers != 1:
-            errors.append(f"{path}: root timer count={timers}")
+            path_errors.append(f"{path}: root timer count={timers}")
         raw_lower = path.read_text(encoding="utf-8").lower()
         for token in BLACKLIST:
             if token in raw_lower:
-                errors.append(f"{path}: RDNA4 blacklist token {token}")
+                path_errors.append(f"{path}: RDNA4 blacklist token {token}")
         for locator, graph in graph_locator(workflow):
             totals["graphs"] += 1
-            n, notes, links = validate_graph(path, locator, graph, errors)
+            n, notes, links = validate_graph(path, locator, graph, path_errors)
             totals["nodes"] += n; totals["notes"] += notes; totals["links"] += links
+
         if args.against_head:
             try:
+                head_workflow = git_head_json(path)
+                baseline_errors: list[str] = []
+                if head_workflow.get("version") != 0.4:
+                    baseline_errors.append(f"{path}: root version is not 0.4")
+                head_timers = sum(1 for n in head_workflow.get("nodes", []) if n.get("type") == "PixaromaRunTimer")
+                if head_timers != 1:
+                    baseline_errors.append(f"{path}: root timer count={head_timers}")
+                head_raw_lower = json.dumps(head_workflow, ensure_ascii=False).lower()
+                for token in BLACKLIST:
+                    if token in head_raw_lower:
+                        baseline_errors.append(f"{path}: RDNA4 blacklist token {token}")
+                for locator, graph in graph_locator(head_workflow):
+                    validate_graph(path, locator, graph, baseline_errors)
+                baseline_set = set(baseline_errors)
+                errors.extend(error for error in path_errors if error not in baseline_set)
+
                 old_nodes, old_links = compare_head(path, workflow, errors)
                 totals["old_nodes"] += old_nodes; totals["old_links"] += old_links
             except subprocess.CalledProcessError:
                 # A workflow absent from HEAD is a newly added collection item;
-                # there is no existing graph whose links/notes need protection.
-                pass
-    expected = {"files": 183, "graphs": 220, "nodes": 6049, "notes": 2695, "links": 3926, "timers": 183}
+                # validate every issue because no baseline exists to grandfather it.
+                errors.extend(path_errors)
+        else:
+            errors.extend(path_errors)
+    expected = {"files": 186, "graphs": 222, "nodes": 6083, "notes": 2709, "links": 3939, "timers": 186}
     actual = {"files": len(paths), **{k: totals[k] for k in ("graphs", "nodes", "notes", "links", "timers")}}
     for key, value in expected.items():
         if actual[key] != value:

@@ -114,7 +114,7 @@
       "widgets_values": [
         "[Intro]\n\n[Verse]\nCity lights are drawing constellations in the rain\nEvery little heartbeat calls your name again\n\n[Prechorus]\nWe turn the silence into sound\nWe lift our feet above the ground\n\n[Chorus]\nCarry me home through the midnight glow\nWhere the rivers of neon flow\nEvery broken dream can start again\nWhen the morning finds us in the rain\n\n[Outro]\nCarry me home\nCarry me home",
         "synthpop, female vocal, uplifting, cinematic, bright synthesizers, punchy electronic drums, emotional, polished studio production",
-        30.0,
+        300.0,
         173489082,
         "randomize",
         1.0,
@@ -358,7 +358,7 @@
         "dawasteh_note_for": 3
       },
       "widgets_values": [
-        "# Erklärung · HeartMuLa Generator\n\n**Zweck:** Erzeugt autoregressive Audiotokens aus Lyrics und Stil-Tags.\n\n**Startwerte**\n- `duration_seconds=30`: kurzer, sicherer Funktionstest.\n- `temperature=1.0`, `top_k=50`, `cfg_scale=1.5`: offizielle robuste Basiswerte.\n- Derselbe Seed reproduziert eine Variante; `randomize` erzeugt nach jedem Lauf einen neuen Seed.\n\nLängere Songs erst nach dem 30-Sekunden-Test schrittweise probieren."
+        "# Erklärung · HeartMuLa Generator\n\n**Zweck:** Erzeugt autoregressive Audiotokens aus Lyrics und Stil-Tags.\n\n**Dauer**\n- `duration_seconds=300` ist der Startwert; der lokale Node erlaubt jetzt 1–600 Sekunden.\n- Über 300 Sekunden ist experimentell. Das 3B-Modell besitzt 8192 Kontextpositionen; Lyrics/Tags und Audio teilen sich dieses Fenster. Vor dem GPU-Lauf berechnet der Node deshalb die für den aktuellen Prompt wirklich mögliche Maximaldauer und meldet verständlich, wenn beispielsweise 600 Sekunden mit zu langen Lyrics nicht hineinpassen.\n- Das Modell darf vor der gewählten Obergrenze ein Audio-EOS ausgeben; `duration_seconds` ist bei HeartMuLa eine maximale, keine garantiert exakte Länge.\n\n`temperature=1.0`, `top_k=50`, `cfg_scale=1.5` sind robuste Basiswerte. Derselbe Seed reproduziert eine Variante; `randomize` erzeugt nach jedem Lauf einen neuen Seed."
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
@@ -386,7 +386,7 @@
         "dawasteh_note_for": 4
       },
       "widgets_values": [
-        "# Erklärung · HeartMuLa Audio Decoder\n\n**Zweck:** Dekodiert die 12,5-Hz-Tokens mit HeartCodec zu 48-kHz-Audio.\n\nDer lokale Patch berechnet die Decodierdauer aus der tatsächlichen Tokenanzahl; dadurch funktionieren auch andere Längen als 30 Sekunden korrekt."
+        "# Erklärung · HeartMuLa Audio Decoder\n\n**Zweck:** Dekodiert die 12,5-Hz-Tokens mit HeartCodec zu 48-kHz-Audio.\n\n**Wichtig:** `29.76` Sekunden sind intern nur das feste HeartCodec-Chunkfenster, nicht die Songlänge. Die endgültige Ausgabelänge wird bereits aus der tatsächlichen Tokenanzahl berechnet. Eine dynamische Chunkdauer aus `codes_len / 12.5` darf hier nicht verwendet werden: Bei bestimmten Tokenzahlen entstehen durch Float-Rundung ungerade Latentlängen wie 6431 statt 6430."
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
@@ -465,11 +465,10 @@
       "outputs": [],
       "title": "HeartMuLa · RDNA4- und LoRA-Hinweise",
       "properties": {
-        "Node name for S&R": "MarkdownNote",
-        "dawasteh_generated_note": true
+        "Node name for S&R": "MarkdownNote"
       },
       "widgets_values": [
-        "# HeartMuLa auf diesem System\n\nDieser Workflow nutzt getrennte Modell-/Codec-Loader, damit die rund 21 GB Gewichte nicht gleichzeitig im VRAM liegen. Ziel ist die **R9700 mit 32 GB VRAM**.\n\n## Warum kein HeartMuLa-LoRA-Workflow?\nDas offizielle HeartLib veröffentlicht nur Inferenz. SimpleTuner bietet experimentelles Drittanbieter-LoRA-Training, benötigt aber vorab erzeugte Audio-Tokens und ist auf nativem Windows-RDNA4 nicht als Trainingspfad unterstützt. Die installierte ComfyUI-Extension besitzt weder LoRA-Trainer noch Adapter-Lader. Deshalb wurde kein nicht funktionierender Pseudo-Workflow angelegt.\n\nFür LoRA wäre künftig ein separater Linux-ROCm-Trainer plus ein kompatibler Adapter-Lader nötig."
+        "# HeartMuLa auf diesem System\n\nDieser Workflow nutzt getrennte Modell-/Codec-Loader, damit die rund 21 GB Gewichte nicht gleichzeitig im VRAM liegen. Ziel ist die **R9700 mit 32 GB VRAM**.\n\n## Keine Referenzstimme in der veröffentlichten Version\nHeartMuLa OSS 3B nimmt aktuell nur Lyrics und Tags entgegen. Im offiziellen HeartLib steht **reference audio conditioning** noch auf der TODO-Liste; die installierte Pipeline besitzt keinen Audio-Encoder-Eingang für Stimmreferenzen. Deshalb wird hier bewusst kein wirkungsloser Fake-Port eingebaut. Für Audio-/Stimmreferenz den separaten YuE-ICL-Workflow verwenden.\n\n## Dauer über 300 Sekunden\nDer lokale Node erlaubt bis 600 Sekunden, begrenzt den konkreten Lauf aber anhand des 8192-Positionen-Kontexts. Lange Lyrics reduzieren die mögliche Audiolänge. `29.76` Sekunden im Decoder bleiben nur das interne Chunkfenster und dürfen nicht auf die Songdauer geändert werden.\n\n## Warum kein HeartMuLa-LoRA-Workflow?\nDas offizielle HeartLib veröffentlicht nur Inferenz. SimpleTuner bietet experimentelles Drittanbieter-LoRA-Training, benötigt aber vorab erzeugte Audio-Tokens und ist auf nativem Windows-RDNA4 nicht als Trainingspfad unterstützt. Die Extension besitzt weder LoRA-Trainer noch Adapter-Lader."
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
@@ -530,7 +529,8 @@
     "workflowRendererVersion": "LG",
     "dawasteh_workflow_refinement": {
       "version": 1,
-      "target_gpu": "AMD Radeon AI PRO R9700 32GB"
+      "target_gpu": "AMD Radeon AI PRO R9700 32GB",
+      "generated_notes": 6
     }
   },
   "version": 0.4

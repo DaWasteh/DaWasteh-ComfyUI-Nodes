@@ -1,8 +1,8 @@
 {
-  "id": "f23403f3-5478-412a-afd4-92f39e230395",
+  "id": "669ba316-f34c-4ad8-acdd-db84c7b81d64",
   "revision": 0,
-  "last_node_id": 12,
-  "last_link_id": 5,
+  "last_node_id": 14,
+  "last_link_id": 6,
   "nodes": [
     {
       "id": 1,
@@ -16,7 +16,7 @@
         250
       ],
       "flags": {},
-      "order": 0,
+      "order": 1,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -32,7 +32,7 @@
         "Node name for S&R": "YUE_Stage_A_Loader"
       },
       "widgets_values": [
-        "L:/ComfyUI/ComfyUI/models/yue/YuE-s1-7B-anneal-en-cot",
+        "L:/ComfyUI/ComfyUI/models/yue/YuE-s1-7B-anneal-en-icl",
         "ckpt_00360000.pth",
         "fp16",
         false,
@@ -40,7 +40,7 @@
         "FP16",
         "2"
       ],
-      "title": "YuE Stage 1 · FP16/SDPA · R9700"
+      "title": "YuE Stage 1 ICL · FP16/SDPA · R9700"
     },
     {
       "id": 2,
@@ -54,13 +54,18 @@
         690
       ],
       "flags": {},
-      "order": 1,
+      "order": 2,
       "mode": 0,
       "inputs": [
         {
           "name": "model",
           "type": "MODEL_YUE_A",
           "link": 1
+        },
+        {
+          "name": "reference_audio",
+          "type": "AUDIO",
+          "link": 6
         }
       ],
       "outputs": [
@@ -96,11 +101,11 @@
         30.0,
         3000,
         false,
-        false,
+        true,
         true,
         true
       ],
-      "title": "Zieldauer 540 s · automatisch 18 von 20 Sektionen"
+      "title": "Referenzgesang + 540 s Ziel → YuE ICL Tokens"
     },
     {
       "id": 3,
@@ -114,7 +119,7 @@
         190
       ],
       "flags": {},
-      "order": 2,
+      "order": 3,
       "mode": 0,
       "inputs": [
         {
@@ -156,7 +161,7 @@
         180
       ],
       "flags": {},
-      "order": 3,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
@@ -208,7 +213,7 @@
         170
       ],
       "flags": {},
-      "order": 4,
+      "order": 5,
       "mode": 0,
       "inputs": [
         {
@@ -229,10 +234,10 @@
         "cnr_id": "comfy-core"
       },
       "widgets_values": [
-        "audio/YuE_R9700_",
+        "audio/YuE_ICL_ReferenceVoice_R9700_",
         "V0"
       ],
-      "title": "YuE als MP3 speichern"
+      "title": "YuE ICL als MP3 speichern"
     },
     {
       "id": 6,
@@ -246,7 +251,7 @@
         136
       ],
       "flags": {},
-      "order": 5,
+      "order": 6,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -279,7 +284,7 @@
         430
       ],
       "flags": {},
-      "order": 6,
+      "order": 7,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -290,7 +295,7 @@
         "dawasteh_note_for": 1
       },
       "widgets_values": [
-        "# Erklärung · YuE Stage 1 Loader\n\n**Zweck:** Lädt das lokale englische YuE-7B-Stage-1-Modell und den XCodec-Checkpoint.\n\n**Einstellbare Werte**\n- `fp16` + `use_mmgp=False`: passend für die R9700 mit 32 GB.\n- `SDPA` wird durch den lokalen RDNA4-Patch benutzt; Flash-Attention/Triton bleiben aus.\n\n**Hinweis:** Nicht auf int4/int8/exllamav2 umstellen; diese Pfade sind auf Windows-ROCm nicht validiert."
+        "# Erklärung · YuE Stage 1 ICL Loader\n\n**Zweck:** Lädt den separaten `YuE-s1-7B-anneal-en-icl`-Checkpoint. Nur dieser Checkpoint ist für Audio-Referenzen trainiert; der CoT-Checkpoint des normalen Workflows darf dafür nicht verwendet werden.\n\n**R9700:** `fp16`, SDPA, `use_mmgp=False`, kein TorchInductor/Triton. Der lokale Loader prüft zusätzlich, dass bei aktivem Audio-Prompt wirklich ein ICL-Modell geladen wurde."
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
@@ -307,7 +312,7 @@
         520
       ],
       "flags": {},
-      "order": 7,
+      "order": 8,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -318,7 +323,7 @@
         "dawasteh_note_for": 2
       },
       "widgets_values": [
-        "# Erklärung · YuE Stage 1 Sampler\n\n**Zweck:** Erzeugt aus Genre-Tags und strukturierten Lyrics die groben Musik-Tokens und erzwingt eine wählbare Gesamtdauer.\n\n**Sekundenwahl**\n- `target_duration_seconds=540` ist die Zieldauer; erlaubt sind 5–600 Sekunden.\n- `max_new_tokens=3000` entspricht höchstens 30 Sekunden pro Lyrics-Sektion. Der lokale Patch setzt pro verwendeter Sektion `min_new_tokens=max_new_tokens` auf den berechneten Zielwert, damit YuE nicht wieder nach wenigen Sekunden EOA ausgibt.\n- `run_n_segment=20` ist nur die maximal verfügbare Sektionszahl. Für 540 Sekunden werden automatisch 18 der 20 markierten Blöcke verwendet; 600 Sekunden benötigen alle 20.\n- Reichen die vorhandenen `[Verse]`-/`[Chorus]`-/`[Bridge]`-Blöcke nicht aus, stoppt der Node vor dem Modelllauf mit einer verständlichen Maximaldauer statt einen zu kurzen Song zu liefern.\n\n**Referenz-Audio**\nDieser CoT-Workflow bleibt bewusst ohne Referenz. Für Stimm-/Songreferenz den separaten **YuE ICL Reference Voice** Workflow verwenden. `prompt_start_time` und `prompt_end_time` schneiden dort ausschließlich die Referenz (empfohlen: etwa 30 Sekunden Chorus/Vocal) und steuern nicht die Songdauer."
+        "# Erklärung · YuE ICL Sampler\n\n**Sekundenwahl:** `target_duration_seconds=540` erzwingt die geplante Codec-Tokenmenge. `run_n_segment=20` stellt genug Lyrics-Blöcke bereit; 540 Sekunden benötigen 18, 600 Sekunden alle 20 Sektionen. `max_new_tokens=3000` entspricht höchstens 30 Sekunden pro Sektion.\n\n**Referenzstimme / Referenzsong:** `use_audio_prompt=True`, `use_dual_tracks_prompt=False` und der Eingang `reference_audio` ist verbunden. `prompt_start_time=0`, `prompt_end_time=30` wählen den empfohlenen 30-Sekunden-Ausschnitt. Ein isolierter Vocal-Track fokussiert Stimme/Timbre; ein kompletter Mix überträgt zusätzlich Arrangement und Instrumentierung. YuE ICL ist Audio-/Stil-Conditioning und garantiert keine identische Voice-Clone-Stimme.\n\n**Ohne Input-Voice:** Nicht nur den Audio-Link entfernen. Stattdessen den separaten CoT-Workflow verwenden (`YuE-s1-7B-anneal-en-cot`, `use_audio_prompt=False`), weil CoT mehr Vielfalt bietet und ICL andere Gewichte/Einstellungen benötigt."
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
@@ -335,7 +340,7 @@
         400
       ],
       "flags": {},
-      "order": 8,
+      "order": 9,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -363,7 +368,7 @@
         400
       ],
       "flags": {},
-      "order": 9,
+      "order": 10,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -391,7 +396,7 @@
         350
       ],
       "flags": {},
-      "order": 10,
+      "order": 11,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -419,7 +424,7 @@
         500
       ],
       "flags": {},
-      "order": 11,
+      "order": 12,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -428,7 +433,101 @@
         "Node name for S&R": "MarkdownNote"
       },
       "widgets_values": [
-        "# YuE auf diesem System\n\nDieser Workflow ist gezielt für **R9700 32 GB / Windows ROCm / BF16-FP16 / SDPA** gebaut. Der lokale Node-Patch deaktiviert TorchInductor/Triton, korrigiert `mmgp_profile` und erzwingt die gewählte Sekundendauer über exakt geplante Codec-Token pro Sektion.\n\n## CoT ohne Referenz\n- Modell: `YuE-s1-7B-anneal-en-cot`\n- `use_audio_prompt=False`, `use_dual_tracks_prompt=False`\n- Größere Vielfalt; keine Referenzstimme.\n\n## ICL mit Referenz\nDafür gibt es einen getrennten Workflow mit `YuE-s1-7B-anneal-en-icl`, verbundenem `reference_audio`, `use_audio_prompt=True` und 0–30 Sekunden Referenzausschnitt. Ein isolierter Vocal-Track fokussiert die Stimme besser; ein kompletter Mix überträgt zugleich Stil und Instrumentierung. YuE ist dabei Stil-/Audio-Conditioning und keine garantierte exakte Voice-Cloning-Engine.\n\n## Laufzeit\n540–600 Sekunden Audio können auf diesem System mehrere Stunden Rechenzeit benötigen. Für einen Funktionstest zuerst `target_duration_seconds=10–30` setzen.\n\n## MMGP\n`use_mmgp=False` bleibt auf der R9700 aktiv. Profil `2` wird nicht benutzt, ist aber als String gespeichert und akzeptiert auch alte Integer-Workflows."
+        "# YuE ICL Reference Voice auf diesem System\n\nDieser Workflow ist die Referenz-Audio-Variante für die **R9700 32 GB**. Er verwendet den ICL-Checkpoint, einen verbundenen Core-`LoadAudio`-Node und Single-Track-ICL.\n\n## Mit Referenzstimme\n- `stage_A_repo=...anneal-en-icl`\n- `use_audio_prompt=True`, `use_dual_tracks_prompt=False`\n- `reference_audio` verbunden; idealerweise etwa 30 Sekunden isolierter Gesang/Chorus\n- `prompt_start_time/end_time` schneiden nur die Referenz\n\n## Ohne Referenzstimme\nDen normalen CoT-Workflow verwenden: `...anneal-en-cot`, beide Prompt-Schalter AUS und kein Audio-Link. Nicht bloß den Schalter in diesem ICL-Workflow deaktivieren, wenn freie CoT-Generierung gewünscht ist.\n\n## Dauer\n`target_duration_seconds` ist 5–600 Sekunden. Die Tokenplanung verhindert vorzeitiges EOA; lange Läufe können trotzdem mehrere Stunden dauern."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 13,
+      "type": "LoadAudio",
+      "pos": [
+        520,
+        -330
+      ],
+      "size": [
+        500,
+        138
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "COMBO",
+          "widget": {
+            "name": "audio"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "audioUI",
+          "name": "audioUI",
+          "type": "AUDIO_UI",
+          "widget": {
+            "name": "audioUI"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "choose file to upload",
+          "name": "upload",
+          "type": "AUDIOUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "AUDIO",
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            6
+          ]
+        }
+      ],
+      "title": "Optionalen Referenzgesang laden · ca. 30 s",
+      "properties": {
+        "Node name for S&R": "LoadAudio",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "TaylorSwift_Ref_Audio.mp3",
+        null,
+        null
+      ],
+      "color": "#004835",
+      "bgcolor": "#1d1d1d"
+    },
+    {
+      "id": 14,
+      "type": "MarkdownNote",
+      "pos": [
+        1050,
+        -350
+      ],
+      "size": [
+        560,
+        280
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Referenzgesang laden · Node 13",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "dawasteh_generated_note": true,
+        "dawasteh_note_for": 13
+      },
+      "widgets_values": [
+        "# Erklärung · Referenzgesang laden\n\nHier eine eigene Audio-Datei hochladen/auswählen. Für eine möglichst deutliche Stimmreferenz einen sauberen, isolierten Vocal- oder Chorus-Ausschnitt verwenden; für Stil plus Arrangement einen kompletten Mix. YuE empfiehlt ungefähr 30 Sekunden.\n\nDie voreingestellte Datei ist nur ein lokaler Platzhalter und sollte vor dem Lauf ersetzt werden."
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
@@ -474,6 +573,14 @@
       5,
       0,
       "AUDIO"
+    ],
+    [
+      6,
+      13,
+      0,
+      2,
+      1,
+      "AUDIO"
     ]
   ],
   "groups": [],
@@ -490,7 +597,7 @@
     "dawasteh_workflow_refinement": {
       "version": 1,
       "target_gpu": "AMD Radeon AI PRO R9700 32GB",
-      "generated_notes": 5
+      "generated_notes": 6
     }
   },
   "version": 0.4

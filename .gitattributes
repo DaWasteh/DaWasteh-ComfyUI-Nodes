@@ -1,0 +1,2 @@
+# Patch fixtures preserve upstream whitespace so `git apply` remains exact.
+tools/patches/*.patch whitespace=-trailing-space

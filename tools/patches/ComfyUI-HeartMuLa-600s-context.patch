@@ -1,0 +1,46 @@
+diff --git a/nodes.py b/nodes.py
+index fab0936..2165df8 100644
+--- a/nodes.py
++++ b/nodes.py
+@@ -31,6 +31,21 @@ def resolve_model_path(path):
+     if os.path.exists(m_path): return m_path
+     return path
+ 
++
++def validate_duration_context(duration_seconds, prompt_length, max_sequence_length):
++    """Reject requested audio that cannot fit beside the text prompt."""
++    requested_audio_frames = int(float(duration_seconds) * 1000) // 80
++    available_audio_frames = int(max_sequence_length) - int(prompt_length)
++    if requested_audio_frames > available_audio_frames:
++        maximum_seconds = max(0.0, available_audio_frames * 0.08)
++        raise ValueError(
++            f"duration_seconds={duration_seconds:g} exceeds the HeartMuLa context limit "
++            f"for these lyrics/tags. The current prompt allows at most "
++            f"{maximum_seconds:.2f} seconds; shorten the prompt or reduce duration_seconds."
++        )
++    return available_audio_frames * 0.08
++
++
+ class HeartMuLaLoader(io.ComfyNode):
+     @classmethod
+     def define_schema(cls) -> io.Schema:
+@@ -120,7 +135,7 @@ class HeartMuLaMusicGenerator(io.ComfyNode):
+                 HEARTMULA_MODEL.Input("model"),
+                 io.String.Input("lyrics", multiline=True, default=""),
+                 io.String.Input("tags", multiline=True, default=""),
+-                io.Float.Input("duration_seconds", default=30.0, min=1.0, max=300.0),
++                io.Float.Input("duration_seconds", default=300.0, min=1.0, max=600.0),
+                 io.Int.Input("seed", default=0, min=0, max=0xffffffffffffffff),
+                 io.Float.Input("temperature", default=1.0, min=0.1, max=2.0),
+                 io.Int.Input("top_k", default=50, min=1, max=1000),
+@@ -148,6 +163,10 @@ class HeartMuLaMusicGenerator(io.ComfyNode):
+             processed_inputs = model.preprocess(inputs, cfg_scale)
+             max_audio_length_ms = int(duration_seconds * 1000)
+ 
++            prompt_length = int(processed_inputs["tokens"].shape[1])
++            max_sequence_length = int(model.model.backbone.max_seq_len)
++            validate_duration_context(duration_seconds, prompt_length, max_sequence_length)
++
+             print(f"Moving HeartMuLa Generator to {device}...")
+             model.model.to(device)
+             torch.cuda.synchronize()

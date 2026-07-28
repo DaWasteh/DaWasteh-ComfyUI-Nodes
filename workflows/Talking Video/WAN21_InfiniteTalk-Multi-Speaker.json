@@ -1,8 +1,8 @@
 {
   "id": "4795b4f0-7caa-4281-9a43-86d1770433f4",
   "revision": 0,
-  "last_node_id": 213,
-  "last_link_id": 515,
+  "last_node_id": 214,
+  "last_link_id": 516,
   "nodes": [
     {
       "id": 13,
@@ -1756,7 +1756,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 516
         }
       ],
       "outputs": [
@@ -1788,7 +1788,7 @@
         }
       },
       "widgets_values": [
-        "The camera zooms in. Two characters are talking."
+        ""
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -4036,6 +4036,64 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 214,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        1598.197,
+        -2092.255
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            516
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "The camera zooms in. Two characters are talking.",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            14,
+            "text"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
     }
   ],
   "links": [
@@ -4558,6 +4616,14 @@
       162,
       0,
       "VIDEO"
+    ],
+    [
+      516,
+      214,
+      0,
+      14,
+      1,
+      "STRING"
     ]
   ],
   "groups": [

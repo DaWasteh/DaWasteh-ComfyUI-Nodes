@@ -1,8 +1,8 @@
 {
   "id": "bd4a40c4-7cc7-4936-865d-236da5f6eabe",
   "revision": 0,
-  "last_node_id": 65,
-  "last_link_id": 153,
+  "last_node_id": 66,
+  "last_link_id": 154,
   "nodes": [
     {
       "id": 7,
@@ -88,7 +88,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 154
         }
       ],
       "outputs": [
@@ -113,7 +113,7 @@
         }
       },
       "widgets_values": [
-        "nude, sexual poses, horny, no cloth, face as input-image, naked, sexy, beautiful, "
+        ""
       ]
     },
     {
@@ -787,6 +787,64 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 66,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        77.72699999999998,
+        575.142
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            154
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "nude, sexual poses, horny, no cloth, face as input-image, naked, sexy, beautiful, ",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            6,
+            "text"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
     }
   ],
   "links": [
@@ -877,6 +935,14 @@
       3,
       1,
       "CONDITIONING"
+    ],
+    [
+      154,
+      66,
+      0,
+      6,
+      1,
+      "STRING"
     ]
   ],
   "groups": [],

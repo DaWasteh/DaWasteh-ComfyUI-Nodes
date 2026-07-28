@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import subprocess
 import sys
@@ -10,8 +11,11 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from refine_workflows import DOC_TYPES, NOTE_PROPERTY, REFINEMENT_KEY, graph_children, is_target
+from integrate_pixaroma_prompts import pause_node as expected_pause_node, prompt as expected_prompt_node
 
 BLACKLIST = ("cudaexecutionprovider", "nunchaku", "svdq", "nvfp4", "tensorrt", "xformers", "flash_attn")
+INTEGRATION_MARKER = "dawasteh_pixaroma_prompt_integration"
+MANIFEST_PATH = Path(__file__).with_name("pixaroma_prompt_manifest.json")
 
 
 def load(path: Path) -> dict[str, Any]:
@@ -134,6 +138,204 @@ def validate_graph(path: Path, locator: str, graph: dict[str, Any], errors: list
     return len(nodes), len(notes), len(entries)
 
 
+def _manifest_entries() -> dict[str, dict[str, Any]]:
+    data = load(MANIFEST_PATH)
+    return {entry["path"]: entry for entry in data.get("entries", [])}
+
+
+def _path_key(path: Path) -> str:
+    root = Path(__file__).resolve().parents[1]
+    try:
+        return path.resolve().relative_to(root).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
+def _input_index(node: dict[str, Any], name: str) -> int | None:
+    return next((index for index, item in enumerate(node.get("inputs", []) or []) if item.get("name") == name), None)
+
+
+def validate_integration_delta(
+    path: Path,
+    before: dict[str, Any],
+    after: dict[str, Any],
+    manifest: dict[str, Any],
+    errors: list[str],
+) -> None:
+    """Normalize only manifest-authorized Pixaroma deltas, then demand HEAD equality."""
+    prefix = f"{path}:root"
+    before_nodes = {node.get("id"): node for node in before.get("nodes", [])}
+    after_nodes = {node.get("id"): node for node in after.get("nodes", [])}
+    before_links = {entry[0]: entry for entry in before.get("links", []) if isinstance(entry, list)}
+    after_links = {entry[0]: entry for entry in after.get("links", []) if isinstance(entry, list)}
+    before_ids = set(before_nodes)
+    after_ids = set(after_nodes)
+    marked = {
+        node_id: node for node_id, node in after_nodes.items()
+        if node.get("properties", {}).get(INTEGRATION_MARKER)
+    }
+
+    if not before_ids <= after_ids:
+        errors.append(f"{prefix}: original node IDs removed ({before_ids-after_ids})")
+    unexpected_new = (after_ids - before_ids) - set(marked)
+    if unexpected_new:
+        errors.append(f"{prefix}: unmarked new node IDs {unexpected_new}")
+
+    normalized = copy.deepcopy(after)
+    norm_nodes = {node.get("id"): node for node in normalized.get("nodes", [])}
+    norm_links = {entry[0]: entry for entry in normalized.get("links", []) if isinstance(entry, list)}
+    consumed_nodes: set[Any] = set()
+    consumed_links: set[Any] = set()
+
+    for target in manifest.get("targets", []):
+        target_id = target["node_id"]
+        input_name = target["input"]
+        widget_index = target["widget_index"]
+        original = before_nodes.get(target_id)
+        current = after_nodes.get(target_id)
+        if original is None or current is None:
+            errors.append(f"{prefix}: prompt target node {target_id} missing")
+            continue
+        prompts = [
+            node for node in marked.values()
+            if node.get("properties", {}).get(INTEGRATION_MARKER, {}).get("kind") == "prompt"
+            and node.get("properties", {}).get(INTEGRATION_MARKER, {}).get("target") == [target_id, input_name]
+        ]
+        if len(prompts) != 1:
+            errors.append(f"{prefix}: target {target_id}:{input_name} has {len(prompts)} marked Prompt nodes")
+            continue
+        prompt = prompts[0]
+        consumed_nodes.add(prompt.get("id"))
+        if prompt.get("type") != "PixaromaPrompt":
+            errors.append(f"{prefix}: integration node {prompt.get('id')} is not PixaromaPrompt")
+        state = prompt.get("properties", {}).get("promptState", {})
+        if state.get("text") != target.get("source_text"):
+            errors.append(f"{prefix}: Prompt {prompt.get('id')} did not preserve source text")
+        if widget_index >= len(current.get("widgets_values", [])) or current["widgets_values"][widget_index] != "":
+            errors.append(f"{prefix}: target {target_id} source widget was not cleared")
+            continue
+        expected_widgets = copy.deepcopy(original.get("widgets_values", []))
+        expected_widgets[widget_index] = ""
+        if current.get("widgets_values", []) != expected_widgets:
+            errors.append(f"{prefix}: target {target_id} widgets changed beyond source clearing")
+        slot = _input_index(current, input_name)
+        if slot is None:
+            errors.append(f"{prefix}: target {target_id} lacks input {input_name}")
+            continue
+        link_id_value = current["inputs"][slot].get("link")
+        link = after_links.get(link_id_value)
+        expected_link = [link_id_value, prompt.get("id"), 0, target_id, slot, "STRING"]
+        if link != expected_link:
+            errors.append(f"{prefix}: Prompt {prompt.get('id')} link is not reciprocal/exact")
+        expected_prompt = expected_prompt_node(
+            prompt.get("id"), target.get("source_text"), prompt.get("pos"), [target_id, input_name]
+        )
+        expected_prompt["outputs"][0]["links"] = [link_id_value]
+        if prompt != expected_prompt:
+            errors.append(f"{prefix}: Prompt {prompt.get('id')} schema/state differs from the authorized node")
+        consumed_links.add(link_id_value)
+
+        original_inputs = copy.deepcopy(original.get("inputs", []) or [])
+        original_slot = _input_index(original, input_name)
+        expected_inputs = copy.deepcopy(original_inputs)
+        if original_slot is None:
+            expected_inputs.append({
+                "name": input_name,
+                "type": "STRING",
+                "widget": {"name": input_name},
+                "link": link_id_value,
+            })
+        else:
+            expected_inputs[original_slot]["link"] = link_id_value
+        if current.get("inputs", []) != expected_inputs:
+            errors.append(f"{prefix}: target {target_id} inputs changed beyond authorized Prompt wiring")
+
+        norm_target = norm_nodes[target_id]
+        norm_target["inputs"] = original_inputs
+        norm_target["widgets_values"] = copy.deepcopy(original.get("widgets_values", []))
+        norm_links.pop(link_id_value, None)
+
+    for gate_spec in manifest.get("pauses", []):
+        old_link_id = gate_spec["target_link"]
+        original_link = before_links.get(old_link_id)
+        gates = [
+            node for node in marked.values()
+            if node.get("properties", {}).get(INTEGRATION_MARKER, {}).get("kind") == "pause"
+            and node.get("properties", {}).get(INTEGRATION_MARKER, {}).get("pause_target") == old_link_id
+        ]
+        if len(gates) != 1:
+            errors.append(f"{prefix}: link {old_link_id} has {len(gates)} marked Pause nodes")
+            continue
+        gate = gates[0]
+        consumed_nodes.add(gate.get("id"))
+        if gate.get("type") != "PixaromaPauseText":
+            errors.append(f"{prefix}: integration node {gate.get('id')} is not PixaromaPauseText")
+        fresh_id = gate.get("inputs", [{}])[0].get("link")
+        fresh_link = after_links.get(fresh_id)
+        expected_fresh = [
+            fresh_id,
+            gate_spec["source_node"],
+            gate_spec.get("source_slot", 0),
+            gate.get("id"),
+            0,
+            "STRING",
+        ]
+        if fresh_link != expected_fresh:
+            errors.append(f"{prefix}: Pause {gate.get('id')} upstream link is missing or incorrect")
+        consumed_links.add(fresh_id)
+        current_old = after_links.get(old_link_id)
+        expected_old = copy.deepcopy(original_link)
+        if expected_old is not None:
+            expected_old[1] = gate.get("id")
+            expected_old[2] = 0
+        if current_old != expected_old:
+            errors.append(f"{prefix}: Pause {gate.get('id')} downstream link changed unexpectedly")
+        expected_gate = expected_pause_node(gate.get("id"), gate.get("pos"), fresh_id, old_link_id)
+        if gate != expected_gate:
+            errors.append(f"{prefix}: Pause {gate.get('id')} schema/state differs from the authorized node")
+
+        source_id = gate_spec["source_node"]
+        source_slot = gate_spec.get("source_slot", 0)
+        original_source = before_nodes.get(source_id)
+        current_source = after_nodes.get(source_id)
+        if original_source is None or current_source is None:
+            errors.append(f"{prefix}: Pause source {source_id} missing")
+        else:
+            expected_outputs = copy.deepcopy(original_source.get("outputs", []))
+            source_links = expected_outputs[source_slot].get("links") or []
+            if old_link_id not in source_links:
+                errors.append(f"{prefix}: HEAD source {source_id}:{source_slot} lacks link {old_link_id}")
+            else:
+                source_links.remove(old_link_id)
+                source_links.append(fresh_id)
+            if current_source.get("outputs", []) != expected_outputs:
+                errors.append(f"{prefix}: Pause source {source_id} outputs changed beyond gate split")
+            norm_nodes[source_id]["outputs"] = copy.deepcopy(original_source.get("outputs", []))
+        if original_link is not None:
+            norm_links[old_link_id] = copy.deepcopy(original_link)
+        norm_links.pop(fresh_id, None)
+
+    if set(marked) != consumed_nodes:
+        errors.append(f"{prefix}: unexpected or missing marked integration nodes ({set(marked)^consumed_nodes})")
+    new_link_ids = set(after_links) - set(before_links)
+    if new_link_ids != consumed_links:
+        errors.append(f"{prefix}: unexpected or missing integration links ({new_link_ids^consumed_links})")
+
+    normalized["nodes"] = [node for node in normalized.get("nodes", []) if node.get("id") not in consumed_nodes]
+    normalized["links"] = [norm_links[entry[0]] for entry in normalized.get("links", []) if entry[0] in norm_links]
+    normalized["last_node_id"] = before.get("last_node_id")
+    normalized["last_link_id"] = before.get("last_link_id")
+    if normalized != before:
+        errors.append(f"{prefix}: graph differs from HEAD beyond manifest-authorized integration")
+
+    numeric_nodes = [node_id for node_id in after_ids if isinstance(node_id, int)]
+    numeric_links = [link_id_value for link_id_value in after_links if isinstance(link_id_value, int)]
+    if consumed_nodes and numeric_nodes and after.get("last_node_id") != max(numeric_nodes):
+        errors.append(f"{prefix}: last_node_id is not the exact maximum")
+    if consumed_nodes and numeric_links and after.get("last_link_id") != max(numeric_links):
+        errors.append(f"{prefix}: last_link_id is not the exact maximum")
+
+
 def compare_head(path: Path, current: dict[str, Any], errors: list[str]) -> tuple[int, int]:
     head = git_head_json(path)
     head_graphs = dict(graph_locator(head))
@@ -141,21 +343,16 @@ def compare_head(path: Path, current: dict[str, Any], errors: list[str]) -> tupl
     if set(head_graphs) != set(current_graphs):
         errors.append(f"{path}: graph locator set changed")
         return 0, 0
+    manifest = _manifest_entries().get(_path_key(path), {"targets": [], "pauses": []})
     old_nodes = old_links = 0
     for locator, before in head_graphs.items():
         after = current_graphs[locator]
         old_nodes += len(before.get("nodes", []))
         old_links += len(before.get("links", {}) or [])
-        if before.get("links", []) != after.get("links", []):
-            errors.append(f"{path}:{locator}: existing links changed")
-        before_pix = {n["id"]: n for n in before.get("nodes", []) if n.get("type") == "PixaromaNote"}
-        after_pix = {n["id"]: n for n in after.get("nodes", []) if n.get("type") == "PixaromaNote"}
-        if before_pix != after_pix:
-            errors.append(f"{path}:{locator}: PixaromaNote dictionary changed")
-        if before.get("last_link_id") != after.get("last_link_id"):
-            errors.append(f"{path}:{locator}: last_link_id changed")
-        if before.get("version") != after.get("version"):
-            errors.append(f"{path}:{locator}: graph version changed")
+        if locator == "root":
+            validate_integration_delta(path, before, after, manifest, errors)
+        elif before != after:
+            errors.append(f"{path}:{locator}: subgraph changed")
     return old_nodes, old_links
 
 
@@ -216,7 +413,7 @@ def main() -> int:
                 errors.extend(path_errors)
         else:
             errors.extend(path_errors)
-    expected = {"files": 186, "graphs": 222, "nodes": 6083, "notes": 2709, "links": 3939, "timers": 186}
+    expected = {"files": 186, "graphs": 222, "nodes": 6203, "notes": 2709, "links": 4059, "timers": 186}
     actual = {"files": len(paths), **{k: totals[k] for k in ("graphs", "nodes", "notes", "links", "timers")}}
     for key, value in expected.items():
         if actual[key] != value:

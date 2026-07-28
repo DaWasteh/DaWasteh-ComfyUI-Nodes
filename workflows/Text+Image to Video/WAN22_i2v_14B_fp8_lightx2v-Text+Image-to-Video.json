@@ -1,8 +1,8 @@
 {
   "id": "06ca718e-eb45-4a40-81e1-ab6ab7f618da",
   "revision": 0,
-  "last_node_id": 37,
-  "last_link_id": 20,
+  "last_node_id": 38,
+  "last_link_id": 21,
   "nodes": [
     {
       "id": 1,
@@ -440,7 +440,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 21
         }
       ],
       "outputs": [
@@ -462,7 +462,7 @@
         "ver": "0.3.68"
       },
       "widgets_values": [
-        "A royal cyborg queen walks steadily forward through a grand hall, cinematic lighting, smooth camera push-in, highly detailed"
+        ""
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1791,6 +1791,64 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 38,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        498.0,
+        -286.0
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            21
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "A royal cyborg queen walks steadily forward through a grand hall, cinematic lighting, smooth camera push-in, highly detailed",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            8,
+            "text"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
     }
   ],
   "links": [
@@ -1953,6 +2011,14 @@
       17,
       0,
       "VIDEO"
+    ],
+    [
+      21,
+      38,
+      0,
+      8,
+      1,
+      "STRING"
     ]
   ],
   "groups": [],

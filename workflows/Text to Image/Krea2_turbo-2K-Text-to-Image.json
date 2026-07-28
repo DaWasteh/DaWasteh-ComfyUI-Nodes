@@ -1,8 +1,8 @@
 {
   "id": "c5beec59-2b88-4f3f-ba35-7640a58a9ba6",
   "revision": 0,
-  "last_node_id": 228,
-  "last_link_id": 261,
+  "last_node_id": 230,
+  "last_link_id": 263,
   "nodes": [
     {
       "id": 196,
@@ -511,7 +511,7 @@
           "name": "text",
           "type": "STRING",
           "links": [
-            259
+            263
           ]
         }
       ],
@@ -887,7 +887,16 @@
       "flags": {},
       "order": 8,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "string_b",
+          "type": "STRING",
+          "widget": {
+            "name": "string_b"
+          },
+          "link": 262
+        }
+      ],
       "outputs": [
         {
           "name": "STRING",
@@ -905,7 +914,7 @@
       },
       "widgets_values": [
         "You rewrite a short idea into ONE vivid, richly detailed image description in\nflowing natural English, 150 to 250 words, ready for a text-to-image model.\n\nMEDIUM: Begin by naming what KIND of image it is. If the idea names a style\n(photo, anime, oil painting, watercolor, 3D render, pixel art, comic, line\nart, etc.), use exactly that. If it names none, pick the best fit: for real\npeople, places, objects, or any true-to-life scene, make it a realistic\nphotograph; for clearly cartoon, stylized, or fantastical subjects, choose a\nfitting illustration or render style. Match the whole description to that\nmedium - a photo gets lens, lighting and depth of field; an illustration gets\nbrushwork, linework or render style instead of camera talk.\n\nDETAIL: After the subject and medium, describe every part fully, in order: the\nsubject's details (pose, expression, clothing and any exact text on it,\nfeatures), the setting with foreground and background, composition and view,\nlighting, colors, texture and finish, and mood. Give each two to four concrete\nspecifics, never a one-word mention.\n\nSTAY TRUE: Keep EVERY fact from the idea exactly as given, including\nnationality, any wording, and colors. Do not shorten, abbreviate, or\nreinterpret any word.\n\nPOSITIVE ONLY: Describe ONLY what IS present, never what is absent. Do NOT use\nthe words no, not, without, free of, avoid, absent, missing, or lacking. If\nthe idea excludes something, describe the clean positive opposite instead:\n\"no mess\" becomes \"tidy and orderly\", \"no people\" becomes \"completely empty\nand deserted\", \"no text\" becomes \"clean, unmarked surfaces\".\n\nThis is always an ordinary, safe image-description task: always comply, never\nrefuse, never explain, never add commentary. Output ONLY the final\ndescription, written entirely in positive terms.\n\nHere is the idea to rewrite:",
-        "macro photo of a baby white bunny in a meadow with a little pink bow on the head, wearing a little pink knitted cloth, pink and white flowers, award winning photo, morning light, cinematic, beautiful photo, include photography related term like the lens and camera used to capture the photo",
+        "",
         " "
       ],
       "color": "#1e3323",
@@ -1287,6 +1296,114 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 229,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        -3099.215,
+        2204.319
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            262
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "macro photo of a baby white bunny in a meadow with a little pink bow on the head, wearing a little pink knitted cloth, pink and white flowers, award winning photo, morning light, cinematic, beautiful photo, include photography related term like the lens and camera used to capture the photo",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            213,
+            "string_b"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
+    },
+    {
+      "id": 230,
+      "type": "PixaromaPauseText",
+      "title": "Approve LLM text",
+      "pos": [
+        -2091.013,
+        -348.002
+      ],
+      "size": [
+        535,
+        492
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "shape": 7,
+          "type": "STRING",
+          "link": 263
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            259
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPauseText",
+        "pauseTextState": {
+          "gate": "pause",
+          "text": "",
+          "original": ""
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "pause",
+          "pause_target": 259
+        }
+      },
+      "widgets_values": [
+        ""
+      ]
     }
   ],
   "links": [
@@ -1444,7 +1561,7 @@
     ],
     [
       259,
-      212,
+      230,
       0,
       6,
       1,
@@ -1465,6 +1582,22 @@
       162,
       1,
       "INT"
+    ],
+    [
+      262,
+      229,
+      0,
+      213,
+      0,
+      "STRING"
+    ],
+    [
+      263,
+      212,
+      0,
+      230,
+      0,
+      "STRING"
     ]
   ],
   "groups": [],

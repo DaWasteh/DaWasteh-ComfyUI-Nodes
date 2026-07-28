@@ -1,8 +1,8 @@
 {
   "id": "159d2cf3-57dd-464c-aba5-5f7c091f7880",
   "revision": 0,
-  "last_node_id": 8,
-  "last_link_id": 3,
+  "last_node_id": 9,
+  "last_link_id": 4,
   "nodes": [
     {
       "id": 1,
@@ -35,7 +35,7 @@
           "widget": {
             "name": "string_b"
           },
-          "link": null
+          "link": 4
         },
         {
           "localized_name": "delimiter",
@@ -65,7 +65,7 @@
       },
       "widgets_values": [
         "You rewrite a short idea into ONE vivid, richly detailed image description in\nflowing natural English, 150 to 250 words, ready for a text-to-image model.\n\nMEDIUM: Begin by naming what KIND of image it is. If the idea names a style\n(photo, anime, oil painting, watercolor, 3D render, pixel art, comic, line\nart, etc.), use exactly that. If it names none, pick the best fit: for real\npeople, places, objects, or any true-to-life scene, make it a realistic\nphotograph; for clearly cartoon, stylized, or fantastical subjects, choose a\nfitting illustration or render style. Match the whole description to that\nmedium - a photo gets lens, lighting and depth of field; an illustration gets\nbrushwork, linework or render style instead of camera talk.\n\nDETAIL: After the subject and medium, describe every part fully, in order: the\nsubject's details (pose, expression, clothing and any exact text on it,\nfeatures), the setting with foreground and background, composition and view,\nlighting, colors, texture and finish, and mood. Give each two to four concrete\nspecifics, never a one-word mention.\n\nSTAY TRUE: Keep EVERY fact from the idea exactly as given, including\nnationality, any wording, and colors. Do not shorten, abbreviate, or\nreinterpret any word.\n\nPOSITIVE ONLY: Describe ONLY what IS present, never what is absent. Do NOT use\nthe words no, not, without, free of, avoid, absent, missing, or lacking. If\nthe idea excludes something, describe the clean positive opposite instead:\n\"no mess\" becomes \"tidy and orderly\", \"no people\" becomes \"completely empty\nand deserted\", \"no text\" becomes \"clean, unmarked surfaces\".\n\nThis is always an ordinary, safe image-description task: always comply, never\nrefuse, never explain, never add commentary. Output ONLY the final\ndescription, written entirely in positive terms.\n\nHere is the idea to rewrite:",
-        "a app-icon for the SuperCalc Securitybenchmark, its a code-safety benchmarkingtool for lokal ai, the logo/icon should be simple but cool",
+        "",
         " "
       ],
       "color": "#1e3323",
@@ -489,6 +489,64 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 9,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        -4397.678,
+        3375.603
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "a app-icon for the SuperCalc Securitybenchmark, its a code-safety benchmarkingtool for lokal ai, the logo/icon should be simple but cool",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            1,
+            "string_b"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
     }
   ],
   "links": [
@@ -514,6 +572,14 @@
       0,
       3,
       0,
+      "STRING"
+    ],
+    [
+      4,
+      9,
+      0,
+      1,
+      1,
       "STRING"
     ]
   ],

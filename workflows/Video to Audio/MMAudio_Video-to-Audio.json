@@ -1,8 +1,8 @@
 {
   "id": "f6eeea82-4804-4cb8-9484-64fa2677e80b",
   "revision": 0,
-  "last_node_id": 15,
-  "last_link_id": 6,
+  "last_node_id": 16,
+  "last_link_id": 7,
   "nodes": [
     {
       "id": 1,
@@ -397,7 +397,7 @@
           "widget": {
             "name": "prompt"
           },
-          "link": null
+          "link": 7
         },
         {
           "localized_name": "negative_prompt",
@@ -451,7 +451,7 @@
         8,
         0,
         "randomize",
-        "a person walking on gravel, footsteps, ambient outdoor sounds",
+        "",
         "",
         false,
         true
@@ -943,6 +943,64 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 16,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        596.0,
+        -286.0
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            7
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "a person walking on gravel, footsteps, ambient outdoor sounds",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            4,
+            "prompt"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
     }
   ],
   "links": [
@@ -993,6 +1051,14 @@
       6,
       1,
       "AUDIO"
+    ],
+    [
+      7,
+      16,
+      0,
+      4,
+      7,
+      "STRING"
     ]
   ],
   "groups": [],

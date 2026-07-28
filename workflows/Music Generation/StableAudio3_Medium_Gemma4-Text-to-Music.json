@@ -1,8 +1,8 @@
 {
   "id": "6f8f9208-5490-43b4-b360-dd30c567f62a",
   "revision": 0,
-  "last_node_id": 43,
-  "last_link_id": 21,
+  "last_node_id": 45,
+  "last_link_id": 23,
   "nodes": [
     {
       "id": 5,
@@ -417,7 +417,7 @@
           "name": "text",
           "type": "STRING",
           "links": [
-            20
+            23
           ]
         }
       ],
@@ -634,7 +634,16 @@
       "flags": {},
       "order": 6,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "string_b",
+          "type": "STRING",
+          "widget": {
+            "name": "string_b"
+          },
+          "link": 22
+        }
+      ],
       "outputs": [
         {
           "name": "STRING",
@@ -652,7 +661,7 @@
       },
       "widgets_values": [
         "You are a prompt adapter for Stable Audio 3 Medium. Transform the user's short idea into one polished text-to-music prompt.\n\nCreate an instrumental music prompt that expands the idea into clear audio direction. Keep the original intent, but improve it with specific genre, subgenre, instruments, tempo or BPM, mood, arrangement progression, production texture, and intended use.\n\nRules:\nOutput only one final prompt.\nDo not explain.\nDo not use bullet points.\nDo not add a title.\nDo not write labels like Genre, Mood, BPM, TrackType, Music, or Prompt.\nDo not mention Stable Audio.\nDo not use artist names or copyrighted references.\nDo not include lyrics.\nOnly include vocals if the user clearly asks for vocals, and then make them wordless, atmospheric, choral, breathy, or textural.\nKeep the final prompt between 70 and 120 words.\nMake it suitable for an instrumental music generation model.\n\nUser idea:",
-        "piano solo, romantic and modern, movie soundtrack",
+        "",
         " "
       ],
       "color": "#0c362e",
@@ -1010,6 +1019,114 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 44,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        -452.49,
+        2069.884
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            22
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "piano solo, romantic and modern, movie soundtrack",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            31,
+            "string_b"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
+    },
+    {
+      "id": 45,
+      "type": "PixaromaPauseText",
+      "title": "Approve LLM text",
+      "pos": [
+        604.761,
+        335.871
+      ],
+      "size": [
+        535,
+        492
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "shape": 7,
+          "type": "STRING",
+          "link": 23
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            20
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPauseText",
+        "pauseTextState": {
+          "gate": "pause",
+          "text": "",
+          "original": ""
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "pause",
+          "pause_target": 20
+        }
+      },
+      "widgets_values": [
+        ""
+      ]
     }
   ],
   "links": [
@@ -1111,7 +1228,7 @@
     ],
     [
       20,
-      30,
+      45,
       0,
       5,
       1,
@@ -1123,6 +1240,22 @@
       0,
       26,
       4,
+      "STRING"
+    ],
+    [
+      22,
+      44,
+      0,
+      31,
+      0,
+      "STRING"
+    ],
+    [
+      23,
+      30,
+      0,
+      45,
+      0,
       "STRING"
     ]
   ],

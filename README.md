@@ -1,4 +1,4 @@
-# DaWasteh – konsolidierte ComfyUI-Workflows · v0.6.3
+# DaWasteh – konsolidierte ComfyUI-Workflows · v0.6.4
 
 Dieser Ordner ist jetzt der **kuratierte Hauptordner** für die lokalen Workflows auf Windows 11 mit:
 
@@ -18,6 +18,7 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 ## Ergebnis
 
 - **186 kuratierte Workflow-Dateien** in 28 Kategorien
+- **111 Pixaroma Prompt**-Eingaben in 98 gezielt ausgewählten Workflows sowie **9 Pause Text**-Freigaben; insgesamt wurden 101 Workflows sinnvoll erweitert
 - alle 186 Workflows enthalten exakt einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
 - alle vorhandenen Workflows wurden mit deutlich größeren, nachvollziehbaren Abständen angeordnet
 - **2.709 automatisch zugeordnete Parameter-Notes** erklären jeden Nicht-Pixaroma-/Nicht-Dokumentations-Node einschließlich aktueller Werte, Schalterwirkung, Ein-/Ausgänge und höher-/niedriger-Auswirkung
@@ -60,6 +61,16 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 | `Image Upscaling` | 3 | einfache, Modell- und Z-Image-Upscaler |
 | `Batch Processing` | 2 | Ordner-Batches und Batch-Image-Edit |
 | weitere Einzelordner | je 1 | Controlled Video, Image Fusion, 3D, Outpainting, Talking Video, Tests, Video Editing, Video-to-Audio, Vocal Separation |
+
+## Pixaroma Prompt-Bibliothek · v0.6.4
+
+`prompt-libraries/DaWasteh-Pixaroma-Prompt-Library.json` ist eine persönliche, importierbare Bibliothek für **Prompt Pixaroma**. Im Node `Tags` öffnen und die Datei importieren. `@tag` fügt einen gespeicherten Textbaustein ein, `*Kategorie` zieht bei jedem Lauf einen Baustein aus einer Kategorie und `#liste` zieht eine Zeile aus einer Listenkarte. Die Wahlmodi Shuffle, Random und In order stehen im Tags-Editor bereit; **Show expanded** zeigt den tatsächlich gesendeten Prompt.
+
+Die Bibliothek trennt Bild/Video, Musik, Voice-Direction, Branding (DaWasteh, Pandaking, Draygh, Stella), explizit erwachsene einvernehmliche Inhalte und Negativ-Tags. Zufallslisten enthalten keine Adult- oder Negative-Tags. Der queue-sichere Installer `python tools/install_pixaroma_prompt_library.py` installiert nur in eine leere lokale Bibliothek; eine bestehende Library wird ohne `--replace` nie überschrieben. Er wird absichtlich nicht automatisch ausgeführt.
+
+**Pause Text** liegt nur hinter ausgewählten `TextGenerate`-Ausgaben, die anschließend Bild-, Video- oder Audiogenerierung konditionieren: Pause zeigt und stoppt, Continue nutzt den korrigierten Text ohne das LLM erneut auszuführen, Pass läuft ohne Stopp durch und Keep wiederholt mit dem freigegebenen Text. Negative Prompts, Systemformeln, Lyrics, TTS-Sprechtexte, Referenztranskripte, Utilities, Demos und Training bleiben bewusst unverändert.
+
+Prompt-Tag-Expansion und Pause/Continue/Keep sind Browser-Funktionen von ComfyUI-Pixaroma. Reine API-/Headless-Läufe expandieren keine private `@`/`*`/`#`-Library und können keine interaktive Pause bedienen; dafür einen normalen String-Eingang verwenden.
 
 ## Benennung
 
@@ -149,15 +160,16 @@ Diese Dateien bleiben in ihren Quellordnern als Referenz, gehören aber nicht in
 
 ## Validierung
 
-Automatisch geprüft wurden alle 186 Workflows. Der `--against-head`-Modus prüft neue und geänderte Dateien vollständig und lässt bekannte strukturelle Altbefunde unveränderter HEAD-Dateien nicht mehr fälschlich als v0.6.3-Regression erscheinen:
+Automatisch geprüft wurden alle 186 Workflows. Der `--against-head`-Modus prüft neue und geänderte Dateien vollständig, normalisiert ausschließlich die im 186-Dateien-Manifest erlaubten Prompt-/Pause-Transformationen und verwirft jede andere Änderung an bestehenden Nodes oder Links:
 
 - 186/186 gültige JSON-Dateien
 - 186/186 Workflows mit genau einem `PixaromaRunTimer`
 - 222 Haupt- und Untergraphen rekursiv geprüft
-- 6.083 Nodes, davon 2.709 eindeutig zugeordnete Parameter-Notes
-- 3.939 Graph-Links erfasst; die bestehenden 3.933 HEAD-Links blieben erhalten
-- keine neuen doppelten IDs, fehlenden Endpunkte, Note-Zuordnungs- oder Layoutfehler in den v0.6.3-Dateien
+- 6.203 Nodes, davon 2.709 eindeutig zugeordnete Parameter-Notes, 111 neue `PixaromaPrompt`- und 9 neue `PixaromaPauseText`-Nodes
+- 4.059 Graph-Links erfasst: 120 neue STRING-Links; bei 9 Pause-Gates blieb die vorhandene Downstream-Link-ID erhalten
+- keine neuen doppelten IDs, fehlenden oder einseitigen Endpunkte, Note-Zuordnungs- oder Layoutfehler in den v0.6.4-Dateien
 - vorhandene `PixaromaNote`-Dictionaries einschließlich Position, Größe und Inhalt unverändert
+- 25 Unit-Tests prüfen insgesamt die Workflow-Werkzeuge; davon sichern die neuen Integrationstests Manifest-Hashes gegen HEAD, exakte Prompttext-Migration, Formula+Idea-Trennung, Pause-Ancestry, wechselseitige Links, Kollisionsfreiheit, Korruptionserkennung und wiederholte byteidentische Anwendung ab
 - alle fünf neuen Trainer verwenden installierte Core-Nodes und vorhandene lokale Modelle
 - alle fünf Trainer erfolgreich mit einem vollständigen einmaligen 1-Step-Train-und-Save-Smoke-Test auf der Radeon AI Pro R9700 / ROCm 7.15 ausgeführt; die ausgelieferten Workflows starten bewusst mit 2 Schritten für den ersten eigenen Smoke-Test, und die erzeugten Test-Safetensors enthielten nichtleere Adaptergewichte
 - Boogu erst nach aktiviertem `offloading=true` OOM-frei validiert; diese sichere Einstellung ist im Workflow fest voreingestellt

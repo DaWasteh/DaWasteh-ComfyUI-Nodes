@@ -1,8 +1,8 @@
 {
   "id": "4604bb59-fbd1-418e-91b8-6fed9c82c03a",
   "revision": 0,
-  "last_node_id": 23,
-  "last_link_id": 10,
+  "last_node_id": 24,
+  "last_link_id": 11,
   "nodes": [
     {
       "id": 1,
@@ -217,7 +217,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 11
         }
       ],
       "outputs": [
@@ -239,7 +239,7 @@
         "ver": "0.3.68"
       },
       "widgets_values": [
-        "3D cartoon render of a cute humanoid panda with long, flowing blonde hair cascading over its shoulders, holding a wooden acoustic guitar in its right hand, fingers gently resting on the strings as if mid-song. The panda’s large, expressive black eyes gaze directly at the camera with a soft, friendly smile, ears perked and slightly tilted. It wears a simple brown leather vest over a white tunic, with faint embroidered leaf patterns along the hem. The setting is a whimsical fantasy forest where towering mushroom-like trees rise in spiraling clusters, their caps glowing softly with bioluminescent hues of lavender and teal. Thick moss carpets the forest floor, dotted with tiny glowing fireflies. Morning light filters through the canopy in golden shafts, casting warm highlights on the panda’s fur and illuminating misty air particles. The composition centers the panda slightly off-center, framed by two giant mushrooms in the foreground, creating depth. Textures are smooth yet detailed: plush fur, polished wood grain on the guitar, dew-damp moss. Mood is serene, magical, and inviting, bathed in gentle dawn radiance."
+        ""
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -994,6 +994,64 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 24,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        1093.5,
+        474.0
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "3D cartoon render of a cute humanoid panda with long, flowing blonde hair cascading over its shoulders, holding a wooden acoustic guitar in its right hand, fingers gently resting on the strings as if mid-song. The panda’s large, expressive black eyes gaze directly at the camera with a soft, friendly smile, ears perked and slightly tilted. It wears a simple brown leather vest over a white tunic, with faint embroidered leaf patterns along the hem. The setting is a whimsical fantasy forest where towering mushroom-like trees rise in spiraling clusters, their caps glowing softly with bioluminescent hues of lavender and teal. Thick moss carpets the forest floor, dotted with tiny glowing fireflies. Morning light filters through the canopy in golden shafts, casting warm highlights on the panda’s fur and illuminating misty air particles. The composition centers the panda slightly off-center, framed by two giant mushrooms in the foreground, creating depth. Textures are smooth yet detailed: plush fur, polished wood grain on the guitar, dew-damp moss. Mood is serene, magical, and inviting, bathed in gentle dawn radiance.",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            4,
+            "text"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
     }
   ],
   "links": [
@@ -1076,6 +1134,14 @@
       10,
       0,
       "IMAGE"
+    ],
+    [
+      11,
+      24,
+      0,
+      4,
+      1,
+      "STRING"
     ]
   ],
   "groups": [],

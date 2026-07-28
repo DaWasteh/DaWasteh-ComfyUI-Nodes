@@ -1,0 +1,228 @@
+import copy
+import json
+import subprocess
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "tools"))
+
+from tools.integrate_pixaroma_prompts import MARK, apply, sha
+from tools.validate_workflows import rect, overlaps, validate_integration_delta
+
+MANIFEST_PATH = ROOT / "tools" / "pixaroma_prompt_manifest.json"
+LIBRARY_PATH = ROOT / "prompt-libraries" / "DaWasteh-Pixaroma-Prompt-Library.json"
+
+
+def load(path: Path):
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def head_json(path: Path):
+    raw = subprocess.check_output(
+        ["git", "show", f"HEAD:{path.relative_to(ROOT).as_posix()}"],
+        text=True,
+        encoding="utf-8",
+    )
+    return json.loads(raw)
+
+
+class PixaromaIntegrationTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.manifest = load(MANIFEST_PATH)
+        cls.entries = {entry["path"]: entry for entry in cls.manifest["entries"]}
+
+    def test_manifest_exactly_covers_collection_and_head_hashes(self):
+        paths = {path.relative_to(ROOT).as_posix() for path in (ROOT / "workflows").rglob("*.json")}
+        manifest_paths = [entry["path"] for entry in self.manifest["entries"]]
+        self.assertEqual(self.manifest["workflow_count"], 186)
+        self.assertEqual(len(manifest_paths), len(set(manifest_paths)))
+        self.assertEqual(set(manifest_paths), paths)
+        for entry in self.manifest["entries"]:
+            self.assertIn(entry["action"], {"integrate", "skip"})
+            self.assertTrue(entry["reason"])
+            self.assertEqual(entry["action"] == "integrate", bool(entry.get("targets") or entry.get("pauses")))
+            before = head_json(ROOT / entry["path"])
+            nodes = {node["id"]: node for node in before["nodes"]}
+            for target in entry.get("targets", []):
+                node = nodes[target["node_id"]]
+                value = node["widgets_values"][target["widget_index"]]
+                self.assertEqual(node["type"], target["node_type"])
+                self.assertEqual(value, target["source_text"])
+                self.assertRegex(target["source_hash"], r"^[0-9a-f]{64}$")
+                self.assertEqual(sha(value), target["source_hash"])
+
+    def test_library_schema_sides_and_tailored_categories(self):
+        data = load(LIBRARY_PATH)
+        categories = set(data["categories"])
+        list_categories = set(data["listCats"])
+        self.assertEqual(data["version"], 1)
+        self.assertTrue(list_categories <= categories)
+        self.assertTrue({"Branding", "Adult", "Negative", "Music-Style", "Voice-Direction"} <= categories)
+        names = []
+        by_name = {}
+        for tag in data["tags"]:
+            self.assertRegex(tag["name"], r"^[A-Za-z0-9_-]+$")
+            names.append(tag["name"].lower())
+            by_name[tag["name"]] = tag
+            self.assertIn(tag["cat"], categories)
+            if tag.get("kind") == "list":
+                self.assertIn(tag["cat"], list_categories)
+                self.assertGreaterEqual(len([line for line in tag["text"].splitlines() if line.strip()]), 2)
+            else:
+                self.assertNotIn(tag["cat"], list_categories)
+        self.assertEqual(len(names), len(set(names)))
+        self.assertTrue({"dawasteh", "pandaking", "draygh", "stella"} <= set(by_name))
+        self.assertTrue(all(tag["cat"] == "Adult" for tag in data["tags"] if tag["name"].startswith("adult-")))
+        self.assertFalse(any(tag["cat"] in list_categories for tag in data["tags"] if tag["cat"] in {"Adult", "Negative"}))
+
+    def test_applied_prompt_nodes_preserve_text_and_wiring(self):
+        prompt_count = 0
+        for rel, entry in self.entries.items():
+            current = load(ROOT / rel)
+            nodes = {node["id"]: node for node in current["nodes"]}
+            links = {link[0]: link for link in current["links"]}
+            for target in entry.get("targets", []):
+                prompt_count += 1
+                candidates = [
+                    node for node in current["nodes"]
+                    if node.get("properties", {}).get(MARK, {}).get("target") == [target["node_id"], target["input"]]
+                ]
+                self.assertEqual(len(candidates), 1, f"{rel}:{target}")
+                prompt = candidates[0]
+                destination = nodes[target["node_id"]]
+                slot = next(i for i, item in enumerate(destination["inputs"]) if item["name"] == target["input"])
+                link_id = destination["inputs"][slot]["link"]
+                self.assertEqual(prompt["type"], "PixaromaPrompt")
+                self.assertEqual(prompt["properties"]["promptState"]["text"], target["source_text"])
+                self.assertEqual(destination["widgets_values"][target["widget_index"]], "")
+                self.assertEqual(links[link_id], [link_id, prompt["id"], 0, destination["id"], slot, "STRING"])
+                self.assertEqual(prompt["outputs"][0]["links"], [link_id])
+                title = (destination.get("title") or "").lower()
+                self.assertNotIn("negative", title)
+                self.assertNotIn("negativ", title)
+                self.assertNotIn(target["kind"], {"lyrics", "tts-text", "transcript", "system-formula"})
+        self.assertEqual(prompt_count, 111)
+
+    def test_pause_gates_are_reciprocal_and_have_textgenerate_ancestry(self):
+        pause_count = 0
+        for rel, entry in self.entries.items():
+            if not entry.get("pauses"):
+                continue
+            current = load(ROOT / rel)
+            nodes = {node["id"]: node for node in current["nodes"]}
+            links = {link[0]: link for link in current["links"]}
+            for spec in entry["pauses"]:
+                pause_count += 1
+                gates = [
+                    node for node in current["nodes"]
+                    if node.get("properties", {}).get(MARK, {}).get("pause_target") == spec["target_link"]
+                ]
+                self.assertEqual(len(gates), 1, rel)
+                gate = gates[0]
+                fresh_id = gate["inputs"][0]["link"]
+                self.assertIsNotNone(fresh_id)
+                self.assertEqual(
+                    links[fresh_id],
+                    [fresh_id, spec["source_node"], spec.get("source_slot", 0), gate["id"], 0, "STRING"],
+                )
+                old_link = links[spec["target_link"]]
+                self.assertEqual(old_link[1:5], [gate["id"], 0, spec["target_node"], old_link[4]])
+                self.assertEqual(gate["outputs"][0]["links"], [spec["target_link"]])
+                self.assertEqual(nodes[spec["target_node"]]["type"], "CLIPTextEncode")
+
+                visited = set()
+                stack = [spec["source_node"]]
+                found_textgenerate = False
+                while stack:
+                    node_id = stack.pop()
+                    if node_id in visited:
+                        continue
+                    visited.add(node_id)
+                    node = nodes[node_id]
+                    if node["type"] == "TextGenerate":
+                        found_textgenerate = True
+                        break
+                    for item in node.get("inputs", []) or []:
+                        link = links.get(item.get("link"))
+                        if link:
+                            stack.append(link[1])
+                self.assertTrue(found_textgenerate, f"{rel}: Pause source lacks TextGenerate ancestry")
+        self.assertEqual(pause_count, 9)
+
+    def test_marked_nodes_do_not_overlap_any_node(self):
+        for path in (ROOT / "workflows").rglob("*.json"):
+            data = load(path)
+            marked = [node for node in data["nodes"] if node.get("properties", {}).get(MARK)]
+            for node in marked:
+                for other in data["nodes"]:
+                    if node["id"] != other["id"]:
+                        self.assertFalse(overlaps(rect(node), rect(other)), f"{path}: {node['id']} overlaps {other['id']}")
+
+    def test_validator_rejects_old_node_corruption_and_disconnected_pause(self):
+        rel = "workflows/Text to Image/Krea2_turbo-2K-Text-to-Image.json"
+        before = head_json(ROOT / rel)
+        after = load(ROOT / rel)
+        entry = self.entries[rel]
+        errors = []
+        validate_integration_delta(Path(rel), before, after, entry, errors)
+        self.assertEqual(errors, [])
+
+        corrupt_node = copy.deepcopy(after)
+        original_id = before["nodes"][0]["id"]
+        next(node for node in corrupt_node["nodes"] if node["id"] == original_id)["type"] = "CorruptedNodeType"
+        errors = []
+        validate_integration_delta(Path(rel), before, corrupt_node, entry, errors)
+        self.assertTrue(errors)
+
+        corrupt_prompt = copy.deepcopy(after)
+        prompt = next(node for node in corrupt_prompt["nodes"] if node.get("properties", {}).get(MARK, {}).get("kind") == "prompt")
+        prompt["mode"] = 4
+        errors = []
+        validate_integration_delta(Path(rel), before, corrupt_prompt, entry, errors)
+        self.assertTrue(any("schema/state" in error for error in errors))
+
+        corrupt_pause = copy.deepcopy(after)
+        gate = next(node for node in corrupt_pause["nodes"] if node.get("properties", {}).get(MARK, {}).get("kind") == "pause")
+        gate["inputs"][0]["link"] = None
+        errors = []
+        validate_integration_delta(Path(rel), before, corrupt_pause, entry, errors)
+        self.assertTrue(any("upstream link" in error for error in errors))
+
+    def test_integrator_second_apply_is_byte_identical_and_corruption_fails(self):
+        rel = "workflows/Text to Image/Krea2_turbo-2K-Text-to-Image.json"
+        entry = self.entries[rel]
+        raw = subprocess.check_output(["git", "show", f"HEAD:{rel}"], text=True, encoding="utf-8")
+        with tempfile.TemporaryDirectory() as temp_dir:
+            path = Path(temp_dir) / "workflow.json"
+            path.write_text(raw, encoding="utf-8")
+            self.assertGreater(apply(path, entry, False), 0)
+            once = path.read_bytes()
+            self.assertEqual(apply(path, entry, False), 0)
+            self.assertEqual(path.read_bytes(), once)
+
+            data = load(path)
+            prompt = next(node for node in data["nodes"] if node.get("properties", {}).get(MARK, {}).get("kind") == "prompt")
+            prompt["mode"] = 4
+            gate = next(node for node in data["nodes"] if node.get("properties", {}).get(MARK, {}).get("kind") == "pause")
+            gate["type"] = "CorruptedGate"
+            path.write_text(json.dumps(data), encoding="utf-8")
+            with self.assertRaises(RuntimeError):
+                apply(path, entry, True)
+
+    def test_cli_check_is_clean(self):
+        result = subprocess.run(
+            [sys.executable, "tools/integrate_pixaroma_prompts.py", "--check"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -1,8 +1,8 @@
 {
   "id": "c40952c7-d52e-470d-9298-102e63717709",
   "revision": 0,
-  "last_node_id": 105,
-  "last_link_id": 128,
+  "last_node_id": 106,
+  "last_link_id": 129,
   "nodes": [
     {
       "id": 11,
@@ -999,7 +999,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 129
         }
       ],
       "outputs": [
@@ -1024,7 +1024,7 @@
         }
       },
       "widgets_values": [
-        "Cinematic dynamic scene: Girl undresses softly, glances towards camera, makes suggestive posture"
+        ""
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1805,6 +1805,64 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 106,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        -465.539,
+        977.474
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            129
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "Cinematic dynamic scene: Girl undresses softly, glances towards camera, makes suggestive posture",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            83,
+            "text"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
     }
   ],
   "links": [
@@ -1991,6 +2049,14 @@
       85,
       0,
       "LATENT"
+    ],
+    [
+      129,
+      106,
+      0,
+      83,
+      1,
+      "STRING"
     ]
   ],
   "groups": [

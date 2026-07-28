@@ -194,7 +194,11 @@ def map_widget_values(node: dict[str, Any], schema: dict[str, Any]) -> tuple[lis
     if not mapped and values:
         mapped.append({"name": "value", "kind": type(values[0]).__name__.upper(), "config": {"tooltip": "Direkter Primitive-Wert für verbundene Nodes."}, "value": values[0]})
         index = 1
-        if index < len(values) and values[index] in {"fixed", "randomize", "increment", "decrement"}:
+        if (
+            index < len(values)
+            and isinstance(values[index], str)
+            and values[index] in {"fixed", "randomize", "increment", "decrement"}
+        ):
             mapped.append({"name": "value_control_after_generate", "kind": "COMBO", "config": {"tooltip": "Verhalten des Werts nach jedem Workflow-Lauf."}, "value": values[index]})
             index += 1
     return mapped, values[index:]

@@ -1,8 +1,8 @@
 {
   "id": "aade6a20-5da6-4c6c-a354-7321b965d22a",
   "revision": 0,
-  "last_node_id": 43,
-  "last_link_id": 24,
+  "last_node_id": 44,
+  "last_link_id": 25,
   "nodes": [
     {
       "id": 1,
@@ -89,7 +89,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 25
         }
       ],
       "outputs": [
@@ -110,7 +110,7 @@
         "ver": "0.3.68"
       },
       "widgets_values": [
-        "Camera slowly tracking forward through a misty pine forest at dawn, soft volumetric light beams between the trees, a deer lifts its head and looks toward the camera, gentle drifting fog, cinematic, highly detailed"
+        ""
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1887,6 +1887,64 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 44,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        408.0,
+        -376.0
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            25
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "Camera slowly tracking forward through a misty pine forest at dawn, soft volumetric light beams between the trees, a deer lifts its head and looks toward the camera, gentle drifting fog, cinematic, highly detailed",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            2,
+            "text"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
     }
   ],
   "links": [
@@ -2081,6 +2139,14 @@
       13,
       1,
       "AUDIO"
+    ],
+    [
+      25,
+      44,
+      0,
+      2,
+      1,
+      "STRING"
     ]
   ],
   "groups": [],

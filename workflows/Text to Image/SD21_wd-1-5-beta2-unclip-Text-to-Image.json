@@ -1,8 +1,8 @@
 {
   "id": "d2b2010b-6047-4172-972e-4569af89eab3",
   "revision": 0,
-  "last_node_id": 20,
-  "last_link_id": 10,
+  "last_node_id": 21,
+  "last_link_id": 11,
   "nodes": [
     {
       "id": 1,
@@ -147,7 +147,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 11
         }
       ],
       "outputs": [
@@ -168,7 +168,7 @@
         "ver": "0.3.68"
       },
       "widgets_values": [
-        "Extreme macro photograph of one open human eye looking directly at the camera, eye filling most of the frame. Intricate radial iris fibers, natural color variations, round pupil, realistic wet cornea, soft rectangular window reflection, sharp natural eyelashes, visible eyelid texture, pores and fine skin hairs. Neutral expression, realistic anatomy, unretouched skin, soft side daylight, gentle shadows, neutral gray background, shallow depth of field, iris in precise focus, realistic documentary photography, 100 mm macro lens, natural colors, no makeup, no stylization."
+        ""
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -877,6 +877,64 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 21,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        400.0,
+        -286.0
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "Extreme macro photograph of one open human eye looking directly at the camera, eye filling most of the frame. Intricate radial iris fibers, natural color variations, round pupil, realistic wet cornea, soft rectangular window reflection, sharp natural eyelashes, visible eyelid texture, pores and fine skin hairs. Neutral expression, realistic anatomy, unretouched skin, soft side daylight, gentle shadows, neutral gray background, shallow depth of field, iris in precise focus, realistic documentary photography, 100 mm macro lens, natural colors, no makeup, no stylization.",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            3,
+            "text"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
     }
   ],
   "links": [
@@ -959,6 +1017,14 @@
       9,
       0,
       "IMAGE"
+    ],
+    [
+      11,
+      21,
+      0,
+      3,
+      1,
+      "STRING"
     ]
   ],
   "groups": [],

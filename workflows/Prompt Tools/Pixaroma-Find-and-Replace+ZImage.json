@@ -1,8 +1,8 @@
 {
   "id": "c5beec59-2b88-4f3f-ba35-7640a58a9ba6",
   "revision": 0,
-  "last_node_id": 220,
-  "last_link_id": 247,
+  "last_node_id": 222,
+  "last_link_id": 249,
   "nodes": [
     {
       "id": 190,
@@ -619,7 +619,16 @@
       "flags": {},
       "order": 6,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "string_b",
+          "type": "STRING",
+          "widget": {
+            "name": "string_b"
+          },
+          "link": 248
+        }
+      ],
       "outputs": [
         {
           "name": "STRING",
@@ -637,7 +646,7 @@
       },
       "widgets_values": [
         "Take the user's prompt and rewrite it as a polished, detailed image generation prompt. Preserve the original subject and intent exactly, while adding useful visual details such as subject features, pose, clothing, setting, background, lighting, mood, color palette, camera angle, lens style, composition, texture, realism level, and artistic style. Maake it clear, vivid, and generation-ready. Avoid adding random objects or changing the scene. Do not explain. Do not use bullet points. Do not include a negative prompt. Output only one enhanced prompt: ",
-        "a cute cartoon 3d render of a bunny, white bunny dressed in green like an explorer, in a fantasy forest with mushrooom like trees",
+        "",
         " "
       ],
       "color": "#1e3323",
@@ -761,7 +770,7 @@
           "name": "text",
           "type": "STRING",
           "links": [
-            247
+            249
           ]
         }
       ],
@@ -1206,6 +1215,114 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 221,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        -3106.143,
+        3137.368
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            248
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "a cute cartoon 3d render of a bunny, white bunny dressed in green like an explorer, in a fantasy forest with mushrooom like trees",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            206,
+            "string_b"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
+    },
+    {
+      "id": 222,
+      "type": "PixaromaPauseText",
+      "title": "Approve LLM text",
+      "pos": [
+        -591.0129999999999,
+        1387.746
+      ],
+      "size": [
+        535,
+        492
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "shape": 7,
+          "type": "STRING",
+          "link": 249
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            247
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPauseText",
+        "pauseTextState": {
+          "gate": "pause",
+          "text": "",
+          "original": ""
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "pause",
+          "pause_target": 247
+        }
+      },
+      "widgets_values": [
+        ""
+      ]
     }
   ],
   "links": [
@@ -1339,10 +1456,26 @@
     ],
     [
       247,
-      207,
+      222,
       0,
       6,
       1,
+      "STRING"
+    ],
+    [
+      248,
+      221,
+      0,
+      206,
+      0,
+      "STRING"
+    ],
+    [
+      249,
+      207,
+      0,
+      222,
+      0,
       "STRING"
     ]
   ],

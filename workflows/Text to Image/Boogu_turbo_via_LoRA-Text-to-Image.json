@@ -1,8 +1,8 @@
 {
   "id": "136c5849-9aae-4d7b-9e7f-94ed2cd6aef0",
   "revision": 0,
-  "last_node_id": 23,
-  "last_link_id": 10,
+  "last_node_id": 24,
+  "last_link_id": 11,
   "nodes": [
     {
       "id": 1,
@@ -217,7 +217,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 11
         }
       ],
       "outputs": [
@@ -239,7 +239,7 @@
         "ver": "0.3.68"
       },
       "widgets_values": [
-        "3D render of a sleek, minimalist app icon for SuperCalc Securitybenchmark — a code-safety benchmarking tool for lokal ai. The icon is circular, floating slightly above a clean white surface with soft shadow beneath, viewed from a slight high-angle perspective. At the center, a stylized shield shape in matte gunmetal gray dominates, its surface subtly textured with faint circuit lines glowing faintly in cyan. Inside the shield, a bold, sans-serif “S” and “C” and “S” interlock in crisp white, forming a dynamic, geometric monogram. The background is a smooth gradient from pale sky blue to off-white, softly blurred at the edges. Lighting is cool and directional, casting soft highlights on the shield’s metallic edges and creating a gentle glow around the text. Overall finish is polished, modern, and tech-forward — clean, balanced, and instantly recognizable as a security tool for AI environments."
+        ""
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -996,6 +996,64 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 24,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        483.5,
+        -343.947
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "3D render of a sleek, minimalist app icon for SuperCalc Securitybenchmark — a code-safety benchmarking tool for lokal ai. The icon is circular, floating slightly above a clean white surface with soft shadow beneath, viewed from a slight high-angle perspective. At the center, a stylized shield shape in matte gunmetal gray dominates, its surface subtly textured with faint circuit lines glowing faintly in cyan. Inside the shield, a bold, sans-serif “S” and “C” and “S” interlock in crisp white, forming a dynamic, geometric monogram. The background is a smooth gradient from pale sky blue to off-white, softly blurred at the edges. Lighting is cool and directional, casting soft highlights on the shield’s metallic edges and creating a gentle glow around the text. Overall finish is polished, modern, and tech-forward — clean, balanced, and instantly recognizable as a security tool for AI environments.",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            4,
+            "text"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
     }
   ],
   "links": [
@@ -1078,6 +1136,14 @@
       10,
       0,
       "IMAGE"
+    ],
+    [
+      11,
+      24,
+      0,
+      4,
+      1,
+      "STRING"
     ]
   ],
   "groups": [],

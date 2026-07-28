@@ -1,8 +1,8 @@
 {
   "id": "bd4a40c4-7cc7-4936-865d-236da5f6eabe",
   "revision": 0,
-  "last_node_id": 83,
-  "last_link_id": 121,
+  "last_node_id": 87,
+  "last_link_id": 125,
   "nodes": [
     {
       "id": 7,
@@ -88,7 +88,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 122
         }
       ],
       "outputs": [
@@ -113,7 +113,7 @@
         }
       },
       "widgets_values": [
-        "nude making sexual poses and playing with herself"
+        ""
       ]
     },
     {
@@ -1200,7 +1200,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 123
         }
       ],
       "outputs": [
@@ -1225,7 +1225,7 @@
         }
       },
       "widgets_values": [
-        "nude, naked, beautiful, sex, 1girl, sexual, tits, boobs, redhead, blonde, brunette,"
+        ""
       ]
     },
     {
@@ -1256,7 +1256,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 124
         }
       ],
       "outputs": [
@@ -1281,7 +1281,7 @@
         }
       },
       "widgets_values": [
-        "correct anatomy, real look, hyperrealistic, sexual, naked, redhead, blonde, brunette, nude, no cloth, realistic, sex, 1girl, tits, boobs, "
+        ""
       ]
     },
     {
@@ -1535,7 +1535,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 125
         }
       ],
       "outputs": [
@@ -1561,7 +1561,7 @@
         }
       },
       "widgets_values": [
-        "nude, naked, no cloth, sexual, blonde, redhead, anatomical correctk,"
+        ""
       ]
     },
     {
@@ -2559,6 +2559,238 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 84,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        436.77700000000004,
+        -578.692
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            122
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "nude making sexual poses and playing with herself",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            6,
+            "text"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
+    },
+    {
+      "id": 85,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        3699.197,
+        1383.221
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            123
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "nude, naked, beautiful, sex, 1girl, sexual, tits, boobs, redhead, blonde, brunette,",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            23,
+            "text"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
+    },
+    {
+      "id": 86,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        6089.422,
+        1340.808
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            124
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "correct anatomy, real look, hyperrealistic, sexual, naked, redhead, blonde, brunette, nude, no cloth, realistic, sex, 1girl, tits, boobs, ",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            24,
+            "text"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
+    },
+    {
+      "id": 87,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        -106.106,
+        1928.685
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            125
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "nude, naked, no cloth, sexual, blonde, redhead, anatomical correctk,",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            51,
+            "text"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
     }
   ],
   "links": [
@@ -2905,6 +3137,38 @@
       19,
       2,
       "CONDITIONING"
+    ],
+    [
+      122,
+      84,
+      0,
+      6,
+      1,
+      "STRING"
+    ],
+    [
+      123,
+      85,
+      0,
+      23,
+      1,
+      "STRING"
+    ],
+    [
+      124,
+      86,
+      0,
+      24,
+      1,
+      "STRING"
+    ],
+    [
+      125,
+      87,
+      0,
+      51,
+      1,
+      "STRING"
     ]
   ],
   "groups": [],

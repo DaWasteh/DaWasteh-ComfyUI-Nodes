@@ -1,8 +1,8 @@
 {
   "id": "88ac5dad-efd7-40bb-84fe-fbaefdee1fa9",
   "revision": 0,
-  "last_node_id": 120,
-  "last_link_id": 263,
+  "last_node_id": 121,
+  "last_link_id": 264,
   "nodes": [
     {
       "id": 104,
@@ -742,7 +742,7 @@
           "widget": {
             "name": "tags"
           },
-          "link": null
+          "link": 264
         },
         {
           "localized_name": "lyrics",
@@ -906,7 +906,7 @@
         }
       },
       "widgets_values": [
-        "synthwave, edm, upbeat electronic, bass drops, hype beat, gaming music, modern pop, clear vocals, synthesizer, energetic",
+        "",
         "[Intro]\nHey! Seid ihr bereit?\nDie Bambus-Leitung glüht...\nDer Stream geht online.\nWillkommen in der Panda Community!\n\n[Strophe 1]\nDer Monitor leuchtet, das Setup ist an,\nDie Notification geht raus an jeden ran.\nWir sammeln uns hier, wir machen es uns bequem,\nDer chilligste Platz im gesamten System.\nWir sind schwarz und weiß, doch mit Farbe im Herz,\nWir teilen den Loot, den Win und auch mal den Schmerz.\nLehnt euch zurück, schnappt euch den Snack,\nDer Alltag hat Pause, der Stress ist jetzt weg!\n\n[Pre-Chorus]\nDer Chat rollt rein, die Emotes fliegen hoch,\nEin Follow, ein Sub, wir ziehen am selben Joch.\nDer Hype-Train startet, er fährt nicht mehr zurück,\nDas hier ist unser Spot, unser kleines Stück Glück!\n\n[Refrain]\nDawasteh! Wir sind live, wir sind laut, wir sind hier!\nDie Panda Community – unser Revier!\nEgal, wo du steckst, auf der ganzen Welt,\nDas ist der Vibe, der uns zusammenhält.\nWir kauen den Bambus, wir stürmen das Game,\nNiemand von uns ist hier jemals allein.\nDawasteh – Mach den Stream auf laut,\nWeil diese Community auf Freundschaft baut!\n\n[Strophe 2]\nEgal ob wir tryharden oder krachend failn,\nWir bleiben entspannt, wir lassen uns nicht quälen.\nMal völlig verpeilt, mal voll im Fokus drin,\nDoch am Ende ist jeder Stream mit euch ein Win.\nWir spammen die Pandas ins Chat-Fenster rein,\nLassen die Trolle einfach Trolle sein.\nEin Raid kommt rüber? Wir machen direkt Platz!\nDie Panda-Familie ist mein größter Schatz.\n\n[Pre-Chorus]\nDer Chat rollt rein, die Emotes fliegen hoch,\nEin Follow, ein Sub, wir ziehen am selben Joch.\nDer Hype-Train startet, er fährt nicht mehr zurück,\nDas hier ist unser Spot, unser kleines Stück Glück!\n\n[Refrain]\nDawasteh! Wir sind live, wir sind laut, wir sind hier!\nDie Panda Community – unser Revier!\nEgal, wo du steckst, auf der ganzen Welt,\nDas ist der Vibe, der uns zusammenhält.\nWir kauen den Bambus, wir stürmen das Game,\nNiemand von uns ist hier jemals allein.\nDawasteh – Mach den Stream auf laut,\nWeil diese Community auf Freundschaft baut!\n\n[Bridge]\nManchmal ist das Leben draußen laut und schwer,\nDoch wenn die rote Lampe brennt, gibt's kein Gestern mehr.\nIhr seid der Grund, warum ich jeden Tag hier steh',\nEin riesengroßes Danke... von Dawasteh.\n\nLet’s gooooo!\n\n[Letzter Refrain]\nDawasteh! Wir sind live, wir sind laut, wir sind hier!\nDie Panda Community – unser Revier!\nEgal, wo du steckst, auf der ganzen Welt,\nDas ist der Vibe, der uns zusammenhält.\nWir kauen den Bambus, wir stürmen das Game,\nNiemand von uns ist hier jemals allein.\nDawasteh – Mach den Stream auf laut,\nWeil diese Community auf Freundschaft baut!\n\n[Outro]\nJa, wir sind die Pandas...\nDawasteh auf Twitch.\nMacht's euch gemütlich, der Chat ist frei.\nDer Stream... startet... jetzt!",
         42,
         "fixed",
@@ -1380,6 +1380,64 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 121,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        119.34100000000001,
+        -2248.264
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            264
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "synthwave, edm, upbeat electronic, bass drops, hype beat, gaming music, modern pop, clear vocals, synthesizer, energetic",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            94,
+            "tags"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
     }
   ],
   "links": [
@@ -1494,6 +1552,14 @@
       107,
       0,
       "AUDIO"
+    ],
+    [
+      264,
+      121,
+      0,
+      94,
+      1,
+      "STRING"
     ]
   ],
   "groups": [],

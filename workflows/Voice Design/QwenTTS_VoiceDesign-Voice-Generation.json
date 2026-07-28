@@ -1,8 +1,8 @@
 {
   "id": "d15f1c46-be16-4a13-9423-d92a25a9a18f",
   "revision": 0,
-  "last_node_id": 9,
-  "last_link_id": 2,
+  "last_node_id": 10,
+  "last_link_id": 3,
   "nodes": [
     {
       "id": 2,
@@ -35,7 +35,7 @@
           "widget": {
             "name": "instruct"
           },
-          "link": null
+          "link": 3
         },
         {
           "localized_name": "model_size",
@@ -95,7 +95,7 @@
       },
       "widgets_values": [
         "Welcome to the future of local voice synthesis.",
-        "A deep, warm male voice with a calm British accent, speaking slowly and clearly like a documentary narrator.",
+        "",
         "1.7B",
         "English",
         true,
@@ -313,6 +313,64 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 10,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        606.0,
+        134.0
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "A deep, warm male voice with a calm British accent, speaking slowly and clearly like a documentary narrator.",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            2,
+            "instruct"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
     }
   ],
   "links": [
@@ -323,6 +381,14 @@
       3,
       0,
       "AUDIO"
+    ],
+    [
+      3,
+      10,
+      0,
+      2,
+      1,
+      "STRING"
     ]
   ],
   "groups": [],

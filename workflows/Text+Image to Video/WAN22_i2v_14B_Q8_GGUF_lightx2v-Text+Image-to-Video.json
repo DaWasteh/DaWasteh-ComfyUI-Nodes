@@ -1,8 +1,8 @@
 {
   "id": "6342f8e9-a29c-47eb-8ef3-df9dec86b150",
   "revision": 0,
-  "last_node_id": 33,
-  "last_link_id": 18,
+  "last_node_id": 34,
+  "last_link_id": 19,
   "nodes": [
     {
       "id": 1,
@@ -296,7 +296,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 19
         }
       ],
       "outputs": [
@@ -318,7 +318,7 @@
         "ver": "0.3.68"
       },
       "widgets_values": [
-        "A serene mountain lake at sunrise, gentle ripples on the water, slow cinematic camera pan, highly detailed"
+        ""
       ],
       "color": "#232",
       "bgcolor": "#353"
@@ -1589,6 +1589,64 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 34,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        498.0,
+        -286.0
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            19
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "A serene mountain lake at sunrise, gentle ripples on the water, slow cinematic camera pan, highly detailed",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            6,
+            "text"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
     }
   ],
   "links": [
@@ -1735,6 +1793,14 @@
       15,
       0,
       "VIDEO"
+    ],
+    [
+      19,
+      34,
+      0,
+      6,
+      1,
+      "STRING"
     ]
   ],
   "groups": [],

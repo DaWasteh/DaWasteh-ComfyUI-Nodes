@@ -1,8 +1,8 @@
 {
   "id": "23574cc8-4774-4b59-948d-2502f063298d",
   "revision": 0,
-  "last_node_id": 159,
-  "last_link_id": 297,
+  "last_node_id": 161,
+  "last_link_id": 299,
   "nodes": [
     {
       "id": 15,
@@ -711,7 +711,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 298
         }
       ],
       "outputs": [
@@ -736,7 +736,7 @@
         }
       },
       "widgets_values": [
-        "masterpiece, best quality, good quality, detailed face, woman posing, nude, sexual poses, long hair, 1girl, completely naked, boobs, tits, one girl, hair like input-image, face like input-image, body like input-image, blank background, submissive,"
+        ""
       ]
     },
     {
@@ -1165,7 +1165,7 @@
           "widget": {
             "name": "text"
           },
-          "link": null
+          "link": 299
         }
       ],
       "outputs": [
@@ -1189,7 +1189,7 @@
         }
       },
       "widgets_values": [
-        "masterpiece, best quality, good quality, detailed face, woman posing, nude, sexual poses, no cloth,  long hair, 1girl, completely naked, boobs, tits, one girl, submissive, hyperrealistic,"
+        ""
       ]
     },
     {
@@ -2697,6 +2697,122 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 160,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        2394.186,
+        805.829
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            298
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "masterpiece, best quality, good quality, detailed face, woman posing, nude, sexual poses, long hair, 1girl, completely naked, boobs, tits, one girl, hair like input-image, face like input-image, body like input-image, blank background, submissive,",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            79,
+            "text"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
+    },
+    {
+      "id": 161,
+      "type": "PixaromaPrompt",
+      "title": "Prompt Pixaroma",
+      "pos": [
+        8766.271,
+        148.25099999999998
+      ],
+      "size": [
+        470,
+        230
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "text",
+          "name": "text_in",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            299
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "ver": "fc17bd2b58ef0089cc62a40502669cf71ae86db7",
+        "Node name for S&R": "PixaromaPrompt",
+        "promptState": {
+          "text": "masterpiece, best quality, good quality, detailed face, woman posing, nude, sexual poses, no cloth,  long hair, 1girl, completely naked, boobs, tits, one girl, submissive, hyperrealistic,",
+          "order": "mine",
+          "sep": ", ",
+          "accent": null,
+          "showExpanded": true
+        },
+        "dawasteh_pixaroma_prompt_integration": {
+          "kind": "prompt",
+          "target": [
+            87,
+            "text"
+          ]
+        }
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#1e3323",
+      "bgcolor": "#36543d"
     }
   ],
   "links": [
@@ -3043,6 +3159,22 @@
       84,
       0,
       "IMAGE"
+    ],
+    [
+      298,
+      160,
+      0,
+      79,
+      1,
+      "STRING"
+    ],
+    [
+      299,
+      161,
+      0,
+      87,
+      1,
+      "STRING"
     ]
   ],
   "groups": [],

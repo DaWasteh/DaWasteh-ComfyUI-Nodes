@@ -71,6 +71,14 @@ class WidgetMappingTests(unittest.TestCase):
         self.assertIn("trim_to_audio", combine_names)
         self.assertEqual(combine_ignored, [{"videopreview": {}}])
 
+    def test_primitive_ui_state_dict_is_ignored(self):
+        mapped, ignored = map_widget_values(
+            {"widgets_values": [None, {"project_json": "{}"}]},
+            {},
+        )
+        self.assertEqual([(item["name"], item["value"]) for item in mapped], [("value", None)])
+        self.assertEqual(ignored, [{"project_json": "{}"}])
+
     def test_visible_widget_subset_overrides_optional_schema(self):
         node = {
             "inputs": [

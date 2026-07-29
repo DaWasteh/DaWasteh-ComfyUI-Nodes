@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 import unittest
 from pathlib import Path
@@ -25,17 +26,25 @@ def lyric_sections(text: str) -> list[tuple[str, str]]:
 
 
 class MusicWorkflowTests(unittest.TestCase):
-    def test_yue_cot_has_exact_duration_capacity(self):
-        workflow = load(COT_PATH)
-        by_id = nodes(workflow)
-        values = by_id[2]["widgets_values"]
-        self.assertEqual(len(lyric_sections(values[1])), 20)
-        self.assertEqual(values[4], 20)  # maximum lyric sections
-        self.assertEqual(values[5], 540.0)  # target duration
-        self.assertEqual(values[9], 3000)  # 30 seconds/section at 100 codec IDs/s
-        self.assertFalse(values[10])  # dual-track prompt
-        self.assertFalse(values[11])  # single-track audio prompt
-        self.assertGreaterEqual(values[4] * values[9], 600 * 100)
+    def test_both_yue_workflows_have_exact_duration_capacity(self):
+        for path in (COT_PATH, ICL_PATH):
+            with self.subTest(workflow=path.name):
+                workflow = load(path)
+                values = nodes(workflow)[2]["widgets_values"]
+                parsed_sections = len(lyric_sections(values[1]))
+                required_sections = math.ceil(values[5] * 100 / values[9])
+
+                self.assertEqual(values[3], "randomize")  # seed UI state; prevents index drift
+                self.assertEqual(parsed_sections, 20)
+                self.assertEqual(values[4], 20)  # maximum enabled lyric sections
+                self.assertEqual(values[5], 540.0)  # target duration
+                self.assertEqual(values[9], 3000)  # 30 seconds/section at 100 codec IDs/s
+                self.assertLessEqual(required_sections, min(values[4], parsed_sections))
+                self.assertGreaterEqual(values[4] * values[9], 600 * 100)
+
+        cot_values = nodes(load(COT_PATH))[2]["widgets_values"]
+        self.assertFalse(cot_values[10])  # dual-track prompt
+        self.assertFalse(cot_values[11])  # single-track audio prompt
 
     def test_yue_icl_uses_reference_audio_and_icl_checkpoint(self):
         workflow = load(ICL_PATH)

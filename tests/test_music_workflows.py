@@ -11,6 +11,9 @@ ROOT = Path("workflows") / "Music Generation"
 COT_PATH = ROOT / "YuE_7B-FP16_R9700-Music-Generation.json"
 ICL_PATH = ROOT / "YuE_7B-FP16_R9700-Reference-Voice-ICL-Music-Generation.json"
 HEART_PATH = ROOT / "HeartMuLa_HappyNewYear_3B_R9700-Music-Generation.json"
+YUE_INT8_PATH = ROOT / "YuE_7B-INT8_R9700-Music-Generation.json"
+ACE_INT8_PATH = ROOT / "ACE-Step1_5_XL_SFT_INT8_ConvRot-Music-Generation.json"
+STABLE_INT8_PATH = ROOT / "StableAudio3_Medium_INT8_ConvRot-Audio-Generation.json"
 
 
 def load(path: Path) -> dict:
@@ -72,6 +75,34 @@ class MusicWorkflowTests(unittest.TestCase):
         self.assertIn("bis 600 Sekunden", documentation)
         self.assertIn("`29.76` Sekunden", documentation)
 
+    def test_int8_music_workflows_use_real_quantized_models(self):
+        yue = load(YUE_INT8_PATH)
+        yue_nodes = nodes(yue)
+        self.assertEqual(yue_nodes[1]["widgets_values"][2], "int8")
+        self.assertTrue(yue_nodes[1]["widgets_values"][0].endswith("YuE-s1-7B-anneal-en-cot-int8"))
+        self.assertTrue(yue_nodes[3]["widgets_values"][0].endswith("YuE-s2-1B-general-int8"))
+
+        ace = load(ACE_INT8_PATH)
+        ace_loader = nodes(ace)[104]
+        self.assertEqual(
+            ace_loader["widgets_values"],
+            ["ACE\\acestep_v1.5_xl_sft_int8_convrot.safetensors", "default"],
+        )
+        self.assertIn("hrktxz/ACE_Step_1.5_ComfyUI_int8_convrot", ace_loader["properties"]["models"][0]["url"])
+
+        stable = load(STABLE_INT8_PATH)
+        subgraph = stable["definitions"]["subgraphs"][0]
+        stable_loader = nodes(subgraph)[25]
+        self.assertEqual(
+            stable_loader["widgets_values"][0],
+            "StableAudio\\stable_audio_3_medium_int8_convrot.safetensors",
+        )
+        self.assertNotIn("models", stable_loader["properties"])
+        self.assertIn("192 DiT-Linear-Layer", nodes(stable)[56]["widgets_values"][0])
+
+        for workflow in (yue, ace, stable):
+            self.assertEqual(sum(node["type"] == "PixaromaRunTimer" for node in workflow["nodes"]), 1)
+
     def test_distributable_custom_node_patches_include_required_guards(self):
         yue_patch = Path("tools/patches/ComfyUI_YuE-Windows-RDNA4-longform-ICL.patch").read_text(
             encoding="utf-8"
@@ -84,6 +115,8 @@ class MusicWorkflowTests(unittest.TestCase):
             "min_new_tokens=segment_new_tokens",
             '"reference_audio": ("AUDIO",)',
             "YuE audio/reference prompting requires an ICL Stage-1 checkpoint",
+            "Keeping pre-dispatched",
+            "Skipping unsupported CPU offload",
         ):
             self.assertIn(token, yue_patch)
         self.assertIn('max=600.0', heart_patch)

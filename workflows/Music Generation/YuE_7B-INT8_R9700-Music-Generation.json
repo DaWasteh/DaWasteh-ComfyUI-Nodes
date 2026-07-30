@@ -1,0 +1,497 @@
+{
+  "id": "95078206-0ef2-4709-bac2-93ef1caf8c3e",
+  "revision": 0,
+  "last_node_id": 12,
+  "last_link_id": 5,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "YUE_Stage_A_Loader",
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        390,
+        250
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL_YUE_A",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "YUE_Stage_A_Loader"
+      },
+      "widgets_values": [
+        "L:/ComfyUI/ComfyUI/models/yue/YuE-s1-7B-anneal-en-cot-int8",
+        "ckpt_00360000.pth",
+        "int8",
+        false,
+        16384,
+        "FP16",
+        "2"
+      ],
+      "title": "YuE Stage 1 · bitsandbytes INT8 · R9700"
+    },
+    {
+      "id": 2,
+      "type": "YUE_Stage_A_Sampler",
+      "pos": [
+        520,
+        0
+      ],
+      "size": [
+        500,
+        690
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL_YUE_A",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "stage1_set",
+          "type": "STAGE_SET",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "info",
+          "type": "quantization_model",
+          "links": [
+            3
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "YUE_Stage_A_Sampler"
+      },
+      "widgets_values": [
+        "modern synthpop, female vocal, uplifting, cinematic, bright synthesizers, punchy electronic drums, emotional chorus",
+        "[Verse]\nNeon rain is falling on the avenue\nA distant signal wakes the sleeping city\n\n[Verse]\nEvery little frequency is leading back to you\nThrough the static and the midnight blue\nWe keep chasing sparks of light\n\n[Prechorus]\nThe silence turns to sound\nOur feet lift from the ground\n\n[Chorus]\nRaise the skyline, let the whole world know\nWe are burning brighter everywhere we go\nHold the rhythm, don't let go\nWe are made of afterglow\n\n[Instrumental]\nBright synthesizer lead and driving electronic drums\n\n[Verse]\nWindows flash like constellations in the rain\nEvery broken heartbeat learns to start again\nSide by side we cross the night\nFollowing the pulse of light\n\n[Prechorus]\nThe shadows fall behind\nYour hand is holding mine\n\n[Chorus]\nRaise the skyline, let the whole world know\nWe are burning brighter everywhere we go\nHold the rhythm, don't let go\nWe are made of afterglow\n\n[Bridge]\nIf the signal disappears\nI will sing above the fear\nEvery echo carries through\nAll the roads return to you\n\n[Instrumental]\nExtended cinematic synth solo with rising drums\n\n[Verse]\nMorning waits beyond the towers made of glass\nWe can make this electric moment last\nEvery color starts to show\nIn the river far below\n\n[Chorus]\nRaise the skyline, let the whole world know\nWe are burning brighter everywhere we go\nHold the rhythm, don't let go\nWe are made of afterglow\n\n[Breakdown]\nHeartbeat bass and distant vocal echoes\nAfterglow, afterglow\nNever let the signal go\n\n[Bridge]\nTurn the darkness into gold\nWrite a story never told\nWhen the final stars are low\nWe will still be afterglow\n\n[Chorus]\nRaise the skyline, let the whole world know\nWe are burning brighter everywhere we go\nHold the rhythm, don't let go\nWe are made of afterglow\n\n[Instrumental]\nLong final synthwave solo and emotional drum build\n\n[Bridge]\nOne more wave is rising through the night\nOne more chance to turn the dark to light\n\n[Chorus]\nRaise the skyline, let the whole world know\nWe are burning brighter everywhere we go\nHold the rhythm, don't let go\nWe are made of afterglow\n\n[Outro]\nNeon rain is fading from the avenue\nEvery distant signal still returns to you\n\n[Outro]\nHold the rhythm, soft and slow\nWe are made of afterglow",
+        173489082,
+        "randomize",
+        20,
+        540.0,
+        1.1,
+        0.0,
+        30.0,
+        3000,
+        false,
+        false,
+        true,
+        true
+      ],
+      "title": "Zieldauer 540 s · INT8-Test zuerst mit 10–30 s"
+    },
+    {
+      "id": 3,
+      "type": "YUE_Stage_B_Loader",
+      "pos": [
+        1150,
+        0
+      ],
+      "size": [
+        390,
+        190
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "info",
+          "type": "quantization_model",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL_YUE_B",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "YUE_Stage_B_Loader"
+      },
+      "widgets_values": [
+        "L:/ComfyUI/ComfyUI/models/yue/YuE-s2-1B-general-int8",
+        8192,
+        1,
+        "FP16",
+        false
+      ],
+      "title": "YuE Stage 2 · bitsandbytes INT8 · R9700"
+    },
+    {
+      "id": 4,
+      "type": "YUE_Stage_B_Sampler",
+      "pos": [
+        1660,
+        0
+      ],
+      "size": [
+        390,
+        180
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "stage1_set",
+          "type": "STAGE_SET",
+          "link": 2
+        },
+        {
+          "name": "model",
+          "type": "MODEL_YUE_B",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            5
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "string",
+          "type": "STRING",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "YUE_Stage_B_Sampler"
+      },
+      "widgets_values": [
+        "decoder_131000.pth",
+        "decoder_151000.pth",
+        true
+      ],
+      "title": "YuE Stage 2 + 44.1-kHz-Upsampler"
+    },
+    {
+      "id": 5,
+      "type": "SaveAudioMP3",
+      "pos": [
+        2180,
+        0
+      ],
+      "size": [
+        420,
+        170
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveAudioMP3",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "audio/YuE_INT8_R9700_",
+        "V0"
+      ],
+      "title": "YuE als MP3 speichern"
+    },
+    {
+      "id": 6,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        0,
+        810
+      ],
+      "size": [
+        226,
+        136
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 7,
+      "type": "MarkdownNote",
+      "pos": [
+        0,
+        300
+      ],
+      "size": [
+        390,
+        430
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · YuE Stage 1 Loader · Node 1",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "dawasteh_generated_note": true,
+        "dawasteh_note_for": 1
+      },
+      "widgets_values": [
+        "# Erklärung · YuE Stage 1 Loader · INT8\n\n**Zweck:** Lädt die echte Community-INT8-Quantisierung von YuE Stage 1 über bitsandbytes.\n\n**Modell**\n- `Alissonerdx/YuE-s1-7B-anneal-en-cot-int8`\n- Lokal: `L:/ComfyUI/ComfyUI/models/yue/YuE-s1-7B-anneal-en-cot-int8`\n- Format: vorquantisierte bitsandbytes-I8-Safetensors, nicht GGUF/FP8.\n\n**Einstellungen**\n- `quantization_model=int8`\n- `use_mmgp=False`\n- SDPA bleibt durch den lokalen RDNA4-Patch aktiv.\n\nDer installierte bitsandbytes-ROCm-Wheel-Fallback 7.14 wurde auf gfx1201 mit einer INT8-Matrixmultiplikation geprüft. Das Modell selbst ist eine Community-Quantisierung; das offizielle YuE-Projekt veröffentlicht BF16."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 8,
+      "type": "MarkdownNote",
+      "pos": [
+        520,
+        750
+      ],
+      "size": [
+        500,
+        520
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · YuE Stage 1 Sampler · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "dawasteh_generated_note": true,
+        "dawasteh_note_for": 2
+      },
+      "widgets_values": [
+        "# Erklärung · YuE Stage 1 Sampler\n\n**Zweck:** Erzeugt aus Genre-Tags und strukturierten Lyrics die groben Musik-Tokens und erzwingt eine wählbare Gesamtdauer.\n\n**Sekundenwahl**\n- `target_duration_seconds=540` ist die Zieldauer; erlaubt sind 5–600 Sekunden.\n- `max_new_tokens=3000` entspricht höchstens 30 Sekunden pro Lyrics-Sektion. Der lokale Patch setzt pro verwendeter Sektion `min_new_tokens=max_new_tokens` auf den berechneten Zielwert, damit YuE nicht wieder nach wenigen Sekunden EOA ausgibt.\n- `run_n_segment=20` ist nur die maximal verfügbare Sektionszahl. Für 540 Sekunden werden automatisch 18 der 20 markierten Blöcke verwendet; 600 Sekunden benötigen alle 20.\n- Reichen die vorhandenen `[Verse]`-/`[Chorus]`-/`[Bridge]`-Blöcke nicht aus, stoppt der Node vor dem Modelllauf mit einer verständlichen Maximaldauer statt einen zu kurzen Song zu liefern.\n\n**Referenz-Audio**\nDieser CoT-Workflow bleibt bewusst ohne Referenz. Für Stimm-/Songreferenz den separaten **YuE ICL Reference Voice** Workflow verwenden. `prompt_start_time` und `prompt_end_time` schneiden dort ausschließlich die Referenz (empfohlen: etwa 30 Sekunden Chorus/Vocal) und steuern nicht die Songdauer."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 9,
+      "type": "MarkdownNote",
+      "pos": [
+        1150,
+        260
+      ],
+      "size": [
+        390,
+        400
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · YuE Stage 2 Loader · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "dawasteh_generated_note": true,
+        "dawasteh_note_for": 3
+      },
+      "widgets_values": [
+        "# Erklärung · YuE Stage 2 Loader · INT8\n\n**Zweck:** Lädt die echte Community-INT8-Quantisierung von YuE Stage 2.\n\n**Modell**\n- `Alissonerdx/YuE-s2-1B-general-int8`\n- Lokal: `L:/ComfyUI/ComfyUI/models/yue/YuE-s2-1B-general-int8`\n- Batch 1 ist der robuste R9700-Startwert.\n- `use_mmgp=False`; die Quantisierung kommt direkt aus den bitsandbytes-Gewichten."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 10,
+      "type": "MarkdownNote",
+      "pos": [
+        1660,
+        260
+      ],
+      "size": [
+        390,
+        400
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · YuE Stage 2 Sampler · Node 4",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "dawasteh_generated_note": true,
+        "dawasteh_note_for": 4
+      },
+      "widgets_values": [
+        "# Erklärung · YuE Stage 2 + Upsampler\n\n**Zweck:** Verfeinert Stage 1, dekodiert Gesang/Instrumental und rekonstruiert 44,1-kHz-Audio.\n\n**Modelle**\n- `decoder_131000.pth`: Vocal Decoder\n- `decoder_151000.pth`: Instrumental Decoder\n- `rescale=True`: schützt vor Clipping."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 11,
+      "type": "MarkdownNote",
+      "pos": [
+        2180,
+        260
+      ],
+      "size": [
+        420,
+        350
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · YuE MP3 speichern · Node 5",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "dawasteh_generated_note": true,
+        "dawasteh_note_for": 5
+      },
+      "widgets_values": [
+        "# Erklärung · YuE MP3 speichern\n\n**Zweck:** Speichert das fertige Lied unter `output/audio/` als hochwertiges MP3.\n\n`V0` ist die höchste variable MP3-Qualitätsstufe. Der Dateiname erhält automatisch einen eindeutigen Suffix."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 12,
+      "type": "MarkdownNote",
+      "pos": [
+        2180,
+        680
+      ],
+      "size": [
+        560,
+        500
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "YuE INT8 · Modelle, AMD-Hinweise und erster Test",
+      "properties": {
+        "Node name for S&R": "MarkdownNote"
+      },
+      "widgets_values": [
+        "# YuE INT8 auf diesem System\n\nDieser Workflow nutzt **Community-bitsandbytes-INT8** für beide Sprachmodellstufen und behält XCodec sowie die 44,1-kHz-Decoder in ihrer Originalpräzision.\n\n## Downloads\n- Stage 1: https://huggingface.co/Alissonerdx/YuE-s1-7B-anneal-en-cot-int8\n- Stage 2: https://huggingface.co/Alissonerdx/YuE-s2-1B-general-int8\n- Zielordner: `ComfyUI/models/yue/YuE-s1-7B-anneal-en-cot-int8/` und `.../YuE-s2-1B-general-int8/`\n\nDie vorhandenen Dateien `ckpt_00360000.pth`, `decoder_131000.pth` und `decoder_151000.pth` unter `models/yue/` werden weiterverwendet.\n\n## Erster Test\nVor einem langen Song `target_duration_seconds` auf **10–30 Sekunden** setzen. 540–600 Sekunden können weiterhin mehrere Stunden dauern. Für 540 Sekunden werden 18 der 20 Lyrics-Sektionen verwendet; 600 Sekunden benötigen alle 20.\n\n## AMD / ROCm\nbitsandbytes 0.50.0 lädt mit ROCm 7.15 automatisch den enthaltenen ROCm-7.14-Wheel-Fallback. Die INT8-Kernel wurden auf der R9700/gfx1201 mit endlichen Ergebnissen geprüft. Das ist keine offizielle M-A-P-Quantisierung; bei einem bitsandbytes-Update den kleinen Kerneltest erneut ausführen."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "MODEL_YUE_A"
+    ],
+    [
+      2,
+      2,
+      0,
+      4,
+      0,
+      "STAGE_SET"
+    ],
+    [
+      3,
+      2,
+      1,
+      3,
+      0,
+      "quantization_model"
+    ],
+    [
+      4,
+      3,
+      0,
+      4,
+      1,
+      "MODEL_YUE_B"
+    ],
+    [
+      5,
+      4,
+      0,
+      5,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.85,
+      "offset": [
+        120,
+        120
+      ]
+    },
+    "workflowRendererVersion": "LG",
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "target_gpu": "AMD Radeon AI PRO R9700 32GB · bitsandbytes INT8",
+      "generated_notes": 5
+    }
+  },
+  "version": 0.4
+}

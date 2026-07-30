@@ -128,7 +128,7 @@ class PixaromaIntegrationTests(unittest.TestCase):
             for path in (ROOT / "workflows").rglob("*.json")
             for node in load(path)["nodes"]
         )
-        self.assertEqual(total_marked_prompts, 119)
+        self.assertEqual(total_marked_prompts, 120)
 
     def test_pause_gates_are_reciprocal_and_have_textgenerate_ancestry(self):
         pause_count = 0

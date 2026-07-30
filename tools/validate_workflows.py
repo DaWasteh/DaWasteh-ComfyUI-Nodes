@@ -16,6 +16,14 @@ from integrate_pixaroma_prompts import pause_node as expected_pause_node, prompt
 BLACKLIST = ("cudaexecutionprovider", "nunchaku", "svdq", "nvfp4", "tensorrt", "xformers", "flash_attn")
 INTEGRATION_MARKER = "dawasteh_pixaroma_prompt_integration"
 MANIFEST_PATH = Path(__file__).with_name("pixaroma_prompt_manifest.json")
+AUTHORIZED_WIDGET_DELTAS: dict[str, dict[int, set[int]]] = {
+    "workflows/Music Generation/YuE_7B-FP16_R9700-Reference-Voice-ICL-Music-Generation.json": {
+        2: {1, 4},  # restore the 20-section/600-second-safe lyrics capacity
+    },
+    "workflows/Music Generation/HeartMuLa_HappyNewYear_3B_R9700-Music-Generation.json": {
+        3: {2},  # restore the documented 300-second default upper bound
+    },
+}
 
 
 def load(path: Path) -> dict[str, Any]:
@@ -166,6 +174,39 @@ def validate_integration_delta(
     prefix = f"{path}:root"
     before_nodes = {node.get("id"): node for node in before.get("nodes", [])}
     after_nodes = {node.get("id"): node for node in after.get("nodes", [])}
+
+    # Newer release baselines already contain the authorized integration. In
+    # that case validate the committed marked graph directly rather than trying
+    # to replay the historical one-shot migration against itself.
+    committed_marks = {
+        node_id: node.get("properties", {}).get(INTEGRATION_MARKER)
+        for node_id, node in before_nodes.items()
+        if node.get("properties", {}).get(INTEGRATION_MARKER)
+    }
+    if committed_marks:
+        if before == after:
+            return
+        for node_id, marker in committed_marks.items():
+            original = before_nodes[node_id]
+            current = after_nodes.get(node_id)
+            if current is None:
+                errors.append(f"{prefix}: committed integration node {node_id} missing")
+                continue
+            if marker.get("kind") == "pause":
+                old_link = (original.get("inputs") or [{}])[0].get("link")
+                new_link = (current.get("inputs") or [{}])[0].get("link")
+                if new_link != old_link:
+                    errors.append(f"{prefix}: Pause {node_id} upstream link changed from committed baseline")
+            if current != original:
+                label = "Prompt" if marker.get("kind") == "prompt" else "Pause"
+                errors.append(f"{prefix}: {label} {node_id} schema/state differs from committed baseline")
+        if set(after_nodes) != set(before_nodes):
+            errors.append(f"{prefix}: committed node ID set changed")
+        if after.get("links", []) != before.get("links", []):
+            errors.append(f"{prefix}: committed link set changed")
+        if after != before:
+            errors.append(f"{prefix}: graph differs from committed HEAD baseline")
+        return
     before_links = {entry[0]: entry for entry in before.get("links", []) if isinstance(entry, list)}
     after_links = {entry[0]: entry for entry in after.get("links", []) if isinstance(entry, list)}
     before_ids = set(before_nodes)
@@ -338,12 +379,48 @@ def validate_integration_delta(
 
 def compare_head(path: Path, current: dict[str, Any], errors: list[str]) -> tuple[int, int]:
     head = git_head_json(path)
+    # Once an authorized Pixaroma integration has been committed, HEAD already
+    # contains its marked nodes and links. Treat byte/semantic-equivalent graphs
+    # as the baseline instead of trying to apply the integration delta again.
+    if current == head:
+        return (
+            sum(len(graph.get("nodes", [])) for _, graph in graph_locator(head)),
+            sum(len(graph.get("links", {}) or []) for _, graph in graph_locator(head)),
+        )
     head_graphs = dict(graph_locator(head))
     current_graphs = dict(graph_locator(current))
     if set(head_graphs) != set(current_graphs):
         errors.append(f"{path}: graph locator set changed")
         return 0, 0
     manifest = _manifest_entries().get(_path_key(path), {"targets": [], "pauses": []})
+    if not manifest.get("targets") and not manifest.get("pauses"):
+        key = _path_key(path)
+        allowed = AUTHORIZED_WIDGET_DELTAS.get(key)
+        if allowed:
+            normalized = copy.deepcopy(current)
+            normalized_nodes = {node.get("id"): node for node in normalized.get("nodes", [])}
+            head_nodes = {node.get("id"): node for node in head.get("nodes", [])}
+            for node_id, widget_indices in allowed.items():
+                current_node = normalized_nodes.get(node_id)
+                head_node = head_nodes.get(node_id)
+                if current_node is None or head_node is None:
+                    errors.append(f"{path}: authorized widget target node {node_id} missing")
+                    continue
+                for index in widget_indices:
+                    current_values = current_node.get("widgets_values", [])
+                    head_values = head_node.get("widgets_values", [])
+                    if index >= len(current_values) or index >= len(head_values):
+                        errors.append(f"{path}: authorized widget index {node_id}:{index} missing")
+                        continue
+                    current_values[index] = copy.deepcopy(head_values[index])
+            if normalized != head:
+                errors.append(f"{path}: graph differs from HEAD beyond authorized widget changes")
+        elif current != head:
+            errors.append(f"{path}: historical skip workflow changed without an authorized delta")
+        return (
+            sum(len(graph.get("nodes", [])) for graph in head_graphs.values()),
+            sum(len(graph.get("links", {}) or []) for graph in head_graphs.values()),
+        )
     old_nodes = old_links = 0
     for locator, before in head_graphs.items():
         after = current_graphs[locator]
@@ -413,7 +490,7 @@ def main() -> int:
                 errors.extend(path_errors)
         else:
             errors.extend(path_errors)
-    expected = {"files": 186, "graphs": 222, "nodes": 6203, "notes": 2709, "links": 4059, "timers": 186}
+    expected = {"files": 190, "graphs": 226, "nodes": 6329, "notes": 2761, "links": 4125, "timers": 190}
     actual = {"files": len(paths), **{k: totals[k] for k in ("graphs", "nodes", "notes", "links", "timers")}}
     for key, value in expected.items():
         if actual[key] != value:

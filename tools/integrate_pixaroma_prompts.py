@@ -109,8 +109,12 @@ def main():
  a=argparse.ArgumentParser();a.add_argument('--write-manifest',action='store_true');a.add_argument('--apply',action='store_true');a.add_argument('--check',action='store_true');a.add_argument('--audit',type=Path);x=a.parse_args()
  if sum((x.write_manifest,x.apply,x.check))!=1:raise SystemExit('choose exactly one of --write-manifest, --apply, or --check')
  if x.write_manifest:write(MAN,manifest(),read(MAN) if MAN.exists() else '{}');return
- m=load(MAN); paths={p.relative_to(ROOT).as_posix():p for p in WF.rglob('*.json')}
- if len(paths)!=m['workflow_count'] or set(paths)!={e['path'] for e in m['entries']}:raise SystemExit('manifest coverage mismatch')
+ m=load(MAN); paths={p.relative_to(ROOT).as_posix():p for p in WF.rglob('*.json')}; manifest_paths={e['path'] for e in m['entries']}
+ # The v2 manifest is the immutable migration plan for its historical 186-file
+ # baseline. New workflows may be authored with Pixaroma nodes already present;
+ # require every manifest entry to remain available without forcing later files
+ # into the one-shot migration plan.
+ if len(manifest_paths)!=m['workflow_count'] or not manifest_paths<=set(paths):raise SystemExit('manifest coverage mismatch')
  changed=0
  for e in m['entries']:
   if e['action']=='integrate':changed+=apply(paths[e['path']],e,x.check)

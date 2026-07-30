@@ -1,4 +1,5 @@
 import json
+import re
 import sys
 import unittest
 import urllib.request
@@ -162,6 +163,58 @@ class WidgetMappingTests(unittest.TestCase):
             self.assertIn(values["lora_dtype"], {"bf16", "fp32"}, path.name)
             self.assertEqual(values["algorithm"], "LoRA", path.name)
             self.assertIs(values["bucket_mode"], True, path.name)
+
+    def test_song_idea_workflows_route_generated_lyrics(self):
+        paths = sorted((Path("workflows") / "Music Generation").glob("*Idea-to-Lyrics-to-Music.json"))
+        self.assertEqual(len(paths), 4)
+        for path in paths:
+            workflow = json.loads(path.read_text(encoding="utf-8"))
+            nodes = {node["id"]: node for node in workflow["nodes"]}
+            timers = [node for node in nodes.values() if node["type"] == "PixaromaRunTimer"]
+            prompts = [node for node in nodes.values() if node["type"] == "PixaromaPrompt"]
+            self.assertEqual(len(timers), 1, path.name)
+            self.assertEqual(len(prompts), 2, path.name)
+
+            concat = next(node for node in nodes.values() if node["type"] == "StringConcatenate")
+            textgen = next(node for node in nodes.values() if node["type"] == "TextGenerate")
+            cleaner = next(node for node in nodes.values() if node["type"] == "RegexReplace")
+            show = next(node for node in nodes.values() if node["type"] == "PixaromaShowText")
+            music = next(
+                node for node in nodes.values()
+                if node["type"] in {"TextEncodeAceStepAudio1.5", "HeartMuLaMusicGenerator"}
+            )
+            self.assertIn("professional songwriter", concat["widgets_values"][0], path.name)
+            self.assertEqual(textgen["widgets_values"][1], 1536, path.name)
+            clean_values = cleaner["widgets_values"]
+            if "Gemma" in path.name:
+                self.assertIn("</think>", clean_values[1], path.name)
+                raw_lyrics = "Internal analysis with [Intro] inline.\n</think>\n[Instrumental Intro]\nSynths rise.\n[Verse 1]\nText"
+            else:
+                self.assertNotIn("</think>", clean_values[1], path.name)
+                raw_lyrics = "Optional preamble\n[Hook]\nSing this hook.\n[Verse 1]\nText"
+            flags = (re.IGNORECASE if clean_values[3] else 0) | (re.MULTILINE if clean_values[4] else 0) | (re.DOTALL if clean_values[5] else 0)
+            cleaned = re.sub(clean_values[1], clean_values[2], raw_lyrics, count=clean_values[6], flags=flags)
+            expected_opening = "[Instrumental Intro]" if "Gemma" in path.name else "[Hook]"
+            self.assertTrue(cleaned.startswith(expected_opening), path.name)
+            clean_input_link = cleaner["inputs"][0]["link"]
+            clean_input = next(item for item in workflow["links"] if item[0] == clean_input_link)
+            self.assertEqual(clean_input[1:5], [textgen["id"], 0, cleaner["id"], 0], path.name)
+            show_input_link = show["inputs"][0]["link"]
+            show_input = next(item for item in workflow["links"] if item[0] == show_input_link)
+            self.assertEqual(show_input[1:5], [cleaner["id"], 0, show["id"], 0], path.name)
+
+            lyric_slot = next(i for i, item in enumerate(music["inputs"]) if item["name"] == "lyrics")
+            lyric_link = music["inputs"][lyric_slot]["link"]
+            self.assertIsNotNone(lyric_link, path.name)
+            link = next(item for item in workflow["links"] if item[0] == lyric_link)
+            self.assertEqual(link[1:5], [show["id"], 0, music["id"], lyric_slot], path.name)
+            self.assertEqual(link[5], "STRING", path.name)
+
+            if music["type"] == "TextEncodeAceStepAudio1.5":
+                duration = next(node for node in nodes.values() if node.get("title") == "Song Duration")
+                self.assertEqual(duration["widgets_values"][0], 210, path.name)
+            else:
+                self.assertEqual(music["widgets_values"][2], 210, path.name)
 
     def test_subgraph_instance_note(self):
         schema = {

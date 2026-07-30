@@ -41,7 +41,16 @@ class PixaromaIntegrationTests(unittest.TestCase):
         manifest_paths = [entry["path"] for entry in self.manifest["entries"]]
         self.assertEqual(self.manifest["workflow_count"], 186)
         self.assertEqual(len(manifest_paths), len(set(manifest_paths)))
-        self.assertEqual(set(manifest_paths), paths)
+        self.assertTrue(set(manifest_paths) <= paths)
+        self.assertEqual(
+            paths - set(manifest_paths),
+            {
+                "workflows/Music Generation/ACE-Step1_5_XL_SFT_Gemma4_e4B-Idea-to-Lyrics-to-Music.json",
+                "workflows/Music Generation/ACE-Step1_5_XL_SFT_Qwen3_5_4B-Idea-to-Lyrics-to-Music.json",
+                "workflows/Music Generation/HeartMuLa_HappyNewYear_3B_Gemma4_e4B-Idea-to-Lyrics-to-Music.json",
+                "workflows/Music Generation/HeartMuLa_HappyNewYear_3B_Qwen3_5_4B-Idea-to-Lyrics-to-Music.json",
+            },
+        )
         for entry in self.manifest["entries"]:
             self.assertIn(entry["action"], {"integrate", "skip"})
             self.assertTrue(entry["reason"])
@@ -52,6 +61,13 @@ class PixaromaIntegrationTests(unittest.TestCase):
                 node = nodes[target["node_id"]]
                 value = node["widgets_values"][target["widget_index"]]
                 self.assertEqual(node["type"], target["node_type"])
+                if value == "":
+                    prompt = next(
+                        item for item in before["nodes"]
+                        if item.get("properties", {}).get(MARK, {}).get("target")
+                        == [target["node_id"], target["input"]]
+                    )
+                    value = prompt["properties"]["promptState"]["text"]
                 self.assertEqual(value, target["source_text"])
                 self.assertRegex(target["source_hash"], r"^[0-9a-f]{64}$")
                 self.assertEqual(sha(value), target["source_hash"])
@@ -107,6 +123,12 @@ class PixaromaIntegrationTests(unittest.TestCase):
                 self.assertNotIn("negativ", title)
                 self.assertNotIn(target["kind"], {"lyrics", "tts-text", "transcript", "system-formula"})
         self.assertEqual(prompt_count, 111)
+        total_marked_prompts = sum(
+            node.get("properties", {}).get(MARK, {}).get("kind") == "prompt"
+            for path in (ROOT / "workflows").rglob("*.json")
+            for node in load(path)["nodes"]
+        )
+        self.assertEqual(total_marked_prompts, 119)
 
     def test_pause_gates_are_reciprocal_and_have_textgenerate_ancestry(self):
         pause_count = 0
@@ -200,7 +222,8 @@ class PixaromaIntegrationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp_dir:
             path = Path(temp_dir) / "workflow.json"
             path.write_text(raw, encoding="utf-8")
-            self.assertGreater(apply(path, entry, False), 0)
+            first_apply = apply(path, entry, False)
+            self.assertIn(first_apply, {0, len(entry.get("targets", [])) + len(entry.get("pauses", []))})
             once = path.read_bytes()
             self.assertEqual(apply(path, entry, False), 0)
             self.assertEqual(path.read_bytes(), once)

@@ -645,12 +645,16 @@ def main() -> int:
     for path in paths:
         original_text = path.read_text(encoding="utf-8")
         workflow = json.loads(original_text)
+        original_workflow = copy.deepcopy(workflow)
         count = refine_workflow(workflow, object_info, args.refresh_notes)
         total += count
-        rendered = json.dumps(workflow, ensure_ascii=False, indent=2) + "\n"
-        if rendered != original_text:
+        # A marked workflow can be semantically unchanged while its original JSON
+        # intentionally uses compact formatting. Do not rewrite or report such a
+        # file merely because json.dumps would format it differently.
+        if workflow != original_workflow:
             changed += 1
             if not args.check:
+                rendered = json.dumps(workflow, ensure_ascii=False, indent=2) + "\n"
                 path.write_text(rendered, encoding="utf-8")
     print(f"files={len(paths)} changed={changed} generated_notes={total} check={args.check}")
     return 0

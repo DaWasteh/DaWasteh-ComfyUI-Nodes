@@ -52,7 +52,11 @@ class MusicWorkflowTests(unittest.TestCase):
         self.assertTrue(by_id[1]["widgets_values"][0].endswith("YuE-s1-7B-anneal-en-icl"))
         self.assertEqual(by_id[13]["type"], "LoadAudio")
         self.assertEqual(by_id[13]["outputs"][0]["links"], [6])
-        self.assertEqual(by_id[2]["inputs"][1], {"name": "reference_audio", "type": "AUDIO", "link": 6})
+        reference_input = by_id[2]["inputs"][1]
+        self.assertEqual(
+            {key: reference_input[key] for key in ("name", "type", "link")},
+            {"name": "reference_audio", "type": "AUDIO", "link": 6},
+        )
         self.assertFalse(by_id[2]["widgets_values"][10])
         self.assertTrue(by_id[2]["widgets_values"][11])
         self.assertIn("Ohne Input-Voice", by_id[8]["widgets_values"][0])

@@ -1,8 +1,8 @@
 {
   "id": "c5beec59-2b88-4f3f-ba35-7640a58a9ba6",
   "revision": 0,
-  "last_node_id": 222,
-  "last_link_id": 261,
+  "last_node_id": 224,
+  "last_link_id": 263,
   "nodes": [
     {
       "id": 195,
@@ -342,7 +342,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 260
+          "link": 263
         }
       ],
       "outputs": [
@@ -505,7 +505,7 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 258
+          "link": 262
         },
         {
           "name": "vae",
@@ -973,6 +973,206 @@
       ],
       "color": "#1e3323",
       "bgcolor": "#36543d"
+    },
+    {
+      "id": 223,
+      "type": "VRAM_Debug",
+      "pos": [
+        290.669,
+        411.42
+      ],
+      "size": [
+        320,
+        174
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "empty_cache",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "empty_cache"
+          },
+          "link": null
+        },
+        {
+          "name": "gc_collect",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "gc_collect"
+          },
+          "link": null
+        },
+        {
+          "name": "unload_all_models",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "unload_all_models"
+          },
+          "link": null
+        },
+        {
+          "name": "any_input",
+          "type": "*",
+          "link": 258
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "any_output",
+          "type": "*",
+          "links": [
+            262
+          ]
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "links": null
+        },
+        {
+          "name": "freemem_before",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "freemem_after",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VRAM_Debug",
+        "dawasteh_memory_cleanup": {
+          "version": 1,
+          "placement": "pre_decode",
+          "reason": "single final KSampler to VAEDecodeTiled phase boundary"
+        }
+      },
+      "widgets_values": [
+        true,
+        true,
+        true
+      ],
+      "color": "#3b1f2b",
+      "bgcolor": "#24131b"
+    },
+    {
+      "id": 224,
+      "type": "VRAM_Debug",
+      "pos": [
+        692.106,
+        532.342
+      ],
+      "size": [
+        320,
+        174
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "empty_cache",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "empty_cache"
+          },
+          "link": null
+        },
+        {
+          "name": "gc_collect",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "gc_collect"
+          },
+          "link": null
+        },
+        {
+          "name": "unload_all_models",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "unload_all_models"
+          },
+          "link": null
+        },
+        {
+          "name": "any_input",
+          "type": "*",
+          "link": 260
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "any_output",
+          "type": "*",
+          "links": [
+            263
+          ]
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "links": null
+        },
+        {
+          "name": "freemem_before",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "freemem_after",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VRAM_Debug",
+        "dawasteh_memory_cleanup": {
+          "version": 1,
+          "placement": "terminal",
+          "reason": "after final media barrier, before PixaromaPreview"
+        }
+      },
+      "widgets_values": [
+        true,
+        true,
+        true
+      ],
+      "color": "#3b1f2b",
+      "bgcolor": "#24131b"
     }
   ],
   "links": [
@@ -1060,8 +1260,8 @@
       258,
       163,
       0,
-      212,
-      0,
+      223,
+      3,
       "LATENT"
     ],
     [
@@ -1076,8 +1276,8 @@
       260,
       212,
       0,
-      199,
-      0,
+      224,
+      3,
       "IMAGE"
     ],
     [
@@ -1087,6 +1287,22 @@
       6,
       1,
       "STRING"
+    ],
+    [
+      262,
+      223,
+      0,
+      212,
+      0,
+      "LATENT"
+    ],
+    [
+      263,
+      224,
+      0,
+      199,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [],

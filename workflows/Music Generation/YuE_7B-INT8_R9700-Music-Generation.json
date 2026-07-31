@@ -1,8 +1,8 @@
 {
   "id": "95078206-0ef2-4709-bac2-93ef1caf8c3e",
   "revision": 0,
-  "last_node_id": 12,
-  "last_link_id": 5,
+  "last_node_id": 13,
+  "last_link_id": 6,
   "nodes": [
     {
       "id": 1,
@@ -214,7 +214,7 @@
         {
           "name": "audio",
           "type": "AUDIO",
-          "link": 5
+          "link": 6
         }
       ],
       "outputs": [
@@ -432,6 +432,106 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 13,
+      "type": "VRAM_Debug",
+      "pos": [
+        1920.0,
+        0.0
+      ],
+      "size": [
+        320,
+        174
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "empty_cache",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "empty_cache"
+          },
+          "link": null
+        },
+        {
+          "name": "gc_collect",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "gc_collect"
+          },
+          "link": null
+        },
+        {
+          "name": "unload_all_models",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "unload_all_models"
+          },
+          "link": null
+        },
+        {
+          "name": "any_input",
+          "type": "*",
+          "link": 5
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "any_output",
+          "type": "*",
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "links": null
+        },
+        {
+          "name": "freemem_before",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "freemem_after",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VRAM_Debug",
+        "dawasteh_memory_cleanup": {
+          "version": 1,
+          "placement": "terminal",
+          "reason": "after final media barrier, before SaveAudioMP3"
+        }
+      },
+      "widgets_values": [
+        true,
+        true,
+        true
+      ],
+      "color": "#3b1f2b",
+      "bgcolor": "#24131b"
     }
   ],
   "links": [
@@ -470,6 +570,14 @@
     [
       5,
       4,
+      0,
+      13,
+      3,
+      "AUDIO"
+    ],
+    [
+      6,
+      13,
       0,
       5,
       0,

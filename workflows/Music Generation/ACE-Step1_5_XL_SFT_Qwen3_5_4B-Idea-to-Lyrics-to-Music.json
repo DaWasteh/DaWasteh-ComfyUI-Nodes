@@ -1,8 +1,8 @@
 {
   "id": "94ee4ee2-833c-4c1c-98ee-9c7db44c3332",
   "revision": 0,
-  "last_node_id": 146,
-  "last_link_id": 272,
+  "last_node_id": 148,
+  "last_link_id": 274,
   "nodes": [
     {
       "id": 104,
@@ -760,7 +760,7 @@
           "localized_name": "samples",
           "name": "samples",
           "type": "LATENT",
-          "link": 256
+          "link": 273
         },
         {
           "localized_name": "vae",
@@ -812,7 +812,7 @@
           "localized_name": "audio",
           "name": "audio",
           "type": "AUDIO",
-          "link": 263
+          "link": 274
         },
         {
           "localized_name": "filename_prefix",
@@ -2052,6 +2052,206 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 147,
+      "type": "VRAM_Debug",
+      "pos": [
+        5328.75,
+        1222.0
+      ],
+      "size": [
+        320,
+        174
+      ],
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "empty_cache",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "empty_cache"
+          },
+          "link": null
+        },
+        {
+          "name": "gc_collect",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "gc_collect"
+          },
+          "link": null
+        },
+        {
+          "name": "unload_all_models",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "unload_all_models"
+          },
+          "link": null
+        },
+        {
+          "name": "any_input",
+          "type": "*",
+          "link": 256
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "any_output",
+          "type": "*",
+          "links": [
+            273
+          ]
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "links": null
+        },
+        {
+          "name": "freemem_before",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "freemem_after",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VRAM_Debug",
+        "dawasteh_memory_cleanup": {
+          "version": 1,
+          "placement": "pre_decode",
+          "reason": "single final KSampler to VAEDecodeAudio phase boundary"
+        }
+      },
+      "widgets_values": [
+        true,
+        true,
+        true
+      ],
+      "color": "#3b1f2b",
+      "bgcolor": "#24131b"
+    },
+    {
+      "id": 148,
+      "type": "VRAM_Debug",
+      "pos": [
+        6344.75,
+        1250.0
+      ],
+      "size": [
+        320,
+        174
+      ],
+      "flags": {},
+      "order": 36,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "empty_cache",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "empty_cache"
+          },
+          "link": null
+        },
+        {
+          "name": "gc_collect",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "gc_collect"
+          },
+          "link": null
+        },
+        {
+          "name": "unload_all_models",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "unload_all_models"
+          },
+          "link": null
+        },
+        {
+          "name": "any_input",
+          "type": "*",
+          "link": 263
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "any_output",
+          "type": "*",
+          "links": [
+            274
+          ]
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "links": null
+        },
+        {
+          "name": "freemem_before",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "freemem_after",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VRAM_Debug",
+        "dawasteh_memory_cleanup": {
+          "version": 1,
+          "placement": "terminal",
+          "reason": "after final media barrier, before SaveAudioMP3"
+        }
+      },
+      "widgets_values": [
+        true,
+        true,
+        true
+      ],
+      "color": "#3b1f2b",
+      "bgcolor": "#24131b"
     }
   ],
   "links": [
@@ -2115,8 +2315,8 @@
       256,
       3,
       0,
-      18,
-      0,
+      147,
+      3,
       "LATENT"
     ],
     [
@@ -2147,8 +2347,8 @@
       263,
       18,
       0,
-      107,
-      0,
+      148,
+      3,
       "AUDIO"
     ],
     [
@@ -2222,6 +2422,22 @@
       94,
       2,
       "STRING"
+    ],
+    [
+      273,
+      147,
+      0,
+      18,
+      0,
+      "LATENT"
+    ],
+    [
+      274,
+      148,
+      0,
+      107,
+      0,
+      "AUDIO"
     ]
   ],
   "groups": [],

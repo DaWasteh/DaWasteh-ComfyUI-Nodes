@@ -1,8 +1,8 @@
 {
   "id": "64b81755-dd7d-4e01-9e14-9b2ad6ab4341",
   "revision": 0,
-  "last_node_id": 126,
-  "last_link_id": 217,
+  "last_node_id": 127,
+  "last_link_id": 219,
   "nodes": [
     {
       "id": 13,
@@ -1501,7 +1501,7 @@
           "localized_name": "images",
           "name": "images",
           "type": "IMAGE",
-          "link": 214
+          "link": 219
         },
         {
           "label": "audio",
@@ -1509,7 +1509,7 @@
           "name": "audio",
           "shape": 7,
           "type": "AUDIO",
-          "link": 213
+          "link": 218
         },
         {
           "label": "meta_batch",
@@ -3161,6 +3161,108 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 127,
+      "type": "VRAM_Debug",
+      "pos": [
+        10637.424,
+        10099.023
+      ],
+      "size": [
+        320,
+        174
+      ],
+      "flags": {},
+      "order": 60,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "empty_cache",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "empty_cache"
+          },
+          "link": null
+        },
+        {
+          "name": "gc_collect",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "gc_collect"
+          },
+          "link": null
+        },
+        {
+          "name": "unload_all_models",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "unload_all_models"
+          },
+          "link": null
+        },
+        {
+          "name": "any_input",
+          "type": "*",
+          "link": 213
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "link": 214
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "any_output",
+          "type": "*",
+          "links": [
+            218
+          ]
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "links": [
+            219
+          ]
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "links": null
+        },
+        {
+          "name": "freemem_before",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "freemem_after",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VRAM_Debug",
+        "dawasteh_memory_cleanup": {
+          "version": 1,
+          "placement": "terminal",
+          "reason": "two-input audio/video barrier before VHS_VideoCombine"
+        }
+      },
+      "widgets_values": [
+        true,
+        true,
+        true
+      ],
+      "color": "#3b1f2b",
+      "bgcolor": "#24131b"
     }
   ],
   "links": [
@@ -3576,16 +3678,16 @@
       213,
       16,
       0,
-      94,
-      1,
+      127,
+      3,
       "AUDIO"
     ],
     [
       214,
       15,
       0,
-      94,
-      0,
+      127,
+      4,
       "IMAGE"
     ],
     [
@@ -3611,6 +3713,22 @@
       47,
       3,
       "SIGMAS"
+    ],
+    [
+      218,
+      127,
+      0,
+      94,
+      1,
+      "AUDIO"
+    ],
+    [
+      219,
+      127,
+      1,
+      94,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [

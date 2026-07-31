@@ -1,8 +1,8 @@
 {
   "id": "c80f3abf-7abe-4c24-8663-009ac9c86e3d",
   "revision": 0,
-  "last_node_id": 510,
-  "last_link_id": 1201,
+  "last_node_id": 511,
+  "last_link_id": 1202,
   "nodes": [
     {
       "id": 4,
@@ -77,7 +77,7 @@
           "localized_name": "video",
           "name": "video",
           "type": "VIDEO",
-          "link": 13
+          "link": 1202
         },
         {
           "localized_name": "filename_prefix",
@@ -3289,6 +3289,106 @@
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
+    },
+    {
+      "id": 511,
+      "type": "VRAM_Debug",
+      "pos": [
+        11698.75,
+        13982.5
+      ],
+      "size": [
+        320,
+        174
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "empty_cache",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "empty_cache"
+          },
+          "link": null
+        },
+        {
+          "name": "gc_collect",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "gc_collect"
+          },
+          "link": null
+        },
+        {
+          "name": "unload_all_models",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "unload_all_models"
+          },
+          "link": null
+        },
+        {
+          "name": "any_input",
+          "type": "*",
+          "link": 13
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "any_output",
+          "type": "*",
+          "links": [
+            1202
+          ]
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "links": null
+        },
+        {
+          "name": "freemem_before",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "freemem_after",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VRAM_Debug",
+        "dawasteh_memory_cleanup": {
+          "version": 1,
+          "placement": "terminal",
+          "reason": "after final media barrier, before SaveVideo"
+        }
+      },
+      "widgets_values": [
+        true,
+        true,
+        true
+      ],
+      "color": "#3b1f2b",
+      "bgcolor": "#24131b"
     }
   ],
   "links": [
@@ -3304,8 +3404,8 @@
       13,
       1,
       0,
-      5,
-      0,
+      511,
+      3,
       "VIDEO"
     ],
     [
@@ -3555,6 +3655,14 @@
       1,
       4,
       "AUDIO"
+    ],
+    [
+      1202,
+      511,
+      0,
+      5,
+      0,
+      "VIDEO"
     ]
   ],
   "groups": [],

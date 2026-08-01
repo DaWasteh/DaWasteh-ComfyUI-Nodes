@@ -1,0 +1,5 @@
+This node pack includes implementation concepts adapted from:
+- QwenLM/Qwen3-TTS (Apache License 2.0)
+- cheeweijie/qwen3-tts-lora-finetuning (Apache License 2.0)
+
+Copyright notices and license terms of those projects are preserved through this notice and the SPDX header in nodes.py.

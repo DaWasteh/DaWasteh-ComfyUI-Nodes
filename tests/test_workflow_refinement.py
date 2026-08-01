@@ -150,7 +150,13 @@ class WidgetMappingTests(unittest.TestCase):
             "offloading", "existing_lora", "bucket_mode", "bypass_mode",
         ]
         paths = sorted((Path("workflows") / "LoRA Generation").glob("*-LoRA-Training.json"))
-        generated = [path for path in paths if path.name != "ACE-Step1_5_XL-Voice-LoRA-Training.json"]
+        generated = [
+            path for path in paths
+            if path.name not in {
+                "ACE-Step1_5_XL-Voice-LoRA-Training.json",
+                "Qwen3-TTS_0.6B-Voice-LoRA-Training.json",
+            }
+        ]
         self.assertEqual(len(generated), 5)
         for path in generated:
             workflow = json.loads(path.read_text(encoding="utf-8"))
@@ -224,6 +230,7 @@ class WidgetMappingTests(unittest.TestCase):
                 "LiveAvatar-01-SDXL-Avatar-Generation.json",
                 "LiveAvatar-02-RMBG-Transparency.json",
                 "LiveAvatar-03-LivePortrait-Webcam-Spout-OBS.json",
+                "LiveAvatar-04-LivePortrait-Webcam-Spout-OBS+Qwen3TTS-Voice-LoRA.json",
             ],
         )
         workflows = [json.loads(path.read_text(encoding="utf-8")) for path in paths]
@@ -279,6 +286,59 @@ class WidgetMappingTests(unittest.TestCase):
         alpha_link = next(link for link in live_workflow["links"] if link[0] == alpha_link_id)
         self.assertEqual(alpha_link[1:5], [load_image["id"], 1, join_alpha["id"], 1])
         self.assertNotIn("cudaexecutionprovider", json.dumps(live_workflow).lower())
+
+        combined_workflow = workflows[3]
+        combined = {node["type"]: node for node in combined_workflow["nodes"]}
+        self.assertTrue(required_types.issubset(combined), required_types - set(combined))
+        self.assertIn("DaWastehQwen3TTSLoRAInference", combined)
+        self.assertIn("PlaySoundKJ", combined)
+        self.assertEqual(combined["DaWastehQwen3TTSLoRAInference"]["widgets_values"][1:6], [
+            "my_voice/checkpoint-epoch-1", "my_voice", "0.6B", "German", 0.3,
+        ])
+        self.assertEqual(combined["PlaySoundKJ"]["widgets_values"][1], "on_change")
+        audio_link_id = next(
+            item["link"] for item in combined["PlaySoundKJ"]["inputs"] if item["name"] == "audio"
+        )
+        audio_link = next(link for link in combined_workflow["links"] if link[0] == audio_link_id)
+        self.assertEqual(
+            audio_link[1:5],
+            [combined["DaWastehQwen3TTSLoRAInference"]["id"], 0, combined["PlaySoundKJ"]["id"], 5],
+        )
+
+    def test_qwen3_tts_lora_workflows_use_real_peft_adapters(self):
+        training_path = Path("workflows/LoRA Generation/Qwen3-TTS_0.6B-Voice-LoRA-Training.json")
+        inference_path = Path("workflows/Voice Design/Qwen3-TTS_LoRA-Low-Latency-Live-Voice.json")
+        training = json.loads(training_path.read_text(encoding="utf-8"))
+        inference = json.loads(inference_path.read_text(encoding="utf-8"))
+        for path, workflow in ((training_path, training), (inference_path, inference)):
+            self.assertEqual(sum(node["type"] == "PixaromaRunTimer" for node in workflow["nodes"]), 1, path.name)
+
+        train = next(node for node in training["nodes"] if node["type"] == "DaWastehQwen3TTSLoRATrain")
+        self.assertEqual(train["widgets_values"][0], "0.6B")
+        self.assertEqual(train["widgets_values"][5], 0.000002)
+        self.assertEqual(train["widgets_values"][9:13], [16, 32, 0.05, "sdpa"])
+        self.assertIn("qwen3tts_lora", train["widgets_values"][1])
+        self.assertIn("qwen-tts\\loras", train["widgets_values"][2])
+
+        nodes = {node["type"]: node for node in inference["nodes"]}
+        self.assertIn("DaWastehQwen3TTSLoRAInference", nodes)
+        self.assertIn("PlaySoundKJ", nodes)
+        self.assertIn("SaveAudio", nodes)
+        self.assertEqual(nodes["DaWastehQwen3TTSLoRAInference"]["widgets_values"][1:6], [
+            "my_voice/checkpoint-epoch-1", "my_voice", "0.6B", "German", 0.3,
+        ])
+        self.assertEqual(nodes["PlaySoundKJ"]["widgets_values"][1], "on_change")
+        self.assertEqual(nodes["SaveAudio"]["widgets_values"], ["audio/avatar-voice/qwen3tts-lora"])
+
+    def test_qwen3_tts_lora_node_uses_safe_adapter_files(self):
+        source = Path("custom_nodes/ComfyUI-DaWasteh-Qwen3TTS-LoRA/nodes.py").read_text(encoding="utf-8")
+        self.assertIn("get_peft_model", source)
+        self.assertIn("PeftModel.from_pretrained", source)
+        self.assertIn("adapter_model.safetensors", source)
+        self.assertIn("speaker_embedding.safetensors", source)
+        self.assertNotIn("torch.load(", source)
+        self.assertNotIn("pickle", source.lower())
+        self.assertIn("attn_implementation=attention", source)
 
     def test_subgraph_instance_note(self):
         schema = {

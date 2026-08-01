@@ -495,7 +495,7 @@ def main() -> int:
                 errors.extend(path_errors)
         else:
             errors.extend(path_errors)
-    expected = {"files": 196, "graphs": 233, "nodes": 6599, "notes": 2821, "links": 4345, "timers": 196}
+    expected = {"files": 199, "graphs": 236, "nodes": 6637, "notes": 2837, "links": 4362, "timers": 199}
     actual = {"files": len(paths), **{k: totals[k] for k in ("graphs", "nodes", "notes", "links", "timers")}}
     for key, value in expected.items():
         if actual[key] != value:

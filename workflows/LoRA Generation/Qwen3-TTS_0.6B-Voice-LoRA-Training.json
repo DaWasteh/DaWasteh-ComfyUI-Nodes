@@ -1,0 +1,289 @@
+{
+  "id": "qwen3-tts-voice-lora-training",
+  "revision": 0,
+  "last_node_id": 4,
+  "last_link_id": 0,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PixaromaNote",
+      "pos": [
+        40,
+        80
+      ],
+      "size": [
+        920,
+        1180
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "note_json",
+          "name": "note_json",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "note_json"
+          }
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaNote",
+        "cnr_id": "ComfyUI-Pixaroma"
+      },
+      "widgets_values": [
+        "{\"version\":1,\"content\":\"<h1>Qwen3-TTS · echtes Voice-LoRA-Training · Windows AMD RDNA4</h1>\\n<p>Dieser Workflow trainiert einen <b>echten PEFT-LoRA-Adapter</b> plus die zugehörige Sprecher-Einbettung. ACE-Step-Voice-LoRAs sind für Gesang/Musik gedacht und nicht für Live-Avatar-TTS.</p>\\n<h2>Datensatz</h2><div>ComfyUI/input/qwen3tts_lora/my_voice/</div><pre>001.wav + 001.txt\\n002.wav + 002.txt</pre>\\n<p>Jede TXT-Datei muss das exakte Transkript der gleichnamigen Aufnahme enthalten. Verwende nur Stimmen, die dir gehören oder für die du eine ausdrückliche Einwilligung hast. Saubere Einzelsprecher-Aufnahmen ohne Musik verwenden.</p>\\n<h2>AMD-Sicherstart</h2><ul><li><code>0.6B</code>, <code>sdpa</code>, BF16 intern</li><li>1 Epoche, Batch 1, Accumulation 4, Rank 16/Alpha 32</li><li>Lernrate <code>2e-6</code>; nicht auf 2e-5 erhöhen</li></ul>\\n<p>Nach einem erfolgreichen Smoke-Test Epochen schrittweise erhöhen und Hörproben vergleichen; etwa ab 10 Epochen steigt Überanpassungsgefahr. Audio wird automatisch auf 24 kHz Mono vorbereitet.</p>\\n<h2>Ausgabe und Nutzung</h2><div>ComfyUI/models/qwen-tts/loras/my_voice/checkpoint-epoch-N/</div>\\n<p>Enthält <code>adapter_model.safetensors</code>, <code>adapter_config.json</code>, <code>speaker_embedding.safetensors</code> und Metadaten. Danach ComfyUI-Nodes mit <b>R</b> aktualisieren und im LoRA-Live-Voice-Workflow den Adapter wählen.</p>\\n<h2>Modelle/Nodes</h2><ul><li>Qwen/Qwen3-TTS-12Hz-0.6B-Base</li><li>Qwen/Qwen3-TTS-Tokenizer-12Hz</li><li>ComfyUI-DaWasteh-Qwen3TTS-LoRA</li><li>ComfyUI-Pixaroma</li></ul>\\n<p><a href=\\\"https://huggingface.co/Qwen/Qwen3-TTS-12Hz-0.6B-Base\\\">Qwen 0.6B Base</a> · <a href=\\\"https://huggingface.co/Qwen/Qwen3-TTS-Tokenizer-12Hz\\\">12Hz Tokenizer</a> · <a href=\\\"https://github.com/cheeweijie/qwen3-tts-lora-finetuning\\\">LoRA-Referenz</a></p>\",\"buttonColor\":\"#f66744\",\"lineColor\":\"#f66744\",\"width\":920,\"height\":1140,\"backgroundColor\":\"#2a2a2a\"}",
+        ""
+      ],
+      "title": "START HIER · Qwen3-TTS Voice-LoRA",
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 2,
+      "type": "DaWastehQwen3TTSLoRATrain",
+      "pos": [
+        2989.0,
+        282.0
+      ],
+      "size": [
+        560,
+        560
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "model_size",
+          "name": "model_size",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "model_size"
+          }
+        },
+        {
+          "localized_name": "audio_folder",
+          "name": "audio_folder",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "audio_folder"
+          }
+        },
+        {
+          "localized_name": "output_dir",
+          "name": "output_dir",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "output_dir"
+          }
+        },
+        {
+          "localized_name": "speaker_name",
+          "name": "speaker_name",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "speaker_name"
+          }
+        },
+        {
+          "localized_name": "language",
+          "name": "language",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "language"
+          }
+        },
+        {
+          "localized_name": "learning_rate",
+          "name": "learning_rate",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "learning_rate"
+          }
+        },
+        {
+          "localized_name": "num_epochs",
+          "name": "num_epochs",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "num_epochs"
+          }
+        },
+        {
+          "localized_name": "batch_size",
+          "name": "batch_size",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "batch_size"
+          }
+        },
+        {
+          "localized_name": "gradient_accumulation_steps",
+          "name": "gradient_accumulation_steps",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "gradient_accumulation_steps"
+          }
+        },
+        {
+          "localized_name": "lora_rank",
+          "name": "lora_rank",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "lora_rank"
+          }
+        },
+        {
+          "localized_name": "lora_alpha",
+          "name": "lora_alpha",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "lora_alpha"
+          }
+        },
+        {
+          "localized_name": "lora_dropout",
+          "name": "lora_dropout",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "lora_dropout"
+          }
+        },
+        {
+          "localized_name": "attention",
+          "name": "attention",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "attention"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "adapter_path",
+          "name": "adapter_path",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DaWastehQwen3TTSLoRATrain"
+      },
+      "widgets_values": [
+        "0.6B",
+        "L:\\ComfyUI\\ComfyUI\\input\\qwen3tts_lora\\my_voice",
+        "L:\\ComfyUI\\ComfyUI\\models\\qwen-tts\\loras\\my_voice",
+        "my_voice",
+        "German",
+        2e-06,
+        1,
+        1,
+        4,
+        16,
+        32,
+        0.05,
+        "sdpa"
+      ],
+      "title": "Qwen3-TTS · PEFT-LoRA trainieren"
+    },
+    {
+      "id": 3,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        2989.0,
+        1880.0
+      ],
+      "size": [
+        320,
+        100
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaRunTimer",
+        "cnr_id": "ComfyUI-Pixaroma"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "type": "MarkdownNote",
+      "pos": [
+        3595.0,
+        282.0
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Qwen3-TTS · PEFT-LoRA trainieren · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Qwen3-TTS · PEFT-LoRA trainieren · Node 2\n\n**Zweck:** Train a PEFT LoRA adapter plus its Qwen3-TTS speaker embedding.\n\n**Einstellbare Werte**\n- `model_size` = `0.6B` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `audio_folder` = `L:\\ComfyUI\\ComfyUI\\input\\qwen3tts_lora\\my_voice` — Steuert diesen Parameter. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n- `output_dir` = `L:\\ComfyUI\\ComfyUI\\models\\qwen-tts\\loras\\my_voice` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `speaker_name` = `my_voice` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `language` = `German` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `learning_rate` = `2e-06` — Steuert diesen Parameter. Höher lernt schneller, kann aber instabil werden/übersteuern; niedriger ist stabiler, benötigt mehr Schritte.\n- `num_epochs` = `1` — Steuert diesen Parameter. Höher erhöht Laufzeit und mögliche Ausarbeitung, kann aber übertrainieren; niedriger ist schneller.\n- `batch_size` = `1` — Steuert diesen Parameter. Höher verarbeitet mehr Beispiele parallel und braucht mehr VRAM; niedriger spart Speicher.\n- `gradient_accumulation_steps` = `4` — Steuert diesen Parameter. Höher vergrößert die effektive Batchgröße bei ähnlichem VRAM, verlängert aber jeden Optimizer-Schritt.\n- `lora_rank` = `16` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `lora_alpha` = `32` — Steuert diesen Parameter. Höher skaliert den Adapter stärker; niedriger wirkt sanfter. Häufig wird Alpha passend zum Rank gewählt.\n- `lora_dropout` = `0.05` — Steuert diesen Parameter. Höher regularisiert stärker gegen Overfitting; niedriger passt sich enger an die Trainingsdaten an.\n- `attention` = `sdpa` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `model_size` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audio_folder` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `output_dir` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `speaker_name` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `language` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `learning_rate` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `num_epochs` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `batch_size` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `gradient_accumulation_steps` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `lora_rank` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `lora_alpha` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `lora_dropout` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `attention` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `adapter_path` (STRING, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    }
+  ],
+  "links": [],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "frontendVersion": "1.47.11",
+    "ds": {
+      "scale": 0.82,
+      "offset": [
+        100,
+        100
+      ]
+    },
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 1,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
+  },
+  "version": 0.4
+}

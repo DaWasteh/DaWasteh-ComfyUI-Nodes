@@ -1,4 +1,4 @@
-# DaWasteh – konsolidierte ComfyUI-Workflows · v0.6.8
+# DaWasteh – konsolidierte ComfyUI-Workflows · v0.6.9
 
 Dieser Ordner ist jetzt der **kuratierte Hauptordner** für die lokalen Workflows auf Windows 11 mit:
 
@@ -17,11 +17,11 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 
 ## Ergebnis
 
-- **196 kuratierte Workflow-Dateien** in 29 Kategorien
+- **199 kuratierte Workflow-Dateien** in 29 Kategorien
 - **122 Pixaroma Prompt**-Eingaben in 105 gezielt ausgewählten Workflows sowie **9 Pause Text**-Freigaben; insgesamt wurden 108 Workflows sinnvoll erweitert
-- alle 196 Workflows enthalten exakt einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
+- alle 199 Workflows enthalten exakt einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
 - alle vorhandenen Workflows wurden mit deutlich größeren, nachvollziehbaren Abständen angeordnet
-- **2.821 automatisch zugeordnete Parameter-Notes** erklären jeden Nicht-Pixaroma-/Nicht-Dokumentations-Node einschließlich aktueller Werte, Schalterwirkung, Ein-/Ausgänge und höher-/niedriger-Auswirkung
+- **2.837 automatisch zugeordnete Parameter-Notes** erklären jeden Nicht-Pixaroma-/Nicht-Dokumentations-Node einschließlich aktueller Werte, Schalterwirkung, Ein-/Ausgänge und höher-/niedriger-Auswirkung
 - 59 vorhandene Workflows beibehalten
 - 114 funktional ergänzende Workflows übernommen:
   - 33 aus `DaWasteh`
@@ -30,6 +30,8 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 - 2 neue Audio-zu-Video-Workflows aufgebaut: ein klar als AudioReact gekennzeichneter Gemma-/FLUX2-/Pixaroma-Workflow und ein echtes generatives LTX-2.3-Video mit Custom Audio
 - 1 neuer Audio-zu-Bild-Workflow: Gemma 4 analysiert das Audio, FLUX.2 Klein 4B erzeugt das Kontextbild, `PixaromaResolution` bietet frei wählbare Formate und `PixaromaNote` dokumentiert Bedienung und Downloads
 - 3 neue Live-Avatar-Workflows: SDXL-Quellbild, RMBG-2.0-Freistellung und eine AMD-RDNA4-optimierte Webcam→LivePortrait→RGBA-Spout-Pipeline für OBS
+- 1 erweiterter LivePortrait-Webcam→Spout→OBS-Workflow mit gecachter, adapterwechselbarer Qwen3-TTS-Voice-LoRA und Browser-Audio für OBS
+- 1 echtes Qwen3-TTS-PEFT-LoRA-Training sowie 1 eigenständiger Low-Latency-Voice-Workflow; ACE-Step bleibt korrekt auf Gesang/Musik beschränkt
 - die ausgelieferten YuE-/HeartMuLa-Startwerte wieder mit ihren bestehenden Tests und Bedienhinweisen synchronisiert: YuE CoT nutzt 20 Sektionen für 540 Sekunden, HeartMuLa startet wieder mit 300 Sekunden Obergrenze
 - der manifestgesteuerte Pixaroma-Integrator akzeptiert nach der Refinement-Pipeline ausschließlich zusätzliche lokalisierte UI-Labels, Topologie-Reihenfolge und vorhandene Darstellungsfarben, prüft semantische Node-/Link-Zustände aber weiterhin strikt
 - 2 neue MOSS-TTS-Local-v1.5-Workflows: Audio + exaktes Transkript + neuer Text als Continuation sowie Text + Audio-Stimmenvorlage als Zero-shot Voice Clone; beide enthalten direkte Downloads und Zielordner
@@ -47,7 +49,7 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 | Ordner | Anzahl | Zweck |
 |---|---:|---|
 | `Text to Image` | 42 | FLUX, Krea2, Z-Image, SDXL, Anima, Boogu, LongCat, Ideogram usw. |
-| `LoRA Generation` | 6 | ACE-Step 1.5 sowie lokale Core-Trainer für Z-Image, Boogu, FLUX.1, FLUX.2 Klein und SDXL |
+| `LoRA Generation` | 7 | ACE-Step 1.5, echtes Qwen3-TTS-Voice-LoRA sowie lokale Core-Trainer für Z-Image, Boogu, FLUX.1, FLUX.2 Klein und SDXL |
 | `Image Editing` | 21 | FLUX2-Klein-Edits, Qwen Image Edit, SDXL-Composites, Bernini |
 | `Prompt Tools` | 15 | Prompt Stack/Pack/Multi, Builder, Text-Tools, XY-Plot |
 | `Pixaroma Node Demos` | 12 | aktuelle, deduplizierte Pixaroma-Node-Beispiele |
@@ -55,14 +57,14 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 | `Text+Image to Video` | 10 | WAN, LTX Director, First/Last Frame, Kandinsky |
 | `Prompt Enhancer` | 11 | Gemma/Qwen Prompt-, Bild-, Audio- und Videoverständnis |
 | `Music Generation` | 18 | ACE-Step, Stable Audio 3, YuE CoT/ICL, HeartMuLa, drei INT8-Varianten sowie Qwen-/Gemma-Idee-zu-Lyrics |
-| `Voice Design` | 10 | Qwen3-TTS sowie MOSS-TTS Local v1.5: Custom Voice, Continuation, Clone und Dialog |
+| `Voice Design` | 11 | Qwen3-TTS einschließlich wechselbarer PEFT-LoRA-Stimmen sowie MOSS-TTS Local v1.5: Custom Voice, Continuation, Clone und Dialog |
 | `Text to Video` | 5 | LTX 2.3 und WAN 2.2 |
 | `Audio to Video` | 3 | zwei AudioReact-Varianten sowie echtes generatives LTX-2.3-Bild+Audio→Video in Soundlänge |
 | `Audio to Image` | 1 | Gemma-4-Audioverständnis → visueller Prompt → FLUX.2-Klein-4B-Kontextbild |
 | `NSFW` | 4 | getrennte SDXL-NSFW-/AniToReal-Workflows |
 | `Character & Consistency` | 3 | FLUX Kontext und SDXL/IPAdapter Character Keep |
 | `Character Animation` | 3 | SCAIL-2 Animation und Character Replacement |
-| `Live Avatar` | 3 | Avatar-Quellbild, transparente Freistellung und LivePortrait-Webcam-Ausgabe nach OBS |
+| `Live Avatar` | 4 | Avatar-Quellbild, transparente Freistellung, LivePortrait-Spout und die kombinierte OBS+Voice-LoRA-Variante |
 | `Image Inpainting` | 3 | FLUX2 Klein 4B/9B Inpainting |
 | `Image Upscaling` | 3 | einfache, Modell- und Z-Image-Upscaler |
 | `Batch Processing` | 2 | Ordner-Batches und Batch-Image-Edit |
@@ -83,6 +85,21 @@ Installiert wurden `ComfyUI-LivePortraitKJ` und `Jovi_Spout`. Die sechs Human-Li
 PyTorch 2.6+ lädt den von Kijai bereitgestellten `landmark_model.pth` standardmäßig nicht mehr als serialisiertes `torch.fx`-Modul. `tools/convert_liveportrait_landmark.py` prüft deshalb vor dem einmaligen vollständigen Laden zuerst die bekannte Upstream-SHA-256-Prüfsumme `48ba55140fda4c292d3faf3e3ed9106784c7c32aebf170d4983fb67cd0a3c9c8` und erzeugt daraus das eigenständige `landmark_model_torchscript.pt`. Die Konvertierung ist bytegenau auf Torch `2.12.0+rocm7.15.0a20260727`, onnx2torch `1.5.15`, ONNX `1.22.0` und Protobuf `5.29.6` festgelegt und vergleicht zwei deterministische Testeingaben numerisch mit dem Quellmodell. Diese einmaligen Konvertierungsabhängigkeiten gehören in eine Wegwerf-Umgebung, nicht in das produktive ComfyUI. Der Runtime-Patch lädt nur das fertige TorchScript nach Prüfung seiner SHA-256-Prüfsumme `9064565b92b3595786096b36acd24709c7bd290631510517bd3a9d5ca8f28a43`; dadurch werden weder `onnx2torch` noch eine Änderung der vorhandenen Protobuf-Version im laufenden ComfyUI benötigt. Der reproduzierbare Diff liegt unter `tools/patches/ComfyUI-LivePortraitKJ-PyTorch-2.6-verified-landmark-load.patch`; ein Update des Custom Nodes kann den lokalen Fix überschreiben. Der erfolgreiche FaceAlignment-Erstlauf legte zusätzlich `2DFAN4-cd938726ad.zip` (`cd938726…`), `blazefaceback.pth` (`e2c03bb3…`) und `anchorsback.npy` (`a10bb2fb…`) im Torch-Checkpoint-Cache ab.
 
 Die Upstream-`requirements.txt` von LivePortraitKJ und Jovi_Spout dürfen in dieser Python-3.13-/ROCm-Installation **nicht blind vollständig installiert** werden: sie würden NumPy auf `<2` absenken und LivePortrait zusätzlich einen nicht benötigten GPU-ONNX-Pfad einziehen. Installiert wurden nur die tatsächlich benötigten, Python-3.13-kompatiblen Pakete; `cozy_comfyui` ist lokal auf Commit `6f37572d41a4124f406c1d1f33b61f0fd56b4d99` festgelegt. `pip check` bleibt wegen der bereits zuvor vorhandenen Protobuf-3.19.6-Konflikte anderer ComfyUI-Nodes nicht global sauber; die hier ausgelieferte TorchScript-/FaceAlignment-Pipeline verwendet diesen Konfliktpfad nicht.
+
+## Qwen3-TTS Voice-LoRA · v0.6.9
+
+ACE-Step-Voice-LoRAs konditionieren eine **Gesangs-/Musikgenerierung** und sind deshalb nicht die richtige Technik für eine sprechende Live-Avatar-Stimme. v0.6.9 ergänzt stattdessen `custom_nodes/ComfyUI-DaWasteh-Qwen3TTS-LoRA/` mit zwei lokal installierten Nodes:
+
+- `DaWastehQwen3TTSLoRATrain` trainiert einen echten PEFT-LoRA-Adapter plus die benötigte Sprecher-Einbettung.
+- `DaWastehQwen3TTSLoRAInference` listet vollständige Adapter unter `models/qwen-tts/loras/` im Dropdown auf, lädt sie ausschließlich aus Safetensors/JSON und erlaubt einen skalierbaren Wechsel zwischen lokalen Stimmen.
+
+`Qwen3-TTS_0.6B-Voice-LoRA-Training.json` erwartet gleichnamige Audio-/UTF-8-Transkriptpaare unter `ComfyUI/input/qwen3tts_lora/my_voice/`. Der AMD-Sicherstart ist 0.6B, BF16, SDPA, Batch 1, Gradient Accumulation 4, Rank 16/Alpha 32, Lernrate `2e-6` und zunächst genau eine Epoche. Eingangsaudio wird vor dem Training auf 24 kHz Mono normalisiert. Checkpoints landen als `adapter_model.safetensors`, `adapter_config.json`, `speaker_embedding.safetensors` und Metadaten unter `ComfyUI/models/qwen-tts/loras/<stimme>/checkpoint-epoch-N/`. Der ebenfalls unterstützte 1.7B-Pfad ist qualitativ stärker, aber langsamer.
+
+`Qwen3-TTS_LoRA-Low-Latency-Live-Voice.json` erzeugt aus Text eine vollständige 24-kHz-Sprachdatei, spielt geänderte Ausgaben mit `PlaySoundKJ` einmal im Browser und speichert zusätzlich FLAC. `LiveAvatar-04-LivePortrait-Webcam-Spout-OBS+Qwen3TTS-Voice-LoRA.json` fügt denselben Voice-Zweig zur bewährten FaceAlignment→LivePortrait→RGBA-Spout-Pipeline hinzu. Für OBS wird das ComfyUI-Browser-/Anwendungsaudio aufgenommen oder über ein bereits vorhandenes virtuelles Audiokabel geroutet; Spout selbst transportiert nur Video. Unveränderte TTS-Eingaben bleiben im Auto-Queue-Betrieb gecacht und `on_change` verhindert eine Wiederholung pro Webcam-Frame.
+
+Die ComfyUI-Integration ist bewusst als **Low-Latency/request-basierte TTS** bezeichnet: Der Node liefert einen vollständigen Clip nach einem Queue-Lauf, aber keinen kontinuierlichen Mikrofon-Voice-Changer. Nach neuem Training den Inference-Node mit `R` aktualisieren, Adapter, `speaker_name` und passende 0.6B-/1.7B-Basis wählen und LoRA-Skalen 0.20/0.30/0.35/0.50 vergleichen. Stimmen dürfen nur mit Eigentum oder ausdrücklicher Einwilligung geklont werden.
+
+Das fehlende 0.6B-Base-Modell wurde nach `L:/ComfyUI/ComfyUI/models/qwen-tts/Qwen3-TTS-12Hz-0.6B-Base/` geladen; der 12-Hz-Tokenizer war bereits vorhanden. Als Laufzeit-Voraussetzung muss `qwen3-tts-comfyui` oder `ComfyUI-Qwen-TTS` installiert sein. `tools/install_qwen3_tts_lora_node.py` prüft diese Laufzeit, installiert die begrenzten PEFT-/Audio-Abhängigkeiten mit dem Ziel-ComfyUI-Python und kopiert den Node-Pack nur bei leerer Queue. Die Implementierung übernimmt die korrigierte Label-Verschiebung, Textprojektion, PEFT-Zielmodule und Scale-Empfehlungen aus dem Apache-2.0-Projekt [cheeweijie/qwen3-tts-lora-finetuning](https://github.com/cheeweijie/qwen3-tts-lora-finetuning); die offizielle Qwen-Implementierung bietet ansonsten nur Full-SFT.
 
 ## Pixaroma Prompt-Bibliothek · v0.6.4
 
@@ -119,7 +136,7 @@ Die fünf neuen Bildtrainer verwenden ausschließlich die **offiziellen experime
 
 **Krea 2 RAW wurde nach einem reproduzierbaren OOM auf der R9700 trotz aktiviertem Offloading wieder entfernt.** Das 24,5-GB-BF16-Modell zusammen mit Textencoder und Trainingszustand überschreitet die sichere 32-GB-VRAM-/48-GB-RAM-Grenze dieses Systems. Entsprechend der Stabilitätsregel wird kein Workflow ausgeliefert, der auf der Zielhardware nicht sicher nutzbar ist.
 
-Bewusst nicht als lokaler RDNA4-LoRA-Trainer aufgenommen wurden LTX-2 (offizieller Trainer verlangt CUDA/Triton), WAN 2.x (kein offizieller Herstellertrainer), HunyuanVideo/CogVideoX (kein bestätigter gfx1201-Pfad), Stable Audio 3 (kein passender ComfyUI-Core-Datasetpfad), Qwen3-TTS (vorhandener Node ist Full-Finetuning statt LoRA) sowie MOSS-TTS Local v1.5. OpenMOSS dokumentiert für Local v1.5 Full-SFT, aber keinen allgemeinen v1.5-LoRA-Pfad; das vorhandene Community-LoRA-Beispiel zielt auf das ältere 8B-Modell, und der verwendete ComfyUI-v1.5-Node kann keine LoRAs trainieren oder laden.
+Für Qwen3-TTS steht ab v0.6.9 zusätzlich zum vorhandenen experimentellen Full-Finetuning der separate, lokal smoke-getestete PEFT-LoRA-Pfad zur Verfügung. Bewusst nicht als lokale RDNA4-LoRA-Trainer aufgenommen wurden weiterhin LTX-2 (offizieller Trainer verlangt CUDA/Triton), WAN 2.x (kein offizieller Herstellertrainer), HunyuanVideo/CogVideoX (kein bestätigter gfx1201-Pfad), Stable Audio 3 (kein passender ComfyUI-Core-Datasetpfad) sowie MOSS-TTS Local v1.5. OpenMOSS dokumentiert für Local v1.5 Full-SFT, aber keinen allgemeinen v1.5-LoRA-Pfad; das vorhandene Community-LoRA-Beispiel zielt auf das ältere 8B-Modell, und der verwendete ComfyUI-v1.5-Node kann keine LoRAs trainieren oder laden.
 
 ## Idee → Songtext → Musik · v0.6.6
 
@@ -185,7 +202,7 @@ Folgende Regeln wurden auf die konsolidierte Sammlung angewendet:
 - FLUX2-Klein-4B-Imports verwenden das installierte lokale 4B-Modell
 - Z-Image-Imports verwenden das installierte BF16-Modell
 - verdächtige Krea2-INT8-ConvRot-Referenzen wurden auf das installierte FP8-Modell umgestellt
-- Qwen3-TTS verwendet `device=auto` und `attention=sdpa`
+- Qwen3-TTS verwendet `device=auto` beziehungsweise den Windows-ROCm-`cuda`/HIP-Alias und `attention=sdpa`; der Voice-LoRA-Pfad lädt keine Flash-Attention-/Triton-Pflicht
 - ONNX-CUDA-Beispiele aus den Pixaroma-WAN-Wrapper-Workflows wurden nicht übernommen; stattdessen bleiben die nativen lokalen WAN/SCAIL-Workflows erhalten
 
 ## Bewusst nicht übernommen
@@ -205,21 +222,22 @@ Diese Dateien bleiben in ihren Quellordnern als Referenz, gehören aber nicht in
 
 ## Validierung
 
-Automatisch geprüft wurden alle 196 Workflows. Der `--against-head`-Modus prüft neue und geänderte Dateien vollständig, behandelt bereits eingecheckte Integrationen als unveränderte Baseline, normalisiert bei älteren Deltas ausschließlich die im 186-Dateien-Manifest erlaubten Prompt-/Pause-Transformationen und verwirft jede andere Änderung an bestehenden Nodes oder Links:
+Automatisch geprüft wurden alle 199 Workflows. Der `--against-head`-Modus prüft neue und geänderte Dateien vollständig, behandelt bereits eingecheckte Integrationen als unveränderte Baseline, normalisiert bei älteren Deltas ausschließlich die im 186-Dateien-Manifest erlaubten Prompt-/Pause-Transformationen und verwirft jede andere Änderung an bestehenden Nodes oder Links:
 
-- 196/196 gültige JSON-Dateien
-- 196/196 Workflows mit genau einem `PixaromaRunTimer`
-- 233 Haupt- und Untergraphen rekursiv geprüft
-- 6.599 Nodes, davon 2.821 eindeutig zugeordnete Parameter-Notes, 122 `PixaromaPrompt`- und 9 `PixaromaPauseText`-Nodes
-- 4.345 Graph-Links erfasst; die neuen Live-Avatar-Links verbinden Quellbild, Alpha, Webcam, LivePortrait-Composite und Spout vollständig in beiden Richtungen
-- keine neuen doppelten IDs, fehlenden oder einseitigen Endpunkte, Note-Zuordnungs- oder Layoutfehler in den v0.6.8-Dateien
+- 199/199 gültige JSON-Dateien
+- 199/199 Workflows mit genau einem `PixaromaRunTimer`
+- 236 Haupt- und Untergraphen rekursiv geprüft
+- 6.637 Nodes, davon 2.837 eindeutig zugeordnete Parameter-Notes, 122 `PixaromaPrompt`- und 9 `PixaromaPauseText`-Nodes
+- 4.362 Graph-Links erfasst; die Live-Avatar-Links verbinden Quellbild, Alpha, Webcam, LivePortrait-Composite und Spout vollständig, die neuen Audio-Links verbinden Voice-LoRA, Browser-Wiedergabe und FLAC-Speicherung in beiden Richtungen
+- keine neuen doppelten IDs, fehlenden oder einseitigen Endpunkte, Note-Zuordnungs- oder Layoutfehler in den v0.6.9-Dateien
 - vorhandene `PixaromaNote`-Dictionaries einschließlich Position, Größe und Inhalt unverändert
-- 28 Unit-Tests prüfen insgesamt die Workflow-Werkzeuge; davon sichern die Integrationstests Manifest-Hashes gegen HEAD, exakte Prompttext-Migration, Formula+Idea-Trennung, Pause-Ancestry, wechselseitige Links, Kollisionsfreiheit, Korruptionserkennung, die drei INT8-Modellpfade, den AMD-sicheren Live-Avatar-Stack und wiederholte byteidentische Anwendung ab
+- 37 Unit-Tests prüfen insgesamt die Workflow-Werkzeuge und den Voice-LoRA-Adapterlebenszyklus; davon sichern die Integrationstests Manifest-Hashes gegen HEAD, exakte Prompttext-Migration, Formula+Idea-Trennung, Pause-Ancestry, wechselseitige Links, Kollisionsfreiheit, Korruptionserkennung, die drei INT8-Modellpfade, den AMD-sicheren Live-Avatar-Stack, echte PEFT-/Safetensors-Voice-LoRAs und wiederholte byteidentische Anwendung ab
 - alle fünf neuen Trainer verwenden installierte Core-Nodes und vorhandene lokale Modelle
 - alle fünf Trainer erfolgreich mit einem vollständigen einmaligen 1-Step-Train-und-Save-Smoke-Test auf der Radeon AI Pro R9700 / ROCm 7.15 ausgeführt; die ausgelieferten Workflows starten bewusst mit 2 Schritten für den ersten eigenen Smoke-Test, und die erzeugten Test-Safetensors enthielten nichtleere Adaptergewichte
 - Boogu erst nach aktiviertem `offloading=true` OOM-frei validiert; diese sichere Einstellung ist im Workflow fest voreingestellt
 - MOSS-TTS Local v1.5 verwendet `dtype=auto` und `attention=sdpa`; die Gewichte belegen zusammen rund 17,6 GB (9,1 GB Modell plus 8,5 GB Codec). Voice Clone und Continuation wurden auf der R9700 erfolgreich bis zu nichtleeren 48-kHz-Stereo-FLACs ausgeführt; für statisches ComfyUI-Offloading war ein lokaler Comfy-Cast-Fix für `MossQwen3RMSNorm` nötig
+- Qwen3-TTS 0.6B trainierte auf der R9700 mit den ausgelieferten Rank-16-/Alpha-32-/Accumulation-4-Startwerten in einem vollständigen 1-Sample-/1-Epoch-Smoke-Test 462 nichtleere LoRA-Tensoren (47,6 MB) plus Sprecher-Einbettung; der anschließende Adapter-Inference- und Cache-Invalidierungs-Test erzeugte zweimal 3,82 Sekunden identisches, endliches 24-kHz-Mono-FLAC mit Peak 0,0615 und RMS 0,00569, ohne den nach Timestamp-Wechsel veralteten Backend-Cache wiederzuverwenden. Der kombinierte LiveAvatar-04-Lauf lieferte gleichzeitig ein nichtleeres 1024×1024-RGBA-Frame mit Alpha `(0,255)` und 5,58 Sekunden endliches Voice-LoRA-Audio.
 - keine NVIDIA-/CUDA-only-Risiko-Widgets und keine eingebetteten `Rh-Comfy-Auth`-Tokens/JWTs
 - Generator, Refinement und Validator sind reproduzierbar und idempotent; die fokussierte Unit-Test-Suite prüft dynamische Widgets, Seed-Kontrollen, VHS-Dictionary-Werte, Subgraphs und TrainLora-Widgetreihenfolge
 
-Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und RDNA4-Kompatibilität. Die fünf neuen Bild-LoRA-Trainer wurden lokal bis zum gespeicherten Adapter ausgeführt; Krea 2 RAW wurde nach dem OOM konsequent entfernt. Der Audio-to-Image-Workflow wurde vollständig mit Gemma 4 und FLUX.2 Klein 4B auf der lokalen ComfyUI-Installation ausgeführt. YuE CoT und YuE ICL wurden jeweils mit einer erzwungenen 10,00-Sekunden-Ausgabe vollständig auf der R9700 ausgeführt. HeartMuLa akzeptierte und dekodierte einen Lauf mit `duration_seconds=301` erfolgreich; das Modell setzte bei 193,68 Sekunden selbst Audio-EOS und bestätigt damit, dass der Wert eine Obergrenze statt einer garantierten Länge ist. Die neuen INT8-Varianten wurden zusätzlich live geprüft: Stable Audio 3 erzeugte 1,02 Sekunden endliches 44,1-kHz-Stereo-FLAC, ACE-Step 1.5 XL exakt 5,00 Sekunden endliches 48-kHz-Stereo-FLAC. YuE INT8 lud beide bitsandbytes-Stufen erfolgreich und erzeugte die 5-Sekunden-Stage-1-Tokens; der anschließende Stage-2-Lauf wurde auf Benutzerwunsch beendet und wird manuell geprüft. Ein vollständiger GPU-End-to-End-Lauf aller 193 Workflows wäre sehr rechen- und zeitintensiv; besonders große Musik-, WAN- und LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.
+Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und RDNA4-Kompatibilität. Die fünf neuen Bild-LoRA-Trainer wurden lokal bis zum gespeicherten Adapter ausgeführt; Krea 2 RAW wurde nach dem OOM konsequent entfernt. Der Audio-to-Image-Workflow wurde vollständig mit Gemma 4 und FLUX.2 Klein 4B auf der lokalen ComfyUI-Installation ausgeführt. YuE CoT und YuE ICL wurden jeweils mit einer erzwungenen 10,00-Sekunden-Ausgabe vollständig auf der R9700 ausgeführt. HeartMuLa akzeptierte und dekodierte einen Lauf mit `duration_seconds=301` erfolgreich; das Modell setzte bei 193,68 Sekunden selbst Audio-EOS und bestätigt damit, dass der Wert eine Obergrenze statt einer garantierten Länge ist. Die neuen INT8-Varianten wurden zusätzlich live geprüft: Stable Audio 3 erzeugte 1,02 Sekunden endliches 44,1-kHz-Stereo-FLAC, ACE-Step 1.5 XL exakt 5,00 Sekunden endliches 48-kHz-Stereo-FLAC. YuE INT8 lud beide bitsandbytes-Stufen erfolgreich und erzeugte die 5-Sekunden-Stage-1-Tokens; der anschließende Stage-2-Lauf wurde auf Benutzerwunsch beendet und wird manuell geprüft. Ein vollständiger GPU-End-to-End-Lauf aller 199 Workflows wäre sehr rechen- und zeitintensiv; besonders große Musik-, WAN- und LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.

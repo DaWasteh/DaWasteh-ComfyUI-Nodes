@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
 import json
 import subprocess
 import sys
@@ -17,6 +18,10 @@ BLACKLIST = ("cudaexecutionprovider", "nunchaku", "svdq", "nvfp4", "tensorrt", "
 INTEGRATION_MARKER = "dawasteh_pixaroma_prompt_integration"
 MANIFEST_PATH = Path(__file__).with_name("pixaroma_prompt_manifest.json")
 AUTHORIZED_WIDGET_DELTAS: dict[str, dict[int, set[int]]] = {
+    "workflows/LoRA Generation/Qwen3-TTS_0.6B-Voice-LoRA-Training.json": {
+        1: {0},  # document the supported <audio-stem>_Text.txt transcript alias
+        2: {9},  # serialize numeric-looking COMBO choices as strings for ComfyUI validation
+    },
     "workflows/Music Generation/YuE_7B-FP16_R9700-Reference-Voice-ICL-Music-Generation.json": {
         2: {1, 4},  # restore the 20-section/600-second-safe lyrics capacity
     },
@@ -29,6 +34,17 @@ AUTHORIZED_WIDGET_DELTAS: dict[str, dict[int, set[int]]] = {
         10: {0},  # keep the generated parameter note synchronized with that value
     },
 }
+AUTHORIZED_WIDGET_VALUE_HASHES: dict[str, dict[int, dict[int, str]]] = {
+    "workflows/LoRA Generation/Qwen3-TTS_0.6B-Voice-LoRA-Training.json": {
+        1: {0: "2709348679a192c731239fc1f71f73a1d1deb3369d821717d6279b5d9d1ba08f"},
+        2: {9: "17eed2c0e7c9788d0b46fafdf328b3e955aa0a22132c16cde72aa4f32dcd5282"},
+    },
+}
+
+
+def _widget_value_hash(value: Any) -> str:
+    payload = json.dumps(value, ensure_ascii=False, separators=(",", ":"), sort_keys=True).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
 
 
 def load(path: Path) -> dict[str, Any]:
@@ -405,6 +421,7 @@ def compare_head(path: Path, current: dict[str, Any], errors: list[str]) -> tupl
             normalized = copy.deepcopy(current)
             normalized_nodes = {node.get("id"): node for node in normalized.get("nodes", [])}
             head_nodes = {node.get("id"): node for node in head.get("nodes", [])}
+            expected_hashes = AUTHORIZED_WIDGET_VALUE_HASHES.get(key, {})
             for node_id, widget_indices in allowed.items():
                 current_node = normalized_nodes.get(node_id)
                 head_node = head_nodes.get(node_id)
@@ -417,6 +434,9 @@ def compare_head(path: Path, current: dict[str, Any], errors: list[str]) -> tupl
                     if index >= len(current_values) or index >= len(head_values):
                         errors.append(f"{path}: authorized widget index {node_id}:{index} missing")
                         continue
+                    expected_hash = expected_hashes.get(node_id, {}).get(index)
+                    if expected_hash is not None and _widget_value_hash(current_values[index]) != expected_hash:
+                        errors.append(f"{path}: authorized widget value {node_id}:{index} is not the expected delta")
                     current_values[index] = copy.deepcopy(head_values[index])
             if normalized != head:
                 errors.append(f"{path}: graph differs from HEAD beyond authorized widget changes")

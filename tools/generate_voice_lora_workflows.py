@@ -182,8 +182,8 @@ def workflow(workflow_id: str, nodes: list[dict[str, Any]], links: list[list[Any
 def training_workflow(object_info: dict[str, Any]) -> dict[str, Any]:
     html = """<h1>Qwen3-TTS · echtes Voice-LoRA-Training · Windows AMD RDNA4</h1>
 <p>Dieser Workflow trainiert einen <b>echten PEFT-LoRA-Adapter</b> plus die zugehörige Sprecher-Einbettung. ACE-Step-Voice-LoRAs sind für Gesang/Musik gedacht und nicht für Live-Avatar-TTS.</p>
-<h2>Datensatz</h2><div>ComfyUI/input/qwen3tts_lora/my_voice/</div><pre>001.wav + 001.txt\n002.wav + 002.txt</pre>
-<p>Jede TXT-Datei muss das exakte Transkript der gleichnamigen Aufnahme enthalten. Verwende nur Stimmen, die dir gehören oder für die du eine ausdrückliche Einwilligung hast. Saubere Einzelsprecher-Aufnahmen ohne Musik verwenden.</p>
+<h2>Datensatz</h2><div>ComfyUI/input/qwen3tts_lora/my_voice/</div><pre>001.wav + 001.txt\n002.wav + 002_Text.txt</pre>
+<p>Jede TXT-Datei muss das exakte Transkript der Aufnahme enthalten. Unterstützt werden <code>&lt;name&gt;.txt</code> und <code>&lt;name&gt;_Text.txt</code>. Verwende nur Stimmen, die dir gehören oder für die du eine ausdrückliche Einwilligung hast. Saubere Einzelsprecher-Aufnahmen ohne Musik verwenden.</p>
 <h2>AMD-Sicherstart</h2><ul><li><code>0.6B</code>, <code>sdpa</code>, BF16 intern</li><li>1 Epoche, Batch 1, Accumulation 4, Rank 16/Alpha 32</li><li>Lernrate <code>2e-6</code>; nicht auf 2e-5 erhöhen</li></ul>
 <p>Nach einem erfolgreichen Smoke-Test Epochen schrittweise erhöhen und Hörproben vergleichen; etwa ab 10 Epochen steigt Überanpassungsgefahr. Audio wird automatisch auf 24 kHz Mono vorbereitet.</p>
 <h2>Ausgabe und Nutzung</h2><div>ComfyUI/models/qwen-tts/loras/my_voice/checkpoint-epoch-N/</div>
@@ -208,7 +208,7 @@ def training_workflow(object_info: dict[str, Any]) -> dict[str, Any]:
                 1,
                 1,
                 4,
-                16,
+                "16",
                 32,
                 0.05,
                 "sdpa",

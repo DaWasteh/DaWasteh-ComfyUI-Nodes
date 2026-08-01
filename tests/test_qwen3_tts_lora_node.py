@@ -41,6 +41,30 @@ class Qwen3TTSLoRAUtilityTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             UTILS.accumulation_group_size(0, 0, 4)
 
+    def test_lora_rank_normalizes_string_combo_values(self):
+        self.assertEqual(UTILS.normalize_lora_rank("16"), 16)
+        self.assertEqual(UTILS.normalize_lora_rank(32), 32)
+        with self.assertRaisesRegex(ValueError, "Unsupported LoRA rank"):
+            UTILS.normalize_lora_rank("12")
+
+    def test_audio_transcripts_accept_exact_and_text_suffix_names(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            exact_audio = root / "001.wav"
+            exact_audio.touch()
+            (root / "001.txt").write_text("Exact transcript", encoding="utf-8")
+            suffix_audio = root / "TaylorSwift_Ref_Audio.mp3"
+            suffix_audio.touch()
+            suffix_text = root / "TaylorSwift_Ref_Audio_Text.txt"
+            suffix_text.write_text("Suffixed transcript", encoding="utf-8")
+            (root / "unmatched.wav").touch()
+
+            pairs = UTILS.find_audio_transcript_pairs(root, {".wav", ".mp3"})
+            self.assertEqual(pairs, [
+                (exact_audio, root / "001.txt"),
+                (suffix_audio, suffix_text),
+            ])
+
     def test_checkpoint_publish_replaces_complete_directory_and_rolls_back(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
@@ -78,8 +102,10 @@ class Qwen3TTSLoRAUtilityTests(unittest.TestCase):
             ROOT / "workflows" / "Voice Design" / "Qwen3-TTS_LoRA-Low-Latency-Live-Voice.json",
             ROOT / "workflows" / "Live Avatar" / "LiveAvatar-04-LivePortrait-Webcam-Spout-OBS+Qwen3TTS-Voice-LoRA.json",
         ]
+        before = [path.read_bytes() for path in paths]
         subprocess.run([sys.executable, str(generator)], cwd=ROOT, check=True)
         first = [path.read_bytes() for path in paths]
+        self.assertEqual(before, first)
         subprocess.run([sys.executable, str(generator)], cwd=ROOT, check=True)
         self.assertEqual(first, [path.read_bytes() for path in paths])
         for path in paths:
@@ -130,6 +156,9 @@ class Qwen3TTSLoRAUtilityTests(unittest.TestCase):
         self.assertIn("cache_key = (str(base_path), str(adapter), signature", nodes)
         self.assertIn("_MODEL_CACHE.clear()\n        model_management.unload_all_models()", nodes)
         self.assertIn("accumulation_group_size(step, len(dataloader)", nodes)
+        self.assertIn('"lora_rank": (["8", "16", "32", "64"]', nodes)
+        self.assertIn("rank = normalize_lora_rank(lora_rank)", nodes)
+        self.assertIn("find_audio_transcript_pairs(audio_folder", nodes)
         self.assertIn("publish_directory(staging_path, final_path)", nodes)
 
 

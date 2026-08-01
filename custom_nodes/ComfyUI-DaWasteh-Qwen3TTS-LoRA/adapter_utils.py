@@ -13,6 +13,38 @@ ADAPTER_FILES = (
     "speaker_embedding.safetensors",
     "qwen3_tts_speaker.json",
 )
+LORA_RANKS = (8, 16, 32, 64)
+
+
+def normalize_lora_rank(value: int | str) -> int:
+    """Convert ComfyUI combo values to a supported integer LoRA rank."""
+    try:
+        rank = int(value)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"Invalid LoRA rank: {value!r}.") from exc
+    if rank not in LORA_RANKS:
+        raise ValueError(f"Unsupported LoRA rank {rank}; choose one of {LORA_RANKS}.")
+    return rank
+
+
+def find_audio_transcript_pairs(
+    audio_folder: Path,
+    audio_extensions: set[str] | frozenset[str],
+) -> list[tuple[Path, Path]]:
+    """Find exact or conventional ``<audio-stem>_Text.txt`` transcript pairs."""
+    files = [path for path in audio_folder.iterdir() if path.is_file()]
+    transcripts = {path.name.casefold(): path for path in files if path.suffix.lower() == ".txt"}
+    pairs: list[tuple[Path, Path]] = []
+    for audio_path in sorted(
+        (path for path in files if path.suffix.lower() in audio_extensions),
+        key=lambda path: path.name.casefold(),
+    ):
+        transcript = transcripts.get(f"{audio_path.stem}.txt".casefold())
+        if transcript is None:
+            transcript = transcripts.get(f"{audio_path.stem}_Text.txt".casefold())
+        if transcript is not None:
+            pairs.append((audio_path, transcript))
+    return pairs
 
 
 def adapter_signature(adapter: Path) -> tuple[tuple[str, int, int], ...]:

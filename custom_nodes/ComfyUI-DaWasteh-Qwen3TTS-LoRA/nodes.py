@@ -30,7 +30,13 @@ from torch.optim import AdamW
 from torch.utils.data import DataLoader
 from transformers import AutoConfig
 
-from .adapter_utils import accumulation_group_size, adapter_signature, publish_directory
+from .adapter_utils import (
+    accumulation_group_size,
+    adapter_signature,
+    find_audio_transcript_pairs,
+    normalize_lora_rank,
+    publish_directory,
+)
 
 import folder_paths
 from comfy import model_management
@@ -162,20 +168,18 @@ def _disable_incompatible_torchao_dispatcher() -> None:
 
 
 def _prepare_entries(audio_folder: Path, prepared_dir: Path, language: str, tokenizer: Any) -> list[dict[str, Any]]:
-    files = sorted(
-        path for path in audio_folder.iterdir()
-        if path.is_file() and path.suffix.lower() in _AUDIO_EXTENSIONS and path.with_suffix(".txt").is_file()
-    )
-    if not files:
+    pairs = find_audio_transcript_pairs(audio_folder, _AUDIO_EXTENSIONS)
+    if not pairs:
         raise ValueError(
             f"No audio/transcript pairs found in {audio_folder}. "
-            "Every audio file needs a same-name UTF-8 .txt transcript."
+            "Use <name>.wav + <name>.txt or <name>.wav + <name>_Text.txt "
+            "with a UTF-8 transcript."
         )
 
     prepared_dir.mkdir(parents=True, exist_ok=True)
     prepared: list[tuple[Path, str]] = []
-    for source in files:
-        text = source.with_suffix(".txt").read_text(encoding="utf-8").strip()
+    for source, transcript in pairs:
+        text = transcript.read_text(encoding="utf-8-sig").strip()
         if not text:
             continue
         digest = hashlib.sha256(f"{source.resolve()}:{source.stat().st_mtime_ns}:{source.stat().st_size}".encode()).hexdigest()[:12]
@@ -298,7 +302,7 @@ class Qwen3TTSLoRATrain:
                 "num_epochs": ("INT", {"default": 1, "min": 1, "max": 100}),
                 "batch_size": ("INT", {"default": 1, "min": 1, "max": 8}),
                 "gradient_accumulation_steps": ("INT", {"default": 4, "min": 1, "max": 64}),
-                "lora_rank": ([8, 16, 32, 64], {"default": 16}),
+                "lora_rank": (["8", "16", "32", "64"], {"default": "16"}),
                 "lora_alpha": ("INT", {"default": 32, "min": 1, "max": 256}),
                 "lora_dropout": ("FLOAT", {"default": 0.05, "min": 0.0, "max": 0.5, "step": 0.01}),
                 "attention": (["sdpa", "eager"], {"default": "sdpa"}),
@@ -324,12 +328,13 @@ class Qwen3TTSLoRATrain:
         num_epochs: int,
         batch_size: int,
         gradient_accumulation_steps: int,
-        lora_rank: int,
+        lora_rank: str,
         lora_alpha: int,
         lora_dropout: float,
         attention: str,
     ):
         speaker = _speaker_name(speaker_name)
+        rank = normalize_lora_rank(lora_rank)
         dataset_dir = Path(audio_folder).expanduser().resolve()
         if not dataset_dir.is_dir():
             raise FileNotFoundError(f"Training folder not found: {dataset_dir}")
@@ -372,7 +377,7 @@ class Qwen3TTSLoRATrain:
             peft_model = get_peft_model(
                 tts.model,
                 LoraConfig(
-                    r=lora_rank,
+                    r=rank,
                     lora_alpha=lora_alpha,
                     lora_dropout=lora_dropout,
                     bias="none",
@@ -415,7 +420,7 @@ class Qwen3TTSLoRATrain:
                     "sample_rate": 24000,
                     "recommended_lora_scale": 0.3,
                     "language": language,
-                    "lora_rank": lora_rank,
+                    "lora_rank": rank,
                     "lora_alpha": lora_alpha,
                     "lora_dropout": lora_dropout,
                     "learning_rate": learning_rate,

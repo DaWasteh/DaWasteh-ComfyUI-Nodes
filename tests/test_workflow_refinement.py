@@ -1,3 +1,4 @@
+import copy
 import json
 import re
 import sys
@@ -5,8 +6,11 @@ import unittest
 import urllib.request
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "tools"))
 from tools.refine_workflows import _effect, _fallback_purpose, build_note_text, map_widget_values
+from tools.validate_workflows import compare_head
 
 OBJECT_INFO_URL = "http://127.0.0.1:8188/object_info"
 
@@ -316,7 +320,7 @@ class WidgetMappingTests(unittest.TestCase):
         train = next(node for node in training["nodes"] if node["type"] == "DaWastehQwen3TTSLoRATrain")
         self.assertEqual(train["widgets_values"][0], "0.6B")
         self.assertEqual(train["widgets_values"][5], 0.000002)
-        self.assertEqual(train["widgets_values"][9:13], [16, 32, 0.05, "sdpa"])
+        self.assertEqual(train["widgets_values"][9:13], ["16", 32, 0.05, "sdpa"])
         self.assertIn("qwen3tts_lora", train["widgets_values"][1])
         self.assertIn("qwen-tts\\loras", train["widgets_values"][2])
 
@@ -329,6 +333,19 @@ class WidgetMappingTests(unittest.TestCase):
         ])
         self.assertEqual(nodes["PlaySoundKJ"]["widgets_values"][1], "on_change")
         self.assertEqual(nodes["SaveAudio"]["widgets_values"], ["audio/avatar-voice/qwen3tts-lora"])
+
+    def test_qwen3_tts_authorized_delta_rejects_unexpected_rank(self):
+        path = Path("workflows/LoRA Generation/Qwen3-TTS_0.6B-Voice-LoRA-Training.json")
+        workflow = json.loads(path.read_text(encoding="utf-8"))
+        corrupted = copy.deepcopy(workflow)
+        train = next(node for node in corrupted["nodes"] if node["type"] == "DaWastehQwen3TTSLoRATrain")
+        note = next(node for node in corrupted["nodes"] if node["id"] == 1)
+        train["widgets_values"][9] = "not-a-rank"
+        note["widgets_values"][0] = "unexpected note"
+        errors: list[str] = []
+        compare_head(path, corrupted, errors)
+        self.assertTrue(any("authorized widget value 2:9" in error for error in errors), errors)
+        self.assertTrue(any("authorized widget value 1:0" in error for error in errors), errors)
 
     def test_qwen3_tts_lora_node_uses_safe_adapter_files(self):
         source = Path("custom_nodes/ComfyUI-DaWasteh-Qwen3TTS-LoRA/nodes.py").read_text(encoding="utf-8")

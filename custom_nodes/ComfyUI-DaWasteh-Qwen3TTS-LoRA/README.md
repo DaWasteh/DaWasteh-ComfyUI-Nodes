@@ -21,14 +21,14 @@ The installer refuses to write while the live queue is busy, verifies the Qwen r
 
 ## Dataset
 
-Place audio/transcript pairs in one folder. Every audio file needs a same-name UTF-8 text file:
+Place audio/transcript pairs in one folder. Every audio file needs a UTF-8 text file named either `<audio-stem>.txt` or `<audio-stem>_Text.txt`:
 
 ```text
 ComfyUI/input/qwen3tts_lora/my_voice/
 ├── 001.wav
 ├── 001.txt
 ├── 002.wav
-└── 002.txt
+└── 002_Text.txt
 ```
 
 Use only speech you own or have explicit permission to clone. Clean, single-speaker recordings and exact transcripts give the best result. The trainer creates cached 24 kHz mono WAVs before tokenization.

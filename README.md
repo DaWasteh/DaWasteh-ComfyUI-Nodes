@@ -1,4 +1,4 @@
-# DaWasteh – konsolidierte ComfyUI-Workflows · v0.6.9
+# DaWasteh – konsolidierte ComfyUI-Workflows · v0.7.0
 
 Dieser Ordner ist jetzt der **kuratierte Hauptordner** für die lokalen Workflows auf Windows 11 mit:
 
@@ -86,14 +86,16 @@ PyTorch 2.6+ lädt den von Kijai bereitgestellten `landmark_model.pth` standardm
 
 Die Upstream-`requirements.txt` von LivePortraitKJ und Jovi_Spout dürfen in dieser Python-3.13-/ROCm-Installation **nicht blind vollständig installiert** werden: sie würden NumPy auf `<2` absenken und LivePortrait zusätzlich einen nicht benötigten GPU-ONNX-Pfad einziehen. Installiert wurden nur die tatsächlich benötigten, Python-3.13-kompatiblen Pakete; `cozy_comfyui` ist lokal auf Commit `6f37572d41a4124f406c1d1f33b61f0fd56b4d99` festgelegt. `pip check` bleibt wegen der bereits zuvor vorhandenen Protobuf-3.19.6-Konflikte anderer ComfyUI-Nodes nicht global sauber; die hier ausgelieferte TorchScript-/FaceAlignment-Pipeline verwendet diesen Konfliktpfad nicht.
 
-## Qwen3-TTS Voice-LoRA · v0.6.9
+## Qwen3-TTS Voice-LoRA · v0.7.0
 
-ACE-Step-Voice-LoRAs konditionieren eine **Gesangs-/Musikgenerierung** und sind deshalb nicht die richtige Technik für eine sprechende Live-Avatar-Stimme. v0.6.9 ergänzt stattdessen `custom_nodes/ComfyUI-DaWasteh-Qwen3TTS-LoRA/` mit zwei lokal installierten Nodes:
+v0.7.0 korrigiert die ComfyUI-Validierung des numerisch aussehenden `lora_rank`-Dropdowns: Rank 8/16/32/64 werden als stabile String-Auswahl gespeichert und vor PEFT kontrolliert in Integer umgewandelt. Zusätzlich erkennt der Trainer neben `<audio-stem>.txt` jetzt auch das verbreitete Schema `<audio-stem>_Text.txt` und liest UTF-8-Dateien BOM-tolerant.
+
+ACE-Step-Voice-LoRAs konditionieren eine **Gesangs-/Musikgenerierung** und sind deshalb nicht die richtige Technik für eine sprechende Live-Avatar-Stimme. v0.6.9 ergänzte stattdessen `custom_nodes/ComfyUI-DaWasteh-Qwen3TTS-LoRA/` mit zwei lokal installierten Nodes:
 
 - `DaWastehQwen3TTSLoRATrain` trainiert einen echten PEFT-LoRA-Adapter plus die benötigte Sprecher-Einbettung.
 - `DaWastehQwen3TTSLoRAInference` listet vollständige Adapter unter `models/qwen-tts/loras/` im Dropdown auf, lädt sie ausschließlich aus Safetensors/JSON und erlaubt einen skalierbaren Wechsel zwischen lokalen Stimmen.
 
-`Qwen3-TTS_0.6B-Voice-LoRA-Training.json` erwartet gleichnamige Audio-/UTF-8-Transkriptpaare unter `ComfyUI/input/qwen3tts_lora/my_voice/`. Der AMD-Sicherstart ist 0.6B, BF16, SDPA, Batch 1, Gradient Accumulation 4, Rank 16/Alpha 32, Lernrate `2e-6` und zunächst genau eine Epoche. Eingangsaudio wird vor dem Training auf 24 kHz Mono normalisiert. Checkpoints landen als `adapter_model.safetensors`, `adapter_config.json`, `speaker_embedding.safetensors` und Metadaten unter `ComfyUI/models/qwen-tts/loras/<stimme>/checkpoint-epoch-N/`. Der ebenfalls unterstützte 1.7B-Pfad ist qualitativ stärker, aber langsamer.
+`Qwen3-TTS_0.6B-Voice-LoRA-Training.json` erwartet Audio-/UTF-8-Transkriptpaare nach dem Schema `<name>.wav` + `<name>.txt` oder `<name>.wav` + `<name>_Text.txt` unter `ComfyUI/input/qwen3tts_lora/my_voice/`. Der AMD-Sicherstart ist 0.6B, BF16, SDPA, Batch 1, Gradient Accumulation 4, Rank 16/Alpha 32, Lernrate `2e-6` und zunächst genau eine Epoche. Eingangsaudio wird vor dem Training auf 24 kHz Mono normalisiert. Checkpoints landen als `adapter_model.safetensors`, `adapter_config.json`, `speaker_embedding.safetensors` und Metadaten unter `ComfyUI/models/qwen-tts/loras/<stimme>/checkpoint-epoch-N/`. Der ebenfalls unterstützte 1.7B-Pfad ist qualitativ stärker, aber langsamer.
 
 `Qwen3-TTS_LoRA-Low-Latency-Live-Voice.json` erzeugt aus Text eine vollständige 24-kHz-Sprachdatei, spielt geänderte Ausgaben mit `PlaySoundKJ` einmal im Browser und speichert zusätzlich FLAC. `LiveAvatar-04-LivePortrait-Webcam-Spout-OBS+Qwen3TTS-Voice-LoRA.json` fügt denselben Voice-Zweig zur bewährten FaceAlignment→LivePortrait→RGBA-Spout-Pipeline hinzu. Für OBS wird das ComfyUI-Browser-/Anwendungsaudio aufgenommen oder über ein bereits vorhandenes virtuelles Audiokabel geroutet; Spout selbst transportiert nur Video. Unveränderte TTS-Eingaben bleiben im Auto-Queue-Betrieb gecacht und `on_change` verhindert eine Wiederholung pro Webcam-Frame.
 
@@ -229,14 +231,14 @@ Automatisch geprüft wurden alle 199 Workflows. Der `--against-head`-Modus prüf
 - 236 Haupt- und Untergraphen rekursiv geprüft
 - 6.637 Nodes, davon 2.837 eindeutig zugeordnete Parameter-Notes, 122 `PixaromaPrompt`- und 9 `PixaromaPauseText`-Nodes
 - 4.362 Graph-Links erfasst; die Live-Avatar-Links verbinden Quellbild, Alpha, Webcam, LivePortrait-Composite und Spout vollständig, die neuen Audio-Links verbinden Voice-LoRA, Browser-Wiedergabe und FLAC-Speicherung in beiden Richtungen
-- keine neuen doppelten IDs, fehlenden oder einseitigen Endpunkte, Note-Zuordnungs- oder Layoutfehler in den v0.6.9-Dateien
-- vorhandene `PixaromaNote`-Dictionaries einschließlich Position, Größe und Inhalt unverändert
-- 37 Unit-Tests prüfen insgesamt die Workflow-Werkzeuge und den Voice-LoRA-Adapterlebenszyklus; davon sichern die Integrationstests Manifest-Hashes gegen HEAD, exakte Prompttext-Migration, Formula+Idea-Trennung, Pause-Ancestry, wechselseitige Links, Kollisionsfreiheit, Korruptionserkennung, die drei INT8-Modellpfade, den AMD-sicheren Live-Avatar-Stack, echte PEFT-/Safetensors-Voice-LoRAs und wiederholte byteidentische Anwendung ab
+- keine neuen doppelten IDs, fehlenden oder einseitigen Endpunkte, Note-Zuordnungs- oder Layoutfehler in den v0.7.0-Dateien
+- vorhandene `PixaromaNote`-Dictionaries einschließlich Position und Größe unverändert; ausschließlich die Qwen3-TTS-Trainingsnote dokumentiert zusätzlich das neue `_Text.txt`-Transkriptschema
+- 40 Unit-Tests prüfen insgesamt die Workflow-Werkzeuge und den Voice-LoRA-Adapterlebenszyklus; davon sichern die Integrationstests Manifest-Hashes gegen HEAD, exakte Prompttext-Migration, Formula+Idea-Trennung, Pause-Ancestry, wechselseitige Links, Kollisionsfreiheit, Korruptionserkennung, die drei INT8-Modellpfade, den AMD-sicheren Live-Avatar-Stack, echte PEFT-/Safetensors-Voice-LoRAs und wiederholte byteidentische Anwendung ab
 - alle fünf neuen Trainer verwenden installierte Core-Nodes und vorhandene lokale Modelle
 - alle fünf Trainer erfolgreich mit einem vollständigen einmaligen 1-Step-Train-und-Save-Smoke-Test auf der Radeon AI Pro R9700 / ROCm 7.15 ausgeführt; die ausgelieferten Workflows starten bewusst mit 2 Schritten für den ersten eigenen Smoke-Test, und die erzeugten Test-Safetensors enthielten nichtleere Adaptergewichte
 - Boogu erst nach aktiviertem `offloading=true` OOM-frei validiert; diese sichere Einstellung ist im Workflow fest voreingestellt
 - MOSS-TTS Local v1.5 verwendet `dtype=auto` und `attention=sdpa`; die Gewichte belegen zusammen rund 17,6 GB (9,1 GB Modell plus 8,5 GB Codec). Voice Clone und Continuation wurden auf der R9700 erfolgreich bis zu nichtleeren 48-kHz-Stereo-FLACs ausgeführt; für statisches ComfyUI-Offloading war ein lokaler Comfy-Cast-Fix für `MossQwen3RMSNorm` nötig
-- Qwen3-TTS 0.6B trainierte auf der R9700 mit den ausgelieferten Rank-16-/Alpha-32-/Accumulation-4-Startwerten in einem vollständigen 1-Sample-/1-Epoch-Smoke-Test 462 nichtleere LoRA-Tensoren (47,6 MB) plus Sprecher-Einbettung; der anschließende Adapter-Inference- und Cache-Invalidierungs-Test erzeugte zweimal 3,82 Sekunden identisches, endliches 24-kHz-Mono-FLAC mit Peak 0,0615 und RMS 0,00569, ohne den nach Timestamp-Wechsel veralteten Backend-Cache wiederzuverwenden. Der kombinierte LiveAvatar-04-Lauf lieferte gleichzeitig ein nichtleeres 1024×1024-RGBA-Frame mit Alpha `(0,255)` und 5,58 Sekunden endliches Voice-LoRA-Audio.
+- Qwen3-TTS 0.6B trainierte auf der R9700 mit den ausgelieferten Rank-16-/Alpha-32-/Accumulation-4-Startwerten in einem vollständigen 1-Sample-/1-Epoch-Smoke-Test 462 nichtleere LoRA-Tensoren (47,6 MB) plus Sprecher-Einbettung. Für v0.7.0 wurde dieser Lauf zusätzlich mit dem String-COMBO-Wert `"16"` und einem realen MP3-/`_Text.txt`-Paar erfolgreich wiederholt; die Metadaten enthielten weiterhin den Integer-Rank `16`. Der anschließende Adapter-Inference- und Cache-Invalidierungs-Test erzeugte zweimal 3,82 Sekunden identisches, endliches 24-kHz-Mono-FLAC mit Peak 0,0615 und RMS 0,00569, ohne den nach Timestamp-Wechsel veralteten Backend-Cache wiederzuverwenden. Der kombinierte LiveAvatar-04-Lauf lieferte gleichzeitig ein nichtleeres 1024×1024-RGBA-Frame mit Alpha `(0,255)` und 5,58 Sekunden endliches Voice-LoRA-Audio.
 - keine NVIDIA-/CUDA-only-Risiko-Widgets und keine eingebetteten `Rh-Comfy-Auth`-Tokens/JWTs
 - Generator, Refinement und Validator sind reproduzierbar und idempotent; die fokussierte Unit-Test-Suite prüft dynamische Widgets, Seed-Kontrollen, VHS-Dictionary-Werte, Subgraphs und TrainLora-Widgetreihenfolge
 

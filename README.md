@@ -1,4 +1,4 @@
-# DaWasteh – konsolidierte ComfyUI-Workflows · v0.7.0
+# DaWasteh – konsolidierte ComfyUI-Workflows · v0.7.1
 
 Dieser Ordner ist jetzt der **kuratierte Hauptordner** für die lokalen Workflows auf Windows 11 mit:
 
@@ -17,11 +17,11 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 
 ## Ergebnis
 
-- **199 kuratierte Workflow-Dateien** in 29 Kategorien
+- **200 kuratierte Workflow-Dateien** in 29 Kategorien
 - **122 Pixaroma Prompt**-Eingaben in 105 gezielt ausgewählten Workflows sowie **9 Pause Text**-Freigaben; insgesamt wurden 108 Workflows sinnvoll erweitert
-- alle 199 Workflows enthalten exakt einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
+- alle 200 Workflows enthalten exakt einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
 - alle vorhandenen Workflows wurden mit deutlich größeren, nachvollziehbaren Abständen angeordnet
-- **2.837 automatisch zugeordnete Parameter-Notes** erklären jeden Nicht-Pixaroma-/Nicht-Dokumentations-Node einschließlich aktueller Werte, Schalterwirkung, Ein-/Ausgänge und höher-/niedriger-Auswirkung
+- **2.842 automatisch zugeordnete Parameter-Notes** erklären jeden Nicht-Pixaroma-/Nicht-Dokumentations-Node einschließlich aktueller Werte, Schalterwirkung, Ein-/Ausgänge und höher-/niedriger-Auswirkung
 - 59 vorhandene Workflows beibehalten
 - 114 funktional ergänzende Workflows übernommen:
   - 33 aus `DaWasteh`
@@ -29,8 +29,9 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
   - 3 aus `WhatDreamsCost`
 - 2 neue Audio-zu-Video-Workflows aufgebaut: ein klar als AudioReact gekennzeichneter Gemma-/FLUX2-/Pixaroma-Workflow und ein echtes generatives LTX-2.3-Video mit Custom Audio
 - 1 neuer Audio-zu-Bild-Workflow: Gemma 4 analysiert das Audio, FLUX.2 Klein 4B erzeugt das Kontextbild, `PixaromaResolution` bietet frei wählbare Formate und `PixaromaNote` dokumentiert Bedienung und Downloads
-- 3 neue Live-Avatar-Workflows: SDXL-Quellbild, RMBG-2.0-Freistellung und eine AMD-RDNA4-optimierte Webcam→LivePortrait→RGBA-Spout-Pipeline für OBS
+- 3 grundlegende Live-Avatar-Workflows: SDXL-Quellbild, RMBG-2.0-Freistellung und eine AMD-RDNA4-optimierte Webcam→LivePortrait→RGBA-Spout-Pipeline für OBS
 - 1 erweiterter LivePortrait-Webcam→Spout→OBS-Workflow mit gecachter, adapterwechselbarer Qwen3-TTS-Voice-LoRA und Browser-Audio für OBS
+- 1 experimenteller Continuous-LivePortrait-Workflow mit Latest-Frame-Capture, persistentem GPU-Composite und kontrolliertem Spout-Dauerbetrieb
 - 1 echtes Qwen3-TTS-PEFT-LoRA-Training sowie 1 eigenständiger Low-Latency-Voice-Workflow; ACE-Step bleibt korrekt auf Gesang/Musik beschränkt
 - die ausgelieferten YuE-/HeartMuLa-Startwerte wieder mit ihren bestehenden Tests und Bedienhinweisen synchronisiert: YuE CoT nutzt 20 Sektionen für 540 Sekunden, HeartMuLa startet wieder mit 300 Sekunden Obergrenze
 - der manifestgesteuerte Pixaroma-Integrator akzeptiert nach der Refinement-Pipeline ausschließlich zusätzliche lokalisierte UI-Labels, Topologie-Reihenfolge und vorhandene Darstellungsfarben, prüft semantische Node-/Link-Zustände aber weiterhin strikt
@@ -64,25 +65,29 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 | `NSFW` | 4 | getrennte SDXL-NSFW-/AniToReal-Workflows |
 | `Character & Consistency` | 3 | FLUX Kontext und SDXL/IPAdapter Character Keep |
 | `Character Animation` | 3 | SCAIL-2 Animation und Character Replacement |
-| `Live Avatar` | 4 | Avatar-Quellbild, transparente Freistellung, LivePortrait-Spout und die kombinierte OBS+Voice-LoRA-Variante |
+| `Live Avatar` | 5 | Avatar-Quellbild, transparente Freistellung, LivePortrait-Spout, Continuous-Spout-Experiment und die kombinierte OBS+Voice-LoRA-Variante |
 | `Image Inpainting` | 3 | FLUX2 Klein 4B/9B Inpainting |
 | `Image Upscaling` | 3 | einfache, Modell- und Z-Image-Upscaler |
 | `Batch Processing` | 2 | Ordner-Batches und Batch-Image-Edit |
 | weitere Einzelordner | je 1 | Controlled Video, Image Fusion, 3D, Outpainting, Talking Video, Tests, Video Editing, Video-to-Audio, Vocal Separation |
 
-## Live Avatar · v0.6.8
+## Live Avatar · v0.7.1
 
-Drei aufeinander aufbauende Workflows unter `workflows/Live Avatar/` bilden die lokale Teststrecke:
+Fünf aufeinander aufbauende Workflows unter `workflows/Live Avatar/` bilden die lokale Teststrecke:
 
 1. `LiveAvatar-01-SDXL-Avatar-Generation.json` erzeugt mit dem bereits vorhandenen RealVisXL V4 ein frontales 1024×1024-Quellbild.
 2. `LiveAvatar-02-RMBG-Transparency.json` entfernt mit RMBG-2.0 den Hintergrund und speichert ein PNG mit Alphakanal.
-3. `LiveAvatar-03-LivePortrait-Webcam-Spout-OBS.json` übernimmt Mimik und Kopfbewegung aus `WebcamCaptureCV2`, setzt nur den animierten Gesichtsbereich in das statische Quellbild ein, stellt dessen ursprünglichen Alphakanal wieder her und sendet RGBA als `ComfyLiveAvatar` über Spout.
+3. `LiveAvatar-03-LivePortrait-Webcam-Spout-OBS.json` übernimmt Mimik und Kopfbewegung aus `WebcamCaptureCV2`, setzt nur den animierten Gesichtsbereich in das statische Quellbild ein, stellt dessen ursprünglichen Alphakanal wieder her und sendet RGBA als `ComfyLiveAvatar` über Spout. Es bleibt der stabile Queue-basierte Fallback.
+4. `LiveAvatar-04-LivePortrait-Webcam-Spout-OBS+Qwen3TTS-Voice-LoRA.json` ergänzt den stabilen Queue-Pfad um die lokale Qwen3-TTS-Voice-LoRA-Ausgabe.
+5. `LiveAvatar-05-LivePortrait-Continuous-Spout-OBS.json` ist ein separates Experiment mit `ComfyUI-DaWasteh-LiveAvatar`: Capture und Spout laufen als Latest-Frame-Worker, während alle Torch-/ROCm-Schritte im Comfy-Ausführungsthread bleiben. Einmal normal **Run** starten, mit **Interrupt** stoppen und ausdrücklich nie **Run (Instant)** verwenden. Der Sender heißt `ComfyLiveAvatarFast`; OBS verwendet Composite Mode `Default`. Der Node animiert ausschließlich das Gesicht und blockiert während seiner Laufzeit andere ComfyUI-Jobs. Auf der R9700 stieg der warme Durchsatz gegenüber dem Queue-Fallback von rund 1,29 auf 7,3–7,9 neue Frames/s; ein separater SpoutGL-Empfänger erhielt 1024×1024-RGBA mit Alphaextrema `(0,255)` und wechselnden nichtleeren Frames.
 
-Für die Radeon AI Pro R9700 sind LivePortrait `fp16` und FaceAlignment mit `landmarkrunner_device = torch_gpu` voreingestellt. BlazeFace erkennt das Gesicht kompatibel auf der CPU; das Landmark-TorchScript und LivePortrait selbst laufen auf der R9700. Der MediaPipe-Pfad bleibt bewusst ungenutzt, weil die installierte Python-3.13-Ausgabe nicht mehr das von diesem älteren Node erwartete `mediapipe.framework` bereitstellt. Der aktuelle LivePortraitKJ-Node nennt den früher oft als `crop_factor` beschriebenen Regler `scale`; `2.30` fokussiert den Kopf, während `LivePortraitComposite` Kleidung und Hände stabil aus dem Quellbild übernimmt. Ein normaler ComfyUI-Graph verarbeitet nur ein Webcam-Frame pro Queue-Ausführung: Für fortlaufende Bewegung muss nach einem erfolgreichen Einzellauf Auto Queue aktiviert werden; der Spout-Writer sendet das jeweils letzte fertige RGBA-Frame mit 30 FPS weiter.
+Für die Radeon AI Pro R9700 sind LivePortrait `fp16` und FaceAlignment mit `landmarkrunner_device = torch_gpu` voreingestellt. BlazeFace erkennt das Gesicht kompatibel auf der CPU; das Landmark-TorchScript und LivePortrait selbst laufen auf der R9700. Der MediaPipe-Pfad bleibt bewusst ungenutzt, weil die installierte Python-3.13-Ausgabe nicht mehr das von diesem älteren Node erwartete `mediapipe.framework` bereitstellt. Der aktuelle LivePortraitKJ-Node nennt den früher oft als `crop_factor` beschriebenen Regler `scale`; `2.30` fokussiert den Kopf, während `LivePortraitComposite` Kleidung und Hände stabil aus dem Quellbild übernimmt. Ein normaler ComfyUI-Graph verarbeitet nur ein Webcam-Frame pro Queue-Ausführung: Für fortlaufende Bewegung muss beim Fallback-Workflow 03 **Run (Instant)** verwendet werden – das ist der aktuelle Name der in den älteren Workflow-Notizen als „Auto Queue“ bezeichneten Funktion; der Spout-Writer sendet das jeweils letzte fertige RGBA-Frame mit 30 FPS weiter. Workflow 05 benötigt dagegen genau einen normalen Run und läuft bis zum Interrupt.
 
-Installiert wurden `ComfyUI-LivePortraitKJ` und `Jovi_Spout`. Die sechs Human-LivePortrait-Dateien liegen unter `L:/ComfyUI/ComfyUI/models/liveportrait/`, RMBG-2.0 unter `models/RMBG/RMBG-2.0/`. Der Webcam-Node war bereits in ComfyUI-KJNodes vorhanden. Auf diesem Rechner ist die bevorzugte Elgato Facecam Pro als `cam_index = 1` voreingestellt; die Logitech BRIO ist aktuell Index 2, und der Wert bleibt direkt im Node umstellbar. Das Windows-[Spout2-Plugin 1.12.0](https://github.com/Off-World-Live/obs-spout2-plugin/releases/tag/1.12.0) wurde benutzerspezifisch unter `%APPDATA%/obs-studio/plugins/win-spout/` installiert. Ein separater SpoutGL-Empfänger hat nach dem vollständigen LivePortrait-Lauf das nichtleere 1024×1024-RGBA-Frame des Senders `ComfyLiveAvatar` empfangen; in OBS muss nach einem Neustart nur noch die Spout2-Quelle mit diesem Namen gewählt und Alpha aktiviert werden.
+Installiert wurden `ComfyUI-LivePortraitKJ` und `Jovi_Spout`. Die sechs Human-LivePortrait-Dateien liegen unter `L:/ComfyUI/ComfyUI/models/liveportrait/`, RMBG-2.0 unter `models/RMBG/RMBG-2.0/`. Der Webcam-Node war bereits in ComfyUI-KJNodes vorhanden. Auf diesem Rechner ist die bevorzugte Elgato Facecam Pro als `cam_index = 1` voreingestellt; die Logitech BRIO ist aktuell Index 2, und der Wert bleibt direkt im Node umstellbar. Das Windows-[Spout2-Plugin 1.12.0](https://github.com/Off-World-Live/obs-spout2-plugin/releases/tag/1.12.0) liegt auf dieser OBS-Installation unter `C:/ProgramData/obs-studio/plugins/win-spout/`. Ein separater SpoutGL-Empfänger hat nach dem vollständigen LivePortrait-Lauf das nichtleere 1024×1024-RGBA-Frame des Senders `ComfyLiveAvatar` empfangen; in OBS muss nach einem Neustart nur noch die Spout2-Quelle mit diesem Namen gewählt und Alpha aktiviert werden.
 
 PyTorch 2.6+ lädt den von Kijai bereitgestellten `landmark_model.pth` standardmäßig nicht mehr als serialisiertes `torch.fx`-Modul. `tools/convert_liveportrait_landmark.py` prüft deshalb vor dem einmaligen vollständigen Laden zuerst die bekannte Upstream-SHA-256-Prüfsumme `48ba55140fda4c292d3faf3e3ed9106784c7c32aebf170d4983fb67cd0a3c9c8` und erzeugt daraus das eigenständige `landmark_model_torchscript.pt`. Die Konvertierung ist bytegenau auf Torch `2.12.0+rocm7.15.0a20260727`, onnx2torch `1.5.15`, ONNX `1.22.0` und Protobuf `5.29.6` festgelegt und vergleicht zwei deterministische Testeingaben numerisch mit dem Quellmodell. Diese einmaligen Konvertierungsabhängigkeiten gehören in eine Wegwerf-Umgebung, nicht in das produktive ComfyUI. Der Runtime-Patch lädt nur das fertige TorchScript nach Prüfung seiner SHA-256-Prüfsumme `9064565b92b3595786096b36acd24709c7bd290631510517bd3a9d5ca8f28a43`; dadurch werden weder `onnx2torch` noch eine Änderung der vorhandenen Protobuf-Version im laufenden ComfyUI benötigt. Der reproduzierbare Diff liegt unter `tools/patches/ComfyUI-LivePortraitKJ-PyTorch-2.6-verified-landmark-load.patch`; ein Update des Custom Nodes kann den lokalen Fix überschreiben. Der erfolgreiche FaceAlignment-Erstlauf legte zusätzlich `2DFAN4-cd938726ad.zip` (`cd938726…`), `blazefaceback.pth` (`e2c03bb3…`) und `anchorsback.npy` (`a10bb2fb…`) im Torch-Checkpoint-Cache ab.
+
+Der reproduzierbare KJNodes-Kompatibilitätspatch `tools/patches/ComfyUI-KJNodes-WebcamCaptureCV2-ComfyUI-IS_CHANGED.patch` korrigiert den alten `WebcamCaptureCV2.IS_CHANGED`-Hook für aktuelle ComfyUI-Eingaben und erzwingt im Queue-Fallback weiterhin ein frisches Kamerabild. Ein Custom-Node-Update kann diesen lokalen Patch überschreiben.
 
 Die Upstream-`requirements.txt` von LivePortraitKJ und Jovi_Spout dürfen in dieser Python-3.13-/ROCm-Installation **nicht blind vollständig installiert** werden: sie würden NumPy auf `<2` absenken und LivePortrait zusätzlich einen nicht benötigten GPU-ONNX-Pfad einziehen. Installiert wurden nur die tatsächlich benötigten, Python-3.13-kompatiblen Pakete; `cozy_comfyui` ist lokal auf Commit `6f37572d41a4124f406c1d1f33b61f0fd56b4d99` festgelegt. `pip check` bleibt wegen der bereits zuvor vorhandenen Protobuf-3.19.6-Konflikte anderer ComfyUI-Nodes nicht global sauber; die hier ausgelieferte TorchScript-/FaceAlignment-Pipeline verwendet diesen Konfliktpfad nicht.
 
@@ -224,16 +229,16 @@ Diese Dateien bleiben in ihren Quellordnern als Referenz, gehören aber nicht in
 
 ## Validierung
 
-Automatisch geprüft wurden alle 199 Workflows. Der `--against-head`-Modus prüft neue und geänderte Dateien vollständig, behandelt bereits eingecheckte Integrationen als unveränderte Baseline, normalisiert bei älteren Deltas ausschließlich die im 186-Dateien-Manifest erlaubten Prompt-/Pause-Transformationen und verwirft jede andere Änderung an bestehenden Nodes oder Links:
+Automatisch geprüft wurden alle 200 Workflows. Der `--against-head`-Modus prüft neue und geänderte Dateien vollständig, behandelt bereits eingecheckte Integrationen als unveränderte Baseline, normalisiert bei älteren Deltas ausschließlich die im 186-Dateien-Manifest erlaubten Prompt-/Pause-Transformationen und verwirft jede andere Änderung an bestehenden Nodes oder Links:
 
-- 199/199 gültige JSON-Dateien
-- 199/199 Workflows mit genau einem `PixaromaRunTimer`
-- 236 Haupt- und Untergraphen rekursiv geprüft
-- 6.637 Nodes, davon 2.837 eindeutig zugeordnete Parameter-Notes, 122 `PixaromaPrompt`- und 9 `PixaromaPauseText`-Nodes
-- 4.362 Graph-Links erfasst; die Live-Avatar-Links verbinden Quellbild, Alpha, Webcam, LivePortrait-Composite und Spout vollständig, die neuen Audio-Links verbinden Voice-LoRA, Browser-Wiedergabe und FLAC-Speicherung in beiden Richtungen
-- keine neuen doppelten IDs, fehlenden oder einseitigen Endpunkte, Note-Zuordnungs- oder Layoutfehler in den v0.7.0-Dateien
+- 200/200 gültige JSON-Dateien
+- 200/200 Workflows mit genau einem `PixaromaRunTimer`
+- 237 Haupt- und Untergraphen rekursiv geprüft
+- 6.649 Nodes, davon 2.842 eindeutig zugeordnete Parameter-Notes, 122 `PixaromaPrompt`- und 9 `PixaromaPauseText`-Nodes
+- 4.369 Graph-Links erfasst; die Live-Avatar-Links verbinden Quellbild, Alpha, Webcam, LivePortrait-Composite und Spout vollständig, die neuen Audio-Links verbinden Voice-LoRA, Browser-Wiedergabe und FLAC-Speicherung in beiden Richtungen
+- keine neuen doppelten IDs, fehlenden oder einseitigen Endpunkte, Note-Zuordnungs- oder Layoutfehler in den v0.7.1-Dateien
 - vorhandene `PixaromaNote`-Dictionaries einschließlich Position und Größe unverändert; ausschließlich die Qwen3-TTS-Trainingsnote dokumentiert zusätzlich das neue `_Text.txt`-Transkriptschema
-- 40 Unit-Tests prüfen insgesamt die Workflow-Werkzeuge und den Voice-LoRA-Adapterlebenszyklus; davon sichern die Integrationstests Manifest-Hashes gegen HEAD, exakte Prompttext-Migration, Formula+Idea-Trennung, Pause-Ancestry, wechselseitige Links, Kollisionsfreiheit, Korruptionserkennung, die drei INT8-Modellpfade, den AMD-sicheren Live-Avatar-Stack, echte PEFT-/Safetensors-Voice-LoRAs und wiederholte byteidentische Anwendung ab
+- 53 Unit-Tests prüfen insgesamt die Workflow-Werkzeuge, den Continuous-LiveAvatar-Lebenszyklus und den Voice-LoRA-Adapterlebenszyklus; davon sichern die Integrationstests Manifest-Hashes gegen HEAD, exakte Prompttext-Migration, Formula+Idea-Trennung, Pause-Ancestry, wechselseitige Links, Kollisionsfreiheit, Korruptionserkennung, die drei INT8-Modellpfade, den AMD-sicheren Live-Avatar-Stack, echte PEFT-/Safetensors-Voice-LoRAs und wiederholte byteidentische Anwendung ab
 - alle fünf neuen Trainer verwenden installierte Core-Nodes und vorhandene lokale Modelle
 - alle fünf Trainer erfolgreich mit einem vollständigen einmaligen 1-Step-Train-und-Save-Smoke-Test auf der Radeon AI Pro R9700 / ROCm 7.15 ausgeführt; die ausgelieferten Workflows starten bewusst mit 2 Schritten für den ersten eigenen Smoke-Test, und die erzeugten Test-Safetensors enthielten nichtleere Adaptergewichte
 - Boogu erst nach aktiviertem `offloading=true` OOM-frei validiert; diese sichere Einstellung ist im Workflow fest voreingestellt
@@ -242,4 +247,4 @@ Automatisch geprüft wurden alle 199 Workflows. Der `--against-head`-Modus prüf
 - keine NVIDIA-/CUDA-only-Risiko-Widgets und keine eingebetteten `Rh-Comfy-Auth`-Tokens/JWTs
 - Generator, Refinement und Validator sind reproduzierbar und idempotent; die fokussierte Unit-Test-Suite prüft dynamische Widgets, Seed-Kontrollen, VHS-Dictionary-Werte, Subgraphs und TrainLora-Widgetreihenfolge
 
-Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und RDNA4-Kompatibilität. Die fünf neuen Bild-LoRA-Trainer wurden lokal bis zum gespeicherten Adapter ausgeführt; Krea 2 RAW wurde nach dem OOM konsequent entfernt. Der Audio-to-Image-Workflow wurde vollständig mit Gemma 4 und FLUX.2 Klein 4B auf der lokalen ComfyUI-Installation ausgeführt. YuE CoT und YuE ICL wurden jeweils mit einer erzwungenen 10,00-Sekunden-Ausgabe vollständig auf der R9700 ausgeführt. HeartMuLa akzeptierte und dekodierte einen Lauf mit `duration_seconds=301` erfolgreich; das Modell setzte bei 193,68 Sekunden selbst Audio-EOS und bestätigt damit, dass der Wert eine Obergrenze statt einer garantierten Länge ist. Die neuen INT8-Varianten wurden zusätzlich live geprüft: Stable Audio 3 erzeugte 1,02 Sekunden endliches 44,1-kHz-Stereo-FLAC, ACE-Step 1.5 XL exakt 5,00 Sekunden endliches 48-kHz-Stereo-FLAC. YuE INT8 lud beide bitsandbytes-Stufen erfolgreich und erzeugte die 5-Sekunden-Stage-1-Tokens; der anschließende Stage-2-Lauf wurde auf Benutzerwunsch beendet und wird manuell geprüft. Ein vollständiger GPU-End-to-End-Lauf aller 199 Workflows wäre sehr rechen- und zeitintensiv; besonders große Musik-, WAN- und LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.
+Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und RDNA4-Kompatibilität. Die fünf neuen Bild-LoRA-Trainer wurden lokal bis zum gespeicherten Adapter ausgeführt; Krea 2 RAW wurde nach dem OOM konsequent entfernt. Der Audio-to-Image-Workflow wurde vollständig mit Gemma 4 und FLUX.2 Klein 4B auf der lokalen ComfyUI-Installation ausgeführt. YuE CoT und YuE ICL wurden jeweils mit einer erzwungenen 10,00-Sekunden-Ausgabe vollständig auf der R9700 ausgeführt. HeartMuLa akzeptierte und dekodierte einen Lauf mit `duration_seconds=301` erfolgreich; das Modell setzte bei 193,68 Sekunden selbst Audio-EOS und bestätigt damit, dass der Wert eine Obergrenze statt einer garantierten Länge ist. Die neuen INT8-Varianten wurden zusätzlich live geprüft: Stable Audio 3 erzeugte 1,02 Sekunden endliches 44,1-kHz-Stereo-FLAC, ACE-Step 1.5 XL exakt 5,00 Sekunden endliches 48-kHz-Stereo-FLAC. YuE INT8 lud beide bitsandbytes-Stufen erfolgreich und erzeugte die 5-Sekunden-Stage-1-Tokens; der anschließende Stage-2-Lauf wurde auf Benutzerwunsch beendet und wird manuell geprüft. Ein vollständiger GPU-End-to-End-Lauf aller 200 Workflows wäre sehr rechen- und zeitintensiv; besonders große Musik-, WAN- und LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.

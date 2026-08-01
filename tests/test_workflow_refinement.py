@@ -235,6 +235,7 @@ class WidgetMappingTests(unittest.TestCase):
                 "LiveAvatar-02-RMBG-Transparency.json",
                 "LiveAvatar-03-LivePortrait-Webcam-Spout-OBS.json",
                 "LiveAvatar-04-LivePortrait-Webcam-Spout-OBS+Qwen3TTS-Voice-LoRA.json",
+                "LiveAvatar-05-LivePortrait-Continuous-Spout-OBS.json",
             ],
         )
         workflows = [json.loads(path.read_text(encoding="utf-8")) for path in paths]
@@ -290,6 +291,17 @@ class WidgetMappingTests(unittest.TestCase):
         alpha_link = next(link for link in live_workflow["links"] if link[0] == alpha_link_id)
         self.assertEqual(alpha_link[1:5], [load_image["id"], 1, join_alpha["id"], 1])
         self.assertNotIn("cudaexecutionprovider", json.dumps(live_workflow).lower())
+
+        continuous = workflows[4]
+        continuous_nodes = {node["type"]: node for node in continuous["nodes"]}
+        self.assertIn("DaWastehContinuousLiveAvatar", continuous_nodes)
+        for legacy_type in ("WebcamCaptureCV2", "LivePortraitProcess", "LivePortraitComposite", "PreviewImage"):
+            self.assertNotIn(legacy_type, continuous_nodes)
+        self.assertEqual(sum(node["type"] == "PixaromaRunTimer" for node in continuous["nodes"]), 1)
+        self.assertEqual(continuous["last_link_id"], max(link[0] for link in continuous["links"]))
+        self.assertEqual(continuous_nodes["DaWastehContinuousLiveAvatar"]["widgets_values"][:5], [
+            "ComfyLiveAvatarFast", 30, 1, 960, 540,
+        ])
 
         combined_workflow = workflows[3]
         combined = {node["type"]: node for node in combined_workflow["nodes"]}

@@ -56,6 +56,7 @@ class PixaromaIntegrationTests(unittest.TestCase):
                 "workflows/Live Avatar/LiveAvatar-02-RMBG-Transparency.json",
                 "workflows/Live Avatar/LiveAvatar-03-LivePortrait-Webcam-Spout-OBS.json",
                 "workflows/Live Avatar/LiveAvatar-04-LivePortrait-Webcam-Spout-OBS+Qwen3TTS-Voice-LoRA.json",
+                "workflows/Live Avatar/LiveAvatar-05-LivePortrait-Continuous-Spout-OBS.json",
                 "workflows/LoRA Generation/Qwen3-TTS_0.6B-Voice-LoRA-Training.json",
                 "workflows/Voice Design/Qwen3-TTS_LoRA-Low-Latency-Live-Voice.json",
             },

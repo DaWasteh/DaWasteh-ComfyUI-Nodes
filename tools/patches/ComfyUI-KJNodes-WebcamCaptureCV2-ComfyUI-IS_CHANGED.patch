@@ -1,0 +1,13 @@
+--- a/nodes/image_nodes.py
++++ b/nodes/image_nodes.py
+@@ -807,8 +807,8 @@
+ class WebcamCaptureCV2:
+ 
+     @classmethod
+-    def IS_CHANGED(cls):
+-        return
++    def IS_CHANGED(cls, **kwargs):
++        return float("NaN")
+ 
+     RETURN_TYPES = ("IMAGE",)
+     RETURN_NAMES = ("image",)

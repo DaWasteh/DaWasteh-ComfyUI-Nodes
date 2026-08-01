@@ -216,6 +216,70 @@ class WidgetMappingTests(unittest.TestCase):
             else:
                 self.assertEqual(music["widgets_values"][2], 210, path.name)
 
+    def test_live_avatar_workflows_use_rdna4_safe_stack(self):
+        paths = sorted((Path("workflows") / "Live Avatar").glob("*.json"))
+        self.assertEqual(
+            [path.name for path in paths],
+            [
+                "LiveAvatar-01-SDXL-Avatar-Generation.json",
+                "LiveAvatar-02-RMBG-Transparency.json",
+                "LiveAvatar-03-LivePortrait-Webcam-Spout-OBS.json",
+            ],
+        )
+        workflows = [json.loads(path.read_text(encoding="utf-8")) for path in paths]
+        for path, workflow in zip(paths, workflows):
+            self.assertEqual(sum(node["type"] == "PixaromaRunTimer" for node in workflow["nodes"]), 1, path.name)
+            nodes_by_id = {node["id"]: node for node in workflow["nodes"]}
+            links_by_id = {link[0]: link for link in workflow["links"]}
+            for link_id, source_id, source_slot, target_id, target_slot, link_type in workflow["links"]:
+                source = nodes_by_id[source_id]["outputs"][source_slot]
+                target = nodes_by_id[target_id]["inputs"][target_slot]
+                self.assertIn(link_id, source.get("links") or [], path.name)
+                self.assertEqual(target.get("link"), link_id, path.name)
+                self.assertEqual(source["type"], link_type, path.name)
+                self.assertIn(link_type, target["type"].split(","), path.name)
+            for node in workflow["nodes"]:
+                for input_slot, item in enumerate(node.get("inputs", [])):
+                    link_id = item.get("link")
+                    if link_id is not None:
+                        self.assertEqual(links_by_id[link_id][3:5], [node["id"], input_slot], path.name)
+                for output_slot, item in enumerate(node.get("outputs", [])):
+                    for link_id in item.get("links") or []:
+                        self.assertEqual(links_by_id[link_id][1:3], [node["id"], output_slot], path.name)
+
+        generation = {node["type"]: node for node in workflows[0]["nodes"]}
+        self.assertEqual(generation["CheckpointLoaderSimple"]["widgets_values"], ["SDXL\\RealVisXL_V4.0.safetensors"])
+        self.assertEqual(generation["EmptyLatentImage"]["widgets_values"], [1024, 1024, 1])
+
+        transparency = {node["type"]: node for node in workflows[1]["nodes"]}
+        self.assertEqual(transparency["RMBG"]["widgets_values"][0], "RMBG-2.0")
+        self.assertEqual(transparency["RMBG"]["widgets_values"][7], "Alpha")
+
+        live_workflow = workflows[2]
+        live = {node["type"]: node for node in live_workflow["nodes"]}
+        required_types = {
+            "DownloadAndLoadLivePortraitModels", "LivePortraitLoadFaceAlignmentCropper",
+            "LivePortraitCropper", "WebcamCaptureCV2", "LivePortraitProcess",
+            "LivePortraitComposite", "JoinImageWithAlpha", "SPOUT WRITER (JOV_SPOUT)",
+        }
+        self.assertTrue(required_types.issubset(self.info), required_types - set(self.info))
+        self.assertEqual(live["DownloadAndLoadLivePortraitModels"]["widgets_values"], ["fp16", "human"])
+        self.assertEqual(
+            live["LivePortraitLoadFaceAlignmentCropper"]["widgets_values"],
+            ["blazeface_back_camera", "torch_gpu", "cpu", "fp32", True],
+        )
+        self.assertEqual(live["LivePortraitCropper"]["widgets_values"][1], 2.3)
+        self.assertEqual(live["WebcamCaptureCV2"]["widgets_values"][4], 1)
+        self.assertIn("single_frame", live["LivePortraitProcess"]["widgets_values"])
+        self.assertEqual(live["SPOUT WRITER (JOV_SPOUT)"]["widgets_values"], ["ComfyLiveAvatar", 30])
+
+        load_image = live["LoadImage"]
+        join_alpha = live["JoinImageWithAlpha"]
+        alpha_link_id = join_alpha["inputs"][1]["link"]
+        alpha_link = next(link for link in live_workflow["links"] if link[0] == alpha_link_id)
+        self.assertEqual(alpha_link[1:5], [load_image["id"], 1, join_alpha["id"], 1])
+        self.assertNotIn("cudaexecutionprovider", json.dumps(live_workflow).lower())
+
     def test_subgraph_instance_note(self):
         schema = {
             "display_name": "Test Subgraph",

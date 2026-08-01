@@ -20,8 +20,13 @@ AUTHORIZED_WIDGET_DELTAS: dict[str, dict[int, set[int]]] = {
     "workflows/Music Generation/YuE_7B-FP16_R9700-Reference-Voice-ICL-Music-Generation.json": {
         2: {1, 4},  # restore the 20-section/600-second-safe lyrics capacity
     },
+    "workflows/Music Generation/YuE_7B-FP16_R9700-Music-Generation.json": {
+        2: {1, 4, 5},  # restore 20 sections and the documented 540-second target
+        8: {0},  # keep the generated parameter note synchronized with those values
+    },
     "workflows/Music Generation/HeartMuLa_HappyNewYear_3B_R9700-Music-Generation.json": {
         3: {2},  # restore the documented 300-second default upper bound
+        10: {0},  # keep the generated parameter note synchronized with that value
     },
 }
 
@@ -490,7 +495,7 @@ def main() -> int:
                 errors.extend(path_errors)
         else:
             errors.extend(path_errors)
-    expected = {"files": 193, "graphs": 230, "nodes": 6416, "notes": 2801, "links": 4179, "timers": 193}
+    expected = {"files": 196, "graphs": 233, "nodes": 6599, "notes": 2821, "links": 4345, "timers": 196}
     actual = {"files": len(paths), **{k: totals[k] for k in ("graphs", "nodes", "notes", "links", "timers")}}
     for key, value in expected.items():
         if actual[key] != value:

@@ -49,6 +49,12 @@ class PixaromaIntegrationTests(unittest.TestCase):
                 "workflows/Music Generation/ACE-Step1_5_XL_SFT_Qwen3_5_4B-Idea-to-Lyrics-to-Music.json",
                 "workflows/Music Generation/HeartMuLa_HappyNewYear_3B_Gemma4_e4B-Idea-to-Lyrics-to-Music.json",
                 "workflows/Music Generation/HeartMuLa_HappyNewYear_3B_Qwen3_5_4B-Idea-to-Lyrics-to-Music.json",
+                "workflows/Music Generation/ACE-Step1_5_XL_SFT_INT8_ConvRot-Music-Generation.json",
+                "workflows/Music Generation/StableAudio3_Medium_INT8_ConvRot-Audio-Generation.json",
+                "workflows/Music Generation/YuE_7B-INT8_R9700-Music-Generation.json",
+                "workflows/Live Avatar/LiveAvatar-01-SDXL-Avatar-Generation.json",
+                "workflows/Live Avatar/LiveAvatar-02-RMBG-Transparency.json",
+                "workflows/Live Avatar/LiveAvatar-03-LivePortrait-Webcam-Spout-OBS.json",
             },
         )
         for entry in self.manifest["entries"]:
@@ -128,7 +134,7 @@ class PixaromaIntegrationTests(unittest.TestCase):
             for path in (ROOT / "workflows").rglob("*.json")
             for node in load(path)["nodes"]
         )
-        self.assertEqual(total_marked_prompts, 120)
+        self.assertEqual(total_marked_prompts, 122)
 
     def test_pause_gates_are_reciprocal_and_have_textgenerate_ancestry(self):
         pause_count = 0

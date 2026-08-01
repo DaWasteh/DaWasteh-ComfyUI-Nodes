@@ -80,6 +80,14 @@ def validate_prompt(d,t):
  link=n['inputs'][slot].get('link'); ps=[x for x in d['nodes'] if x.get('properties',{}).get(MARK,{}).get('target')==[n['id'],t['input']]]
  if len(ps)!=1: return False
  p=ps[0]; L=next((x for x in d['links'] if x[0]==link),None); expected=prompt(p['id'],t['source_text'],p.get('pos'),[n['id'],t['input']]);expected['outputs'][0]['links']=[link]
+ # Workflow refinement may add localized labels and recompute topological order;
+ # accept those presentation-only fields while retaining strict schema/state checks.
+ expected['order']=p.get('order',0)
+ if 'title' not in p:expected.pop('title',None)
+ for actual_item, expected_item in zip(p.get('inputs',[]),expected.get('inputs',[])):
+  if 'localized_name' in actual_item:expected_item['localized_name']=actual_item['localized_name']
+ for actual_item, expected_item in zip(p.get('outputs',[]),expected.get('outputs',[])):
+  if 'localized_name' in actual_item:expected_item['localized_name']=actual_item['localized_name']
  return p==expected and n['widgets_values'][t['widget_index']]=='' and L==[link,p['id'],0,n['id'],slot,'STRING']
 def apply(p,e,check):
  raw=read(p);d=json.loads(raw);ns={n['id']:n for n in d['nodes']};changed=0
@@ -97,6 +105,13 @@ def apply(p,e,check):
   old=next((x for x in d['links'] if x[0]==g['target_link']),None); gates=[x for x in d['nodes'] if x.get('properties',{}).get(MARK,{}).get('pause_target')==g['target_link']]
   if gates:
    gate=gates[0]; fresh=gate.get('inputs',[{}])[0].get('link'); freshlink=next((x for x in d['links'] if x[0]==fresh),None); expected=pause_node(gate['id'],gate.get('pos'),fresh,g['target_link'])
+   expected['order']=gate.get('order',0)
+   for field in ('color','bgcolor'):
+    if field in gate:expected[field]=gate[field]
+   for actual_item, expected_item in zip(gate.get('inputs',[]),expected.get('inputs',[])):
+    if 'localized_name' in actual_item:expected_item['localized_name']=actual_item['localized_name']
+   for actual_item, expected_item in zip(gate.get('outputs',[]),expected.get('outputs',[])):
+    if 'localized_name' in actual_item:expected_item['localized_name']=actual_item['localized_name']
    if len(gates)!=1 or gate!=expected or not freshlink or freshlink!=[fresh,g['source_node'],g['source_slot'],gate['id'],0,'STRING'] or old[1]!=gate['id'] or old[2]!=0:raise RuntimeError(f'{p}: corrupt pause gate')
    continue
   if not old or old[1]!=g['source_node'] or old[2]!=g['source_slot'] or old[3]!=g['target_node']:raise RuntimeError(f'{p}: pause source mismatch')

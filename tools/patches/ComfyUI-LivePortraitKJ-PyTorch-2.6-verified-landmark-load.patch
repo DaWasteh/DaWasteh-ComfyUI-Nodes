@@ -1,0 +1,41 @@
+diff --git a/liveportrait/utils/landmark_runner.py b/liveportrait/utils/landmark_runner.py
+index 87bea17..8e39bca 100644
+--- a/liveportrait/utils/landmark_runner.py
++++ b/liveportrait/utils/landmark_runner.py
+@@ -7,7 +7,11 @@ import numpy as np
+ from .timer import Timer
+ from .crop import crop_image, _transform_pts
+ import folder_paths
++import hashlib
+ import os
++
++LANDMARK_TORCHSCRIPT_SHA256 = "9064565b92b3595786096b36acd24709c7bd290631510517bd3a9d5ca8f28a43"
++
+ def to_ndarray(obj):
+     if isinstance(obj, torch.Tensor):
+         return obj.cpu().numpy()
+@@ -99,7 +103,23 @@ class LandmarkRunnerTorch(object):
+                 local_dir=download_path,
+                 local_dir_use_symlinks=False,
+             )
+-        self.model = torch.load(ckpt_path).to(self.device)
++        torchscript_path = os.path.join(
++            os.path.dirname(ckpt_path), "landmark_model_torchscript.pt"
++        )
++        if not os.path.exists(torchscript_path):
++            raise RuntimeError(
++                "Missing verified LivePortrait TorchScript landmark model: "
++                f"{torchscript_path}. Convert the upstream landmark_model.pth "
++                "with tools/convert_liveportrait_landmark.py first."
++            )
++        with open(torchscript_path, "rb") as checkpoint:
++            digest = hashlib.file_digest(checkpoint, "sha256").hexdigest()
++        if digest != LANDMARK_TORCHSCRIPT_SHA256:
++            raise RuntimeError(
++                "Refusing to load an unverified LivePortrait TorchScript landmark model: "
++                f"expected {LANDMARK_TORCHSCRIPT_SHA256}, got {digest}"
++            )
++        self.model = torch.jit.load(torchscript_path, map_location="cpu").eval().to(self.device)
+ 
+     def _run(self, inp):
+         input = torch.from_numpy(inp).to(self.device)

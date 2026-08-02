@@ -1,0 +1,2 @@
+import {cp, mkdir} from 'node:fs/promises'; import {resolve} from 'node:path'; import {build} from 'vite';
+const root=resolve(import.meta.dirname); await build(); const output=resolve(root,'../web/vrm-app/mediapipe'); await mkdir(output,{recursive:true}); await cp(resolve(root,'node_modules/@mediapipe/holistic'),output,{recursive:true}); await cp(resolve(root,'THIRD_PARTY_NOTICES.txt'),resolve(root,'../web/vrm-app/THIRD_PARTY_NOTICES.txt'));

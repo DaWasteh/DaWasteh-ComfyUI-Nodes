@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {constrainedHandEuler,palmQuaternion,validPalmLandmarks} from './hand-solver.js';
+const palm=()=>Array.from({length:21},(_,i)=>({x:(i%4)*.03,y:Math.floor(i/4)*.03,z:0}));
+test('finger and wrist rotations are finite, clamped and slew limited',()=>{const finger=constrainedHandEuler('LeftIndexProximal',{x:9,y:-9,z:9},{x:0,y:0,z:0},1/60);assert.ok(Math.abs(finger.x)<=.125&&Math.abs(finger.y)<=.125&&Math.abs(finger.z)<=.125);const wrist=constrainedHandEuler('RightHand',{x:Infinity,y:9,z:-9},{x:0,y:0,z:0},.1);assert.deepEqual(wrist,{x:0,y:.55,z:-.55})});
+test('palm validation rejects missing and degenerate hands',()=>{assert.equal(validPalmLandmarks([]),false);const flat=palm();flat[5]={...flat[17]};assert.equal(validPalmLandmarks(flat),false)});
+test('left and right palm bases are normalized and side aware',()=>{const points=palm();assert.equal(validPalmLandmarks(points),true);const left=palmQuaternion(points,'Left'),right=palmQuaternion(points,'Right');assert.ok(Math.abs(left.length()-1)<1e-9);assert.ok(Math.abs(right.length()-1)<1e-9);assert.ok(Math.abs(left.dot(right))<.01)});

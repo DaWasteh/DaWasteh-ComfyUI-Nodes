@@ -5,6 +5,7 @@ and Spout presentation use worker threads, each owning its native resource.
 """
 from __future__ import annotations
 
+import atexit
 import copy
 import importlib
 import logging
@@ -18,6 +19,25 @@ from typing import Any
 import numpy as np
 
 LOGGER = logging.getLogger(__name__)
+
+
+class DaWastehVRMLiveAvatarLauncher:
+    """Non-blocking launcher for the localhost-only browser VRM application."""
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {"port": ("INT", {"default": 8188, "min": 1, "max": 65535})}}
+
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("vrm_live_url",)
+    OUTPUT_NODE = True
+    FUNCTION = "open"
+    CATEGORY = "DaWasteh/Live Avatar"
+
+    def open(self, port: int = 8188):
+        from .vrm_server import app_url
+        url = app_url(int(port))
+        return {"ui": {"text": [url]}, "result": (url,)}
 
 
 @dataclass
@@ -247,6 +267,9 @@ class SpoutWorker:
         self.thread.join(timeout=timeout)
         return not self.thread.is_alive()
 
+    def healthy(self) -> bool:
+        return self.started and self.thread.is_alive() and not self.stop_event.is_set()
+
     def _run(self) -> None:
         try:
             if not sys.platform.startswith("win"):
@@ -278,6 +301,97 @@ class SpoutWorker:
             if self.sender is not None:
                 self.sender.releaseSender()
                 self.sender = None
+
+
+_PERSISTENT_SPOUTS: dict[str, tuple[LatestFrameSlot, SpoutWorker]] = {}
+_PERSISTENT_SPOUTS_LOCK = threading.Lock()
+
+
+def _persistent_spout(sender_name: str, fps: int) -> LatestFrameSlot:
+    """Return a healthy sender mailbox, replacing failed/dead workers atomically."""
+    retired: tuple[LatestFrameSlot, SpoutWorker] | None = None
+    with _PERSISTENT_SPOUTS_LOCK:
+        existing = _PERSISTENT_SPOUTS.get(sender_name)
+        if existing is not None:
+            slot, worker = existing
+            try:
+                slot.raise_if_error()
+            except RuntimeError:
+                retired = _PERSISTENT_SPOUTS.pop(sender_name)
+            else:
+                if worker.healthy() and abs(worker.delay - (1.0 / fps)) < 1e-9:
+                    return slot
+                retired = _PERSISTENT_SPOUTS.pop(sender_name)
+        if retired is not None and not retired[1].stop():
+            _PERSISTENT_SPOUTS[sender_name] = retired
+            raise RuntimeError(
+                f"persistent Spout sender {sender_name!r} did not stop; refusing an overlapping replacement"
+            )
+        slot = LatestFrameSlot()
+        worker = SpoutWorker(slot, sender_name, fps)
+        worker.start()
+        _PERSISTENT_SPOUTS[sender_name] = (slot, worker)
+        return slot
+
+
+def _stop_persistent_spouts() -> None:
+    with _PERSISTENT_SPOUTS_LOCK:
+        workers = list(_PERSISTENT_SPOUTS.values())
+        _PERSISTENT_SPOUTS.clear()
+    for _, worker in workers:
+        try:
+            worker.stop()
+        except BaseException:
+            LOGGER.exception("persistent Spout cleanup failed")
+
+
+atexit.register(_stop_persistent_spouts)
+
+
+class DaWastehPersistentSpout:
+    """Publish the latest IMAGE continuously so OBS does not lose the sender between prompts."""
+
+    OUTPUT_NODE = True
+    RETURN_TYPES = ()
+    FUNCTION = "publish"
+    CATEGORY = "DaWasteh/Live Avatar"
+    DESCRIPTION = (
+        "Keeps the latest RGBA frame on a named Spout sender between Run (Instant) prompts. "
+        "The sender remains alive until ComfyUI exits."
+    )
+
+    @classmethod
+    def INPUT_TYPES(cls) -> dict[str, dict[str, Any]]:
+        return {
+            "required": {
+                "images": ("IMAGE",),
+                "sender_name": ("STRING", {"default": "ComfyLiveAvatar"}),
+                "sender_fps": ("INT", {"default": 30, "min": 1, "max": 60}),
+            }
+        }
+
+    @classmethod
+    def IS_CHANGED(cls, **kwargs: Any) -> float:
+        return float("NaN")
+
+    def publish(self, images: Any, sender_name: str, sender_fps: int) -> tuple[()]:
+        import torch
+
+        if not sys.platform.startswith("win"):
+            raise RuntimeError("Persistent Spout output is supported on Windows only")
+        if not isinstance(images, torch.Tensor) or images.ndim != 4 or images.shape[0] < 1:
+            raise ValueError("images must be a non-empty BHWC tensor")
+        frame = images[0].detach().float().clamp(0, 1)
+        if frame.shape[-1] not in (3, 4):
+            raise ValueError("images must have RGB or RGBA channels")
+        rgb = frame[..., :3].mul(255).round().byte().cpu().numpy()
+        if frame.shape[-1] == 4:
+            alpha = frame[..., 3:4].mul(255).round().byte().cpu().numpy()
+        else:
+            alpha = np.full((*rgb.shape[:2], 1), 255, dtype=np.uint8)
+        rgba = np.ascontiguousarray(np.concatenate((rgb, alpha), axis=2))
+        _persistent_spout(str(sender_name), int(sender_fps)).publish(rgba)
+        return ()
 
 
 class DaWastehContinuousLiveAvatar:

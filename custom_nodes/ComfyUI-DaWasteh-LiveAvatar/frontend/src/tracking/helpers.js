@@ -1,0 +1,3 @@
+export const handInputs=(results,selfie=false)=>selfie?[['Left',results.rightHandLandmarks],['Right',results.leftHandLandmarks]]:[['Left',results.leftHandLandmarks],['Right',results.rightHandLandmarks]];
+export const neutralLegs=['LeftUpperLeg','LeftLowerLeg','RightUpperLeg','RightLowerLeg'];
+export function loopController(step,onError=()=>{}){let id=0,running=false,busy=false;return {start(){running=true;const tick=async()=>{if(!running)return;if(!busy){busy=true;try{await step()}catch(error){onError(error)}finally{busy=false}}id=requestAnimationFrame(tick)};id=requestAnimationFrame(tick)},stop(){running=false;cancelAnimationFrame(id)},get busy(){return busy}}}

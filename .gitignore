@@ -1,4 +1,8 @@
 .pi-subagents/
+/tmp/
 .pytest_cache/
 __pycache__/
 *.py[cod]
+custom_nodes/ComfyUI-DaWasteh-LiveAvatar/frontend/node_modules/
+custom_nodes/ComfyUI-DaWasteh-LiveAvatar/models/live-avatar-vrm/
+models/live-avatar-vrm/

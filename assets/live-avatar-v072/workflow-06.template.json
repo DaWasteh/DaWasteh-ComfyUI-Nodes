@@ -1,0 +1,120 @@
+{
+  "id": "live-avatar-06-vrm-full-body-hand-face-live-mic",
+  "revision": 0,
+  "last_node_id": 4,
+  "last_link_id": 0,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PixaromaNote",
+      "pos": [
+        40,
+        80
+      ],
+      "size": [
+        380,
+        160
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaNote",
+        "cnr_id": "ComfyUI-Pixaroma"
+      },
+      "widgets_values": [
+        "{\"version\":1,\"content\":\"<h1>Live Avatar · 06 · VRM Full-Body, Hände, Gesicht</h1><p><b>Echter Livepfad:</b> Das lokale Browserfenster nutzt Webcam-Tracking und eine VRM-Figur für Kopf, Blinzeln, Mund, Körper und Hände. Es lädt keine Kamera-Frames zu ComfyUI oder ins Internet hoch.</p><ol><li>Einmal <b>Run</b> drücken: der Launcher gibt/zeigt die URL; die Node-Schaltfläche kann sie direkt öffnen.</li><li>Im Browser Kamera freigeben, Preset wählen und bei Bedarf kalibrieren.</li><li>OBS-Präsentationsmodus (P) aktivieren, Browserfenster per <b>Window Capture</b> erfassen und optional Chroma-Key anwenden.</li></ol><p>Automatik wechselt erst bei stabil sichtbaren Hüften, Knien und Knöcheln in Ganzkörper; Hände bleiben immer aktiv. Eigene VRM-Dateien bleiben im Browser.</p><p><b>Live-Audio (optional):</b> Der externe DirectML-RVC-Companion ist installierbar: <code>python tools/install_live_voice_converter.py --destination L:/ComfyUI/voice-changer-dml-b2332</code>. In OBS ausschließlich dessen separat geroutete virtuelle Kabelausgabe aufnehmen und das Originalmikrofon im Mix stummschalten. RX-9070-XT-DirectML und ein app-eigener ONNX-Export wurden warm erfolgreich mit etwa 36–41 ms Rechenzeit pro 100-ms-Chunk getestet. Eigene/lizenzierte Stimme, physisches Mikrofon, Virtual Cable, OBS und Langzeitabnahme bleiben erforderlich. Dies ist ausdrücklich <em>nicht</em> Qwen-TTS/Voice-LoRA.</p><p>Vorher Presets einmal mit <code>python tools/install_live_avatar_vrm_models.py --comfy-root L:/ComfyUI/ComfyUI</code> installieren. Nur localhost verwenden.</p><p><b>Ausführung/OBS:</b> Workflow 06 erzeugt ausschließlich die lokale Browser-URL und <b>keinen Spout-Sender</b>. Genau einmal normal <b>Run</b> drücken, niemals Run (Instant). In OBS das Browser-/Chrome-Fenster aufnehmen. Für eine ComfyUI-Spout-Ausgabe stattdessen Workflow 07 verwenden.</p>\",\"buttonColor\":\"#32c48d\",\"lineColor\":\"#32c48d\",\"width\":800,\"height\":780,\"backgroundColor\":\"#2a2a2a\"}",
+        ""
+      ],
+      "title": "START HIER · VRM Live Avatar"
+    },
+    {
+      "id": 2,
+      "type": "DaWastehVRMLiveAvatarLauncher",
+      "pos": [
+        2327.5,
+        517.0
+      ],
+      "size": [
+        380,
+        160
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "port",
+          "name": "port",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "port"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "vrm_live_url",
+          "name": "vrm_live_url",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DaWastehVRMLiveAvatarLauncher",
+        "cnr_id": "ComfyUI-DaWasteh-LiveAvatar"
+      },
+      "widgets_values": [
+        8188
+      ],
+      "title": "VRM Live Avatar öffnen"
+    },
+    {
+      "id": 4,
+      "type": "MarkdownNote",
+      "pos": [
+        2753.5,
+        517.0
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · VRM Live Avatar öffnen · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · VRM Live Avatar öffnen · Node 2\n\n**Zweck:** Verarbeitet die Ein- und Ausgaben des Node-Typs `DaWastehVRMLiveAvatarLauncher` gemäß seiner Workflow-Funktion.\n\n**Einstellbare Werte**\n- `port` = `8188` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n\n**Eingänge**\n- `port` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `vrm_live_url` (STRING, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    }
+  ],
+  "links": [],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "frontendVersion": "1.47.11",
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 1,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
+  },
+  "version": 0.4
+}

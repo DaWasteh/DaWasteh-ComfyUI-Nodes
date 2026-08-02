@@ -1,9 +1,56 @@
-# ComfyUI-DaWasteh-LiveAvatar (experimental)
+# ComfyUI-DaWasteh-LiveAvatar
 
-Continuous, face-only LivePortrait-to-Spout output for the Windows/RDNA4 ComfyUI installation.
+Two deliberately separate Windows/RDNA4 paths live in this package:
 
-Install by copying this directory into `ComfyUI/custom_nodes/` and restarting ComfyUI. It requires the already installed `ComfyUI-LivePortraitKJ`, OpenCV and `SpoutGL`/PyOpenGL from `Jovi_Spout`; no CUDA dependency is added.
+- **LivePortrait Continuous Spout** (`LiveAvatar-05`) remains experimental and strictly face-only.
+- **VRM Full-Body Live Avatar** (`LiveAvatar-06`) is the productive browser path: MediaPipe Holistic runs locally in the browser and drives a local VRM renderer (head, gaze, blink, mouth visemes, torso, arms, hands/fingers, hips and legs). It does not upload camera frames to ComfyUI or the network.
+- **Buffered AI Mirror** (`LiveAvatar-07`) is a separate experimental SD1.5-LCM OpenPose/IPAdapter webcam graph. It is not VRM mocap or a live-FPS path.
+
+## VRM path
+
+1. Install audited CC0 presets into the global model root served by this node: `python tools/install_live_avatar_vrm_models.py --comfy-root L:/ComfyUI/ComfyUI`.
+2. Open `LiveAvatar-06...json`, press **Run** once and open the returned `http://127.0.0.1:8188/dawasteh/vrm-live/` URL.
+3. Grant camera permission only in the browser. Choose a preset or a local `.vrm` file; local uploads remain in that browser tab.
+4. OBS: press **OBS-Präsentationsmodus** (or P) to hide controls, then capture the browser window. Enable **OBS Chroma Green** in the page and use an OBS Chroma Key filter if alpha is required.
+
+Automatic mode uses hysteresis: it enables full-body only after stable hips/knees/ankles and falls back to a stable upper-body pose after sustained loss. A manual mode is available. Webcam hand tracking is best-effort: occlusion, fast movement and out-of-frame hands reduce accuracy. The browser now preserves joints through VRM construction, records each loaded model's actual local rest quaternions, slew-limits/clamps wrist and finger targets, rejects degenerate palms, and decays lost hands toward model rest. Spring updates use a capped 50-ms physics delta and reset after swaps, calibration and long pauses.
+
+The current pinned `@pixiv/three-vrm` importer supports legacy VRM 0.x (`VRM` extension); local VRM 1.0 (`VRMC_vrm`) uploads show a clear error until the importer is upgraded. The bundled frontend is built from local npm packages (`npm ci && npm run build` in `frontend/`); production does not use a CDN runtime dependency. Its `/dawasteh/vrm-live/` and preset routes enforce loopback clients and reject traversal paths.
+
+## Presets and content boundary
+
+`assets/live-avatar-vrm/model-manifest.json` records sources, exact hashes, licence statements and audited VRM0 secondary-animation counts. Amazonas, Olivia and Panda Bear have no spring groups/colliders. Lady Koi has one authored spring group but no collider group; only Lady Koi may therefore show limited authored secondary motion, with no collision claim. Amazonas and Olivia are CC0 lightly-clothed fantasy avatars. Lady Koi is an unclothed, non-explicit **nonhuman fantasy** avatar; no verified human age is claimed. Panda Bear is a deterministic black/white derivative of the CC0 Teddy asset, not a TeddyLong-Panda download.
+
+## Local VRM creator (Workflow 08)
+
+Workflow 08 is the no-credit, privacy-preserving way to make a new **realistic human/fantasy or stylized** appearance while retaining a known-working rig. It accepts three licensed/consented images of the same clearly adult person—recommended front, three-quarter and profile—batches them as equally averaged IPAdapter references, combines them with a prompt, and edits the embedded base-color UV texture locally through SD1.5/LCM at low denoise. Only a VRM0 base with one distinct embedded base-color image is accepted; multi-texture bases are rejected rather than partially edited, and original texture alpha is preserved. The save node is muted by default: first run and inspect the flat UV preview, then explicitly enable save and run again before inspecting the new variant on the rendered Workflow-06 model. It preserves the base skeleton, geometry, skinning, morph targets, UV layout and existing license fields; it does **not** reconstruct identity or create a new body mesh, fingers, hair geometry, or face rig. Realism remains limited by the selected base geometry and UV layout. Never use an unlicensed likeness; select the new file in Workflow 06 after pressing **Modellliste aktualisieren**. The complete German user path is documented in [`LIVE_AVATAR_ANLEITUNG.md`](../../LIVE_AVATAR_ANLEITUNG.md).
+
+## Local 2D adult reference creator (Workflow 10)
+
+Workflow 10 is a local RealVisXL V4 **2D reference generator**, never an automatic VRM creator. It provides three clothed, clearly-adult realistic presets plus a separate prompt-only, clearly-adult, neutral non-explicit artistic nude preset. Its optional licensed/consented portrait IPAdapter branch is bypassed by default and cannot reach the nude sampler. Strong shared negatives target writing, logos, UI, ambiguous age and malformed hands; every output still requires human rejection review.
+
+## Local Blender portrait-style candidate
+
+`tools/build_local_blender_vrm_avatar.py` builds a VRM0 derivative only from the hash-pinned CC0 Olivia base and entirely locally. The supplied upper-body portrait can guide conservative hair/clothing styling, but is **not** sufficient to reproduce identity, side/back geometry, legs or hands; those remain Olivia-derived. The candidate retains Olivia's hand/finger rig and adds a real custom `TongueOut` morph. In the browser, hold `T` (or the Zunge button) for manual tongue animation. Holistic does not supply a reliable tongue signal. The browser therefore supports manual `T` as the dependable path and an optional, disabled-by-default webcam color heuristic; lipstick, lighting and mouth shadows can still cause false triggers. See `docs/live-avatar-local-blender-vrm.md`.
+
+## Optional Meshy candidate (Workflow 09)
+
+Workflow 09 is deliberately optional and requires Comfy credits: it uploads a licensed/consented adult full-body A/T-pose image and model to Meshy. Meshy returns GLB/FBX rather than VRM. The strict local converter publishes VRM0 only after finding real skinning, required body bones, all finger chains and actual Blink/A/I/U/E/O targets. It rejects unsupported candidates with a capability report rather than pretending metadata creates animation. It was not run because this installation has no credits; Meshy provider privacy, retention, pricing and asset-rights terms apply.
+
+## Persistent OBS output
+
+Workflows 03, 04 and 07 use `DaWastehPersistentSpout`: every completed prompt replaces a one-frame mailbox, while a background sender keeps the latest RGBA frame available to OBS between Run-(Instant)-iterations. Workflow 06 is different: it is only a browser launcher and never creates a Spout sender; run it once normally and capture its Chrome/browser window. Before using webcam workflows 03, 04, 05 or 07, close the Workflow-06 browser so it releases the camera.
+
+## Buffered AI Mirror (experimental)
+
+Required existing prerequisites are `models/checkpoints/v1-5-pruned-emaonly-fp16.safetensors` and `models/clip_vision/CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors`. Stop Run (Instant), wait for empty queues, then run `python tools/install_live_avatar_ai_assets.py --comfy-root L:/ComfyUI/ComfyUI`; `--source-dir` is optional only for a verified offline cache. Restart the target ComfyUI for model combo refresh. Workflow 07 uses LCM-LoRA, OpenPose ControlNet, explicit IPAdapter Plus/CLIP Vision and a user-selectable reference. A fixed-fixture 8188 matrix compared denoise/IPAdapter/ControlNet at 0.45/0.50/0.75, 0.50/0.55/0.80 and 0.55/0.60/0.85; the middle setting was selected because it remained text/logo-free while preserving more source anatomy. Repeated warm throughput was about 0.36–0.50 FPS on 8188/R9700 and 0.125 FPS on 8189/RX 9070 XT, so it is explicitly buffered. Visible OBS composition remains manual.
+
+## Live voice-conversion companion
+
+Workflow 06 video remains separate from audio. The optional external RVC companion is now installable with `python tools/install_live_voice_converter.py --destination L:/ComfyUI/voice-changer-dml-b2332` and starts with `powershell -ExecutionPolicy Bypass -File tools/start_live_voice_converter.ps1 -InstallPath L:/ComfyUI/voice-changer-dml-b2332`. It is DirectML RVC conversion, **not** Qwen TTS and not a Qwen Voice-LoRA.
+
+Supply only an RVC model you own or are explicitly licensed to use. The live test used a hash-pinned upstream test model, converted it with the app's own ONNX exporter, selected RX 9070 XT DirectML plus `rmvpe_onnx`, and measured warm compute around 36–41 ms per 100-ms chunk. Arbitrary older ONNX exports can be incompatible with b2332. Route output through a separately installed virtual audio cable and capture only that output in OBS; mute the original microphone to prevent doubled audio/feedback. Physical microphone, cable, OBS and ten-minute stability remain manual gates; see `docs/live-avatar-v072-voice-backend-evaluation.md`. Avoid heavy 8189 jobs while RVC uses the 9070; Qwen remains request-based TTS.
+
+## Existing continuous LivePortrait path
 
 Use `LiveAvatar-05-LivePortrait-Continuous-Spout-OBS.json`. Start it once with normal **Run**. It deliberately holds the Comfy execution thread so use **Interrupt** to stop it and never use **Run (Instant)**. OBS receives `ComfyLiveAvatarFast` with Composite Mode `Default`.
-
-The node is intentionally face-only. Its capture and Spout worker threads retain just their latest frame to prevent latency buildup; all torch/ROCm inference and compositing remains in ComfyUI's execution thread.

@@ -1,0 +1,1791 @@
+{
+  "id": "live-avatar-08-local-vrm-texture-creator",
+  "revision": 0,
+  "last_node_id": 43,
+  "last_link_id": 28,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PixaromaNote",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        900,
+        760
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaNote",
+        "cnr_id": "ComfyUI-Pixaroma"
+      },
+      "widgets_values": [
+        "{\"version\": 1, \"content\": \"<h1>Live Avatar · 08 · Drei Referenzen + Prompt → lokale VRM-Variante</h1><p><b>Ergebnis nach ausdrücklicher Speicherfreigabe:</b> eine lokal gespeicherte, in Workflow 06 auswählbare VRM0-Variante. Die drei Bilder werden als gleich gewichtete IPAdapter-Referenzen gemittelt; der Prompt steuert Kleidung, Farben und Stil.</p><p><b>Wahrheitsgemäße Grenze:</b> Das ist eine erscheinungs-/ähnlichkeitsgeführte Texturvariante, keine zuverlässige Identitätsrekonstruktion und kein neues 3D-Modell. Geometrie, Körperform, Rig, Finger, Gesichtsmorphs und UV-Inseln bleiben vollständig vom ausgewählten VRM0-Basismodell.</p><h2>Vorbereitung</h2><ol><li>Nur drei lizenzierte/einvernehmlich bereitgestellte Bilder derselben klar erwachsenen Person verwenden.</li><li>Empfohlen: frontal, Dreiviertelansicht und Profil; ähnliche Beleuchtung, Mimik, Ausschnitt und Gesichtsgröße; keine weiteren Personen.</li><li>Im Node 1 ein passendes VRM0-Basismodell mit genau einer eingebetteten Basisfarbtextur wählen. Mehrtextur-Modelle werden sicher abgelehnt. Ein stilisiertes Basismodell bleibt geometrisch stilisiert.</li></ol><h2>Ausführung</h2><ol><li>Die drei Referenzen in den markierten Load-Image-Nodes wählen.</li><li>Den positiven Prompt anpassen und einen neuen eindeutigen Dateinamen mit <code>.vrm</code> setzen.</li><li>Der Speicher-Node ist standardmäßig <b>stummgeschaltet</b>. Normal <b>Run</b> drücken und zuerst nur die flache UV-Vorschau auf Nähte/Text/Artefakte prüfen.</li><li>Nur bei akzeptierter Vorschau den Speicher-Node aktivieren und erneut normal <b>Run</b> drücken; durch Cache und festen Seed wird exakt die geprüfte Textur gespeichert.</li><li>Workflow 06 öffnen, <b>Modellliste aktualisieren</b> drücken, die neue VRM-Datei auswählen und sie zusätzlich am gerenderten 3D-Modell prüfen. Abgelehnte Varianten löschen oder nicht verwenden.</li></ol><p><b>Sichere Startwerte:</b> IPAdapter 0.35, drei Embeddings als <code>average</code>, Img2Img-Denoise 0.20. Höhere Werte können UV-Nähte, Gesicht und Kleidung beschädigen. Niemals Standardmodelle überschreiben.</p><p>Die vollständige Bedienung steht in <code>LIVE_AVATAR_ANLEITUNG.md</code> im Repository-Root.</p>\", \"buttonColor\": \"#32c48d\", \"lineColor\": \"#32c48d\", \"width\": 900, \"height\": 760, \"backgroundColor\": \"#2a2a2a\"}"
+      ],
+      "title": "START HIER · 3 Bilder + Prompt → lokale VRM-Variante"
+    },
+    {
+      "id": 2,
+      "type": "DaWastehVRMTextureSource",
+      "pos": [
+        2327.5,
+        1175.0
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "vrm_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "vrm_name"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "uv_texture",
+          "type": "IMAGE",
+          "links": [
+            11
+          ]
+        },
+        {
+          "name": "vrm_texture_source",
+          "type": "DAWASTEH_VRM_TEXTURE_SOURCE",
+          "links": [
+            24
+          ]
+        },
+        {
+          "name": "model_info",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DaWastehVRMTextureSource",
+        "cnr_id": "ComfyUI-DaWasteh-LiveAvatar"
+      },
+      "widgets_values": [
+        "olivia.vrm"
+      ],
+      "title": "1 · Licensed VRM0 template + UV texture"
+    },
+    {
+      "id": 4,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        2327.5,
+        2115.0
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "ckpt_name",
+          "name": "ckpt_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "ckpt_name"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "MODEL",
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            2
+          ]
+        },
+        {
+          "localized_name": "CLIP",
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            3
+          ]
+        },
+        {
+          "localized_name": "VAE",
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            12,
+            22
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "v1-5-pruned-emaonly-fp16.safetensors"
+      ],
+      "title": "SD1.5 FP16 Basis"
+    },
+    {
+      "id": 5,
+      "type": "LoraLoader",
+      "pos": [
+        3552.5,
+        2115.0
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "model",
+          "name": "model",
+          "type": "MODEL",
+          "link": 2,
+          "widget": null
+        },
+        {
+          "localized_name": "clip",
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3,
+          "widget": null
+        },
+        {
+          "localized_name": "lora_name",
+          "name": "lora_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "lora_name"
+          }
+        },
+        {
+          "localized_name": "strength_model",
+          "name": "strength_model",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "strength_model"
+          }
+        },
+        {
+          "localized_name": "strength_clip",
+          "name": "strength_clip",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "strength_clip"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "MODEL",
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            13
+          ]
+        },
+        {
+          "localized_name": "CLIP",
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            4,
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoraLoader",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "LiveAvatar\\lcm-lora-sdv1-5.safetensors",
+        1.0,
+        1.0
+      ],
+      "title": "LCM LoRA · SD1.5"
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [
+        4777.5,
+        1997.5
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "text",
+          "name": "text",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "text"
+          }
+        },
+        {
+          "localized_name": "clip",
+          "name": "clip",
+          "type": "CLIP",
+          "link": 4,
+          "widget": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "CONDITIONING",
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            18
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "photorealistic realistic adult human fantasy wizard, natural skin, brown hair, round glasses, tailored dark robe, detailed fabric, UV texture, preserve clothing seams"
+      ],
+      "title": "Positiv · Referenzstil und Pose"
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "pos": [
+        4777.5,
+        2632.0
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "text",
+          "name": "text",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "text"
+          }
+        },
+        {
+          "localized_name": "clip",
+          "name": "clip",
+          "type": "CLIP",
+          "link": 5,
+          "widget": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "CONDITIONING",
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            19
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "worst quality, blurry, deformed, extra limbs, extra fingers, watermark, text"
+      ],
+      "title": "Negativ · Artefakte vermeiden"
+    },
+    {
+      "id": 10,
+      "type": "VAEEncode",
+      "pos": [
+        6002.5,
+        2702.5
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "pixels",
+          "name": "pixels",
+          "type": "IMAGE",
+          "link": 11,
+          "widget": null
+        },
+        {
+          "localized_name": "vae",
+          "name": "vae",
+          "type": "VAE",
+          "link": 12,
+          "widget": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "LATENT",
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            20
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEEncode",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [],
+      "title": "UV texture → Img2Img latent"
+    },
+    {
+      "id": 11,
+      "type": "LoadImage",
+      "pos": [
+        6002.5,
+        3407.5
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "image"
+          }
+        },
+        {
+          "localized_name": "upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "link": null,
+          "widget": {
+            "name": "upload"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            26
+          ]
+        },
+        {
+          "localized_name": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "title": "Referenz 1 · Frontalansicht"
+    },
+    {
+      "id": 12,
+      "type": "IPAdapterModelLoader",
+      "pos": [
+        7227.5,
+        3407.5
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "ipadapter_file",
+          "name": "ipadapter_file",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "ipadapter_file"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IPADAPTER",
+          "name": "IPADAPTER",
+          "type": "IPADAPTER",
+          "links": [
+            14
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IPAdapterModelLoader",
+        "cnr_id": "comfyui_ipadapter_plus"
+      },
+      "widgets_values": [
+        "ip-adapter-plus_sd15.safetensors"
+      ],
+      "title": "IPAdapter Plus SD1.5"
+    },
+    {
+      "id": 13,
+      "type": "CLIPVisionLoader",
+      "pos": [
+        7227.5,
+        3995.0
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "clip_name",
+          "name": "clip_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "clip_name"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "CLIP_VISION",
+          "name": "CLIP_VISION",
+          "type": "CLIP_VISION",
+          "links": [
+            16
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPVisionLoader",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors"
+      ],
+      "title": "CLIP Vision · ViT-H"
+    },
+    {
+      "id": 14,
+      "type": "IPAdapterAdvanced",
+      "pos": [
+        8452.5,
+        2937.5
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "model",
+          "name": "model",
+          "type": "MODEL",
+          "link": 13,
+          "widget": null
+        },
+        {
+          "localized_name": "ipadapter",
+          "name": "ipadapter",
+          "type": "IPADAPTER",
+          "link": 14,
+          "widget": null
+        },
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "IMAGE",
+          "link": 15,
+          "widget": null
+        },
+        {
+          "localized_name": "weight",
+          "name": "weight",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "weight"
+          }
+        },
+        {
+          "localized_name": "weight_type",
+          "name": "weight_type",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "weight_type"
+          }
+        },
+        {
+          "localized_name": "combine_embeds",
+          "name": "combine_embeds",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "combine_embeds"
+          }
+        },
+        {
+          "localized_name": "start_at",
+          "name": "start_at",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "start_at"
+          }
+        },
+        {
+          "localized_name": "end_at",
+          "name": "end_at",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "end_at"
+          }
+        },
+        {
+          "localized_name": "embeds_scaling",
+          "name": "embeds_scaling",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "embeds_scaling"
+          }
+        },
+        {
+          "localized_name": "clip_vision",
+          "name": "clip_vision",
+          "type": "CLIP_VISION",
+          "link": 16,
+          "widget": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "MODEL",
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            17
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IPAdapterAdvanced",
+        "cnr_id": "comfyui_ipadapter_plus"
+      },
+      "widgets_values": [
+        0.35,
+        "linear",
+        "average",
+        0.0,
+        1.0,
+        "V only"
+      ],
+      "title": "Multi-Referenz-IPAdapter · Mittelwert"
+    },
+    {
+      "id": 15,
+      "type": "KSampler",
+      "pos": [
+        9677.5,
+        1997.5
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "model",
+          "name": "model",
+          "type": "MODEL",
+          "link": 17,
+          "widget": null
+        },
+        {
+          "localized_name": "seed",
+          "name": "seed",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "seed"
+          }
+        },
+        {
+          "localized_name": "steps",
+          "name": "steps",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "steps"
+          }
+        },
+        {
+          "localized_name": "cfg",
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "cfg"
+          }
+        },
+        {
+          "localized_name": "sampler_name",
+          "name": "sampler_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "sampler_name"
+          }
+        },
+        {
+          "localized_name": "scheduler",
+          "name": "scheduler",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "scheduler"
+          }
+        },
+        {
+          "localized_name": "positive",
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 18,
+          "widget": null
+        },
+        {
+          "localized_name": "negative",
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 19,
+          "widget": null
+        },
+        {
+          "localized_name": "latent_image",
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 20,
+          "widget": null
+        },
+        {
+          "localized_name": "denoise",
+          "name": "denoise",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "denoise"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "LATENT",
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            21
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        123456789,
+        "fixed",
+        4,
+        1.5,
+        "lcm",
+        "sgm_uniform",
+        0.2
+      ],
+      "title": "LCM Img2Img · 4 steps"
+    },
+    {
+      "id": 16,
+      "type": "VAEDecode",
+      "pos": [
+        10902.5,
+        1997.5
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "samples",
+          "name": "samples",
+          "type": "LATENT",
+          "link": 21,
+          "widget": null
+        },
+        {
+          "localized_name": "vae",
+          "name": "vae",
+          "type": "VAE",
+          "link": 22,
+          "widget": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            23,
+            25
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [],
+      "title": "Bild dekodieren"
+    },
+    {
+      "id": 35,
+      "type": "DaWastehVRMTextureVariant",
+      "pos": [
+        12127,
+        1997
+      ],
+      "size": [
+        400,
+        220
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 2,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "DAWASTEH_VRM_TEXTURE_SOURCE",
+          "link": 24
+        },
+        {
+          "name": "edited_texture",
+          "type": "IMAGE",
+          "link": 23
+        },
+        {
+          "name": "output_name",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "output_name"
+          }
+        },
+        {
+          "name": "title",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "title"
+          }
+        },
+        {
+          "name": "author",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "author"
+          }
+        },
+        {
+          "name": "allow_overwrite",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "allow_overwrite"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "vrm_path",
+          "type": "STRING",
+          "links": []
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DaWastehVRMTextureVariant"
+      },
+      "widgets_values": [
+        "my-three-reference-avatar.vrm",
+        "Local three-reference appearance-guided VRM variant",
+        "",
+        false
+      ],
+      "title": "OPT-IN (MUTED) · 5 · Neue lokale VRM-Variante speichern"
+    },
+    {
+      "id": 36,
+      "type": "PreviewImage",
+      "pos": [
+        12127,
+        2350
+      ],
+      "size": [
+        400,
+        220
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 25
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": [],
+      "title": "4 · Bearbeitete UV-Textur prüfen"
+    },
+    {
+      "id": 38,
+      "type": "LoadImage",
+      "pos": [
+        6002.5,
+        4112.5
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "image"
+          }
+        },
+        {
+          "localized_name": "upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "link": null,
+          "widget": {
+            "name": "upload"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            27
+          ]
+        },
+        {
+          "localized_name": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "title": "Referenz 2 · Dreiviertelansicht"
+    },
+    {
+      "id": 39,
+      "type": "LoadImage",
+      "pos": [
+        6002.5,
+        4817.5
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "image"
+          }
+        },
+        {
+          "localized_name": "upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "link": null,
+          "widget": {
+            "name": "upload"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            28
+          ]
+        },
+        {
+          "localized_name": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "title": "Referenz 3 · Seitenansicht"
+    },
+    {
+      "id": 40,
+      "type": "BatchImagesNode",
+      "pos": [
+        7227.5,
+        4700.0
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "image0",
+          "localized_name": "images.image0",
+          "name": "images.image0",
+          "type": "IMAGE",
+          "link": 26
+        },
+        {
+          "label": "image1",
+          "localized_name": "images.image1",
+          "name": "images.image1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 27
+        },
+        {
+          "label": "image2",
+          "localized_name": "images.image2",
+          "name": "images.image2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 28
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            15
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "BatchImagesNode",
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0"
+      },
+      "widgets_values": [],
+      "title": "Drei Perspektiven als Referenz-Batch"
+    },
+    {
+      "id": 19,
+      "type": "MarkdownNote",
+      "pos": [
+        2733.5,
+        1175.0
+      ],
+      "size": [
+        390,
+        464
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 1 · Licensed VRM0 template + UV texture · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 1 · Licensed VRM0 template + UV texture · Node 2\n\n**Zweck:** Verarbeitet die Ein- und Ausgaben des Node-Typs `DaWastehVRMTextureSource` gemäß seiner Workflow-Funktion.\n\n**Einstellbare Werte**\n- `vrm_name` = `olivia.vrm` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `vrm_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `uv_texture` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `vrm_texture_source` (DAWASTEH_VRM_TEXTURE_SOURCE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `model_info` (STRING, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 21,
+      "type": "MarkdownNote",
+      "pos": [
+        2733.5,
+        2115.0
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · SD1.5 FP16 Basis · Node 4",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 4,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · SD1.5 FP16 Basis · Node 4\n\n**Zweck:** Loads a diffusion model checkpoint, diffusion models are used to denoise latents.\n\n**Einstellbare Werte**\n- `ckpt_name` = `v1-5-pruned-emaonly-fp16.safetensors` — The name of the checkpoint (model) to load. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n\n**Eingänge**\n- `ckpt_name` (COMBO, nicht verbunden): The name of the checkpoint (model) to load.\n\n**Ausgänge**\n- `MODEL` (MODEL, 1 Verbindung(en)): The model used for denoising latents.\n- `CLIP` (CLIP, 1 Verbindung(en)): The CLIP model used for encoding text prompts.\n- `VAE` (VAE, 2 Verbindung(en)): The VAE model used for encoding and decoding images to and from latent space."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 22,
+      "type": "MarkdownNote",
+      "pos": [
+        3958.5,
+        2115.0
+      ],
+      "size": [
+        390,
+        413
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LCM LoRA · SD1.5 · Node 5",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 5,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LCM LoRA · SD1.5 · Node 5\n\n**Zweck:** This LoRA loader is used to modify both diffusion and CLIP models, altering the way in which latents are denoised such as applying styles. Multiple LoRA nodes can be linked together.\n\n**Einstellbare Werte**\n- `lora_name` = `LiveAvatar\\lcm-lora-sdv1-5.safetensors` — The name of the LoRA. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `strength_model` = `1.0` — How strongly to modify the diffusion model. This value can be negative. Höher verstärkt den Einfluss bzw. die Veränderung; niedriger bewahrt Eingang/Grundmodell stärker.\n- `strength_clip` = `1.0` — How strongly to modify the CLIP model. This value can be negative. Höher verstärkt den Einfluss bzw. die Veränderung; niedriger bewahrt Eingang/Grundmodell stärker.\n\n**Eingänge**\n- `model` (MODEL, Link 2): The diffusion model the LoRA will be applied to.\n- `clip` (CLIP, Link 3): The CLIP model the LoRA will be applied to.\n- `lora_name` (COMBO, nicht verbunden): The name of the LoRA.\n- `strength_model` (FLOAT, nicht verbunden): How strongly to modify the diffusion model. This value can be negative.\n- `strength_clip` (FLOAT, nicht verbunden): How strongly to modify the CLIP model. This value can be negative.\n\n**Ausgänge**\n- `MODEL` (MODEL, 1 Verbindung(en)): The modified diffusion model.\n- `CLIP` (CLIP, 2 Verbindung(en)): The modified CLIP model."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 23,
+      "type": "MarkdownNote",
+      "pos": [
+        5183.5,
+        1997.5
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Positiv · Referenzstil und Pose · Node 6",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 6,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Positiv · Referenzstil und Pose · Node 6\n\n**Zweck:** Encodes a text prompt using a CLIP model into an embedding that can be used to guide the diffusion model towards generating specific images.\n\n**Einstellbare Werte**\n- `text` = `photorealistic realistic adult human fantasy wizard, natural skin, brown hair, round glasses, tailored dark r…` — The text to be encoded. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- `text` (STRING, nicht verbunden): The text to be encoded.\n- `clip` (CLIP, Link 4): The CLIP model used for encoding the text.\n\n**Ausgänge**\n- `CONDITIONING` (CONDITIONING, 1 Verbindung(en)): A conditioning containing the embedded text used to guide the diffusion model."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 24,
+      "type": "MarkdownNote",
+      "pos": [
+        5183.5,
+        2632.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Negativ · Artefakte vermeiden · Node 7",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 7,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Negativ · Artefakte vermeiden · Node 7\n\n**Zweck:** Encodes a text prompt using a CLIP model into an embedding that can be used to guide the diffusion model towards generating specific images.\n\n**Einstellbare Werte**\n- `text` = `worst quality, blurry, deformed, extra limbs, extra fingers, watermark, text` — The text to be encoded. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- `text` (STRING, nicht verbunden): The text to be encoded.\n- `clip` (CLIP, Link 5): The CLIP model used for encoding the text.\n\n**Ausgänge**\n- `CONDITIONING` (CONDITIONING, 1 Verbindung(en)): A conditioning containing the embedded text used to guide the diffusion model."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 27,
+      "type": "MarkdownNote",
+      "pos": [
+        6408.5,
+        2702.5
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · UV texture → Img2Img latent · Node 10",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 10,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · UV texture → Img2Img latent · Node 10\n\n**Zweck:** Kodiert Medien mit dem VAE in den Latent-Raum.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `pixels` (IMAGE, Link 11): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `vae` (VAE, Link 12): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `LATENT` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 28,
+      "type": "MarkdownNote",
+      "pos": [
+        6408.5,
+        3407.5
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Referenz 1 · Frontalansicht · Node 11",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 11,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Referenz 1 · Frontalansicht · Node 11\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `image` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `upload` (IMAGEUPLOAD, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 29,
+      "type": "MarkdownNote",
+      "pos": [
+        7633.5,
+        3407.5
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · IPAdapter Plus SD1.5 · Node 12",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 12,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · IPAdapter Plus SD1.5 · Node 12\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `ipadapter_file` = `ip-adapter-plus_sd15.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `ipadapter_file` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `IPADAPTER` (IPADAPTER, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 30,
+      "type": "MarkdownNote",
+      "pos": [
+        7633.5,
+        3995.0
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · CLIP Vision · ViT-H · Node 13",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 13,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · CLIP Vision · ViT-H · Node 13\n\n**Zweck:** Kodiert visuelle Referenzen oder überträgt deren Merkmale per IP-Adapter auf die Generierung.\n\n**Einstellbare Werte**\n- `clip_name` = `CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n\n**Eingänge**\n- `clip_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CLIP_VISION` (CLIP_VISION, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 31,
+      "type": "MarkdownNote",
+      "pos": [
+        8858.5,
+        2937.5
+      ],
+      "size": [
+        390,
+        532
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Multi-Referenz-IPAdapter · Mittelwert · Node 14",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 14,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Multi-Referenz-IPAdapter · Mittelwert · Node 14\n\n**Zweck:** Kodiert visuelle Referenzen oder überträgt deren Merkmale per IP-Adapter auf die Generierung.\n\n**Einstellbare Werte**\n- `weight` = `0.35` — Steuert diesen Parameter. Höher verstärkt den Einfluss bzw. die Veränderung; niedriger bewahrt Eingang/Grundmodell stärker.\n- `weight_type` = `linear` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `combine_embeds` = `average` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `start_at` = `0.0` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `end_at` = `1.0` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `embeds_scaling` = `V only` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `model` (MODEL, Link 13): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ipadapter` (IPADAPTER, Link 14): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `image` (IMAGE, Link 15): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `weight` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `weight_type` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `combine_embeds` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `start_at` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `end_at` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `embeds_scaling` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `clip_vision` (CLIP_VISION, Link 16): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `MODEL` (MODEL, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 32,
+      "type": "MarkdownNote",
+      "pos": [
+        10083.5,
+        1997.5
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · LCM Img2Img · 4 steps · Node 15",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 15,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · LCM Img2Img · 4 steps · Node 15\n\n**Zweck:** Uses the provided model, positive and negative conditioning to denoise the latent image.\n\n**Einstellbare Werte**\n- `seed` = `123456789` — The random seed used for creating the noise. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `seed_control_after_generate` = `fixed` — Verhalten des Werts nach jedem Workflow-Lauf. `randomize` erzeugt pro Lauf eine neue Variation; `fixed` behält den Wert; andere Modi ändern ihn schrittweise.\n- `steps` = `4` — The number of steps used in the denoising process. Höher erhöht Laufzeit und mögliche Ausarbeitung, kann aber übertrainieren; niedriger ist schneller.\n- `cfg` = `1.5` — The Classifier-Free Guidance scale balances creativity and adherence to the prompt. Higher values result in images more closely matching the prompt however too high values will ne… Höher folgt der Vorgabe stärker, kann unnatürlich/übersättigt wirken; niedriger lässt mehr Freiheit.\n- `sampler_name` = `lcm` — The algorithm used when sampling, this can affect the quality, speed, and style of the generated output. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n- `scheduler` = `sgm_uniform` — The scheduler controls how noise is gradually removed to form the image. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n- `denoise` = `0.2` — The amount of denoising applied, lower values will maintain the structure of the initial image allowing for image to image sampling. Höher verstärkt den Einfluss bzw. die Veränderung; niedriger bewahrt Eingang/Grundmodell stärker.\n\n**Eingänge**\n- `model` (MODEL, Link 17): The model used for denoising the input latent.\n- `seed` (INT, nicht verbunden): The random seed used for creating the noise.\n- `steps` (INT, nicht verbunden): The number of steps used in the denoising process.\n- `cfg` (FLOAT, nicht verbunden): The Classifier-Free Guidance scale balances creativity and adherence to the prompt. Higher values result in images more closely matching the prompt h…\n- `sampler_name` (COMBO, nicht verbunden): The algorithm used when sampling, this can affect the quality, speed, and style of the generated output.\n- `scheduler` (COMBO, nicht verbunden): The scheduler controls how noise is gradually removed to form the image.\n- `positive` (CONDITIONING, Link 18): The conditioning describing the attributes you want to include in the image.\n- `negative` (CONDITIONING, Link 19): The conditioning describing the attributes you want to exclude from the image.\n- `latent_image` (LATENT, Link 20): The latent image to denoise.\n- `denoise` (FLOAT, nicht verbunden): The amount of denoising applied, lower values will maintain the structure of the initial image allowing for image to image sampling.\n\n**Ausgänge**\n- `LATENT` (LATENT, 1 Verbindung(en)): The denoised latent."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 33,
+      "type": "MarkdownNote",
+      "pos": [
+        11308.5,
+        1997.5
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Bild dekodieren · Node 16",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 16,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Bild dekodieren · Node 16\n\n**Zweck:** Decodes latent images back into pixel space images.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `samples` (LATENT, Link 21): The latent to be decoded.\n- `vae` (VAE, Link 22): The VAE model used for decoding the latent.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 2 Verbindung(en)): The decoded image."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 34,
+      "type": "MarkdownNote",
+      "pos": [
+        12533.5,
+        1997.5
+      ],
+      "size": [
+        390,
+        345
+      ],
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · OPT-IN (MUTED) · 5 · Neue lokale VRM-Variante speichern · Node 35",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 35,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · OPT-IN (MUTED) · 5 · Neue lokale VRM-Variante speichern · Node 35\n\n**Zweck:** Verarbeitet die Ein- und Ausgaben des Node-Typs `DaWastehVRMTextureVariant` gemäß seiner Workflow-Funktion.\n\n**Einstellbare Werte**\n- `output_name` = `my-three-reference-avatar.vrm` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `title` = `Local three-reference appearance-guided VRM variant` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `author` = `` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `allow_overwrite` = `False` — Steuert diesen Parameter. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `source` (DAWASTEH_VRM_TEXTURE_SOURCE, Link 24): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `edited_texture` (IMAGE, Link 23): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `output_name` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `title` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `author` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `allow_overwrite` (BOOLEAN, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `vrm_path` (STRING, nicht verbunden): Ergebnis dieses Nodes\n- `report` (STRING, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 37,
+      "type": "MarkdownNote",
+      "pos": [
+        12127,
+        2600
+      ],
+      "size": [
+        360,
+        100
+      ],
+      "flags": {},
+      "order": 37,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 36,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 4 · Bearbeitete UV-Textur prüfen · Node 36\n\n**Zweck:** Preview the images without saving them to the ComfyUI output directory.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `images` (IMAGE, Link 25): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "title": "Erklärung · 4 · Bearbeitete UV-Textur prüfen · Node 36"
+    },
+    {
+      "id": 41,
+      "type": "MarkdownNote",
+      "pos": [
+        6408.5,
+        4112.5
+      ],
+      "size": [
+        390,
+        430
+      ],
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Referenz 2 · Dreiviertelansicht · Node 38",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 38,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Referenz 2 · Dreiviertelansicht · Node 38\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `image` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `upload` (IMAGEUPLOAD, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 42,
+      "type": "MarkdownNote",
+      "pos": [
+        6408.5,
+        4817.5
+      ],
+      "size": [
+        390,
+        430
+      ],
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Referenz 3 · Seitenansicht · Node 39",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 39,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Referenz 3 · Seitenansicht · Node 39\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `image` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `upload` (IMAGEUPLOAD, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 43,
+      "type": "MarkdownNote",
+      "pos": [
+        7633.5,
+        4700.0
+      ],
+      "size": [
+        390,
+        360
+      ],
+      "flags": {},
+      "order": 40,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Drei Perspektiven als Referenz-Batch · Node 40",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 40,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Drei Perspektiven als Referenz-Batch · Node 40\n\n**Zweck:** Erzeugt oder verarbeitet Bilddaten, etwa durch Skalierung, Zuschnitt, Maskierung oder Kombination.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `images.image0` (IMAGE, Link 26): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `images.image1` (IMAGE, Link 27): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `images.image2` (IMAGE, Link 28): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    }
+  ],
+  "links": [
+    [
+      2,
+      4,
+      0,
+      5,
+      0,
+      "MODEL"
+    ],
+    [
+      3,
+      4,
+      1,
+      5,
+      1,
+      "CLIP"
+    ],
+    [
+      4,
+      5,
+      1,
+      6,
+      1,
+      "CLIP"
+    ],
+    [
+      5,
+      5,
+      1,
+      7,
+      1,
+      "CLIP"
+    ],
+    [
+      11,
+      2,
+      0,
+      10,
+      0,
+      "IMAGE"
+    ],
+    [
+      12,
+      4,
+      2,
+      10,
+      1,
+      "VAE"
+    ],
+    [
+      13,
+      5,
+      0,
+      14,
+      0,
+      "MODEL"
+    ],
+    [
+      14,
+      12,
+      0,
+      14,
+      1,
+      "IPADAPTER"
+    ],
+    [
+      15,
+      40,
+      0,
+      14,
+      2,
+      "IMAGE"
+    ],
+    [
+      16,
+      13,
+      0,
+      14,
+      9,
+      "CLIP_VISION"
+    ],
+    [
+      17,
+      14,
+      0,
+      15,
+      0,
+      "MODEL"
+    ],
+    [
+      18,
+      6,
+      0,
+      15,
+      6,
+      "CONDITIONING"
+    ],
+    [
+      19,
+      7,
+      0,
+      15,
+      7,
+      "CONDITIONING"
+    ],
+    [
+      20,
+      10,
+      0,
+      15,
+      8,
+      "LATENT"
+    ],
+    [
+      21,
+      15,
+      0,
+      16,
+      0,
+      "LATENT"
+    ],
+    [
+      22,
+      4,
+      2,
+      16,
+      1,
+      "VAE"
+    ],
+    [
+      23,
+      16,
+      0,
+      35,
+      1,
+      "IMAGE"
+    ],
+    [
+      24,
+      2,
+      1,
+      35,
+      0,
+      "DAWASTEH_VRM_TEXTURE_SOURCE"
+    ],
+    [
+      25,
+      16,
+      0,
+      36,
+      0,
+      "IMAGE"
+    ],
+    [
+      26,
+      11,
+      0,
+      40,
+      0,
+      "IMAGE"
+    ],
+    [
+      27,
+      38,
+      0,
+      40,
+      1,
+      "IMAGE"
+    ],
+    [
+      28,
+      39,
+      0,
+      40,
+      2,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "frontendVersion": "1.47.11",
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 17
+    }
+  },
+  "version": 0.4
+}

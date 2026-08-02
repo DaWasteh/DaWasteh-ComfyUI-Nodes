@@ -1,0 +1,2 @@
+import { app } from "/scripts/app.js";
+app.registerExtension({name:"DaWasteh.VRMLiveAvatarLauncher",beforeRegisterNodeDef(nodeType,nodeData){if(nodeData.name!=="DaWastehVRMLiveAvatarLauncher")return;const original=nodeType.prototype.onNodeCreated;nodeType.prototype.onNodeCreated=function(){original?.apply(this,arguments);this.addWidget("button","VRM Live Avatar öffnen","",()=>{const port=this.widgets?.find(w=>w.name==="port")?.value||window.location.port||8188;window.open(`http://127.0.0.1:${port}/dawasteh/vrm-live/`,`_blank`,`noopener,noreferrer`)})}}});

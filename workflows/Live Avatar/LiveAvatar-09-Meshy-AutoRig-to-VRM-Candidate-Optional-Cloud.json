@@ -1,0 +1,471 @@
+{
+  "id": "live-avatar-09-meshy-rig-vrm-candidate",
+  "revision": 0,
+  "last_node_id": 10,
+  "last_link_id": 3,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "PixaromaNote",
+      "pos": [
+        30,
+        30
+      ],
+      "size": [
+        400,
+        220
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PixaromaNote"
+      },
+      "widgets_values": [
+        "{\"version\": 1, \"content\": \"<h1>Live Avatar · 09 · Optional Meshy Auto-Rig → VRM0 Candidate</h1><p><b>Optional paid cloud path; do not run without Comfy credits.</b> It uploads the reference and generated model to Meshy. Comfy account/credit costs, Meshy rights and retention apply. It was not live-tested because no credits are available.</p><p>Use a licensed/consented full-body adult A/T-pose reference, realistic or stylized. Meshy returns GLB/FBX, not VRM. The strict converter only publishes a VRM0 when real skinning, required body bones, full finger chains and actual Blink/A/I/U/E/O morph targets exist. Missing capabilities are rejected; body-only is an explicit degraded fallback and cannot supply Workflow 06 mouth/blink/fingers. Replace the empty license URL with the truthful provider/asset license URL before conversion.</p>\", \"buttonColor\": \"#32c48d\", \"lineColor\": \"#32c48d\", \"width\": 850, \"height\": 700, \"backgroundColor\": \"#2a2a2a\"}",
+        ""
+      ],
+      "title": "START HERE · Optional cloud candidate"
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        1225.0,
+        822.5
+      ],
+      "size": [
+        400,
+        220
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "image"
+          }
+        },
+        {
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "link": null,
+          "widget": {
+            "name": "upload"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ],
+      "title": "1 · Licensed full-body A/T-pose reference"
+    },
+    {
+      "id": 3,
+      "type": "MeshyImageToModelNode",
+      "pos": [
+        2450.0,
+        822.5
+      ],
+      "size": [
+        400,
+        220
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "model"
+          }
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model_file",
+          "type": "STRING",
+          "links": []
+        },
+        {
+          "name": "meshy_task_id",
+          "type": "MESHY_TASK_ID",
+          "links": [
+            2
+          ]
+        },
+        {
+          "name": "GLB",
+          "type": "FILE_3D_GLB",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MeshyImageToModelNode"
+      },
+      "widgets_values": [
+        "latest",
+        {
+          "should_remesh": "true",
+          "topology": "quad",
+          "target_polycount": 30000
+        },
+        {
+          "should_texture": "true",
+          "enable_pbr": false,
+          "texture_prompt": ""
+        },
+        "on",
+        "A-pose",
+        42
+      ],
+      "title": "2 · Meshy Image→3D (cloud/credits)"
+    },
+    {
+      "id": 4,
+      "type": "MeshyRigModelNode",
+      "pos": [
+        3675.0,
+        822.5
+      ],
+      "size": [
+        400,
+        220
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "meshy_task_id",
+          "type": "MESHY_TASK_ID",
+          "link": 2
+        },
+        {
+          "name": "height_meters",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "height_meters"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model_file",
+          "type": "STRING",
+          "links": []
+        },
+        {
+          "name": "rig_task_id",
+          "type": "MESHY_RIGGED_TASK_ID",
+          "links": []
+        },
+        {
+          "name": "GLB",
+          "type": "FILE_3D_GLB",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MeshyRigModelNode"
+      },
+      "widgets_values": [
+        1.75
+      ],
+      "title": "3 · Meshy auto-rig (cloud/credits)"
+    },
+    {
+      "id": 5,
+      "type": "DaWastehRiggedGLBToVRM0",
+      "pos": [
+        4900.0,
+        822.5
+      ],
+      "size": [
+        400,
+        220
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "rigged_glb",
+          "type": "FILE_3D_GLB",
+          "link": 3
+        },
+        {
+          "name": "output_name",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "output_name"
+          }
+        },
+        {
+          "name": "title",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "title"
+          }
+        },
+        {
+          "name": "author",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "author"
+          }
+        },
+        {
+          "name": "license_name",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "license_name"
+          }
+        },
+        {
+          "name": "other_license_url",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "other_license_url"
+          }
+        },
+        {
+          "name": "strict",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "strict"
+          }
+        },
+        {
+          "name": "allow_body_only",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "allow_body_only"
+          }
+        },
+        {
+          "name": "allow_overwrite",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "allow_overwrite"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "vrm_path",
+          "type": "STRING",
+          "links": []
+        },
+        {
+          "name": "capability_report",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DaWastehRiggedGLBToVRM0"
+      },
+      "widgets_values": [
+        "meshy-rigged-candidate.vrm",
+        "Meshy rigged candidate",
+        "",
+        "Other",
+        "",
+        true,
+        false,
+        false
+      ],
+      "title": "4 · Strict audit + VRM0 candidate"
+    },
+    {
+      "id": 7,
+      "type": "MarkdownNote",
+      "pos": [
+        1671.0,
+        822.5
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 1 · Licensed full-body A/T-pose reference · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 1 · Licensed full-body A/T-pose reference · Node 2\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `example.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `image` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `upload` (IMAGEUPLOAD, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 8,
+      "type": "MarkdownNote",
+      "pos": [
+        2896.0,
+        822.5
+      ],
+      "size": [
+        390,
+        345
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 2 · Meshy Image→3D (cloud/credits) · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 3,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 2 · Meshy Image→3D (cloud/credits) · Node 3\n\n**Zweck:** Erzeugt oder verarbeitet Bilddaten, etwa durch Skalierung, Zuschnitt, Maskierung oder Kombination.\n\n**Einstellbare Werte**\n- `model` = `latest` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `should_remesh` = `{\"should_remesh\":\"true\",\"topology\":\"quad\",\"target_polycount\":30000}` — When set to false, returns an unprocessed triangular mesh. Ändert die Verarbeitung dieses Nodes entsprechend dem angeschlossenen Datentyp.\n- `symmetry_mode` = `{\"should_texture\":\"true\",\"enable_pbr\":false,\"texture_prompt\":\"\"}` — Steuert diesen Parameter. Die Auswahl bestimmt den Verarbeitungs- bzw. Dateimodus und dessen Kompatibilität.\n- `should_texture` = `on` — Determines whether textures are generated. Setting it to false skips the texture phase and returns a mesh without textures. Ändert die Verarbeitung dieses Nodes entsprechend dem angeschlossenen Datentyp.\n- `pose_mode` = `A-pose` — Specify the pose mode for the generated model. Die Auswahl bestimmt den Verarbeitungs- bzw. Dateimodus und dessen Kompatibilität.\n- `seed` = `42` — Seed controls whether the node should re-run; results are non-deterministic regardless of seed. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `seed_control_after_generate` = `fixed` — Verhalten des Werts nach jedem Workflow-Lauf. `randomize` erzeugt pro Lauf eine neue Variation; `fixed` behält den Wert; andere Modi ändern ihn schrittweise.\n\n**Eingänge**\n- `model` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `image` (IMAGE, Link 1): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `model_file` (STRING, nicht verbunden): Ergebnis dieses Nodes\n- `meshy_task_id` (MESHY_TASK_ID, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `GLB` (FILE_3D_GLB, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 9,
+      "type": "MarkdownNote",
+      "pos": [
+        4121.0,
+        822.5
+      ],
+      "size": [
+        390,
+        345
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 3 · Meshy auto-rig (cloud/credits) · Node 4",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 4,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 3 · Meshy auto-rig (cloud/credits) · Node 4\n\n**Zweck:** Provides a rigged character in standard formats. Auto-rigging is currently not suitable for untextured meshes, non-humanoid assets, or humanoid assets with unclear limb and body structure.\n\n**Einstellbare Werte**\n- `height_meters` = `1.75` — The approximate height of the character model in meters. This aids in scaling and rigging accuracy. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n\n**Eingänge**\n- `meshy_task_id` (MESHY_TASK_ID, Link 2): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `height_meters` (FLOAT, nicht verbunden): The approximate height of the character model in meters. This aids in scaling and rigging accuracy.\n\n**Ausgänge**\n- `model_file` (STRING, nicht verbunden): Ergebnis dieses Nodes\n- `rig_task_id` (MESHY_RIGGED_TASK_ID, nicht verbunden): Ergebnis dieses Nodes\n- `GLB` (FILE_3D_GLB, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 10,
+      "type": "MarkdownNote",
+      "pos": [
+        5346.0,
+        822.5
+      ],
+      "size": [
+        390,
+        430
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 4 · Strict audit + VRM0 candidate · Node 5",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 5,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 4 · Strict audit + VRM0 candidate · Node 5\n\n**Zweck:** Verarbeitet die Ein- und Ausgaben des Node-Typs `DaWastehRiggedGLBToVRM0` gemäß seiner Workflow-Funktion.\n\n**Einstellbare Werte**\n- `output_name` = `meshy-rigged-candidate.vrm` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `title` = `Meshy rigged candidate` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `author` = `` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `license_name` = `Other` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `other_license_url` = `` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `strict` = `True` — Steuert diesen Parameter. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `allow_body_only` = `False` — Steuert diesen Parameter. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `allow_overwrite` = `False` — Steuert diesen Parameter. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `rigged_glb` (FILE_3D_GLB, Link 3): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `output_name` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `title` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `author` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `license_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `other_license_url` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `strict` (BOOLEAN, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `allow_body_only` (BOOLEAN, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `allow_overwrite` (BOOLEAN, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `vrm_path` (STRING, nicht verbunden): Ergebnis dieses Nodes\n- `capability_report` (STRING, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      3,
+      1,
+      "IMAGE"
+    ],
+    [
+      2,
+      3,
+      1,
+      4,
+      0,
+      "MESHY_TASK_ID"
+    ],
+    [
+      3,
+      4,
+      2,
+      5,
+      0,
+      "FILE_3D_GLB"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 4
+    }
+  },
+  "version": 0.4
+}

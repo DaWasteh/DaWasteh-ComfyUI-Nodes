@@ -1,0 +1,67 @@
+{
+  "schema_version": 2,
+  "models": [
+    {
+      "id": "amazonas",
+      "display_name": "Amazonas",
+      "kind": "lightly_clothed_fantasy_female",
+      "source": "https://arweave.net/fqZDwToo41u1a7VnHhZX1BTK5lktXpK_H6H20MVbPqQ",
+      "filename": "amazonas.vrm",
+      "source_size": 2839088,
+      "source_sha256": "0757cf8eabda2fd0794dc96664bae82c1d245f1ccbf4050dda2324632045bee7",
+      "installed_size": 2839088,
+      "installed_sha256": "0757cf8eabda2fd0794dc96664bae82c1d245f1ccbf4050dda2324632045bee7",
+      "license": "CC0-1.0",
+      "vrm0_spring_bone_groups": 0,
+      "vrm0_collider_groups": 0,
+      "physics_claim": "none; renderer does not synthesize physics"
+    },
+    {
+      "id": "olivia",
+      "display_name": "Olivia",
+      "kind": "lightly_clothed_fantasy_female",
+      "source": "https://arweave.net/MgsNlTetzAoVEC6E-lswj65vp7StkOZXXd5OjjqzYZI",
+      "filename": "olivia.vrm",
+      "source_size": 1699736,
+      "source_sha256": "d2597a8e0f6fbfc6c1e77886b737cea9cd9d2640474dc5cb5eafc847376a2473",
+      "installed_size": 1699736,
+      "installed_sha256": "d2597a8e0f6fbfc6c1e77886b737cea9cd9d2640474dc5cb5eafc847376a2473",
+      "license": "CC0-1.0",
+      "vrm0_spring_bone_groups": 0,
+      "vrm0_collider_groups": 0,
+      "physics_claim": "none; renderer does not synthesize physics"
+    },
+    {
+      "id": "lady-koi",
+      "display_name": "Lady Koi",
+      "kind": "unclothed_nonhuman_fantasy_female_nonexplicit",
+      "source": "https://arweave.net/t3aTp6AhxfdLcq5I3HZx29wK8MFQGmDC9wPwXrHQoW0",
+      "filename": "lady-koi.vrm",
+      "source_size": 5093563,
+      "source_sha256": "a20e3db072640b96f7d9089c1f7efd9962ce603d4a6f42d1cebe74c0e84fc9e7",
+      "installed_size": 5093564,
+      "installed_sha256": "fb680d4f3eb5dafe7773ce6eb8117ac7c4fef67c52117b8766f8ea21ff40d236",
+      "license": "CC0-1.0",
+      "normalize_glb_chunks": true,
+      "vrm0_spring_bone_groups": 1,
+      "vrm0_collider_groups": 0,
+      "physics_claim": "limited authored spring motion; no collider-based collision"
+    },
+    {
+      "id": "panda-bear",
+      "display_name": "Panda Bear (derived)",
+      "kind": "panda_like_anime_bear",
+      "source": "https://arweave.net/KbaYR3YmtjweLgEcJAWekeh3MNAlF9ZWOYJkbNfi8MM",
+      "filename": "panda-bear.vrm",
+      "source_size": 1657132,
+      "source_sha256": "68e0f644a8d6d250b741337b25dff188ed45a425b9658d6f42106931157e9bc8",
+      "installed_size": 1020944,
+      "installed_sha256": "4cd26b1d58d1d3a834984d6ee32b681531acdd9fd369c86b120eae5bbd736f20",
+      "license": "CC0-1.0",
+      "derivative": "panda_texture_v1",
+      "vrm0_spring_bone_groups": 0,
+      "vrm0_collider_groups": 0,
+      "physics_claim": "none; renderer does not synthesize physics"
+    }
+  ]
+}

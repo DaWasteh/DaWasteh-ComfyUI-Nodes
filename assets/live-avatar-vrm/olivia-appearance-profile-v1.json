@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "base_filename": "olivia.vrm",
+  "base_sha256": "d2597a8e0f6fbfc6c1e77886b737cea9cd9d2640474dc5cb5eafc847376a2473",
+  "reference": "02_Avatar_Transparent_00001_.png",
+  "appearance": {"hair":"dark brown (inherited Olivia UV region)","eyes":"brown (inherited/approximate)","clothing":"white/light gray UV-region recolor"},
+  "boundary": "The supplied reference is a front upper-body portrait. This CC0 Olivia derivative inherits its body, hands, fingers, side/back geometry and rig; it is an approximate style match, not an identity or geometry reconstruction."
+}

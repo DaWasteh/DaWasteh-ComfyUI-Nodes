@@ -236,11 +236,16 @@ class WidgetMappingTests(unittest.TestCase):
                 "LiveAvatar-03-LivePortrait-Webcam-Spout-OBS.json",
                 "LiveAvatar-04-LivePortrait-Webcam-Spout-OBS+Qwen3TTS-Voice-LoRA.json",
                 "LiveAvatar-05-LivePortrait-Continuous-Spout-OBS.json",
+                "LiveAvatar-06-VRM-Full-Body-Hand-Face+Live-Mic.json",
+                "LiveAvatar-07-AI-Webcam-Character-Swap-Experimental.json",
+                "LiveAvatar-08-Local-VRM-Texture-Creator-Realistic+Stylized.json",
+                "LiveAvatar-09-Meshy-AutoRig-to-VRM-Candidate-Optional-Cloud.json",
+                "LiveAvatar-10-Realistic-Adult-Character-Reference-Prompt+Image.json",
             ],
         )
         workflows = [json.loads(path.read_text(encoding="utf-8")) for path in paths]
         for path, workflow in zip(paths, workflows):
-            self.assertEqual(sum(node["type"] == "PixaromaRunTimer" for node in workflow["nodes"]), 1, path.name)
+            self.assertEqual(sum(node["type"] == "PixaromaRunTimer" for node in workflow["nodes"]), 0, path.name)
             nodes_by_id = {node["id"]: node for node in workflow["nodes"]}
             links_by_id = {link[0]: link for link in workflow["links"]}
             for link_id, source_id, source_slot, target_id, target_slot, link_type in workflow["links"]:
@@ -272,7 +277,7 @@ class WidgetMappingTests(unittest.TestCase):
         required_types = {
             "DownloadAndLoadLivePortraitModels", "LivePortraitLoadFaceAlignmentCropper",
             "LivePortraitCropper", "WebcamCaptureCV2", "LivePortraitProcess",
-            "LivePortraitComposite", "JoinImageWithAlpha", "SPOUT WRITER (JOV_SPOUT)",
+            "LivePortraitComposite", "JoinImageWithAlpha", "DaWastehPersistentSpout",
         }
         self.assertTrue(required_types.issubset(self.info), required_types - set(self.info))
         self.assertEqual(live["DownloadAndLoadLivePortraitModels"]["widgets_values"], ["fp16", "human"])
@@ -283,7 +288,8 @@ class WidgetMappingTests(unittest.TestCase):
         self.assertEqual(live["LivePortraitCropper"]["widgets_values"][1], 2.3)
         self.assertEqual(live["WebcamCaptureCV2"]["widgets_values"][4], 1)
         self.assertIn("single_frame", live["LivePortraitProcess"]["widgets_values"])
-        self.assertEqual(live["SPOUT WRITER (JOV_SPOUT)"]["widgets_values"], ["ComfyLiveAvatar", 30])
+        self.assertEqual(live["DaWastehPersistentSpout"]["widgets_values"], ["ComfyLiveAvatar", 30])
+        self.assertIn("Run (Instant)", json.dumps(live_workflow, ensure_ascii=False))
 
         load_image = live["LoadImage"]
         join_alpha = live["JoinImageWithAlpha"]
@@ -297,11 +303,33 @@ class WidgetMappingTests(unittest.TestCase):
         self.assertIn("DaWastehContinuousLiveAvatar", continuous_nodes)
         for legacy_type in ("WebcamCaptureCV2", "LivePortraitProcess", "LivePortraitComposite", "PreviewImage"):
             self.assertNotIn(legacy_type, continuous_nodes)
-        self.assertEqual(sum(node["type"] == "PixaromaRunTimer" for node in continuous["nodes"]), 1)
+        self.assertEqual(sum(node["type"] == "PixaromaRunTimer" for node in continuous["nodes"]), 0)
         self.assertEqual(continuous["last_link_id"], max(link[0] for link in continuous["links"]))
         self.assertEqual(continuous_nodes["DaWastehContinuousLiveAvatar"]["widgets_values"][:5], [
             "ComfyLiveAvatarFast", 30, 1, 960, 540,
         ])
+
+        vrm_workflow = workflows[5]
+        vrm_nodes = {node["type"]: node for node in vrm_workflow["nodes"]}
+        self.assertIn("DaWastehVRMLiveAvatarLauncher", vrm_nodes)
+        self.assertEqual(vrm_nodes["DaWastehVRMLiveAvatarLauncher"]["widgets_values"], [8188])
+        self.assertIn("nicht</em> Qwen-TTS/Voice-LoRA", json.dumps(vrm_workflow))
+
+        ai = workflows[6]
+        ai_nodes = {node["type"]: node for node in ai["nodes"]}
+        required_ai = {"WebcamCaptureCV2", "OpenposePreprocessor", "CheckpointLoaderSimple", "LoraLoader", "ControlNetLoader", "ControlNetApplyAdvanced", "VAEEncode", "IPAdapterModelLoader", "IPAdapterAdvanced", "CLIPVisionLoader", "KSampler", "VAEDecode", "DaWastehPersistentSpout"}
+        self.assertTrue(required_ai.issubset(ai_nodes), required_ai - set(ai_nodes))
+        self.assertNotIn("PreviewImage", ai_nodes)
+        self.assertEqual(ai_nodes["WebcamCaptureCV2"]["widgets_values"], [0, 0, 512, 512, 1, False])
+        self.assertEqual(ai_nodes["OpenposePreprocessor"]["widgets_values"][:4], ["enable", "enable", "enable", 512])
+        self.assertEqual(ai_nodes["LoraLoader"]["widgets_values"][0], "LiveAvatar\\lcm-lora-sdv1-5.safetensors")
+        self.assertEqual(ai_nodes["KSampler"]["widgets_values"][2:7], [4, 1.5, "lcm", "sgm_uniform", 0.5])
+        self.assertEqual(ai_nodes["ControlNetApplyAdvanced"]["widgets_values"][0], 0.8)
+        self.assertEqual(ai_nodes["IPAdapterAdvanced"]["widgets_values"][0], 0.55)
+        self.assertEqual(ai_nodes["DaWastehPersistentSpout"]["widgets_values"], ["ComfyAICharacterSwapExperimental", 30])
+        prompt_text = json.dumps(ai, ensure_ascii=False).lower()
+        for token in ("user interface", "malformed hands", "fused fingers", "brand mark", "keine</b> zusage"):
+            self.assertIn(token, prompt_text)
 
         combined_workflow = workflows[3]
         combined = {node["type"]: node for node in combined_workflow["nodes"]}

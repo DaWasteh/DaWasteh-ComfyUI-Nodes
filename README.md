@@ -1,4 +1,4 @@
-# DaWasteh – konsolidierte ComfyUI-Workflows · v0.7.1
+# DaWasteh – konsolidierte ComfyUI-Workflows · v0.7.2
 
 Dieser Ordner ist jetzt der **kuratierte Hauptordner** für die lokalen Workflows auf Windows 11 mit:
 
@@ -17,11 +17,11 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 
 ## Ergebnis
 
-- **200 kuratierte Workflow-Dateien** in 29 Kategorien
+- **205 kuratierte Workflow-Dateien** in 29 Kategorien
 - **122 Pixaroma Prompt**-Eingaben in 105 gezielt ausgewählten Workflows sowie **9 Pause Text**-Freigaben; insgesamt wurden 108 Workflows sinnvoll erweitert
-- alle 200 Workflows enthalten exakt einen `PixaromaRunTimer` aus ComfyUI-Pixaroma
+- 195 Nicht-Live-Workflows enthalten exakt einen `PixaromaRunTimer`; die 10 Live-Avatar-Workflows bleiben auf ausdrücklichen Nutzerwunsch timerfrei
 - alle vorhandenen Workflows wurden mit deutlich größeren, nachvollziehbaren Abständen angeordnet
-- **2.842 automatisch zugeordnete Parameter-Notes** erklären jeden Nicht-Pixaroma-/Nicht-Dokumentations-Node einschließlich aktueller Werte, Schalterwirkung, Ein-/Ausgänge und höher-/niedriger-Auswirkung
+- **2.898 automatisch zugeordnete Parameter-Notes** erklären jeden Nicht-Pixaroma-/Nicht-Dokumentations-Node einschließlich aktueller Werte, Schalterwirkung, Ein-/Ausgänge und höher-/niedriger-Auswirkung
 - 59 vorhandene Workflows beibehalten
 - 114 funktional ergänzende Workflows übernommen:
   - 33 aus `DaWasteh`
@@ -32,6 +32,7 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 - 3 grundlegende Live-Avatar-Workflows: SDXL-Quellbild, RMBG-2.0-Freistellung und eine AMD-RDNA4-optimierte Webcam→LivePortrait→RGBA-Spout-Pipeline für OBS
 - 1 erweiterter LivePortrait-Webcam→Spout→OBS-Workflow mit gecachter, adapterwechselbarer Qwen3-TTS-Voice-LoRA und Browser-Audio für OBS
 - 1 experimenteller Continuous-LivePortrait-Workflow mit Latest-Frame-Capture, persistentem GPU-Composite und kontrolliertem Spout-Dauerbetrieb
+- **10 Live-Avatar-Workflows**: die fünf ursprünglichen Live-Avatar-Workflows, davon drei LivePortrait-Varianten, browserbasiertes VRM-Live, Buffered AI Mirror, lokaler realistischer/stilisierter VRM-Textur-Creator mit drei Referenzperspektiven plus Prompt, optionaler Meshy-AutoRig-Kandidat und lokaler realistischer 2D-Referenz-Creator. Nur VRM-Live ist ein Echtzeitpfad; der Meshy-Kandidat ist kostenpflichtig/cloudbasiert.
 - 1 echtes Qwen3-TTS-PEFT-LoRA-Training sowie 1 eigenständiger Low-Latency-Voice-Workflow; ACE-Step bleibt korrekt auf Gesang/Musik beschränkt
 - die ausgelieferten YuE-/HeartMuLa-Startwerte wieder mit ihren bestehenden Tests und Bedienhinweisen synchronisiert: YuE CoT nutzt 20 Sektionen für 540 Sekunden, HeartMuLa startet wieder mit 300 Sekunden Obergrenze
 - der manifestgesteuerte Pixaroma-Integrator akzeptiert nach der Refinement-Pipeline ausschließlich zusätzliche lokalisierte UI-Labels, Topologie-Reihenfolge und vorhandene Darstellungsfarben, prüft semantische Node-/Link-Zustände aber weiterhin strikt
@@ -65,21 +66,28 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 | `NSFW` | 4 | getrennte SDXL-NSFW-/AniToReal-Workflows |
 | `Character & Consistency` | 3 | FLUX Kontext und SDXL/IPAdapter Character Keep |
 | `Character Animation` | 3 | SCAIL-2 Animation und Character Replacement |
-| `Live Avatar` | 5 | Avatar-Quellbild, transparente Freistellung, LivePortrait-Spout, Continuous-Spout-Experiment und die kombinierte OBS+Voice-LoRA-Variante |
+| `Live Avatar` | 10 | 2D-Quellbilder, Transparenz, LivePortrait-Spout, Continuous-Spout, Qwen-TTS-Variante, rigged VRM browser live, Buffered AI Mirror, lokaler VRM-Textur-Creator und optionaler Meshy-Kandidat |
 | `Image Inpainting` | 3 | FLUX2 Klein 4B/9B Inpainting |
 | `Image Upscaling` | 3 | einfache, Modell- und Z-Image-Upscaler |
 | `Batch Processing` | 2 | Ordner-Batches und Batch-Image-Edit |
 | weitere Einzelordner | je 1 | Controlled Video, Image Fusion, 3D, Outpainting, Talking Video, Tests, Video Editing, Video-to-Audio, Vocal Separation |
 
-## Live Avatar · v0.7.1
+## Live Avatar · v0.7.2
 
-Fünf aufeinander aufbauende Workflows unter `workflows/Live Avatar/` bilden die lokale Teststrecke:
+**Ausführliche Einrichtung, Drei-Bilder-Avatar-Erstellung, OBS-Schritte und Fehlerbehebung:** [LIVE_AVATAR_ANLEITUNG.md](LIVE_AVATAR_ANLEITUNG.md)
+
+Zehn aufeinander aufbauende Workflows unter `workflows/Live Avatar/` bilden die lokale Teststrecke. Die Capability-Tiers bleiben getrennt: **2D-Referenzgenerierung** (01/10), **Buffered AI Mirror** (07) und **tatsächlich geriggtes Browser-VRM** (06); ein PNG ist niemals automatisch ein VRM:
 
 1. `LiveAvatar-01-SDXL-Avatar-Generation.json` erzeugt mit dem bereits vorhandenen RealVisXL V4 ein frontales 1024×1024-Quellbild.
 2. `LiveAvatar-02-RMBG-Transparency.json` entfernt mit RMBG-2.0 den Hintergrund und speichert ein PNG mit Alphakanal.
 3. `LiveAvatar-03-LivePortrait-Webcam-Spout-OBS.json` übernimmt Mimik und Kopfbewegung aus `WebcamCaptureCV2`, setzt nur den animierten Gesichtsbereich in das statische Quellbild ein, stellt dessen ursprünglichen Alphakanal wieder her und sendet RGBA als `ComfyLiveAvatar` über Spout. Es bleibt der stabile Queue-basierte Fallback.
 4. `LiveAvatar-04-LivePortrait-Webcam-Spout-OBS+Qwen3TTS-Voice-LoRA.json` ergänzt den stabilen Queue-Pfad um die lokale Qwen3-TTS-Voice-LoRA-Ausgabe.
 5. `LiveAvatar-05-LivePortrait-Continuous-Spout-OBS.json` ist ein separates Experiment mit `ComfyUI-DaWasteh-LiveAvatar`: Capture und Spout laufen als Latest-Frame-Worker, während alle Torch-/ROCm-Schritte im Comfy-Ausführungsthread bleiben. Einmal normal **Run** starten, mit **Interrupt** stoppen und ausdrücklich nie **Run (Instant)** verwenden. Der Sender heißt `ComfyLiveAvatarFast`; OBS verwendet Composite Mode `Default`. Der Node animiert ausschließlich das Gesicht und blockiert während seiner Laufzeit andere ComfyUI-Jobs. Auf der R9700 stieg der warme Durchsatz gegenüber dem Queue-Fallback von rund 1,29 auf 7,3–7,9 neue Frames/s; ein separater SpoutGL-Empfänger erhielt 1024×1024-RGBA mit Alphaextrema `(0,255)` und wechselnden nichtleeren Frames.
+
+6. `LiveAvatar-06-VRM-Full-Body-Hand-Face+Live-Mic.json` startet einen lokalen Browser-Renderer mit MediaPipe-Holistic-Tracking und VRM. Alle vier Presets wurden lokal über die gepinnten Routen geladen und in Chrome/WebGL vollständig gerendert; ein lokaler Fake-Kamerastream erreichte ohne JS-Ausnahme den MediaPipe-Status `Tracking: Oberkörper · live`. Physische Kamera, Gestenqualität und OBS-Aufzeichnung bleiben manuelle Abnahmepunkte. Die Presets werden per `python tools/install_live_avatar_vrm_models.py --comfy-root L:/ComfyUI/ComfyUI` installiert. Der separate DirectML-RVC-Begleiter funktionierte auf der RX 9070 XT mit einem vertrauenswürdig gepinnten Testmodell und anschließendem app-eigenem ONNX-Export warm mit etwa 36–41 ms Rechenzeit pro 100-ms-Chunk; echte Mikrofon-/Virtual-Cable-/OBS-Abnahme bleibt offen. Er ist ausdrücklich nicht Qwen-TTS/Voice-LoRA.
+7. `LiveAvatar-07-AI-Webcam-Character-Swap-Experimental.json` ist auf diesem Rechner ein **Buffered AI Mirror**, kein Livepfad: Webcam → OpenPose → SD1.5-LCM Img2Img + IPAdapter-Referenz. Auf 8188/R9700 ergaben wiederholte warme Serien etwa 2,0–2,8 Sekunden pro Frame (rund 0,36–0,50 FPS); 8189/RX 9070 XT erreichte nur rund 0,125 FPS. Der Graph lief vollständig erfolgreich, und ein separater SpoutGL-Empfänger erhielt 512×512-RGBA mit Alpha 255 und nichtleeren Pixeln von `ComfyAICharacterSwapExperimental`; die sichtbare OBS-Komposition bleibt manuell. `tools/install_live_avatar_ai_assets.py` installiert nur gepinnte Safetensors nach Stoppen von Run (Instant) und bei leerer Queue. Für Audio bleibt DirectML-RVC auf der RX 9070 XT getrennt; 8189 währenddessen nicht mit schweren Jobs belasten.
+
+`LiveAvatar-08-Local-VRM-Texture-Creator-Realistic+Stylized.json` ist der lokale, creditfreie Template-Weg: drei lizenzierte/einvernehmlich bereitgestellte Bilder derselben klar erwachsenen Person – empfohlen frontal, Dreiviertelansicht und Profil – werden als gleich gewichteter IPAdapter-Referenz-Batch mit einem Prompt kombiniert. Ein bestehendes lizenziertes VRM0 mit genau einer eingebetteten Basisfarbtextur liefert Rig, Finger und Morphs; Mehrtextur-Basen werden sicher abgelehnt und vorhandenes Textur-Alpha bleibt erhalten. Ausschließlich die UV-Basistextur wird lokal per SD1.5/LCM/IPAdapter umgestaltet. Der Speichern-Node bleibt zunächst stumm: erst die flache UV-Vorschau prüfen, danach bewusst aktivieren und die neue, in Workflow 06 auswählbare VRM0-Variante zusätzlich am gerenderten 3D-Modell kontrollieren. Das ist eine erscheinungs-/ähnlichkeitsgeführte Texturvariante, keine Identitätsrekonstruktion: Körpergeometrie, Körperform, Rig und UV-Inseln bleiben vom Basismodell begrenzt. `LiveAvatar-09-Meshy-AutoRig-to-VRM-Candidate-Optional-Cloud.json` ist ein ungetesteter, kostenpflichtiger Meshy-Kandidat: Referenz und Modell verlassen dabei den Rechner; der strikte Konverter akzeptiert nur ein tatsächlich vollständiges Rig inklusive Fingerketten und Gesichtsmorphs und verspricht keine direkte VRM-Erzeugung durch Meshy. `LiveAvatar-10-Realistic-Adult-Character-Reference-Prompt+Image.json` erzeugt lokal mit dem tatsächlich installierten RealVisXL V4 drei wählbare bekleidete erwachsene 2D-Presets und einen strikt prompt-only, klar erwachsenen, neutralen nicht-expliziten Akt. Ein lizenziertes/einvernehmliches Portrait kann ausschließlich den bekleideten IPAdapter-Zweig beeinflussen; der separate Akt-Sampler ist direkt mit dem Checkpoint verbunden. Workflow 10 erzeugt Referenz-PNGs, kein Mesh, Rig oder VRM.
 
 Für die Radeon AI Pro R9700 sind LivePortrait `fp16` und FaceAlignment mit `landmarkrunner_device = torch_gpu` voreingestellt. BlazeFace erkennt das Gesicht kompatibel auf der CPU; das Landmark-TorchScript und LivePortrait selbst laufen auf der R9700. Der MediaPipe-Pfad bleibt bewusst ungenutzt, weil die installierte Python-3.13-Ausgabe nicht mehr das von diesem älteren Node erwartete `mediapipe.framework` bereitstellt. Der aktuelle LivePortraitKJ-Node nennt den früher oft als `crop_factor` beschriebenen Regler `scale`; `2.30` fokussiert den Kopf, während `LivePortraitComposite` Kleidung und Hände stabil aus dem Quellbild übernimmt. Ein normaler ComfyUI-Graph verarbeitet nur ein Webcam-Frame pro Queue-Ausführung: Für fortlaufende Bewegung muss beim Fallback-Workflow 03 **Run (Instant)** verwendet werden – das ist der aktuelle Name der in den älteren Workflow-Notizen als „Auto Queue“ bezeichneten Funktion; der Spout-Writer sendet das jeweils letzte fertige RGBA-Frame mit 30 FPS weiter. Workflow 05 benötigt dagegen genau einen normalen Run und läuft bis zum Interrupt.
 
@@ -106,7 +114,7 @@ ACE-Step-Voice-LoRAs konditionieren eine **Gesangs-/Musikgenerierung** und sind 
 
 Die ComfyUI-Integration ist bewusst als **Low-Latency/request-basierte TTS** bezeichnet: Der Node liefert einen vollständigen Clip nach einem Queue-Lauf, aber keinen kontinuierlichen Mikrofon-Voice-Changer. Nach neuem Training den Inference-Node mit `R` aktualisieren, Adapter, `speaker_name` und passende 0.6B-/1.7B-Basis wählen und LoRA-Skalen 0.20/0.30/0.35/0.50 vergleichen. Stimmen dürfen nur mit Eigentum oder ausdrücklicher Einwilligung geklont werden.
 
-Das fehlende 0.6B-Base-Modell wurde nach `L:/ComfyUI/ComfyUI/models/qwen-tts/Qwen3-TTS-12Hz-0.6B-Base/` geladen; der 12-Hz-Tokenizer war bereits vorhanden. Als Laufzeit-Voraussetzung muss `qwen3-tts-comfyui` oder `ComfyUI-Qwen-TTS` installiert sein. `tools/install_qwen3_tts_lora_node.py` prüft diese Laufzeit, installiert die begrenzten PEFT-/Audio-Abhängigkeiten mit dem Ziel-ComfyUI-Python und kopiert den Node-Pack nur bei leerer Queue. Die Implementierung übernimmt die korrigierte Label-Verschiebung, Textprojektion, PEFT-Zielmodule und Scale-Empfehlungen aus dem Apache-2.0-Projekt [cheeweijie/qwen3-tts-lora-finetuning](https://github.com/cheeweijie/qwen3-tts-lora-finetuning); die offizielle Qwen-Implementierung bietet ansonsten nur Full-SFT.
+Das fehlende 0.6B-Base-Modell wurde nach `L:/ComfyUI/ComfyUI/models/qwen-tts/Qwen3-TTS-12Hz-0.6B-Base/` geladen; der 12-Hz-Tokenizer war bereits vorhanden. Als Laufzeit-Voraussetzung muss `qwen3-tts-comfyui` oder `ComfyUI-Qwen-TTS` installiert sein. `tools/install_qwen3_tts_lora_node.py` prüft diese Laufzeit, installiert die begrenzten PEFT-/Audio-Abhängigkeiten mit dem Ziel-ComfyUI-Python und kopiert den Node-Pack nur nach Run (Instant) stoppen und bei leerer Queue. Die Implementierung übernimmt die korrigierte Label-Verschiebung, Textprojektion, PEFT-Zielmodule und Scale-Empfehlungen aus dem Apache-2.0-Projekt [cheeweijie/qwen3-tts-lora-finetuning](https://github.com/cheeweijie/qwen3-tts-lora-finetuning); die offizielle Qwen-Implementierung bietet ansonsten nur Full-SFT.
 
 ## Pixaroma Prompt-Bibliothek · v0.6.4
 
@@ -229,16 +237,16 @@ Diese Dateien bleiben in ihren Quellordnern als Referenz, gehören aber nicht in
 
 ## Validierung
 
-Automatisch geprüft wurden alle 200 Workflows. Der `--against-head`-Modus prüft neue und geänderte Dateien vollständig, behandelt bereits eingecheckte Integrationen als unveränderte Baseline, normalisiert bei älteren Deltas ausschließlich die im 186-Dateien-Manifest erlaubten Prompt-/Pause-Transformationen und verwirft jede andere Änderung an bestehenden Nodes oder Links:
+Automatisch geprüft wurden alle 205 Workflows. Der `--against-head`-Modus prüft neue und geänderte Dateien vollständig, behandelt bereits eingecheckte Integrationen als unveränderte Baseline, normalisiert bei älteren Deltas ausschließlich die im 186-Dateien-Manifest erlaubten Prompt-/Pause-Transformationen und verwirft jede andere Änderung an bestehenden Nodes oder Links:
 
-- 200/200 gültige JSON-Dateien
-- 200/200 Workflows mit genau einem `PixaromaRunTimer`
-- 237 Haupt- und Untergraphen rekursiv geprüft
-- 6.649 Nodes, davon 2.842 eindeutig zugeordnete Parameter-Notes, 122 `PixaromaPrompt`- und 9 `PixaromaPauseText`-Nodes
-- 4.369 Graph-Links erfasst; die Live-Avatar-Links verbinden Quellbild, Alpha, Webcam, LivePortrait-Composite und Spout vollständig, die neuen Audio-Links verbinden Voice-LoRA, Browser-Wiedergabe und FLAC-Speicherung in beiden Richtungen
-- keine neuen doppelten IDs, fehlenden oder einseitigen Endpunkte, Note-Zuordnungs- oder Layoutfehler in den v0.7.1-Dateien
+- 205/205 gültige JSON-Dateien
+- 195 Nicht-Live-Workflows mit genau einem `PixaromaRunTimer`; 10/10 Live-Avatar-Workflows ohne Run-Timer
+- 242 Haupt- und Untergraphen rekursiv geprüft
+- 6.761 Nodes, davon 2.898 eindeutig zugeordnete Parameter-Notes, 122 `PixaromaPrompt`- und 9 `PixaromaPauseText`-Nodes
+- 4.441 Graph-Links erfasst; die Live-Avatar-Links verbinden Quellbild, Alpha, drei Referenzperspektiven, Webcam, LivePortrait-Composite und Spout vollständig, die neuen Audio-Links verbinden Voice-LoRA, Browser-Wiedergabe und FLAC-Speicherung in beiden Richtungen
+- keine neuen doppelten IDs, fehlenden oder einseitigen Endpunkte, Note-Zuordnungs- oder Layoutfehler in den v0.7.2-Dateien
 - vorhandene `PixaromaNote`-Dictionaries einschließlich Position und Größe unverändert; ausschließlich die Qwen3-TTS-Trainingsnote dokumentiert zusätzlich das neue `_Text.txt`-Transkriptschema
-- 53 Unit-Tests prüfen insgesamt die Workflow-Werkzeuge, den Continuous-LiveAvatar-Lebenszyklus und den Voice-LoRA-Adapterlebenszyklus; davon sichern die Integrationstests Manifest-Hashes gegen HEAD, exakte Prompttext-Migration, Formula+Idea-Trennung, Pause-Ancestry, wechselseitige Links, Kollisionsfreiheit, Korruptionserkennung, die drei INT8-Modellpfade, den AMD-sicheren Live-Avatar-Stack, echte PEFT-/Safetensors-Voice-LoRAs und wiederholte byteidentische Anwendung ab
+- Die automatisierte Testsuite prüft insgesamt die Workflow-Werkzeuge, den Continuous-LiveAvatar-Lebenszyklus und den Voice-LoRA-Adapterlebenszyklus; davon sichern die Integrationstests Manifest-Hashes gegen HEAD, exakte Prompttext-Migration, Formula+Idea-Trennung, Pause-Ancestry, wechselseitige Links, Kollisionsfreiheit, Korruptionserkennung, die drei INT8-Modellpfade, den AMD-sicheren Live-Avatar-Stack, echte PEFT-/Safetensors-Voice-LoRAs und wiederholte byteidentische Anwendung ab
 - alle fünf neuen Trainer verwenden installierte Core-Nodes und vorhandene lokale Modelle
 - alle fünf Trainer erfolgreich mit einem vollständigen einmaligen 1-Step-Train-und-Save-Smoke-Test auf der Radeon AI Pro R9700 / ROCm 7.15 ausgeführt; die ausgelieferten Workflows starten bewusst mit 2 Schritten für den ersten eigenen Smoke-Test, und die erzeugten Test-Safetensors enthielten nichtleere Adaptergewichte
 - Boogu erst nach aktiviertem `offloading=true` OOM-frei validiert; diese sichere Einstellung ist im Workflow fest voreingestellt
@@ -247,4 +255,4 @@ Automatisch geprüft wurden alle 200 Workflows. Der `--against-head`-Modus prüf
 - keine NVIDIA-/CUDA-only-Risiko-Widgets und keine eingebetteten `Rh-Comfy-Auth`-Tokens/JWTs
 - Generator, Refinement und Validator sind reproduzierbar und idempotent; die fokussierte Unit-Test-Suite prüft dynamische Widgets, Seed-Kontrollen, VHS-Dictionary-Werte, Subgraphs und TrainLora-Widgetreihenfolge
 
-Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und RDNA4-Kompatibilität. Die fünf neuen Bild-LoRA-Trainer wurden lokal bis zum gespeicherten Adapter ausgeführt; Krea 2 RAW wurde nach dem OOM konsequent entfernt. Der Audio-to-Image-Workflow wurde vollständig mit Gemma 4 und FLUX.2 Klein 4B auf der lokalen ComfyUI-Installation ausgeführt. YuE CoT und YuE ICL wurden jeweils mit einer erzwungenen 10,00-Sekunden-Ausgabe vollständig auf der R9700 ausgeführt. HeartMuLa akzeptierte und dekodierte einen Lauf mit `duration_seconds=301` erfolgreich; das Modell setzte bei 193,68 Sekunden selbst Audio-EOS und bestätigt damit, dass der Wert eine Obergrenze statt einer garantierten Länge ist. Die neuen INT8-Varianten wurden zusätzlich live geprüft: Stable Audio 3 erzeugte 1,02 Sekunden endliches 44,1-kHz-Stereo-FLAC, ACE-Step 1.5 XL exakt 5,00 Sekunden endliches 48-kHz-Stereo-FLAC. YuE INT8 lud beide bitsandbytes-Stufen erfolgreich und erzeugte die 5-Sekunden-Stage-1-Tokens; der anschließende Stage-2-Lauf wurde auf Benutzerwunsch beendet und wird manuell geprüft. Ein vollständiger GPU-End-to-End-Lauf aller 200 Workflows wäre sehr rechen- und zeitintensiv; besonders große Musik-, WAN- und LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.
+Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und RDNA4-Kompatibilität. Die fünf neuen Bild-LoRA-Trainer wurden lokal bis zum gespeicherten Adapter ausgeführt; Krea 2 RAW wurde nach dem OOM konsequent entfernt. Der Audio-to-Image-Workflow wurde vollständig mit Gemma 4 und FLUX.2 Klein 4B auf der lokalen ComfyUI-Installation ausgeführt. YuE CoT und YuE ICL wurden jeweils mit einer erzwungenen 10,00-Sekunden-Ausgabe vollständig auf der R9700 ausgeführt. HeartMuLa akzeptierte und dekodierte einen Lauf mit `duration_seconds=301` erfolgreich; das Modell setzte bei 193,68 Sekunden selbst Audio-EOS und bestätigt damit, dass der Wert eine Obergrenze statt einer garantierten Länge ist. Die neuen INT8-Varianten wurden zusätzlich live geprüft: Stable Audio 3 erzeugte 1,02 Sekunden endliches 44,1-kHz-Stereo-FLAC, ACE-Step 1.5 XL exakt 5,00 Sekunden endliches 48-kHz-Stereo-FLAC. YuE INT8 lud beide bitsandbytes-Stufen erfolgreich und erzeugte die 5-Sekunden-Stage-1-Tokens; der anschließende Stage-2-Lauf wurde auf Benutzerwunsch beendet und wird manuell geprüft. Ein vollständiger GPU-End-to-End-Lauf aller 205 Workflows wäre sehr rechen- und zeitintensiv; besonders große Musik-, WAN- und LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.

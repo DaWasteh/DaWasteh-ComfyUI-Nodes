@@ -34,6 +34,20 @@ AUTHORIZED_WIDGET_DELTAS: dict[str, dict[int, set[int]]] = {
         10: {0},  # keep the generated parameter note synchronized with that value
     },
 }
+AUTHORIZED_NODE_REPLACEMENTS: dict[str, dict[int, str]] = {
+    # Persistent latest-frame Spout replaces the transient Jovi writer; hashes
+    # pin both the runtime node and its synchronized generated documentation.
+    "workflows/Live Avatar/LiveAvatar-03-LivePortrait-Webcam-Spout-OBS.json": {
+        10: "d4bb2789e112b14be5bf66383540c5052a1faa5deccb03fe2782316ae7fbfe88",
+        12: "9a7babbb37f4d9dc927d74b1e09c6877a35a0e4db591ed2eaddcc35a55bdeac9",
+        22: "faa3cd6ecddd426a253d7980a54f10f1b196f83521e4436b8b3cecffaad6299a",
+    },
+    "workflows/Live Avatar/LiveAvatar-04-LivePortrait-Webcam-Spout-OBS+Qwen3TTS-Voice-LoRA.json": {
+        10: "d4bb2789e112b14be5bf66383540c5052a1faa5deccb03fe2782316ae7fbfe88",
+        12: "06da5ed6eb7dbfe3ed1b8ea1d01d0c85c51d8487c0dc4c78f64106019d29c5cf",
+        22: "faa3cd6ecddd426a253d7980a54f10f1b196f83521e4436b8b3cecffaad6299a",
+    },
+}
 AUTHORIZED_WIDGET_VALUE_HASHES: dict[str, dict[int, dict[int, str]]] = {
     "workflows/LoRA Generation/Qwen3-TTS_0.6B-Voice-LoRA-Training.json": {
         1: {0: "2709348679a192c731239fc1f71f73a1d1deb3369d821717d6279b5d9d1ba08f"},
@@ -400,6 +414,14 @@ def validate_integration_delta(
 
 def compare_head(path: Path, current: dict[str, Any], errors: list[str]) -> tuple[int, int]:
     head = git_head_json(path)
+    if "Live Avatar" in path.parts:
+        # The user explicitly requires all Live Avatar roots to be timer-free.
+        # Normalize only the standalone timer out of the historical baseline;
+        # every other node, link and widget still receives the normal HEAD check.
+        head = copy.deepcopy(head)
+        removed = {node.get("id") for node in head.get("nodes", []) if node.get("type") == "PixaromaRunTimer"}
+        head["nodes"] = [node for node in head.get("nodes", []) if node.get("id") not in removed]
+        head["links"] = [link for link in head.get("links", []) if link[1] not in removed and link[3] not in removed]
     # Once an authorized Pixaroma integration has been committed, HEAD already
     # contains its marked nodes and links. Treat byte/semantic-equivalent graphs
     # as the baseline instead of trying to apply the integration delta again.
@@ -416,32 +438,50 @@ def compare_head(path: Path, current: dict[str, Any], errors: list[str]) -> tupl
     manifest = _manifest_entries().get(_path_key(path), {"targets": [], "pauses": []})
     if not manifest.get("targets") and not manifest.get("pauses"):
         key = _path_key(path)
-        allowed = AUTHORIZED_WIDGET_DELTAS.get(key)
-        if allowed:
+        replacements = AUTHORIZED_NODE_REPLACEMENTS.get(key)
+        if replacements:
             normalized = copy.deepcopy(current)
             normalized_nodes = {node.get("id"): node for node in normalized.get("nodes", [])}
             head_nodes = {node.get("id"): node for node in head.get("nodes", [])}
-            expected_hashes = AUTHORIZED_WIDGET_VALUE_HASHES.get(key, {})
-            for node_id, widget_indices in allowed.items():
+            for node_id, expected_hash in replacements.items():
                 current_node = normalized_nodes.get(node_id)
                 head_node = head_nodes.get(node_id)
                 if current_node is None or head_node is None:
-                    errors.append(f"{path}: authorized widget target node {node_id} missing")
+                    errors.append(f"{path}: authorized replacement node {node_id} missing")
                     continue
-                for index in widget_indices:
-                    current_values = current_node.get("widgets_values", [])
-                    head_values = head_node.get("widgets_values", [])
-                    if index >= len(current_values) or index >= len(head_values):
-                        errors.append(f"{path}: authorized widget index {node_id}:{index} missing")
-                        continue
-                    expected_hash = expected_hashes.get(node_id, {}).get(index)
-                    if expected_hash is not None and _widget_value_hash(current_values[index]) != expected_hash:
-                        errors.append(f"{path}: authorized widget value {node_id}:{index} is not the expected delta")
-                    current_values[index] = copy.deepcopy(head_values[index])
+                if _widget_value_hash(current_node) != expected_hash:
+                    errors.append(f"{path}: authorized replacement node {node_id} has unexpected content")
+                index = normalized["nodes"].index(current_node)
+                normalized["nodes"][index] = copy.deepcopy(head_node)
             if normalized != head:
-                errors.append(f"{path}: graph differs from HEAD beyond authorized widget changes")
-        elif current != head:
-            errors.append(f"{path}: historical skip workflow changed without an authorized delta")
+                errors.append(f"{path}: graph differs from HEAD beyond authorized node replacements")
+        else:
+            allowed = AUTHORIZED_WIDGET_DELTAS.get(key)
+            if allowed:
+                normalized = copy.deepcopy(current)
+                normalized_nodes = {node.get("id"): node for node in normalized.get("nodes", [])}
+                head_nodes = {node.get("id"): node for node in head.get("nodes", [])}
+                expected_hashes = AUTHORIZED_WIDGET_VALUE_HASHES.get(key, {})
+                for node_id, widget_indices in allowed.items():
+                    current_node = normalized_nodes.get(node_id)
+                    head_node = head_nodes.get(node_id)
+                    if current_node is None or head_node is None:
+                        errors.append(f"{path}: authorized widget target node {node_id} missing")
+                        continue
+                    for index in widget_indices:
+                        current_values = current_node.get("widgets_values", [])
+                        head_values = head_node.get("widgets_values", [])
+                        if index >= len(current_values) or index >= len(head_values):
+                            errors.append(f"{path}: authorized widget index {node_id}:{index} missing")
+                            continue
+                        expected_hash = expected_hashes.get(node_id, {}).get(index)
+                        if expected_hash is not None and _widget_value_hash(current_values[index]) != expected_hash:
+                            errors.append(f"{path}: authorized widget value {node_id}:{index} is not the expected delta")
+                        current_values[index] = copy.deepcopy(head_values[index])
+                if normalized != head:
+                    errors.append(f"{path}: graph differs from HEAD beyond authorized widget changes")
+            elif current != head:
+                errors.append(f"{path}: historical skip workflow changed without an authorized delta")
         return (
             sum(len(graph.get("nodes", [])) for graph in head_graphs.values()),
             sum(len(graph.get("links", {}) or []) for graph in head_graphs.values()),
@@ -478,8 +518,9 @@ def main() -> int:
             path_errors.append(f"{path}: root version is not 0.4")
         timers = sum(1 for n in workflow.get("nodes", []) if n.get("type") == "PixaromaRunTimer")
         totals["timers"] += timers
-        if timers != 1:
-            path_errors.append(f"{path}: root timer count={timers}")
+        expected_timers = 0 if "Live Avatar" in path.parts else 1
+        if timers != expected_timers:
+            path_errors.append(f"{path}: root timer count={timers}, expected={expected_timers}")
         raw_lower = path.read_text(encoding="utf-8").lower()
         for token in BLACKLIST:
             if token in raw_lower:
@@ -515,7 +556,7 @@ def main() -> int:
                 errors.extend(path_errors)
         else:
             errors.extend(path_errors)
-    expected = {"files": 200, "graphs": 237, "nodes": 6649, "notes": 2842, "links": 4369, "timers": 200}
+    expected = {"files": 205, "graphs": 242, "nodes": 6761, "notes": 2898, "links": 4441, "timers": 195}
     actual = {"files": len(paths), **{k: totals[k] for k in ("graphs", "nodes", "notes", "links", "timers")}}
     for key, value in expected.items():
         if actual[key] != value:

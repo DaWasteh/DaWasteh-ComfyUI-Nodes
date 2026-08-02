@@ -36,7 +36,7 @@
         "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
       },
       "widgets_values": [
-        "{\"version\":1,\"content\":\"<h1>Live Avatar · 03 · Webcam → LivePortrait → Spout → OBS</h1><p>Überträgt Kopfbewegung und Mimik der Webcam auf den freigestellten Avatar. Der Composite-Schritt ersetzt nur den Gesichtsbereich; Kleidung und Hände bleiben aus dem Quellbild stabil. Der ursprüngliche Alphakanal wird danach wieder angefügt.</p><h2>Vor dem Start</h2><ol><li>Das transparente PNG aus Workflow 02 im Load-Image-Node wählen.</li><li>Die bevorzugte <b>Elgato Facecam Pro</b> ist aktuell als <code>cam_index = 1</code> voreingestellt. Die Logitech BRIO liegt aktuell auf <code>2</code>. Nach USB-Änderungen können sich Indizes verschieben; die Auswahl bleibt direkt im Webcam-Node änderbar.</li><li>Zuerst genau einen manuellen Lauf testen. Danach ComfyUI Auto Queue aktivieren, damit pro Ausführung ein neues Webcam-Frame verarbeitet wird.</li><li>In OBS eine Spout2-Quelle hinzufügen und den Sender <code>ComfyLiveAvatar</code> wählen. Transparenz/Alpha in der Quelle aktivieren.</li></ol><p><b>Aktuelle LivePortrait-Bezeichnung:</b> Das frühere <code>crop_factor</code> heißt im aktuellen KJ-Workflow <code>scale</code>. <code>2.30</code> fokussiert den Kopf; der Full-Image-Composite hält den übrigen Körper unverändert.</p><p><b>AMD RDNA4:</b> <code>precision = fp16</code> und FaceAlignment mit <code>landmarkrunner_device = torch_gpu</code> sind absichtlich voreingestellt. Die leichte BlazeFace-Erkennung läuft kompatibel auf der CPU; LivePortrait und Landmark-Modell laufen auf der R9700. Nicht auf den InsightFace-/ONNX-Pfad wechseln.</p><p><b>Echtzeit-Hinweis:</b> Ein normaler ComfyUI-Graph verarbeitet ein Frame je Queue-Lauf. Der Spout-Node sendet das jeweils letzte fertige Frame mit 30 FPS weiter. Für neue Bewegungsframes muss Auto Queue laufen.</p><p><b>Kamera freigeben:</b> Auto Queue stoppen, <code>release = true</code> setzen und einmal ausführen; danach wieder auf <code>false</code> stellen.</p><h2>Modelle</h2><p><a href=\\\"https://huggingface.co/Kijai/LivePortrait_safetensors\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Kijai LivePortrait Safetensors</a></p><div>ComfyUI/models/liveportrait/</div><h2>Nodes</h2><ul><li>ComfyUI-LivePortraitKJ (FaceAlignment + TorchScript-Landmarks)</li><li>ComfyUI-KJNodes (WebcamCaptureCV2)</li><li>Jovi_Spout</li><li>ComfyUI Core</li><li>ComfyUI-Pixaroma</li></ul><p><a href=\\\"https://github.com/Off-World-Live/obs-spout2-plugin/releases\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">OBS Spout2 Plugin für Windows</a></p><p>Version 1.12.0 wurde unter <code>%APPDATA%/obs-studio/plugins/win-spout/</code> installiert. OBS danach neu starten.</p><h2>Voice-LoRA + OBS-Audio</h2>\\n<p>Der zusätzliche Qwen3-TTS-Zweig spricht Text mit einem lokal trainierten PEFT-LoRA. <code>adapter_name</code>, <code>speaker_name</code> und <code>model_size</code> müssen zum Trainings-Checkpoint passen. Den Node nach neuem Training mit <b>R</b> aktualisieren.</p>\\n<p><code>PlaySoundKJ</code> spielt nur bei geändertem Audio einmal im ComfyUI-Browser. OBS nimmt den Browser bzw. dessen Anwendungsaudio auf; alternativ ein bereits vorhandenes virtuelles Audiokabel verwenden. Spout überträgt ausschließlich das RGBA-Video.</p>\\n<p><b>Auto-Queue-Sicherheit:</b> Text, Adapter und Seed unverändert lassen. Dann bleibt der TTS-Node gecacht und <code>on_change</code> verhindert, dass bei jedem Webcam-Frame dieselbe Zeile erneut abgespielt wird. Für eine neue Zeile Text ändern und einmal ausführen.</p>\\n<p><b>Live-Grenze:</b> Die Stimme ist request-basierte TTS, kein kontinuierlicher Mikrofon-Voice-Changer. Nur eigene oder ausdrücklich freigegebene Stimmen verwenden.</p>\",\"buttonColor\":\"#f66744\",\"lineColor\":\"#f66744\",\"width\":800,\"height\":1320,\"backgroundColor\":\"#2a2a2a\"}",
+        "{\"version\":1,\"content\":\"<h1>Live Avatar · 03 · Webcam → LivePortrait → Spout → OBS</h1><p>Überträgt Kopfbewegung und Mimik der Webcam auf den freigestellten Avatar. Der Composite-Schritt ersetzt nur den Gesichtsbereich; Kleidung und Hände bleiben aus dem Quellbild stabil. Der ursprüngliche Alphakanal wird danach wieder angefügt.</p><h2>Vor dem Start</h2><ol><li>Das transparente PNG aus Workflow 02 im Load-Image-Node wählen.</li><li>Die bevorzugte <b>Elgato Facecam Pro</b> ist aktuell als <code>cam_index = 1</code> voreingestellt. Die Logitech BRIO liegt aktuell auf <code>2</code>. Nach USB-Änderungen können sich Indizes verschieben; die Auswahl bleibt direkt im Webcam-Node änderbar.</li><li>Zuerst genau einen manuellen Lauf testen. Danach <b>Run (Instant)</b> aktivieren, damit pro Ausführung ein neues Webcam-Frame verarbeitet wird.</li><li>In OBS eine Spout2-Quelle hinzufügen und den Sender <code>ComfyLiveAvatar</code> wählen. Transparenz/Alpha in der Quelle aktivieren.</li></ol><p><b>Aktuelle LivePortrait-Bezeichnung:</b> Das frühere <code>crop_factor</code> heißt im aktuellen KJ-Workflow <code>scale</code>. <code>2.30</code> fokussiert den Kopf; der Full-Image-Composite hält den übrigen Körper unverändert.</p><p><b>AMD RDNA4:</b> <code>precision = fp16</code> und FaceAlignment mit <code>landmarkrunner_device = torch_gpu</code> sind absichtlich voreingestellt. Die leichte BlazeFace-Erkennung läuft kompatibel auf der CPU; LivePortrait und Landmark-Modell laufen auf der R9700. Nicht auf den InsightFace-/ONNX-Pfad wechseln.</p><p><b>Echtzeit-Hinweis:</b> Ein normaler ComfyUI-Graph verarbeitet ein Frame je Queue-Lauf. Der persistente Spout-Node sendet das jeweils letzte fertige Frame auch während der Post-Prompt-Idle-Zeit mit 30 FPS weiter. Für neue Bewegungsframes muss <b>Run (Instant)</b> laufen.</p><p><b>Kamera freigeben:</b> Run (Instant) stoppen, <code>release = true</code> setzen und einmal ausführen; danach wieder auf <code>false</code> stellen.</p><h2>Modelle</h2><p><a href=\\\"https://huggingface.co/Kijai/LivePortrait_safetensors\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">Kijai LivePortrait Safetensors</a></p><div>ComfyUI/models/liveportrait/</div><h2>Nodes</h2><ul><li>ComfyUI-LivePortraitKJ (FaceAlignment + TorchScript-Landmarks)</li><li>ComfyUI-KJNodes (WebcamCaptureCV2)</li><li>ComfyUI-DaWasteh-LiveAvatar (persistenter latest-frame Spout)</li><li>ComfyUI Core</li><li>ComfyUI-Pixaroma</li></ul><p><a href=\\\"https://github.com/Off-World-Live/obs-spout2-plugin/releases\\\" target=\\\"_blank\\\" rel=\\\"noopener noreferrer\\\">OBS Spout2 Plugin für Windows</a></p><p>Version 1.12.0 wurde unter <code>%APPDATA%/obs-studio/plugins/win-spout/</code> installiert. OBS danach neu starten.</p><h2>Voice-LoRA + OBS-Audio</h2>\\n<p>Der zusätzliche Qwen3-TTS-Zweig spricht Text mit einem lokal trainierten PEFT-LoRA. <code>adapter_name</code>, <code>speaker_name</code> und <code>model_size</code> müssen zum Trainings-Checkpoint passen. Den Node nach neuem Training mit <b>R</b> aktualisieren.</p>\\n<p><code>PlaySoundKJ</code> spielt nur bei geändertem Audio einmal im ComfyUI-Browser. OBS nimmt den Browser bzw. dessen Anwendungsaudio auf; alternativ ein bereits vorhandenes virtuelles Audiokabel verwenden. Spout überträgt ausschließlich das RGBA-Video.</p>\\n<p><b>Auto-Queue-Sicherheit:</b> Text, Adapter und Seed unverändert lassen. Dann bleibt der TTS-Node gecacht und <code>on_change</code> verhindert, dass bei jedem Webcam-Frame dieselbe Zeile erneut abgespielt wird. Für eine neue Zeile Text ändern und einmal ausführen.</p>\\n<p><b>Live-Grenze:</b> Die Stimme ist request-basierte TTS, kein kontinuierlicher Mikrofon-Voice-Changer. Nur eigene oder ausdrücklich freigegebene Stimmen verwenden.</p>\",\"buttonColor\":\"#f66744\",\"lineColor\":\"#f66744\",\"width\":800,\"height\":1320,\"backgroundColor\":\"#2a2a2a\"}",
         ""
       ],
       "title": "START HIER · LivePortrait, OBS und Voice-LoRA",
@@ -788,7 +788,7 @@
     },
     {
       "id": 10,
-      "type": "SPOUT WRITER (JOV_SPOUT)",
+      "type": "DaWastehPersistentSpout",
       "pos": [
         10878.0,
         1786.0
@@ -802,77 +802,42 @@
       "mode": 0,
       "inputs": [
         {
-          "localized_name": "image",
-          "name": "image",
-          "type": "IMAGE,MASK",
+          "localized_name": "images",
+          "name": "images",
+          "type": "IMAGE",
           "link": 14
         },
         {
-          "localized_name": "url",
-          "name": "url",
+          "localized_name": "sender_name",
+          "name": "sender_name",
           "type": "STRING",
           "link": null,
           "widget": {
-            "name": "url"
+            "name": "sender_name"
           }
         },
         {
-          "localized_name": "fps",
-          "name": "fps",
+          "localized_name": "sender_fps",
+          "name": "sender_fps",
           "type": "INT",
           "link": null,
           "widget": {
-            "name": "fps"
+            "name": "sender_fps"
           }
         }
       ],
       "outputs": [],
       "properties": {
-        "Node name for S&R": "SPOUT WRITER (JOV_SPOUT)",
-        "cnr_id": "jovi_spout",
-        "ver": "75c43957e2a7f55422eabcaf9ad45d35f7033848"
+        "Node name for S&R": "DaWastehPersistentSpout",
+        "cnr_id": "ComfyUI-DaWasteh-LiveAvatar"
       },
       "widgets_values": [
         "ComfyLiveAvatar",
         30
       ],
-      "title": "Spout RGBA → OBS",
+      "title": "Persistent latest-frame Spout → OBS",
       "color": "#233",
       "bgcolor": "#355"
-    },
-    {
-      "id": 11,
-      "type": "PixaromaRunTimer",
-      "pos": [
-        5782.0,
-        1786.0
-      ],
-      "size": [
-        226,
-        136
-      ],
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PixaromaRunTimer",
-        "cnr_id": "ComfyUI-Pixaroma",
-        "ver": "ffcf2f56aa448f2df763b09b70857632792b7805"
-      },
-      "widgets_values": [
-        {
-          "version": 1,
-          "color": "#f66744",
-          "decimals": 0,
-          "chime": true,
-          "sound": "",
-          "volume": 70
-        }
-      ],
-      "color": "#1d1d1d",
-      "bgcolor": "#2a2a2a"
     },
     {
       "id": 13,
@@ -1151,7 +1116,7 @@
       "mode": 0,
       "inputs": [],
       "outputs": [],
-      "title": "Erklärung · Spout RGBA → OBS · Node 10",
+      "title": "Erklärung · Persistent latest-frame Spout → OBS · Node 10",
       "properties": {
         "Node name for S&R": "MarkdownNote",
         "cnr_id": "comfy-core",
@@ -1159,7 +1124,7 @@
         "dawasteh_generated_note": true
       },
       "widgets_values": [
-        "# Erklärung · Spout RGBA → OBS · Node 10\n\n**Zweck:** Sends frame(s) to a specified Spout receiver application for real-time video sharing. Accepts tensors representing images. The node continuously streams frames to the specified Spout host, enabling real-time visualization or integration with other applications that support Spout.\n\n**Einstellbare Werte**\n- `url` = `ComfyLiveAvatar` — source of the Spout stream to send. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `fps` = `30` — Steuert diesen Parameter. Höher wirkt flüssiger und erzeugt/verarbeitet mehr Frames pro Sekunde; niedriger spart Rechenzeit/Dateigröße.\n\n**Eingänge**\n- `image` (IMAGE,MASK, Link 14): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `url` (STRING, nicht verbunden): source of the Spout stream to send.\n- `fps` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- Keine Ausgänge."
+        "# Erklärung · Persistent latest-frame Spout → OBS · Node 10\n\n**Zweck:** Keeps the latest RGBA frame on a named Spout sender between Run (Instant) prompts. The sender remains alive until ComfyUI exits.\n\n**Einstellbare Werte**\n- `sender_name` = `ComfyLiveAvatar` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `sender_fps` = `30` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n\n**Eingänge**\n- `images` (IMAGE, Link 14): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sender_name` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sender_fps` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- Keine Ausgänge."
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"

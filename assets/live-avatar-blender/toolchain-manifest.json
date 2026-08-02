@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "blender": {"version":"4.5.9","url":"https://download.blender.org/release/Blender4.5/blender-4.5.9-windows-x64.zip","filename":"blender-4.5.9-windows-x64.zip","size":399051129,"sha256":"41da973b9bf95bb312cbeff4d1982feb13259b43c821686b9bafea4dfe5477cf"},
+  "vrm_addon": {"version":"4.5.0","url":"https://github.com/saturday06/VRM-Addon-for-Blender/releases/download/v4.5.0/VRM_Addon_for_Blender-Extension-4_5_0.zip","filename":"VRM_Addon_for_Blender-Extension-4_5_0.zip","size":1604768,"sha256":"e5e0f923a0bb11eb1320870b2db8091948dd5b63014510d839016a112e40a35a"}
+}

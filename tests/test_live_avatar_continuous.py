@@ -70,6 +70,27 @@ class ImageUtilityTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             nodes.composite_rgba_bchw(face_mask.permute(0, 2, 3, 1), warped, static, alpha)
 
+    @unittest.skipUnless(importlib.util.find_spec("torch"), "torch is only present in the ComfyUI environment")
+    def test_persistent_spout_converts_rgb_to_latest_rgba(self):
+        import torch
+
+        frames = []
+        sink = types.SimpleNamespace(publish=lambda frame: frames.append(frame.copy()))
+        original = nodes._persistent_spout
+        nodes._persistent_spout = lambda name, fps: sink
+        try:
+            result = nodes.DaWastehPersistentSpout().publish(
+                torch.tensor([[[[1.0, 0.5, 0.0], [0.0, 0.0, 1.0]]]]),
+                "PersistentTest",
+                30,
+            )
+        finally:
+            nodes._persistent_spout = original
+        self.assertEqual(result, ())
+        self.assertEqual(frames[0].shape, (1, 2, 4))
+        self.assertTrue(np.array_equal(frames[0][0, 0], [255, 128, 0, 255]))
+        self.assertTrue(np.array_equal(frames[0][0, 1], [0, 0, 255, 255]))
+
 
 class DependencyTests(unittest.TestCase):
     def test_loaded_liveportrait_module_is_reused(self):
@@ -104,6 +125,40 @@ class DependencyTests(unittest.TestCase):
 
 
 class LifecycleTests(unittest.TestCase):
+    def tearDown(self):
+        nodes._PERSISTENT_SPOUTS.clear()
+
+    def test_failed_persistent_worker_is_recreated_before_publish(self):
+        created = []
+        class FakeWorker:
+            def __init__(self, slot, name, fps): self.slot, self.delay, self.live = slot, 1 / fps, False; created.append(self)
+            def start(self): self.live = True
+            def healthy(self): return self.live
+            def stop(self): self.live = False; self.slot.close(); return True
+        original = nodes.SpoutWorker
+        nodes.SpoutWorker = FakeWorker
+        try:
+            first = nodes._persistent_spout("recover", 30)
+            first.fail(RuntimeError("injected"))
+            second = nodes._persistent_spout("recover", 30)
+            self.assertIsNot(first, second)
+            self.assertEqual(len(created), 2)
+            self.assertTrue(created[-1].healthy())
+        finally:
+            nodes.SpoutWorker = original
+
+    def test_hung_persistent_worker_blocks_overlapping_replacement(self):
+        slot = nodes.LatestFrameSlot()
+        class HungWorker:
+            delay = 1 / 30
+            def healthy(self): return True
+            def stop(self): return False
+        worker = HungWorker()
+        nodes._PERSISTENT_SPOUTS["hung"] = (slot, worker)
+        with self.assertRaisesRegex(RuntimeError, "refusing an overlapping replacement"):
+            nodes._persistent_spout("hung", 60)
+        self.assertIs(nodes._PERSISTENT_SPOUTS["hung"][1], worker)
+
     def test_workers_can_stop_before_start(self):
         capture = nodes.CaptureWorker(nodes.LatestFrameSlot(), 1, 256, 256, True, 0, 0, False)
         spout = nodes.SpoutWorker(nodes.LatestFrameSlot(), "test", 30)

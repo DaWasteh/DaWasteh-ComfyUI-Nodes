@@ -1,5 +1,5 @@
 {
-  "id": "live-avatar-07-ai-webcam-character-swap-experimental",
+  "id": "live-avatar-11-ai-webcam-character-swap-cached-openpose",
   "revision": 0,
   "last_node_id": 34,
   "last_link_id": 23,
@@ -25,10 +25,10 @@
         "cnr_id": "ComfyUI-Pixaroma"
       },
       "widgets_values": [
-        "{\"version\":1,\"content\":\"<h1>Live Avatar · 07 · Buffered AI Mirror (experimentell)</h1><p><b>Kamera-Fallback repariert:</b> Der Eingabe-Node verwendet ausdrücklich <b>Logitech BRIO über DirectShow (Index 2)</b>. Der frühere Wert 1 wurde vom Windows-MSMF-Backend als Elgato Virtual Camera aufgelöst und konnte mit <code>0xC00D3704</code> keinen Stream starten.</p><p><b>Kein produktiver Live-Mocap-Pfad:</b> Dieser SD1.5-LCM-Img2Img-Graph verarbeitet genau ein Webcamframe pro ComfyUI-Run. Auf <b>8188 / R9700</b> ergaben wiederholte warme Serien etwa 2,0–2,8 s pro Frame (rund <b>0,36–0,50 FPS</b>); 8189 / RX 9070 XT erreichte nur rund 0,125 FPS. Dieser Pfad heißt deshalb ausdrücklich <b>Buffered AI Mirror</b>, nicht Live-Tracking.</p><ol><li><b>Run (Instant) stoppen</b>, dann <code>python tools/install_live_avatar_ai_assets.py --comfy-root L:/ComfyUI/ComfyUI</code> bei leerer Queue ausführen und ComfyUI 8188 neu starten.</li><li>Eine eigene/lizenzierte Referenz im LoadImage-Node wählen.</li><li>Einmal manuell ausführen; erst danach optional Run (Instant) ohne Queue-Aufbau testen.</li><li>OBS Spout2-Quelle <code>ComfyAICharacterSwapExperimental</code> wählen und Pixel-Empfang selbst bestätigen.</li></ol><p>OpenPose führt Körper, Hände und Gesicht als Steuerung zu; IPAdapter kann Identität/Optik nur annähern. Es gibt <b>keine</b> Zusage für korrekte Finger, Lippen, stabile Identität oder Ganzkörper-Mocap. Flicker und stark verzögerte Motion sind zu erwarten. Der Graph lief vollständig erfolgreich; ein separater SpoutGL-Empfänger erhielt 512×512-RGBA mit Alpha 255 und nichtleeren Pixeln von <code>ComfyAICharacterSwapExperimental</code>. Die sichtbare OBS-Komposition bleibt ein manueller Schritt.</p><p><b>Measured fixed-fixture matrix (8188):</b> denoise/IPAdapter/ControlNet 0.45/0.50/0.75, 0.50/0.55/0.80 and 0.55/0.60/0.85. The middle setting was selected: all three plain-clothing fixtures were text/logo-free; 0.50 keeps more source anatomy while retaining useful style transfer. Raw pre-Spout RGBA diagnostics and hashes are under the ignored local <code>tmp/live-avatar-evidence/ai-mirror/</code>. Buffered throughput remains about 0.36–0.50 FPS with the 512² webcam graph.</p><p>DirectML-RVC wurde separat auf der RX 9070 XT warm mit etwa 36–41 ms Rechenzeit pro 100-ms-Chunk gemessen. 8189 währenddessen nicht mit schweren Jobs belasten. Qwen bleibt request-basierte TTS.</p><p><b>Ausführung/OBS:</b> Vorher den Workflow-06-Browser schließen, damit die Webcam frei ist. Diesen Workflow mit <b>Run (Instant)</b> starten. In OBS beim Spout2-Capture ausdrücklich <code>ComfyAICharacterSwapExperimental</code> wählen. Der erste Frame kann nach kaltem Start 2–8 Sekunden benötigen; gemessen wurden danach nur 0,36–0,50 neue FPS, also ein gepufferter Spiegel und kein flüssiges Mocap.</p>\",\"buttonColor\":\"#e48d30\",\"lineColor\":\"#e48d30\",\"width\":850,\"height\":900,\"backgroundColor\":\"#2a2a2a\"}",
+        "{\"version\":1,\"content\":\"<h1>Live Avatar · 11 · Cached OpenPose AI Mirror</h1><p><b>Geschwindigkeitsoptimierung:</b> Workflow 11 hält die OpenPose-Gewichte auf der R9700, verarbeitet den Livepfad mit <b>384×384</b> und erkennt standardmäßig Körper plus Gesicht. Die teure separate Handerkennung ist deaktiviert, kann aber wieder eingeschaltet werden. Vier LCM-Schritte sowie ControlNet-/IPAdapter-Stärken bleiben wie in Workflow 07. Acht warme Messläufe lagen bei 0,62–0,68 s (Median 0,645 s).</p><p><b>Kamera-Fallback repariert:</b> Der Eingabe-Node verwendet ausdrücklich <b>Logitech BRIO über DirectShow (Index 2)</b>. Der frühere Wert 1 wurde vom Windows-MSMF-Backend als Elgato Virtual Camera aufgelöst und konnte mit <code>0xC00D3704</code> keinen Stream starten.</p><p><b>Kein produktiver Live-Mocap-Pfad:</b> Dieser SD1.5-LCM-Img2Img-Graph verarbeitet genau ein Webcamframe pro ComfyUI-Run. Auf <b>8188 / R9700</b> ergaben wiederholte warme Serien etwa 2,0–2,8 s pro Frame (rund <b>0,36–0,50 FPS</b>); 8189 / RX 9070 XT erreichte nur rund 0,125 FPS. Dieser Pfad heißt deshalb ausdrücklich <b>Buffered AI Mirror</b>, nicht Live-Tracking.</p><ol><li><b>Run (Instant) stoppen</b>, dann <code>python tools/install_live_avatar_ai_assets.py --comfy-root L:/ComfyUI/ComfyUI</code> bei leerer Queue ausführen und ComfyUI 8188 neu starten.</li><li>Eine eigene/lizenzierte Referenz im LoadImage-Node wählen.</li><li>Einmal manuell ausführen; erst danach optional Run (Instant) ohne Queue-Aufbau testen.</li><li>OBS Spout2-Quelle <code>ComfyAICharacterSwapExperimental</code> wählen und Pixel-Empfang selbst bestätigen.</li></ol><p>OpenPose führt Körper, Hände und Gesicht als Steuerung zu; IPAdapter kann Identität/Optik nur annähern. Es gibt <b>keine</b> Zusage für korrekte Finger, Lippen, stabile Identität oder Ganzkörper-Mocap. Flicker und stark verzögerte Motion sind zu erwarten. Der Graph lief vollständig erfolgreich; ein separater SpoutGL-Empfänger erhielt 512×512-RGBA mit Alpha 255 und nichtleeren Pixeln von <code>ComfyAICharacterSwapExperimental</code>. Die sichtbare OBS-Komposition bleibt ein manueller Schritt.</p><p><b>Measured fixed-fixture matrix (8188):</b> denoise/IPAdapter/ControlNet 0.45/0.50/0.75, 0.50/0.55/0.80 and 0.55/0.60/0.85. The middle setting was selected: all three plain-clothing fixtures were text/logo-free; 0.50 keeps more source anatomy while retaining useful style transfer. Raw pre-Spout RGBA diagnostics and hashes are under the ignored local <code>tmp/live-avatar-evidence/ai-mirror/</code>. Buffered throughput remains about 0.36–0.50 FPS with the 512² webcam graph.</p><p>DirectML-RVC wurde separat auf der RX 9070 XT warm mit etwa 36–41 ms Rechenzeit pro 100-ms-Chunk gemessen. 8189 währenddessen nicht mit schweren Jobs belasten. Qwen bleibt request-basierte TTS.</p><p><b>Ausführung/OBS:</b> Vorher den Workflow-06-Browser schließen, damit die Webcam frei ist. Diesen Workflow mit <b>Run (Instant)</b> starten. In OBS beim Spout2-Capture ausdrücklich <code>ComfyAICharacterSwapExperimental</code> wählen. Der erste Frame kann nach kaltem Start 2–8 Sekunden benötigen; gemessen wurden danach nur 0,36–0,50 neue FPS, also ein gepufferter Spiegel und kein flüssiges Mocap.</p>\",\"buttonColor\":\"#e48d30\",\"lineColor\":\"#e48d30\",\"width\":850,\"height\":900,\"backgroundColor\":\"#2a2a2a\"}",
         ""
       ],
-      "title": "START HIER · Experimental AI Mirror"
+      "title": "START HIER · Optimized Buffered AI Mirror"
     },
     {
       "id": 2,
@@ -126,17 +126,17 @@
       "widgets_values": [
         0,
         0,
-        512,
-        512,
+        384,
+        384,
         2,
         false,
         "DirectShow"
       ],
-      "title": "Fallback · Logitech BRIO · DirectShow"
+      "title": "BRIO DirectShow · 384² speed input"
     },
     {
       "id": 3,
-      "type": "OpenposePreprocessor",
+      "type": "DaWastehCachedOpenPose",
       "pos": [
         3552.5,
         1175.0
@@ -213,17 +213,17 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "OpenposePreprocessor",
-        "cnr_id": "comfyui-controlnet-aux"
+        "Node name for S&R": "DaWastehCachedOpenPose",
+        "cnr_id": "ComfyUI-DaWasteh-LiveAvatar"
       },
       "widgets_values": [
+        "disable",
         "enable",
         "enable",
-        "enable",
-        512,
+        384,
         "disable"
       ],
-      "title": "OpenPose · Körper + Hände + Gesicht"
+      "title": "Cached OpenPose · body + face · 384"
     },
     {
       "id": 4,
@@ -1181,7 +1181,7 @@
       "mode": 0,
       "inputs": [],
       "outputs": [],
-      "title": "Erklärung · Logitech BRIO · DirectShow · Node 2",
+      "title": "Erklärung · BRIO DirectShow · 384² · Node 2",
       "properties": {
         "Node name for S&R": "MarkdownNote",
         "cnr_id": "comfy-core",
@@ -1189,7 +1189,7 @@
         "dawasteh_generated_note": true
       },
       "widgets_values": [
-        "# Erklärung · Logitech BRIO · DirectShow · Node 2\n\nDer frühere Wert `cam_index = 1` wurde über OpenCV/MSMF als **Elgato Virtual Camera** aufgelöst und scheiterte mit `0xC00D3704`. Workflow 07 verwendet deshalb die von OBS unabhängige **Logitech BRIO**.\n\n- `x` = `0`\n- `y` = `0`\n- `width` = `512`\n- `height` = `512`\n- `cam_index` = `2` — DirectShow-Geräteindex der Logitech BRIO.\n- `release` = `False`\n- `backend` = `DirectShow`\n\nOBS darf die Elgato-Kamera weiter verwenden; die BRIO muss für ComfyUI frei bleiben."
+        "# Erklärung · Logitech BRIO · DirectShow · 384² · Node 2\n\nWorkflow 11 nutzt denselben stabilen BRIO-Fallback wie Workflow 07, reduziert den Livepfad aber auf 384×384 Pixel.\n\n- `width` = `384`\n- `height` = `384`\n- `cam_index` = `2` — Logitech BRIO unter DirectShow.\n- `release` = `False`\n- `backend` = `DirectShow`\n\nDie geringere Fläche reduziert OpenPose-, VAE- und Diffusionsarbeit auf ungefähr 56 % der 512²-Pixelzahl. OBS kann die Spout-Quelle auf die gewünschte Szenengröße skalieren."
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
@@ -1210,7 +1210,7 @@
       "mode": 0,
       "inputs": [],
       "outputs": [],
-      "title": "Erklärung · OpenPose · Körper + Hände + Gesicht · Node 3",
+      "title": "Erklärung · Cached OpenPose · body + face · 384 · Node 3",
       "properties": {
         "Node name for S&R": "MarkdownNote",
         "cnr_id": "comfy-core",
@@ -1218,7 +1218,7 @@
         "dawasteh_generated_note": true
       },
       "widgets_values": [
-        "# Erklärung · OpenPose · Körper + Hände + Gesicht · Node 3\n\n**Zweck:** Verarbeitet die Ein- und Ausgaben des Node-Typs `OpenposePreprocessor` gemäß seiner Workflow-Funktion.\n\n**Einstellbare Werte**\n- `detect_hand` = `enable` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `detect_body` = `enable` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `detect_face` = `enable` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `resolution` = `512` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `scale_stick_for_xinsr_cn` = `disable` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `image` (IMAGE, Link 1): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `detect_hand` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `detect_body` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `detect_face` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `resolution` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `scale_stick_for_xinsr_cn` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes"
+        "# Erklärung · Cached OpenPose · body + face · 384 · Node 3\n\nDieser Node hält die drei geladenen OpenPose-Gewichte nach dem ersten Durchlauf auf der GPU. Workflow 07 erzeugt pro Webcamframe erneut drei Modellobjekte und lädt drei `.pth`-Dateien.\n\n- `detect_hand` = `disable` — spart auf der R9700 ungefähr 0,54 s pro Frame.\n- `detect_body` = `enable`\n- `detect_face` = `enable`\n- `resolution` = `384`\n- `scale_stick_for_xinsr_cn` = `disable`\n\nGemessene Hot-Median-Zeit des Pose-Anteils: ungefähr 0,21 s. 512 body+hands+face benötigte ungefähr 0,91 s Inferenz plus ungefähr 0,57 s erneutes Laden. Parallel laufende Diffusionsjobs auf derselben GPU würden dagegen um dieselben Rechenressourcen konkurrieren."
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"

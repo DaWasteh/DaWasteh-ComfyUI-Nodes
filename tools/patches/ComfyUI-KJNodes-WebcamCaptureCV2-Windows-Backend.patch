@@ -1,0 +1,95 @@
+--- a/nodes/image_nodes.py
++++ b/nodes/image_nodes.py
+@@ -817,6 +817,7 @@
+     DESCRIPTION = """
+ Captures a frame from a webcam using CV2.  
+ Can be used for realtime diffusion with autoqueue.
++On Windows, DirectShow can be selected explicitly when Media Foundation cannot start a camera stream.
+ """
+ 
+     @classmethod
+@@ -830,34 +831,69 @@
+                  "cam_index": ("INT", {"default": 0,"min": 0, "max": 255, "step": 1}),
+                  "release": ("BOOLEAN", {"default": False}),
+             },
+-        } 
+-
+-    def capture(self, x, y, cam_index, width, height, release):
+-        # Check if the camera index has changed or the capture object doesn't exist
+-        if not hasattr(self, "cap") or self.cap is None or self.current_cam_index != cam_index:
+-            if hasattr(self, "cap") and self.cap is not None:
+-                self.cap.release()
++            "optional": {
++                 "backend": (["auto", "DirectShow", "Media Foundation"], {"default": "auto"}),
++            },
++        }
++
++    @staticmethod
++    def _backend_api(backend):
++        if backend == "DirectShow":
++            return cv2.CAP_DSHOW
++        if backend == "Media Foundation":
++            return cv2.CAP_MSMF
++        return cv2.CAP_ANY
++
++    def _release_capture(self):
++        if hasattr(self, "cap") and self.cap is not None:
++            self.cap.release()
++        self.cap = None
++
++    def capture(self, x, y, cam_index, width, height, release, backend="auto"):
++        capture_changed = (
++            not hasattr(self, "cap")
++            or self.cap is None
++            or getattr(self, "current_cam_index", None) != cam_index
++            or getattr(self, "current_backend", None) != backend
++        )
++        if capture_changed:
++            self._release_capture()
+             self.current_cam_index = cam_index
+-            self.cap = cv2.VideoCapture(cam_index)
++            self.current_backend = backend
++            self.cap = cv2.VideoCapture(cam_index, self._backend_api(backend))
+             try:
+                 self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+                 self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+             except cv2.error:
+                 pass
+             if not self.cap.isOpened():
+-                raise RuntimeError("Could not open webcam")
++                self._release_capture()
++                raise RuntimeError(
++                    f"Could not open webcam index {cam_index} with backend {backend}"
++                )
+ 
+         ret, frame = self.cap.read()
+-        if not ret:
+-            raise RuntimeError("Failed to capture image from webcam")
+-
+-        # Crop the frame to the specified bbox
++        if not ret or frame is None:
++            self._release_capture()
++            raise RuntimeError(
++                f"Failed to capture image from webcam index {cam_index} with backend {backend}. "
++                "The camera may be in use by another application or the selected index/backend may be wrong."
++            )
++
++        # Crop the frame to the specified bbox.
+         frame = frame[y:y+height, x:x+width]
++        if frame.size == 0:
++            self._release_capture()
++            raise RuntimeError(
++                f"Webcam crop ({x}, {y}, {width}, {height}) is outside the captured frame"
++            )
++        if frame.shape[1] != width or frame.shape[0] != height:
++            interpolation = cv2.INTER_AREA if frame.shape[1] > width or frame.shape[0] > height else cv2.INTER_LINEAR
++            frame = cv2.resize(frame, (width, height), interpolation=interpolation)
+         img_torch = torch.from_numpy(frame[..., [2, 1, 0]]).float() / 255.0
+ 
+         if release:
+-            self.cap.release()
+-            self.cap = None
++            self._release_capture()
+ 
+         return (img_torch.unsqueeze(0),)
+ 

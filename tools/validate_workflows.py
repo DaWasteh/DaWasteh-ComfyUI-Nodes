@@ -47,6 +47,13 @@ AUTHORIZED_NODE_REPLACEMENTS: dict[str, dict[int, str]] = {
         12: "06da5ed6eb7dbfe3ed1b8ea1d01d0c85c51d8487c0dc4c78f64106019d29c5cf",
         22: "faa3cd6ecddd426a253d7980a54f10f1b196f83521e4436b8b3cecffaad6299a",
     },
+    # Pin the BRIO/DirectShow camera repair and its synchronized notes without
+    # allowing unrelated changes to the historical Workflow 07 graph.
+    "workflows/Live Avatar/LiveAvatar-07-AI-Webcam-Character-Swap-Experimental.json": {
+        1: "67b307c243e9f3c6095d02dfcd1cc931b8ee16dcf5e593ab3d9051770c7a788d",
+        2: "a91ebfaedaa0b55ac274596e521ccbd14224c5ff6e79ebdb0e57a7c98e2d520f",
+        19: "a6f36375f6b8a37e866c64b7dd0fb41d0c096d25da1937fbeca789bcd44e9994",
+    },
 }
 AUTHORIZED_WIDGET_VALUE_HASHES: dict[str, dict[int, dict[int, str]]] = {
     "workflows/LoRA Generation/Qwen3-TTS_0.6B-Voice-LoRA-Training.json": {
@@ -556,7 +563,7 @@ def main() -> int:
                 errors.extend(path_errors)
         else:
             errors.extend(path_errors)
-    expected = {"files": 205, "graphs": 242, "nodes": 6761, "notes": 2898, "links": 4441, "timers": 195}
+    expected = {"files": 206, "graphs": 243, "nodes": 6794, "notes": 2914, "links": 4464, "timers": 195}
     actual = {"files": len(paths), **{k: totals[k] for k in ("graphs", "nodes", "notes", "links", "timers")}}
     for key, value in expected.items():
         if actual[key] != value:

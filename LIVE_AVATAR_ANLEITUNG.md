@@ -145,9 +145,9 @@ Die gleiche URL kann in eine OBS-Browserquelle eingetragen werden. Danach über 
 1. Ein Quellbild erzeugen oder bereitstellen.
 2. Mit Workflow 02 den Hintergrund entfernen.
 3. Das transparente PNG in Workflow 03 unter **„Transparenten Avatar laden“** wählen.
-4. Prüfen, dass der richtige Kameraindex gesetzt ist:
-   - Elgato Facecam Pro derzeit meist `1`
-   - Logitech BRIO derzeit meist `2`
+4. Prüfen, dass Backend und Kameraindex zusammenpassen. Die Zahlen sind nicht backendübergreifend stabil:
+   - DirectShow: Elgato Virtual Camera `0`, Facecam Pro `1`, Logitech BRIO `2`, OBS Virtual Camera `3`
+   - Media Foundation: Logitech BRIO `0`, Elgato Virtual Camera `1`, Facecam Pro `2`
 5. Zuerst genau einen normalen Lauf ausführen.
 6. Danach **Run (Instant)** aktivieren, damit neue Webcam-Frames verarbeitet werden.
 7. In OBS **Spout2 Capture** hinzufügen.
@@ -166,11 +166,24 @@ Bei Workflow 05 niemals `Run (Instant)` verwenden. Der Continuous-Node hält den
 
 ## Buffered AI Mirror · Workflow 07
 
-Workflow 07 kombiniert Webcam, OpenPose, SD1.5-LCM und IPAdapter. Er läuft auf der R9700 nur ungefähr mit 0,36–0,50 neuen Frames pro Sekunde und ist deshalb kein echter Echtzeitpfad.
+Workflow 07 kombiniert Webcam, OpenPose, SD1.5-LCM und IPAdapter. Er läuft auf der R9700 nur ungefähr mit 0,36–0,50 neuen Frames pro Sekunde und ist deshalb kein echter Echtzeitpfad. Der reparierte Kamera-Node ist ausdrücklich auf Logitech BRIO, DirectShow und Index 2 gestellt; damit darf OBS die Elgato-Kamera parallel weiterverwenden.
 
 - Wiederholte Ausführung beziehungsweise `Run (Instant)` verwenden.
 - In OBS den Spout2-Sender **`ComfyAICharacterSwapExperimental`** auswählen.
-- Vorher den Workflow-06-Browser schließen, damit er die Webcam freigibt.
+- Die BRIO für ComfyUI frei lassen.
+
+## Optimierter Buffered AI Mirror · Workflow 11
+
+Workflow 11 bleibt ein separater Graph und überschreibt Workflow 07 nicht. Er verwendet `DaWastehCachedOpenPose`, hält die OpenPose-Gewichte nach dem ersten Lauf auf der R9700 und nutzt standardmäßig 384×384 mit Körper- und Gesichtserkennung. Die besonders teure Handerkennung ist zunächst deaktiviert.
+
+- Nach Installation oder Aktualisierung von `ComfyUI-DaWasteh-LiveAvatar` ComfyUI 8188 neu starten.
+- Workflow 11 laden und zuerst einen einzelnen Kaltstart ausführen.
+- Danach `Run (Instant)` aktivieren.
+- Der OBS-Sender bleibt **`ComfyAICharacterSwapExperimental`**.
+- Gemessene warme Laufzeit: 0,62–0,68 Sekunden, Median 0,645 Sekunden beziehungsweise etwa 1,55 neue Bilder/s.
+- Für wichtigere Handposen im Cached-OpenPose-Node `detect_hand = enable` setzen; das kostet auf der R9700 ungefähr 0,54 Sekunden zusätzlich pro Frame.
+
+Zwei Diffusionsläufe auf derselben GPU werden absichtlich nicht parallel gestartet: OpenPose, VAE und Sampler würden um dieselben GPU-Ressourcen konkurrieren, während Frames veralten und die Ende-zu-Ende-Latenz steigt. Das Caching plus kleinere Arbeitsauflösung reduziert stattdessen den tatsächlich seriellen kritischen Pfad.
 
 ## OBS-Fehlerbehebung
 
@@ -188,11 +201,12 @@ OBS und der sendende ComfyUI-Prozess müssen für Spout auf derselben physischen
 ### Webcam lässt sich nicht öffnen
 
 - Andere Browser-Tabs und OBS-Kameraquellen schließen beziehungsweise deaktivieren.
-- Workflow 03 oder 07: `Run (Instant)` stoppen, im `WebcamCaptureCV2`-Node `release=true` setzen und einmal ausführen; anschließend für den nächsten Start wieder auf `false` stellen.
+- Workflow 03, 07 oder 11: `Run (Instant)` stoppen, im `WebcamCaptureCV2`-Node `release=true` setzen und einmal ausführen; anschließend für den nächsten Start wieder auf `false` stellen.
+- Bei `0xC00D3704` Backend und Index prüfen: MSMF-Index 1 ist auf diesem Rechner die Elgato Virtual Camera, nicht die Logitech BRIO. Workflows 07/11 verwenden deshalb DirectShow-Index 2.
 - Workflow 05: mit **Interrupt** stoppen und die leere Queue abwarten.
 - Workflow 06: Browser-Tab beziehungsweise Fenster schließen, damit `getUserMedia` die Kamera freigibt.
 - USB-Neuverbindungen können die OpenCV-Kameraindizes verändern.
-- Workflow 06 und die Workflows 03/05/07 nicht gleichzeitig dieselbe Kamera verwenden lassen.
+- Workflow 06 und die Workflows 03/05/07/11 nicht gleichzeitig dieselbe Kamera verwenden lassen.
 
 ### Neue VRM-Datei erscheint nicht
 

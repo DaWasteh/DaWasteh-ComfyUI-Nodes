@@ -1,10 +1,11 @@
-"""Experimental continuous LivePortrait and local VRM Live Avatar nodes for ComfyUI."""
-from .nodes import DaWastehContinuousLiveAvatar, DaWastehPersistentSpout, DaWastehVRMLiveAvatarLauncher
+"""Continuous LivePortrait, cached AI Mirror, and local VRM nodes for ComfyUI."""
+from .nodes import DaWastehCachedOpenPose, DaWastehContinuousLiveAvatar, DaWastehPersistentSpout, DaWastehVRMLiveAvatarLauncher
 from .vrm_tools import DaWastehRiggedGLBToVRM0, DaWastehVRMTextureSource, DaWastehVRMTextureVariant
 from .vrm_server import register_routes
 
 register_routes()
 NODE_CLASS_MAPPINGS = {
+    "DaWastehCachedOpenPose": DaWastehCachedOpenPose,
     "DaWastehContinuousLiveAvatar": DaWastehContinuousLiveAvatar,
     "DaWastehPersistentSpout": DaWastehPersistentSpout,
     "DaWastehVRMLiveAvatarLauncher": DaWastehVRMLiveAvatarLauncher,
@@ -13,6 +14,7 @@ NODE_CLASS_MAPPINGS = {
     "DaWastehRiggedGLBToVRM0": DaWastehRiggedGLBToVRM0,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
+    "DaWastehCachedOpenPose": "Cached OpenPose (DaWasteh, webcam optimized)",
     "DaWastehContinuousLiveAvatar": "LivePortrait Continuous Spout (DaWasteh, experimental)",
     "DaWastehPersistentSpout": "Persistent Latest-Frame Spout (DaWasteh)",
     "DaWastehVRMLiveAvatarLauncher": "VRM Full-Body Live Avatar Launcher (DaWasteh)",

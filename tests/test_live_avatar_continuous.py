@@ -106,15 +106,15 @@ class DependencyTests(unittest.TestCase):
 
     @unittest.skipUnless(shutil.which("git"), "git is required for patch applicability test")
     def test_kjnodes_patch_applies_to_expected_source(self):
-        patch = ROOT / "tools" / "patches" / "ComfyUI-KJNodes-WebcamCaptureCV2-ComfyUI-IS_CHANGED.patch"
-        prefix = "\n" * 806
-        source = prefix + '''class WebcamCaptureCV2:\n\n    @classmethod\n    def IS_CHANGED(cls):\n        return\n\n    RETURN_TYPES = ("IMAGE",)\n    RETURN_NAMES = ("image",)\n'''
+        patch = ROOT / "tools" / "patches" / "ComfyUI-KJNodes-WebcamCaptureCV2-Windows-Backend.patch"
+        fixture = ROOT / "tests" / "fixtures" / "kjnodes_webcam_capture_cv2_original.py"
+        source = "\n" * 806 + fixture.read_text(encoding="utf-8")
         with tempfile.TemporaryDirectory() as temp:
             target = Path(temp) / "nodes" / "image_nodes.py"
             target.parent.mkdir(parents=True)
             target.write_text(source, encoding="utf-8")
             result = subprocess.run(
-                [shutil.which("git"), "apply", "--check", str(patch)],
+                [shutil.which("git"), "apply", str(patch)],
                 cwd=temp,
                 capture_output=True,
                 text=True,
@@ -122,6 +122,56 @@ class DependencyTests(unittest.TestCase):
                 errors="replace",
             )
             self.assertEqual(result.returncode, 0, result.stderr)
+            patched = target.read_text(encoding="utf-8")
+            self.assertIn('"backend": (["auto", "DirectShow", "Media Foundation"]', patched)
+            self.assertIn("cv2.CAP_DSHOW", patched)
+            self.assertIn("self._release_capture()", patched)
+            self.assertIn("cv2.resize(frame, (width, height)", patched)
+
+
+class CachedOpenPoseTests(unittest.TestCase):
+    def test_openpose_weights_are_loaded_only_once_per_node_instance(self):
+        calls = {"load": 0, "to": 0}
+
+        class FakeDetector:
+            @classmethod
+            def from_pretrained(cls):
+                calls["load"] += 1
+                return cls()
+
+            def to(self, device):
+                calls["to"] += 1
+                self.device = device
+                return self
+
+        comfy_package = types.ModuleType("comfy")
+        comfy_package.__path__ = []
+        model_management = types.ModuleType("comfy.model_management")
+        model_management.get_torch_device = lambda: "cuda:0"
+        custom_package = types.ModuleType("custom_controlnet_aux")
+        custom_package.__path__ = []
+        openpose_module = types.ModuleType("custom_controlnet_aux.open_pose")
+        openpose_module.OpenposeDetector = FakeDetector
+        replacements = {
+            "comfy": comfy_package,
+            "comfy.model_management": model_management,
+            "custom_controlnet_aux": custom_package,
+            "custom_controlnet_aux.open_pose": openpose_module,
+        }
+        previous = {name: sys.modules.get(name) for name in replacements}
+        sys.modules.update(replacements)
+        try:
+            node = nodes.DaWastehCachedOpenPose()
+            first = node._get_model()
+            second = node._get_model()
+        finally:
+            for name, module in previous.items():
+                if module is None:
+                    sys.modules.pop(name, None)
+                else:
+                    sys.modules[name] = module
+        self.assertIs(first, second)
+        self.assertEqual(calls, {"load": 1, "to": 1})
 
 
 class LifecycleTests(unittest.TestCase):

@@ -4,7 +4,7 @@ Two deliberately separate Windows/RDNA4 paths live in this package:
 
 - **LivePortrait Continuous Spout** (`LiveAvatar-05`) remains experimental and strictly face-only.
 - **VRM Full-Body Live Avatar** (`LiveAvatar-06`) is the productive browser path: MediaPipe Holistic runs locally in the browser and drives a local VRM renderer (head, gaze, blink, mouth visemes, torso, arms, hands/fingers, hips and legs). It does not upload camera frames to ComfyUI or the network.
-- **Buffered AI Mirror** (`LiveAvatar-07`) is a separate experimental SD1.5-LCM OpenPose/IPAdapter webcam graph. It is not VRM mocap or a live-FPS path.
+- **Buffered AI Mirror** (`LiveAvatar-07`) is a separate experimental SD1.5-LCM OpenPose/IPAdapter webcam graph. `LiveAvatar-11` adds a distinct cached/speed-tuned variant without replacing Workflow 07. Neither is VRM mocap or a live-FPS path.
 
 ## VRM path
 
@@ -39,11 +39,13 @@ Workflow 09 is deliberately optional and requires Comfy credits: it uploads a li
 
 ## Persistent OBS output
 
-Workflows 03, 04 and 07 use `DaWastehPersistentSpout`: every completed prompt replaces a one-frame mailbox, while a background sender keeps the latest RGBA frame available to OBS between Run-(Instant)-iterations. Workflow 06 is different: it is only a browser launcher and never creates a Spout sender; run it once normally and capture its Chrome/browser window. Before using webcam workflows 03, 04, 05 or 07, close the Workflow-06 browser so it releases the camera.
+Workflows 03, 04, 07 and 11 use `DaWastehPersistentSpout`: every completed prompt replaces a one-frame mailbox, while a background sender keeps the latest RGBA frame available to OBS between Run-(Instant)-iterations. Workflow 06 is different: it is only a browser launcher and never creates a Spout sender; run it once normally and capture its Chrome/browser window. Before using webcam workflows 03, 04, 05, 07 or 11, close the Workflow-06 browser so it releases the selected camera.
 
 ## Buffered AI Mirror (experimental)
 
-Required existing prerequisites are `models/checkpoints/v1-5-pruned-emaonly-fp16.safetensors` and `models/clip_vision/CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors`. Stop Run (Instant), wait for empty queues, then run `python tools/install_live_avatar_ai_assets.py --comfy-root L:/ComfyUI/ComfyUI`; `--source-dir` is optional only for a verified offline cache. Restart the target ComfyUI for model combo refresh. Workflow 07 uses LCM-LoRA, OpenPose ControlNet, explicit IPAdapter Plus/CLIP Vision and a user-selectable reference. A fixed-fixture 8188 matrix compared denoise/IPAdapter/ControlNet at 0.45/0.50/0.75, 0.50/0.55/0.80 and 0.55/0.60/0.85; the middle setting was selected because it remained text/logo-free while preserving more source anatomy. Repeated warm throughput was about 0.36–0.50 FPS on 8188/R9700 and 0.125 FPS on 8189/RX 9070 XT, so it is explicitly buffered. Visible OBS composition remains manual.
+Required existing prerequisites are `models/checkpoints/v1-5-pruned-emaonly-fp16.safetensors` and `models/clip_vision/CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors`. Stop Run (Instant), wait for empty queues, then run `python tools/install_live_avatar_ai_assets.py --comfy-root L:/ComfyUI/ComfyUI`; `--source-dir` is optional only for a verified offline cache. Restart the target ComfyUI for model combo refresh. Workflow 07 uses LCM-LoRA, OpenPose ControlNet, explicit IPAdapter Plus/CLIP Vision and a user-selectable reference. A fixed-fixture 8188 matrix compared denoise/IPAdapter/ControlNet at 0.45/0.50/0.75, 0.50/0.55/0.80 and 0.55/0.60/0.85; the middle setting was selected because it remained text/logo-free while preserving more source anatomy. Repeated warm throughput was about 0.36–0.50 FPS on 8188/R9700 and 0.125 FPS on 8189/RX 9070 XT, so it is explicitly buffered.
+
+Workflow 11 uses `DaWastehCachedOpenPose`, which keeps the body/hand/face model weights resident after the cold start. Its speed preset uses 384×384, body+face and disabled hand detection; enabling hands remains available but costs roughly 0.54 seconds per frame. Eight warm R9700 runs measured 0.62–0.68 seconds, median 0.645 seconds (about 1.55 new frames/s), versus roughly 2.05 seconds for Workflow 07. The cold run measured 13.8 seconds. This optimization removes repeated model loads and reduces the serial workload; it deliberately does not overlap competing diffusion jobs on one GPU. Visible OBS composition remains manual.
 
 ## Live voice-conversion companion
 

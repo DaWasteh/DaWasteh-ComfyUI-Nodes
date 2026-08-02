@@ -8,6 +8,7 @@ from __future__ import annotations
 import atexit
 import copy
 import importlib
+import json
 import logging
 import sys
 import threading
@@ -346,6 +347,104 @@ def _stop_persistent_spouts() -> None:
 
 
 atexit.register(_stop_persistent_spouts)
+
+
+class DaWastehCachedOpenPose:
+    """OpenPose preprocessor that keeps the three annotator models resident."""
+
+    def __init__(self) -> None:
+        self._model: Any = None
+        self._model_device: str | None = None
+        self.openpose_dicts: list[dict[str, Any]] = []
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE",),
+            },
+            "optional": {
+                "detect_hand": (["enable", "disable"], {"default": "enable"}),
+                "detect_body": (["enable", "disable"], {"default": "enable"}),
+                "detect_face": (["enable", "disable"], {"default": "enable"}),
+                "resolution": ("INT", {"default": 512, "min": 64, "max": 16384, "step": 64}),
+                "scale_stick_for_xinsr_cn": (["disable", "enable"], {"default": "disable"}),
+            },
+        }
+
+    RETURN_TYPES = ("IMAGE", "POSE_KEYPOINT")
+    RETURN_NAMES = ("IMAGE", "POSE_KEYPOINT")
+    FUNCTION = "estimate_pose"
+    CATEGORY = "DaWasteh/Live Avatar"
+    DESCRIPTION = (
+        "OpenPose body/hand/face preprocessing with persistent model weights. "
+        "Use for webcam loops where comfyui_controlnet_aux would reload all three models every frame."
+    )
+
+    def _get_model(self) -> Any:
+        import comfy.model_management as model_management
+        from custom_controlnet_aux.open_pose import OpenposeDetector
+
+        device = model_management.get_torch_device()
+        device_key = str(device)
+        if self._model is None:
+            started = time.perf_counter()
+            self._model = OpenposeDetector.from_pretrained().to(device)
+            self._model_device = device_key
+            LOGGER.info(
+                "Cached OpenPose body/hand/face models on %s in %.3f seconds",
+                device_key,
+                time.perf_counter() - started,
+            )
+        elif self._model_device != device_key:
+            self._model.to(device)
+            self._model_device = device_key
+        return self._model
+
+    def estimate_pose(
+        self,
+        image: Any,
+        detect_hand: str = "enable",
+        detect_body: str = "enable",
+        detect_face: str = "enable",
+        resolution: int = 512,
+        scale_stick_for_xinsr_cn: str = "disable",
+        **_: Any,
+    ) -> dict[str, Any]:
+        import comfy.utils
+        import torch
+
+        model = self._get_model()
+        include_hand = detect_hand == "enable"
+        include_body = detect_body == "enable"
+        include_face = detect_face == "enable"
+        xinsr_stick_scaling = scale_stick_for_xinsr_cn == "enable"
+        self.openpose_dicts = []
+        outputs: list[Any] = []
+        progress = comfy.utils.ProgressBar(int(image.shape[0]))
+
+        with torch.inference_mode():
+            for tensor_image in image:
+                np_image = np.asarray(tensor_image.cpu() * 255.0, dtype=np.uint8)
+                pose_image, pose_dict = model(
+                    np_image,
+                    output_type="np",
+                    detect_resolution=int(resolution),
+                    include_hand=include_hand,
+                    include_body=include_body,
+                    include_face=include_face,
+                    image_and_json=True,
+                    xinsr_stick_scaling=xinsr_stick_scaling,
+                )
+                outputs.append(torch.from_numpy(pose_image.astype(np.float32) / 255.0))
+                self.openpose_dicts.append(pose_dict)
+                progress.update(1)
+
+        out = torch.stack(outputs, dim=0)
+        return {
+            "ui": {"openpose_json": [json.dumps(self.openpose_dicts, indent=4)]},
+            "result": (out, self.openpose_dicts),
+        }
 
 
 class DaWastehPersistentSpout:

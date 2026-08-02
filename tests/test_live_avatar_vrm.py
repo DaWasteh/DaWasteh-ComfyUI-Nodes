@@ -13,7 +13,7 @@ class VRMTests(unittest.TestCase):
   web=ROOT/'custom_nodes/ComfyUI-DaWasteh-LiveAvatar/web/vrm-app';notices=(web/'THIRD_PARTY_NOTICES.txt').read_text();self.assertTrue(all(x in notices for x in ['MediaPipe','Three.js','three-vrm','Kalidokit','Apache License']));self.assertFalse('http://' in (ROOT/'custom_nodes/ComfyUI-DaWasteh-LiveAvatar/frontend/src/main.js').read_text())
  def test_generator_is_clean_room_and_byte_stable(self):
   import tempfile
-  names=['LiveAvatar-06-VRM-Full-Body-Hand-Face+Live-Mic.json','LiveAvatar-07-AI-Webcam-Character-Swap-Experimental.json','LiveAvatar-08-Local-VRM-Texture-Creator-Realistic+Stylized.json','LiveAvatar-09-Meshy-AutoRig-to-VRM-Candidate-Optional-Cloud.json','LiveAvatar-10-Realistic-Adult-Character-Reference-Prompt+Image.json']
+  names=['LiveAvatar-06-VRM-Full-Body-Hand-Face+Live-Mic.json','LiveAvatar-07-AI-Webcam-Character-Swap-Experimental.json','LiveAvatar-08-Local-VRM-Texture-Creator-Realistic+Stylized.json','LiveAvatar-09-Meshy-AutoRig-to-VRM-Candidate-Optional-Cloud.json','LiveAvatar-10-Realistic-Adult-Character-Reference-Prompt+Image.json','LiveAvatar-11-AI-Webcam-Character-Swap-Cached-OpenPose.json']
   with tempfile.TemporaryDirectory() as d:
    out=Path(d);subprocess.run([sys.executable,str(ROOT/'tools/generate_live_avatar_v072_workflows.py'),'--destination',str(out)],check=True,stdout=subprocess.DEVNULL);first=[(out/n).read_bytes() for n in names]
    for n in names:(out/n).write_bytes(b'arbitrary')

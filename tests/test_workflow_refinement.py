@@ -241,6 +241,7 @@ class WidgetMappingTests(unittest.TestCase):
                 "LiveAvatar-08-Local-VRM-Texture-Creator-Realistic+Stylized.json",
                 "LiveAvatar-09-Meshy-AutoRig-to-VRM-Candidate-Optional-Cloud.json",
                 "LiveAvatar-10-Realistic-Adult-Character-Reference-Prompt+Image.json",
+                "LiveAvatar-11-AI-Webcam-Character-Swap-Cached-OpenPose.json",
             ],
         )
         workflows = [json.loads(path.read_text(encoding="utf-8")) for path in paths]
@@ -320,7 +321,7 @@ class WidgetMappingTests(unittest.TestCase):
         required_ai = {"WebcamCaptureCV2", "OpenposePreprocessor", "CheckpointLoaderSimple", "LoraLoader", "ControlNetLoader", "ControlNetApplyAdvanced", "VAEEncode", "IPAdapterModelLoader", "IPAdapterAdvanced", "CLIPVisionLoader", "KSampler", "VAEDecode", "DaWastehPersistentSpout"}
         self.assertTrue(required_ai.issubset(ai_nodes), required_ai - set(ai_nodes))
         self.assertNotIn("PreviewImage", ai_nodes)
-        self.assertEqual(ai_nodes["WebcamCaptureCV2"]["widgets_values"], [0, 0, 512, 512, 1, False])
+        self.assertEqual(ai_nodes["WebcamCaptureCV2"]["widgets_values"], [0, 0, 512, 512, 2, False, "DirectShow"])
         self.assertEqual(ai_nodes["OpenposePreprocessor"]["widgets_values"][:4], ["enable", "enable", "enable", 512])
         self.assertEqual(ai_nodes["LoraLoader"]["widgets_values"][0], "LiveAvatar\\lcm-lora-sdv1-5.safetensors")
         self.assertEqual(ai_nodes["KSampler"]["widgets_values"][2:7], [4, 1.5, "lcm", "sgm_uniform", 0.5])
@@ -330,6 +331,23 @@ class WidgetMappingTests(unittest.TestCase):
         prompt_text = json.dumps(ai, ensure_ascii=False).lower()
         for token in ("user interface", "malformed hands", "fused fingers", "brand mark", "keine</b> zusage"):
             self.assertIn(token, prompt_text)
+
+        optimized_ai = workflows[10]
+        optimized_nodes = {node["type"]: node for node in optimized_ai["nodes"]}
+        self.assertIn("DaWastehCachedOpenPose", optimized_nodes)
+        self.assertNotIn("OpenposePreprocessor", optimized_nodes)
+        self.assertEqual(
+            optimized_nodes["WebcamCaptureCV2"]["widgets_values"],
+            [0, 0, 384, 384, 2, False, "DirectShow"],
+        )
+        self.assertEqual(
+            optimized_nodes["DaWastehCachedOpenPose"]["widgets_values"],
+            ["disable", "enable", "enable", 384, "disable"],
+        )
+        self.assertEqual(optimized_ai["links"], ai["links"])
+        optimized_text = json.dumps(optimized_ai, ensure_ascii=False).lower()
+        for token in ("cached openpose", "0,21 s", "directshow", "384×384"):
+            self.assertIn(token, optimized_text)
 
         combined_workflow = workflows[3]
         combined = {node["type"]: node for node in combined_workflow["nodes"]}

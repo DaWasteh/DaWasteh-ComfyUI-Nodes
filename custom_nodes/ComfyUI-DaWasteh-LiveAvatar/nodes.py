@@ -10,6 +10,8 @@ import copy
 import importlib
 import json
 import logging
+import os
+import tempfile
 import sys
 import threading
 import time
@@ -17,9 +19,137 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+
 import numpy as np
 
 LOGGER = logging.getLogger(__name__)
+
+LIVE_AVATAR_MULTIVIEW_PREFIXES = (
+    "13_front_full_body",
+    "13_left_profile_full_body",
+    "13_rear_full_body",
+    "13_right_profile_full_body",
+)
+
+
+def latest_live_avatar_output(prefix: str, output_root: str | Path | None = None) -> Path:
+    """Resolve the newest semantic Workflow-13 PNG without accepting arbitrary paths."""
+    if prefix not in LIVE_AVATAR_MULTIVIEW_PREFIXES:
+        raise ValueError("unsupported LiveAvatar output prefix")
+    if output_root is None:
+        import folder_paths
+        output_root = folder_paths.get_output_directory()
+    directory = Path(output_root).resolve() / "LiveAvatar"
+    if not directory.is_dir() or directory.is_symlink():
+        raise FileNotFoundError(f"LiveAvatar output directory is missing or unsafe: {directory}")
+    candidates = []
+    for candidate in directory.glob(f"{prefix}_*.png"):
+        if candidate.is_symlink() or not candidate.is_file() or candidate.stat().st_size <= 0:
+            continue
+        resolved = candidate.resolve()
+        try:
+            resolved.relative_to(directory)
+        except ValueError:
+            continue
+        candidates.append(resolved)
+    if not candidates:
+        raise FileNotFoundError(f"no generated Workflow-13 output exists for {prefix!r}")
+    return max(candidates, key=lambda path: (path.stat().st_mtime_ns, path.name))
+
+
+class DaWastehLatestLiveAvatarOutput:
+    """Load the newest corrected Workflow-13 view for Workflow 14."""
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {"prefix": (list(LIVE_AVATAR_MULTIVIEW_PREFIXES),)}}
+
+    RETURN_TYPES = ("IMAGE", "MASK", "STRING")
+    RETURN_NAMES = ("image", "mask", "source_file")
+    FUNCTION = "load"
+    CATEGORY = "DaWasteh/Live Avatar"
+
+    @classmethod
+    def IS_CHANGED(cls, prefix: str) -> str:
+        path = latest_live_avatar_output(prefix)
+        stat = path.stat()
+        return f"{path.name}:{stat.st_mtime_ns}:{stat.st_size}"
+
+    def load(self, prefix: str):
+        path = latest_live_avatar_output(prefix)
+        from nodes import LoadImage
+        image, mask = LoadImage().load_image(f"LiveAvatar/{path.name} [output]")
+        return image, mask, str(path)
+
+
+class DaWastehWorkflow12Preflight:
+    """Fail-closed configuration check; this node never starts a service."""
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {"config_path": ("STRING", {"default": "L:/ComfyUI/config/live-avatar-12.json"})}}
+    RETURN_TYPES = ("BOOLEAN", "STRING", "STRING")
+    RETURN_NAMES = ("ready", "status", "launch_command")
+    OUTPUT_NODE = True
+    FUNCTION = "check"
+    CATEGORY = "DaWasteh/Live Avatar"
+    def check(self, config_path: str):
+        # Works both as a ComfyUI package and in direct unittest loading.
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("dawasteh_preflight", Path(__file__).with_name("preflight.py"))
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        result = module.workflow12_preflight(config_path)
+        values = (result["ready"], result["status"], result["launch_command"])
+        return {"ui": {"text": [result["status"]]}, "result": values}
+
+
+@dataclass
+class TimedFrame:
+    image: np.ndarray
+    capture_time: float | None = None
+    produced_time: float | None = None
+
+@dataclass
+class LiveAvatarMetrics:
+    """Thread-safe bounded transport truth: production is never presentation."""
+    sample_limit: int = 4096
+    ai_frames: int = 0; presented_frames: int = 0; unique_presentations: int = 0; duplicate_presentations: int = 0; dropped_capture_frames: int = 0
+    capture_to_spout_ms: list[float] = field(default_factory=list); unique_intervals_ms: list[float] = field(default_factory=list)
+    _started: float | None = None; _last_ai: float | None = None; _lock: threading.Lock = field(default_factory=threading.Lock)
+    def _add(self, values, value):
+        values.append(value)
+        if len(values)>self.sample_limit: del values[:len(values)-self.sample_limit]
+    def start(self, now=None):
+        with self._lock:
+            if self._started is None:self._started=time.monotonic() if now is None else now
+    def produced(self, capture_time=None, now=None):
+        now=time.monotonic() if now is None else now
+        with self._lock:
+            if self._started is None:self._started=now
+            self.ai_frames+=1
+            if self._last_ai is not None:self._add(self.unique_intervals_ms,(now-self._last_ai)*1000)
+            self._last_ai=now
+    def presented(self, unique, frame=None, now=None):
+        now=time.monotonic() if now is None else now
+        with self._lock:
+            if self._started is None:self._started=now
+            self.presented_frames+=1
+            if unique:
+                self.unique_presentations+=1
+                if frame and frame.capture_time is not None:self._add(self.capture_to_spout_ms,(now-frame.capture_time)*1000)
+            else:self.duplicate_presentations+=1
+    def dropped(self,count):
+        with self._lock:self.dropped_capture_frames+=max(0,count)
+    @staticmethod
+    def _percentile(v,p): return None if not v else sorted(v)[round((len(v)-1)*p)]
+    def snapshot(self, now=None):
+        with self._lock:
+            now=time.monotonic() if now is None else now; elapsed=max(0,(now-(self._started if self._started is not None else now)))
+            return {"ai_frames":self.ai_frames,"presented_frames":self.presented_frames,"unique_presentations":self.unique_presentations,"duplicate_presentations":self.duplicate_presentations,"dropped_capture_frames":self.dropped_capture_frames,"elapsed_seconds":elapsed,"ai_fps":self.ai_frames/elapsed if elapsed else 0,"presentation_fps":self.presented_frames/elapsed if elapsed else 0,"capture_to_spout_ms":{x:self._percentile(self.capture_to_spout_ms,p) for x,p in (("p50",.5),("p95",.95),("p99",.99))},"unique_frame_interval_ms":{x:self._percentile(self.unique_intervals_ms,p) for x,p in (("p50",.5),("p95",.95),("p99",.99))}}
+    def publish_json(self,destination):
+        dest=Path(destination);dest.parent.mkdir(parents=True,exist_ok=True);fd,tmp=tempfile.mkstemp(dir=dest.parent,prefix='.metrics-',suffix='.tmp')
+        with os.fdopen(fd,'w',encoding='utf-8') as f:json.dump(self.snapshot(),f);f.flush();os.fsync(f.fileno())
+        os.replace(tmp,dest)
 
 
 class DaWastehVRMLiveAvatarLauncher:
@@ -175,6 +305,10 @@ class CaptureWorker:
         offset_x: int,
         offset_y: int,
         mirror: bool,
+        backend: str = "auto",
+        auto_face_crop: bool = False,
+        face_crop_scale: float = 2.0,
+        face_crop_smoothing: float = 0.72,
     ) -> None:
         self.slot = slot
         self.cam_index = cam_index
@@ -184,6 +318,12 @@ class CaptureWorker:
         self.offset_x = offset_x
         self.offset_y = offset_y
         self.mirror = mirror
+        self.backend = backend
+        self.auto_face_crop = bool(auto_face_crop)
+        self.face_crop_scale = float(face_crop_scale)
+        self.face_crop_smoothing = float(face_crop_smoothing)
+        self._face_crop_state: np.ndarray | None = None
+        self._face_crop_misses = 0
         self.stop_event = threading.Event()
         self.thread = threading.Thread(
             target=self._run,
@@ -207,15 +347,72 @@ class CaptureWorker:
         self.thread.join(timeout=timeout)
         return not self.thread.is_alive()
 
+    def _tracked_face_roi(self, frame: np.ndarray, cv2: Any, detector: Any) -> np.ndarray:
+        """Return a smoothed square face/head ROI, falling back safely after lost tracking."""
+        height, width = frame.shape[:2]
+        scale = min(1.0, 640.0 / max(width, height))
+        detect_frame = frame if scale == 1.0 else cv2.resize(frame, None, fx=scale, fy=scale, interpolation=cv2.INTER_AREA)
+        gray = cv2.cvtColor(detect_frame, cv2.COLOR_BGR2GRAY)
+        detections = detector.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(40, 40))
+        if len(detections):
+            x, y, face_width, face_height = max(detections, key=lambda item: int(item[2]) * int(item[3]))
+            x, y, face_width, face_height = (float(value) / scale for value in (x, y, face_width, face_height))
+            target = np.array(
+                [x + face_width * 0.5, y + face_height * 0.52, max(face_width, face_height) * self.face_crop_scale],
+                dtype=np.float64,
+            )
+            if self._face_crop_state is None:
+                self._face_crop_state = target
+            else:
+                keep = min(max(self.face_crop_smoothing, 0.0), 0.95)
+                self._face_crop_state = keep * self._face_crop_state + (1.0 - keep) * target
+            self._face_crop_misses = 0
+        elif self._face_crop_state is not None:
+            self._face_crop_misses += 1
+            if self._face_crop_misses > 30:
+                self._face_crop_state = None
+
+        if self._face_crop_state is None:
+            return square_roi(frame, self.offset_x, self.offset_y)
+        center_x, center_y, requested_side = self._face_crop_state
+        side = max(64, min(int(round(requested_side)), width, height))
+        left = int(round(center_x - side * 0.5 + self.offset_x))
+        top = int(round(center_y - side * 0.5 + self.offset_y))
+        left = min(max(left, 0), width - side)
+        top = min(max(top, 0), height - side)
+        return frame[top : top + side, left : left + side, :3]
+
     def _run(self) -> None:
+        detector = None
         try:
             import cv2
 
-            self.cap = cv2.VideoCapture(self.cam_index)
+            if self.backend == "DirectShow":
+                if not hasattr(cv2, "CAP_DSHOW"):
+                    raise RuntimeError("DirectShow was requested but this OpenCV build has no CAP_DSHOW")
+                self.cap = cv2.VideoCapture(self.cam_index, cv2.CAP_DSHOW)
+            elif self.backend == "Media Foundation":
+                if not hasattr(cv2, "CAP_MSMF"):
+                    raise RuntimeError("Media Foundation was requested but this OpenCV build has no CAP_MSMF")
+                self.cap = cv2.VideoCapture(self.cam_index, cv2.CAP_MSMF)
+            else:
+                self.cap = cv2.VideoCapture(self.cam_index)
             if not self.cap.isOpened():
-                raise RuntimeError(f"could not open webcam index {self.cam_index}")
-            self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
-            self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
+                raise RuntimeError(f"could not open webcam index {self.cam_index} with backend {self.backend}")
+            if self.auto_face_crop:
+                cascade_path = str(Path(cv2.data.haarcascades) / "haarcascade_frontalface_default.xml")
+                detector = cv2.CascadeClassifier(cascade_path)
+                if detector.empty():
+                    raise RuntimeError(f"could not load OpenCV face tracker: {cascade_path}")
+            width_set = self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
+            height_set = self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
+            if self.backend != "auto" and (width_set is False or height_set is False):
+                raise RuntimeError(f"camera rejected requested {self.width}x{self.height} resolution")
+            if self.backend != "auto" and hasattr(self.cap, "get"):
+                actual_width = int(self.cap.get(cv2.CAP_PROP_FRAME_WIDTH) or 0)
+                actual_height = int(self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT) or 0)
+                if actual_width > 0 and actual_height > 0 and (actual_width, actual_height) != (self.width, self.height):
+                    raise RuntimeError(f"camera negotiated {actual_width}x{actual_height}, expected {self.width}x{self.height}")
             if hasattr(cv2, "CAP_PROP_BUFFERSIZE"):
                 self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
             if hasattr(cv2, "CAP_PROP_READ_TIMEOUT_MSEC"):
@@ -225,12 +422,14 @@ class CaptureWorker:
                 ok, frame = self.cap.read()
                 if not ok:
                     raise RuntimeError("failed to capture webcam frame")
-                if self.square_crop:
+                if self.auto_face_crop:
+                    frame = self._tracked_face_roi(frame, cv2, detector)
+                elif self.square_crop:
                     frame = square_roi(frame, self.offset_x, self.offset_y)
                 if self.mirror:
                     frame = cv2.flip(frame, 1)
                 frame = cv2.resize(frame, (256, 256), interpolation=cv2.INTER_AREA)
-                self.slot.publish(frame)
+                self.slot.publish(TimedFrame(frame, capture_time=time.monotonic()))
         except BaseException as error:
             if not self.stop_event.is_set():
                 self.slot.fail(error)
@@ -241,10 +440,11 @@ class CaptureWorker:
 
 
 class SpoutWorker:
-    def __init__(self, slot: LatestFrameSlot, sender_name: str, fps: int) -> None:
+    def __init__(self, slot: LatestFrameSlot, sender_name: str, fps: int, metrics: LiveAvatarMetrics | None = None) -> None:
         self.slot = slot
         self.sender_name = sender_name
         self.delay = 1.0 / fps
+        self.metrics = metrics
         self.stop_event = threading.Event()
         self.thread = threading.Thread(
             target=self._run,
@@ -287,14 +487,23 @@ class SpoutWorker:
                 if self.stop_event.wait(wait):
                     break
                 item = self.slot.latest()
+                unique = False
                 if item is not None:
-                    latest = item[0]
+                    payload, sequence = item
+                    unique = sequence != getattr(self, "_sent_sequence", 0)
+                    if unique:
+                        self._sent_sequence = sequence
+                        latest = payload if isinstance(payload, TimedFrame) else TimedFrame(payload)
                 if latest is not None:
-                    image = np.ascontiguousarray(latest, dtype=np.uint8)
+                    image = np.ascontiguousarray(latest.image, dtype=np.uint8)
                     height, width = image.shape[:2]
                     self.sender.sendImage(image, width, height, GL.GL_RGBA, False, 0)
                     self.sender.setFrameSync(self.sender_name)
-                next_tick = time.monotonic() + self.delay
+                    if self.metrics is not None: self.metrics.presented(unique, latest)
+                # Advance from the schedule, not from completion: avoid cumulative drift.
+                next_tick += self.delay
+                if next_tick < time.monotonic() - self.delay:
+                    next_tick = time.monotonic() + self.delay
         except BaseException as error:
             if not self.stop_event.is_set():
                 self.slot.fail(error)
@@ -533,6 +742,11 @@ class DaWastehContinuousLiveAvatar:
                     {"default": 0.03, "min": 0.001, "max": 1.0, "step": 0.001},
                 ),
                 "max_frames": ("INT", {"default": 0, "min": 0, "max": 100000}),
+                "metrics_json_path": ("STRING", {"default": ""}),
+                "capture_backend": (["auto", "DirectShow", "Media Foundation"], {"default": "auto"}),
+                "auto_face_crop": ("BOOLEAN", {"default": False}),
+                "face_crop_scale": ("FLOAT", {"default": 2.0, "min": 1.2, "max": 4.0, "step": 0.05}),
+                "face_crop_smoothing": ("FLOAT", {"default": 0.72, "min": 0.0, "max": 0.95, "step": 0.01}),
             }
         }
 
@@ -567,6 +781,11 @@ class DaWastehContinuousLiveAvatar:
         lip_zero: bool,
         lip_zero_threshold: float,
         max_frames: int,
+        metrics_json_path: str = "",
+        capture_backend: str = "auto",
+        auto_face_crop: bool = False,
+        face_crop_scale: float = 2.0,
+        face_crop_smoothing: float = 0.72,
     ) -> tuple[()]:
         import cv2
         import torch
@@ -591,8 +810,15 @@ class DaWastehContinuousLiveAvatar:
             crop_offset_x,
             crop_offset_y,
             mirror,
+            capture_backend,
+            auto_face_crop,
+            face_crop_scale,
+            face_crop_smoothing,
         )
-        spout = SpoutWorker(output_slot, sender_name, sender_fps)
+        metrics = LiveAvatarMetrics()
+        metrics.start()
+        spout = SpoutWorker(output_slot, sender_name, sender_fps, metrics)
+        last_metrics_publish = time.monotonic()
 
         try:
             device = mm.get_torch_device()
@@ -632,6 +858,7 @@ class DaWastehContinuousLiveAvatar:
             spout.start()
 
             sequence = 0
+            last_capture_sequence = 0
             frames = 0
             while max_frames == 0 or frames < max_frames:
                 mm.throw_exception_if_processing_interrupted()
@@ -640,7 +867,10 @@ class DaWastehContinuousLiveAvatar:
                 item = capture_slot.get_after(sequence, 2.0)
                 if item is None:
                     continue
-                bgr, sequence = item
+                captured, sequence = item
+                if sequence > last_capture_sequence + 1: metrics.dropped(sequence - last_capture_sequence - 1)
+                last_capture_sequence = sequence
+                bgr = captured.image if isinstance(captured, TimedFrame) else captured
                 rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
                 driving = (
                     torch.from_numpy(rgb)
@@ -677,7 +907,12 @@ class DaWastehContinuousLiveAvatar:
                 )
                 rgba_bchw = composite_rgba_bchw(face_mask, warped, static_background, alpha)
                 rgba = rgba_bchw[0].permute(1, 2, 0).mul(255).byte().cpu().numpy()
-                output_slot.publish(rgba)
+                produced_at=time.monotonic()
+                output_slot.publish(TimedFrame(rgba, capture_time=getattr(captured, "capture_time", None), produced_time=produced_at))
+                metrics.produced(now=produced_at)
+                if metrics_json_path and time.monotonic() - last_metrics_publish >= 1.0:
+                    metrics.publish_json(metrics_json_path)
+                    last_metrics_publish = time.monotonic()
                 frames += 1
         finally:
             capture_stopped = False
@@ -691,6 +926,11 @@ class DaWastehContinuousLiveAvatar:
             except BaseException:
                 LOGGER.exception("Spout worker cleanup failed")
             finally:
+                if metrics_json_path:
+                    try:
+                        metrics.publish_json(metrics_json_path)
+                    except OSError:
+                        LOGGER.exception("could not publish final LiveAvatar metrics")
                 self._restore_cfg(cfg, saved_cfg)
             if not capture_stopped:
                 LOGGER.error("webcam worker did not stop within the cleanup timeout")

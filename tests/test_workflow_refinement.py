@@ -3,7 +3,6 @@ import json
 import re
 import sys
 import unittest
-import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -12,14 +11,11 @@ sys.path.insert(0, str(ROOT / "tools"))
 from tools.refine_workflows import _effect, _fallback_purpose, build_note_text, map_widget_values
 from tools.validate_workflows import compare_head
 
-OBJECT_INFO_URL = "http://127.0.0.1:8188/object_info"
-
-
 class WidgetMappingTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        with urllib.request.urlopen(OBJECT_INFO_URL, timeout=30) as response:
-            cls.info = json.load(response)
+        fixture = ROOT / "assets/live-avatar-v072/object-info.json"
+        cls.info = json.loads(fixture.read_text(encoding="utf-8"))
 
     def names_values(self, node_type, values):
         mapped, ignored = map_widget_values({"widgets_values": values}, self.info[node_type])
@@ -242,6 +238,11 @@ class WidgetMappingTests(unittest.TestCase):
                 "LiveAvatar-09-Meshy-AutoRig-to-VRM-Candidate-Optional-Cloud.json",
                 "LiveAvatar-10-Realistic-Adult-Character-Reference-Prompt+Image.json",
                 "LiveAvatar-11-AI-Webcam-Character-Swap-Cached-OpenPose.json",
+                "LiveAvatar-12-I-DirectML-Face-Clone-Bakeoff.json",
+                "LiveAvatar-12-II-LivePortrait-Quality-Mode.json",
+                "LiveAvatar-12-III-Reliable-VRM-Mode.json",
+                "LiveAvatar-13-Synthetic-Character-Sheet.json",
+                "LiveAvatar-14-Local-Hunyuan3D-Multiview-Mesh-Unrigged.json",
             ],
         )
         workflows = [json.loads(path.read_text(encoding="utf-8")) for path in paths]
@@ -254,8 +255,9 @@ class WidgetMappingTests(unittest.TestCase):
                 target = nodes_by_id[target_id]["inputs"][target_slot]
                 self.assertIn(link_id, source.get("links") or [], path.name)
                 self.assertEqual(target.get("link"), link_id, path.name)
-                self.assertEqual(source["type"], link_type, path.name)
-                self.assertIn(link_type, target["type"].split(","), path.name)
+                self.assertTrue(source["type"] == "*" or source["type"] == link_type, path.name)
+                accepted_types = target["type"].split(",")
+                self.assertTrue("*" in accepted_types or link_type in accepted_types, path.name)
             for node in workflow["nodes"]:
                 for input_slot, item in enumerate(node.get("inputs", [])):
                     link_id = item.get("link")

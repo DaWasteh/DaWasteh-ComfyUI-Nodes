@@ -56,3 +56,11 @@ Supply only an RVC model you own or are explicitly licensed to use. The live tes
 ## Existing continuous LivePortrait path
 
 Use `LiveAvatar-05-LivePortrait-Continuous-Spout-OBS.json`. Start it once with normal **Run**. It deliberately holds the Comfy execution thread so use **Interrupt** to stop it and never use **Run (Instant)**. OBS receives `ComfyLiveAvatarFast` with Composite Mode `Default`.
+
+## Workflow 12–14 · v0.8.1
+
+`DaWastehWorkflow12Preflight` validates a local Workflow-12 config but never launches a process. It fails closed on missing/revoked/expired consent, asset substitution, unapproved face/voice scope, public-figure/minor identities, paths outside configured roots, non-loopback control URLs, changed executable/model hashes, non-DirectML providers, non-AMD vendor IDs, and missing R9700/9070-XT DXGI-LUID attestations. A true result means only that the external PowerShell supervisor may attempt its own verified readiness/warm-up sequence.
+
+`DaWastehContinuousLiveAvatar` supports explicit `auto`/`DirectShow`/`Media Foundation` capture selection, an atomic metrics JSON, and optional smoothed OpenCV face/head ROI tracking. Workflow 12-II uses the BRIO through DirectShow index 2 at 1280×720, enlarges the detected driving face before LivePortrait's fixed 256px input, and publishes `ComfyLiveAvatarQuality`. AI production, Spout presentation, repeated presentations, capture drops, unique-frame intervals and capture-to-first-Spout-send latency remain separate metrics; the configured Spout rate is never called AI FPS. This improves face landmarks/jitter only—LivePortrait remains face/head-only and cannot animate hands, arms, torso deformation or walking.
+
+Workflow 12-I remains an external DirectML candidate bake-off, 12-III reuses the browser VRM renderer, and Workflow 13 is an offline Qwen reference-sheet graph. `DaWastehLatestLiveAvatarOutput` safely resolves the newest allowlisted full-body front/left/back/right outputs so Workflow 14 never silently reuses `_00001_` after a later regeneration. See `docs/LIVE_AVATAR_WORKFLOW_12_13.md` in the repository root. No public stream is automatically started.

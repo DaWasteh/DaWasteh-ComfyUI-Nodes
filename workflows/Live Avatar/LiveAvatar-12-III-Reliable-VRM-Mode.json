@@ -1,0 +1,109 @@
+{
+  "last_node_id": 3,
+  "last_link_id": 0,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "MarkdownNote",
+      "pos": [
+        40,
+        40
+      ],
+      "size": [
+        900,
+        500
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "Workflow 12/13 disclosure"
+      },
+      "widgets_values": [
+        "# Workflow 12-III — reliable browser VRM\nThis is the existing local browser VRM tracking path. It is a stylized rigged avatar, NOT a photoreal one-image clone. Keep it local; disclose synthetic/avatar presentation."
+      ],
+      "title": "Workflow 12-III Reliable VRM mode"
+    },
+    {
+      "id": 2,
+      "type": "DaWastehVRMLiveAvatarLauncher",
+      "pos": [
+        1000,
+        40
+      ],
+      "size": [
+        350,
+        120
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "port",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "port"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "vrm_live_url",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        8188
+      ],
+      "title": "Local browser VRM launcher"
+    },
+    {
+      "id": 3,
+      "type": "MarkdownNote",
+      "pos": [
+        1000,
+        260
+      ],
+      "size": [
+        500,
+        260
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Workflow-12-Funktionsnode · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Node 2\n\nReturns the local browser VRM URL. The browser renderer is a rigged reliable avatar path, not a photoreal one-image clone."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    }
+  ],
+  "links": [],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 1,
+      "x_scale": 1.0,
+      "y_scale": 1.0,
+      "gap": 34
+    }
+  },
+  "version": 0.4
+}

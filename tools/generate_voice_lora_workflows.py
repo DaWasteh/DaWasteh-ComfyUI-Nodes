@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import copy
 import json
+import urllib.error
 import urllib.request
 from pathlib import Path
 from typing import Any
@@ -24,8 +25,12 @@ TIMER_VALUE = {
 
 
 def load_object_info(server: str) -> dict[str, Any]:
-    with urllib.request.urlopen(f"{server.rstrip('/')}/object_info", timeout=30) as response:
-        return json.load(response)
+    try:
+        with urllib.request.urlopen(f"{server.rstrip('/')}/object_info", timeout=30) as response:
+            return json.load(response)
+    except urllib.error.URLError:
+        fixture = REPO_ROOT / "assets/live-avatar-v072/object-info.json"
+        return json.loads(fixture.read_text(encoding="utf-8"))
 
 
 def input_order(schema: dict[str, Any], section: str) -> list[str]:

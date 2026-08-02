@@ -1,0 +1,121 @@
+{
+  "last_node_id": 3,
+  "last_link_id": 0,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "MarkdownNote",
+      "pos": [
+        40,
+        40
+      ],
+      "size": [
+        900,
+        500
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "Workflow 12/13 disclosure"
+      },
+      "widgets_values": [
+        "# Workflow 12-I — PRECHECK ONLY / NO SPOUT\nThis graph validates consent, hashes and the external DirectML adapter configuration. It does not launch DeepFaceLive/Deep-Live-Cam/FaceFusion, does not process the webcam and never creates a Spout sender. A real sender exists only after configuring and launching the external service with tools/Start-LiveAvatar-Workflow12.bat. A green/finished ComfyUI run means only that the check executed; read the status output."
+      ],
+      "title": "STOP: Preflight only — NO SPOUT sender"
+    },
+    {
+      "id": 2,
+      "type": "DaWastehWorkflow12Preflight",
+      "pos": [
+        1000,
+        40
+      ],
+      "size": [
+        450,
+        150
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "config_path",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "config_path"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ready",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "name": "status",
+          "type": "STRING",
+          "links": []
+        },
+        {
+          "name": "launch_command",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DaWastehWorkflow12Preflight"
+      },
+      "widgets_values": [
+        "L:/ComfyUI/config/live-avatar-12.json"
+      ],
+      "title": "PRECHECK ONLY · no capture / no Spout"
+    },
+    {
+      "id": 3,
+      "type": "MarkdownNote",
+      "pos": [
+        1000,
+        260
+      ],
+      "size": [
+        500,
+        260
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Workflow-12-Funktionsnode · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Node 2\n\nValidates the local consent, hash, DirectML adapter and service configuration. It never launches a process and READY does not mean active."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    }
+  ],
+  "links": [],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 1,
+      "x_scale": 1.0,
+      "y_scale": 1.0,
+      "gap": 34
+    }
+  },
+  "version": 0.4
+}

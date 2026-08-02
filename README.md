@@ -1,4 +1,4 @@
-# DaWasteh – konsolidierte ComfyUI-Workflows · v0.7.2
+# DaWasteh – konsolidierte ComfyUI-Workflows · v0.8.1
 
 Dieser Ordner ist jetzt der **kuratierte Hauptordner** für die lokalen Workflows auf Windows 11 mit:
 
@@ -17,9 +17,9 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 
 ## Ergebnis
 
-- **205 kuratierte Workflow-Dateien** in 29 Kategorien
+- **211 kuratierte Workflow-Dateien** in 29 Kategorien
 - **122 Pixaroma Prompt**-Eingaben in 105 gezielt ausgewählten Workflows sowie **9 Pause Text**-Freigaben; insgesamt wurden 108 Workflows sinnvoll erweitert
-- 195 Nicht-Live-Workflows enthalten exakt einen `PixaromaRunTimer`; die 10 Live-Avatar-Workflows bleiben auf ausdrücklichen Nutzerwunsch timerfrei
+- 195 Nicht-Live-Workflows enthalten exakt einen `PixaromaRunTimer`; die 16 Live-Avatar-Workflows bleiben auf ausdrücklichen Nutzerwunsch timerfrei
 - alle vorhandenen Workflows wurden mit deutlich größeren, nachvollziehbaren Abständen angeordnet
 - **2.898 automatisch zugeordnete Parameter-Notes** erklären jeden Nicht-Pixaroma-/Nicht-Dokumentations-Node einschließlich aktueller Werte, Schalterwirkung, Ein-/Ausgänge und höher-/niedriger-Auswirkung
 - 59 vorhandene Workflows beibehalten
@@ -32,7 +32,7 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 - 3 grundlegende Live-Avatar-Workflows: SDXL-Quellbild, RMBG-2.0-Freistellung und eine AMD-RDNA4-optimierte Webcam→LivePortrait→RGBA-Spout-Pipeline für OBS
 - 1 erweiterter LivePortrait-Webcam→Spout→OBS-Workflow mit gecachter, adapterwechselbarer Qwen3-TTS-Voice-LoRA und Browser-Audio für OBS
 - 1 experimenteller Continuous-LivePortrait-Workflow mit Latest-Frame-Capture, persistentem GPU-Composite und kontrolliertem Spout-Dauerbetrieb
-- **10 Live-Avatar-Workflows**: die fünf ursprünglichen Live-Avatar-Workflows, davon drei LivePortrait-Varianten, browserbasiertes VRM-Live, Buffered AI Mirror, lokaler realistischer/stilisierter VRM-Textur-Creator mit drei Referenzperspektiven plus Prompt, optionaler Meshy-AutoRig-Kandidat und lokaler realistischer 2D-Referenz-Creator. Nur VRM-Live ist ein Echtzeitpfad; der Meshy-Kandidat ist kostenpflichtig/cloudbasiert.
+- **16 Live-Avatar-Workflows**: die bisherigen Pfade 01–11 plus Workflow 12-I als fail-closed DirectML-Bake-off, 12-II als gemessener LivePortrait-Gesichtsmodus, 12-III als zuverlässiger Browser-VRM-Modus, Workflow 13 als korrigiertes Multiview-Character-Sheet und Workflow 14 als echte lokale Hunyuan3D-Multiview-Geometrie. Workflow 14 erzeugt ein statisches, untexturiertes und ungeriggtes GLB – noch kein animationsfähiges VRM.
 - 1 echtes Qwen3-TTS-PEFT-LoRA-Training sowie 1 eigenständiger Low-Latency-Voice-Workflow; ACE-Step bleibt korrekt auf Gesang/Musik beschränkt
 - die ausgelieferten YuE-/HeartMuLa-Startwerte wieder mit ihren bestehenden Tests und Bedienhinweisen synchronisiert: YuE CoT nutzt 20 Sektionen für 540 Sekunden, HeartMuLa startet wieder mit 300 Sekunden Obergrenze
 - der manifestgesteuerte Pixaroma-Integrator akzeptiert nach der Refinement-Pipeline ausschließlich zusätzliche lokalisierte UI-Labels, Topologie-Reihenfolge und vorhandene Darstellungsfarben, prüft semantische Node-/Link-Zustände aber weiterhin strikt
@@ -66,17 +66,17 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 | `NSFW` | 4 | getrennte SDXL-NSFW-/AniToReal-Workflows |
 | `Character & Consistency` | 3 | FLUX Kontext und SDXL/IPAdapter Character Keep |
 | `Character Animation` | 3 | SCAIL-2 Animation und Character Replacement |
-| `Live Avatar` | 11 | 2D-Quellbilder, Transparenz, LivePortrait-Spout, Continuous-Spout, Qwen-TTS-Variante, rigged VRM browser live, Buffered AI Mirror einschließlich optimiertem Cached-OpenPose-Pfad, lokaler VRM-Textur-Creator und optionaler Meshy-Kandidat |
+| `Live Avatar` | 16 | 2D-Quellbilder, LivePortrait-/Spout-Pfade, Browser-VRM, DirectML-Bake-off, korrigierte Multiview-Character-Sheets und echte lokale Hunyuan3D-GLB-Geometrie |
 | `Image Inpainting` | 3 | FLUX2 Klein 4B/9B Inpainting |
 | `Image Upscaling` | 3 | einfache, Modell- und Z-Image-Upscaler |
 | `Batch Processing` | 2 | Ordner-Batches und Batch-Image-Edit |
 | weitere Einzelordner | je 1 | Controlled Video, Image Fusion, 3D, Outpainting, Talking Video, Tests, Video Editing, Video-to-Audio, Vocal Separation |
 
-## Live Avatar · v0.7.2
+## Live Avatar · v0.8.1
 
-**Ausführliche Einrichtung, Drei-Bilder-Avatar-Erstellung, OBS-Schritte und Fehlerbehebung:** [LIVE_AVATAR_ANLEITUNG.md](LIVE_AVATAR_ANLEITUNG.md)
+**Ausführliche Einrichtung, Drei-Bilder-Avatar-Erstellung, Workflow-12-Benchmark, OBS-Schritte und Fehlerbehebung:** [LIVE_AVATAR_ANLEITUNG.md](LIVE_AVATAR_ANLEITUNG.md)
 
-Elf aufeinander aufbauende Workflows unter `workflows/Live Avatar/` bilden die lokale Teststrecke. Die Capability-Tiers bleiben getrennt: **2D-Referenzgenerierung** (01/10), **Buffered AI Mirror** (07/11) und **tatsächlich geriggtes Browser-VRM** (06); ein PNG ist niemals automatisch ein VRM:
+Sechzehn aufeinander aufbauende Workflows unter `workflows/Live Avatar/` bilden die lokale Teststrecke. Die Capability-Tiers bleiben getrennt: **2D-Referenzgenerierung** (01/10), **Buffered AI Mirror** (07/11) und **tatsächlich geriggtes Browser-VRM** (06); ein PNG ist niemals automatisch ein VRM:
 
 1. `LiveAvatar-01-SDXL-Avatar-Generation.json` erzeugt mit dem bereits vorhandenen RealVisXL V4 ein frontales 1024×1024-Quellbild.
 2. `LiveAvatar-02-RMBG-Transparency.json` entfernt mit RMBG-2.0 den Hintergrund und speichert ein PNG mit Alphakanal.
@@ -239,14 +239,14 @@ Diese Dateien bleiben in ihren Quellordnern als Referenz, gehören aber nicht in
 
 ## Validierung
 
-Automatisch geprüft wurden alle 205 Workflows. Der `--against-head`-Modus prüft neue und geänderte Dateien vollständig, behandelt bereits eingecheckte Integrationen als unveränderte Baseline, normalisiert bei älteren Deltas ausschließlich die im 186-Dateien-Manifest erlaubten Prompt-/Pause-Transformationen und verwirft jede andere Änderung an bestehenden Nodes oder Links:
+Automatisch geprüft wurden alle 211 Workflows. Der `--against-head`-Modus prüft neue und geänderte Dateien vollständig, behandelt bereits eingecheckte Integrationen als unveränderte Baseline, normalisiert bei älteren Deltas ausschließlich die im 186-Dateien-Manifest erlaubten Prompt-/Pause-Transformationen und verwirft jede andere Änderung an bestehenden Nodes oder Links:
 
-- 205/205 gültige JSON-Dateien
-- 195 Nicht-Live-Workflows mit genau einem `PixaromaRunTimer`; 10/10 Live-Avatar-Workflows ohne Run-Timer
-- 242 Haupt- und Untergraphen rekursiv geprüft
-- 6.761 Nodes, davon 2.898 eindeutig zugeordnete Parameter-Notes, 122 `PixaromaPrompt`- und 9 `PixaromaPauseText`-Nodes
-- 4.441 Graph-Links erfasst; die Live-Avatar-Links verbinden Quellbild, Alpha, drei Referenzperspektiven, Webcam, LivePortrait-Composite und Spout vollständig, die neuen Audio-Links verbinden Voice-LoRA, Browser-Wiedergabe und FLAC-Speicherung in beiden Richtungen
-- keine neuen doppelten IDs, fehlenden oder einseitigen Endpunkte, Note-Zuordnungs- oder Layoutfehler in den v0.7.2-Dateien
+- 211/211 gültige JSON-Dateien
+- 195 Nicht-Live-Workflows mit genau einem `PixaromaRunTimer`; 16/16 Live-Avatar-Workflows ohne Run-Timer
+- 257 Haupt- und Untergraphen rekursiv geprüft
+- 7.263 Nodes und 3.141 Dokumentations-/Parameter-Notes; die vorhandenen `PixaromaPrompt`-/`PixaromaPauseText`-Integrationen bleiben erhalten
+- 4.919 Graph-Links erfasst; die Workflow-12-Metrikpfade und alle acht Workflow-13-Ausgaben sind strukturell verbunden
+- keine neuen doppelten IDs, fehlenden oder einseitigen Endpunkte, Note-Zuordnungs- oder Layoutfehler in den v0.8.1-Dateien
 - vorhandene `PixaromaNote`-Dictionaries einschließlich Position und Größe unverändert; ausschließlich die Qwen3-TTS-Trainingsnote dokumentiert zusätzlich das neue `_Text.txt`-Transkriptschema
 - Die automatisierte Testsuite prüft insgesamt die Workflow-Werkzeuge, den Continuous-LiveAvatar-Lebenszyklus und den Voice-LoRA-Adapterlebenszyklus; davon sichern die Integrationstests Manifest-Hashes gegen HEAD, exakte Prompttext-Migration, Formula+Idea-Trennung, Pause-Ancestry, wechselseitige Links, Kollisionsfreiheit, Korruptionserkennung, die drei INT8-Modellpfade, den AMD-sicheren Live-Avatar-Stack, echte PEFT-/Safetensors-Voice-LoRAs und wiederholte byteidentische Anwendung ab
 - alle fünf neuen Trainer verwenden installierte Core-Nodes und vorhandene lokale Modelle
@@ -257,4 +257,7 @@ Automatisch geprüft wurden alle 205 Workflows. Der `--against-head`-Modus prüf
 - keine NVIDIA-/CUDA-only-Risiko-Widgets und keine eingebetteten `Rh-Comfy-Auth`-Tokens/JWTs
 - Generator, Refinement und Validator sind reproduzierbar und idempotent; die fokussierte Unit-Test-Suite prüft dynamische Widgets, Seed-Kontrollen, VHS-Dictionary-Werte, Subgraphs und TrainLora-Widgetreihenfolge
 
-Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und RDNA4-Kompatibilität. Die fünf neuen Bild-LoRA-Trainer wurden lokal bis zum gespeicherten Adapter ausgeführt; Krea 2 RAW wurde nach dem OOM konsequent entfernt. Der Audio-to-Image-Workflow wurde vollständig mit Gemma 4 und FLUX.2 Klein 4B auf der lokalen ComfyUI-Installation ausgeführt. YuE CoT und YuE ICL wurden jeweils mit einer erzwungenen 10,00-Sekunden-Ausgabe vollständig auf der R9700 ausgeführt. HeartMuLa akzeptierte und dekodierte einen Lauf mit `duration_seconds=301` erfolgreich; das Modell setzte bei 193,68 Sekunden selbst Audio-EOS und bestätigt damit, dass der Wert eine Obergrenze statt einer garantierten Länge ist. Die neuen INT8-Varianten wurden zusätzlich live geprüft: Stable Audio 3 erzeugte 1,02 Sekunden endliches 44,1-kHz-Stereo-FLAC, ACE-Step 1.5 XL exakt 5,00 Sekunden endliches 48-kHz-Stereo-FLAC. YuE INT8 lud beide bitsandbytes-Stufen erfolgreich und erzeugte die 5-Sekunden-Stage-1-Tokens; der anschließende Stage-2-Lauf wurde auf Benutzerwunsch beendet und wird manuell geprüft. Ein vollständiger GPU-End-to-End-Lauf aller 205 Workflows wäre sehr rechen- und zeitintensiv; besonders große Musik-, WAN- und LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.
+Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und RDNA4-Kompatibilität. Die fünf neuen Bild-LoRA-Trainer wurden lokal bis zum gespeicherten Adapter ausgeführt; Krea 2 RAW wurde nach dem OOM konsequent entfernt. Der Audio-to-Image-Workflow wurde vollständig mit Gemma 4 und FLUX.2 Klein 4B auf der lokalen ComfyUI-Installation ausgeführt. YuE CoT und YuE ICL wurden jeweils mit einer erzwungenen 10,00-Sekunden-Ausgabe vollständig auf der R9700 ausgeführt. HeartMuLa akzeptierte und dekodierte einen Lauf mit `duration_seconds=301` erfolgreich; das Modell setzte bei 193,68 Sekunden selbst Audio-EOS und bestätigt damit, dass der Wert eine Obergrenze statt einer garantierten Länge ist. Die neuen INT8-Varianten wurden zusätzlich live geprüft: Stable Audio 3 erzeugte 1,02 Sekunden endliches 44,1-kHz-Stereo-FLAC, ACE-Step 1.5 XL exakt 5,00 Sekunden endliches 48-kHz-Stereo-FLAC. YuE INT8 lud beide bitsandbytes-Stufen erfolgreich und erzeugte die 5-Sekunden-Stage-1-Tokens; der anschließende Stage-2-Lauf wurde auf Benutzerwunsch beendet und wird manuell geprüft. Ein vollständiger GPU-End-to-End-Lauf aller 211 Workflows wäre sehr rechen- und zeitintensiv; besonders große Musik-, WAN- und LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.
+
+## Live Avatar Workflow 12–14 (v0.8.1)
+See [Workflow 12–14 release notes](docs/LIVE_AVATAR_WORKFLOW_12_13.md). Workflow 12-I is preflight-only and intentionally has no Spout sender. Workflow 12-II adds smoothed face/head tracking but remains face-only. Workflow 12-III is the body/hand-capable browser VRM path. Workflow 13 now changes the exposed batch prompts that actually drive Qwen, and Workflow 14 turns four verified views into genuine local Hunyuan3D mesh geometry. The resulting GLB remains untextured and unrigged.

@@ -509,6 +509,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--workflows", type=Path, default=Path("workflows"))
     parser.add_argument("--against-head", action="store_true")
+    parser.add_argument("--skip-collection-totals", action="store_true", help="Validate a focused subset without repository-wide count invariants")
     args = parser.parse_args()
     paths = sorted(args.workflows.rglob("*.json"))
     errors: list[str] = []
@@ -525,7 +526,7 @@ def main() -> int:
             path_errors.append(f"{path}: root version is not 0.4")
         timers = sum(1 for n in workflow.get("nodes", []) if n.get("type") == "PixaromaRunTimer")
         totals["timers"] += timers
-        expected_timers = 0 if "Live Avatar" in path.parts else 1
+        expected_timers = 0 if "Live Avatar" in path.parts or path.name.startswith("LiveAvatar-") else 1
         if timers != expected_timers:
             path_errors.append(f"{path}: root timer count={timers}, expected={expected_timers}")
         raw_lower = path.read_text(encoding="utf-8").lower()
@@ -563,11 +564,12 @@ def main() -> int:
                 errors.extend(path_errors)
         else:
             errors.extend(path_errors)
-    expected = {"files": 206, "graphs": 243, "nodes": 6794, "notes": 2914, "links": 4464, "timers": 195}
+    expected = {"files": 211, "graphs": 257, "nodes": 7263, "notes": 3141, "links": 4919, "timers": 195}
     actual = {"files": len(paths), **{k: totals[k] for k in ("graphs", "nodes", "notes", "links", "timers")}}
-    for key, value in expected.items():
-        if actual[key] != value:
-            errors.append(f"collection total {key}={actual[key]}, expected {value}")
+    if not args.skip_collection_totals:
+        for key, value in expected.items():
+            if actual[key] != value:
+                errors.append(f"collection total {key}={actual[key]}, expected {value}")
     if args.against_head and (totals["old_nodes"] == 0 or totals["old_links"] == 0):
         errors.append("HEAD comparison produced no baseline nodes or links")
     print(json.dumps({"actual": actual, "head": {"nodes": totals["old_nodes"], "links": totals["old_links"]}, "errors": len(errors)}, indent=2))

@@ -1,0 +1,203 @@
+{
+  "mode": "face_clone",
+  "visible_disclosure": "AI AVATAR / SYNTHETIC VOICE",
+  "allowed_roots": [
+    "L:/ComfyUI/live-avatar-12",
+    "L:/ComfyUI/voice-changer-dml-b2332",
+    "C:/Program Files/obs-studio"
+  ],
+  "consent": {
+    "identity_id": "REPLACE_WITH_LOCAL_ID",
+    "attestation_id": "REPLACE_WITH_SIGNED_OR_OPERATOR_ATTESTATION_ID",
+    "subject": "REPLACE_WITH_OWN_AUTHORIZED_OR_SYNTHETIC_SUBJECT",
+    "status": "revoked",
+    "expires_at": "2020-01-01T00:00:00Z",
+    "allowed_destinations": [
+      "local-test-only"
+    ],
+    "adult": false,
+    "fully_synthetic": false,
+    "minor": false,
+    "public_figure": false,
+    "face_authorized": false,
+    "voice_authorized": false,
+    "revoked": true,
+    "deleted": false,
+    "assets": [
+      {
+        "purpose": "face",
+        "path": "L:/ComfyUI/live-avatar-12/REPLACE/reference.png",
+        "sha256": "REPLACE_WITH_EXACT_SHA256"
+      }
+    ]
+  },
+  "candidate": {
+    "name": "DeepFaceLive",
+    "enabled": false,
+    "executable": "L:/ComfyUI/live-avatar-12/REPLACE/DeepFaceLive.exe",
+    "executable_sha256": "REPLACE_WITH_EXACT_SHA256",
+    "working_directory": "L:/ComfyUI/live-avatar-12/REPLACE",
+    "arguments": [
+      "--run-token-file",
+      "{RUN_TOKEN_FILE}",
+      "--identity",
+      "{IDENTITY_ID}",
+      "--face",
+      "{FACE_ASSET}",
+      "--spout-sender",
+      "{SPOUT_SENDER}"
+    ],
+    "health_url": "http://127.0.0.1:18080/health",
+    "warmup_url": "http://127.0.0.1:18080/warmup",
+    "shutdown_url": "http://127.0.0.1:18080/shutdown",
+    "expected_health": {
+      "candidate": "DeepFaceLive",
+      "provider": "DmlExecutionProvider",
+      "vendor_id": "0x1002",
+      "adapter_name": "AMD Radeon AI PRO R9700",
+      "adapter_luid": "REPLACE_WITH_DXGI_LUID",
+      "model_set_sha256": "REPLACE_WITH_HASH_OF_SORTED_MODEL_HASHES",
+      "identity_id": "REPLACE_WITH_LOCAL_ID",
+      "asset_set_sha256": "REPLACE_WITH_HASH_OF_SORTED_AUTHORIZED_FACE_HASHES",
+      "run_token_required": true,
+      "origin_validation": true,
+      "ready": true,
+      "reports_process_id": true,
+      "spout_sender_name": "LiveAvatar12-{RUN_ID}",
+      "output_width": 1280,
+      "output_height": 720,
+      "spout_ready": false
+    },
+    "directml_attestation": {
+      "provider": "DmlExecutionProvider",
+      "vendor_id": "0x1002",
+      "adapter_name": "AMD Radeon AI PRO R9700",
+      "adapter_luid": "REPLACE_WITH_DXGI_LUID"
+    },
+    "models": [
+      {
+        "path": "L:/ComfyUI/live-avatar-12/REPLACE/face-swap-model.onnx",
+        "sha256": "REPLACE_WITH_EXACT_SHA256"
+      }
+    ]
+  },
+  "quality": {
+    "enabled": false,
+    "executable": "L:/ComfyUI/live-avatar-12/adapters/liveportrait-quality-adapter.exe",
+    "executable_sha256": "REPLACE_WITH_EXACT_SHA256",
+    "working_directory": "L:/ComfyUI/live-avatar-12/adapters",
+    "arguments": [
+      "--run-token-file",
+      "{RUN_TOKEN_FILE}",
+      "--identity",
+      "{IDENTITY_ID}",
+      "--face",
+      "{FACE_ASSET}"
+    ],
+    "health_url": "http://127.0.0.1:18188/health",
+    "warmup_url": "http://127.0.0.1:18188/warmup",
+    "shutdown_url": "http://127.0.0.1:18188/shutdown",
+    "expected_health": {
+      "mode": "quality",
+      "model_set_sha256": "REPLACE_WITH_HASH_OF_SORTED_MODEL_HASHES",
+      "identity_id": "REPLACE_WITH_LOCAL_ID",
+      "asset_set_sha256": "REPLACE_WITH_HASH_OF_SORTED_AUTHORIZED_FACE_HASHES",
+      "run_token_required": true,
+      "origin_validation": true,
+      "ready": true,
+      "reports_process_id": true
+    },
+    "models": [
+      {
+        "path": "L:/ComfyUI/ComfyUI/models/liveportrait/REPLACE.onnx",
+        "sha256": "REPLACE_WITH_EXACT_SHA256"
+      }
+    ]
+  },
+  "vrm": {
+    "enabled": false,
+    "executable": "L:/ComfyUI/live-avatar-12/adapters/vrm-browser-control-adapter.exe",
+    "executable_sha256": "REPLACE_WITH_EXACT_SHA256",
+    "working_directory": "L:/ComfyUI/live-avatar-12/adapters",
+    "arguments": [
+      "--run-token-file",
+      "{RUN_TOKEN_FILE}",
+      "--identity",
+      "{IDENTITY_ID}",
+      "--vrm",
+      "{VRM_ASSET}"
+    ],
+    "health_url": "http://127.0.0.1:8188/dawasteh/vrm-live/",
+    "warmup_url": "http://127.0.0.1:8188/dawasteh/vrm-live/",
+    "expected_health": {
+      "mode": "vrm",
+      "model_set_sha256": "REPLACE_WITH_HASH_OF_SORTED_MODEL_HASHES",
+      "identity_id": "REPLACE_WITH_LOCAL_ID",
+      "asset_set_sha256": "REPLACE_WITH_HASH_OF_SORTED_AUTHORIZED_VRM_HASHES",
+      "run_token_required": true,
+      "origin_validation": true,
+      "ready": true,
+      "reports_process_id": true
+    },
+    "models": [
+      {
+        "path": "L:/ComfyUI/ComfyUI/models/live-avatar-vrm/REPLACE.vrm",
+        "sha256": "REPLACE_WITH_EXACT_SHA256"
+      }
+    ]
+  },
+  "rvc": {
+    "enabled": false,
+    "executable": "L:/ComfyUI/live-avatar-12/adapters/rvc-control-adapter.exe",
+    "executable_sha256": "REPLACE_WITH_EXACT_SHA256",
+    "working_directory": "L:/ComfyUI/live-avatar-12/adapters",
+    "arguments": [
+      "--identity",
+      "{IDENTITY_ID}",
+      "--voice-reference",
+      "{VOICE_ASSET}",
+      "--run-token-file",
+      "{RUN_TOKEN_FILE}"
+    ],
+    "health_url": "http://127.0.0.1:18888/health",
+    "warmup_url": "http://127.0.0.1:18888/warmup",
+    "shutdown_url": "http://127.0.0.1:18888/shutdown",
+    "expected_health": {
+      "ready": true,
+      "provider": "DmlExecutionProvider",
+      "vendor_id": "0x1002",
+      "adapter_name": "AMD Radeon RX 9070 XT",
+      "adapter_luid": "REPLACE_WITH_DXGI_LUID",
+      "model_set_sha256": "REPLACE_WITH_HASH_OF_SORTED_MODEL_HASHES",
+      "identity_id": "REPLACE_WITH_LOCAL_ID",
+      "asset_set_sha256": "REPLACE_WITH_HASH_OF_SORTED_AUTHORIZED_VOICE_HASHES",
+      "run_token_required": true,
+      "origin_validation": true,
+      "reports_process_id": true
+    },
+    "directml_attestation": {
+      "provider": "DmlExecutionProvider",
+      "vendor_id": "0x1002",
+      "adapter_name": "AMD Radeon RX 9070 XT",
+      "adapter_luid": "REPLACE_WITH_DXGI_LUID"
+    },
+    "models": [
+      {
+        "path": "L:/ComfyUI/voice-changer-dml-b2332/REPLACE/model.onnx",
+        "sha256": "REPLACE_WITH_EXACT_SHA256"
+      }
+    ]
+  },
+  "obs": {
+    "enabled": false,
+    "executable": "C:/Program Files/obs-studio/bin/64bit/obs64.exe",
+    "executable_sha256": "REPLACE_WITH_EXACT_SHA256",
+    "working_directory": "C:/Program Files/obs-studio/bin/64bit",
+    "arguments": [
+      "--profile",
+      "LiveAvatar12",
+      "--collection",
+      "LiveAvatar12"
+    ]
+  }
+}

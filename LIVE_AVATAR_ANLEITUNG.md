@@ -1,4 +1,4 @@
-# Live-Avatar-Anleitung · v0.7.2
+# Live-Avatar-Anleitung · v0.8.1
 
 Diese Anleitung beschreibt die lokalen Live-Avatar-Wege dieses Repositories auf dem Windows-RDNA4-System. Alle Kamera- und Referenzbilder bleiben bei den lokalen Wegen auf dem Rechner.
 
@@ -14,6 +14,11 @@ Diese Anleitung beschreibt die lokalen Live-Avatar-Wege dieses Repositories auf 
 | Schnellere experimentelle LivePortrait-Dauerausgabe | 05 | Spout2 `ComfyLiveAvatarFast` |
 | Langsamer KI-Webcam-Charaktertausch | 07 | Spout2 `ComfyAICharacterSwapExperimental` |
 | Realistische 2D-Referenzbilder erzeugen | 10 | keine Live-Ausgabe |
+| Externe DirectML-Face-Swap-Kandidaten ehrlich vergleichen | 12-I | Testsender `LiveAvatar12Bakeoff` über OBS/Spout |
+| Hochwertigere Portrait-Reenactment-Ausgabe mit echten Metriken | 12-II | Spout2 `ComfyLiveAvatarQuality` |
+| Zuverlässiger geriggter Modus | 12-III | Chrome-Fensteraufnahme |
+| Korrigierte Full-Body-/Turnaround-Referenzansichten erzeugen | 13 | keine Live-Ausgabe |
+| Aus vier Ansichten echte lokale 3D-Geometrie erzeugen | 14 | statisches GLB unter `output/LiveAvatar/` |
 
 ## Voraussetzungen
 
@@ -37,6 +42,11 @@ Diese Anleitung beschreibt die lokalen Live-Avatar-Wege dieses Repositories auf 
 | 06 | `ComfyUI-DaWasteh-LiveAvatar`, gebautes lokales Frontend und installierte VRM0-Presets |
 | 07 | zusätzlich OpenPose-Preprocessor, SD1.5-Checkpoint, LCM-LoRA, OpenPose-ControlNet, IPAdapter Plus und CLIP Vision |
 | 08 | SD1.5-Checkpoint, LCM-LoRA, IPAdapter Plus, CLIP Vision und ein kompatibles VRM0-Basismodell mit genau einer eingebetteten Basisfarbtextur |
+| 12-I | Extern installierter, lizenzierter Kandidat mit hash-gepinnter Konfiguration, Loopback-Health-Adapter und aktiver Identitätsfreigabe; standardmäßig vollständig deaktiviert |
+| 12-II | Dieselben LivePortrait-Voraussetzungen wie 05 plus aktualisierte DaWasteh-Node für DirectShow- und Transport-/AI-Metriken |
+| 12-III | Dieselben lokalen Browser-/VRM-Voraussetzungen wie 06 |
+| 13 | Die bereits installierten Qwen-Image-Edit-2511-Modelle und Multiple-Angles-LoRA aus `Multi-Character-Angles-One-Click` |
+| 14 | Installierter Core-Checkpoint `Hunyuan3D\\hunyuan_3d_v2.1.safetensors`; keine CUDA-Texture-Wrapper erforderlich |
 
 Workflow 07 und 08 verwenden die gepinnten KI-Assets. Zuerst `Run (Instant)` stoppen und eine leere Queue abwarten, dann aus dem Repository-Root ausführen:
 
@@ -55,6 +65,8 @@ Dafür ist **Workflow 08** vorgesehen:
 ### Was der Workflow wirklich erzeugt
 
 Workflow 08 nimmt ein vorhandenes, bereits geriggtes VRM0-Basismodell mit genau einer eingebetteten Basisfarbtextur und ersetzt ausschließlich diese UV-Textur. Mehrtextur-Modelle werden mit einer klaren Fehlermeldung abgelehnt, statt nur teilweise verändert zu werden. Ein vorhandener Alpha-Kanal der Textur bleibt erhalten. Das akzeptierte Ergebnis wird als neue `.vrm`-Datei unter ComfyUIs globalem Modellordner `models/live-avatar-vrm/` gespeichert und kann anschließend in Workflow 06 ausgewählt werden.
+
+**Warum Prompt/Seed dort kaum wirken:** Der KSampler bearbeitet kein normales Personenbild, sondern die zerschnittenen UV-Inseln der vorhandenen Olivia-Textur. Vier LCM-Schritte, CFG 1,5 und Denoise 0,20 bewahren absichtlich diese UV-Struktur. Höhere Werte ändern mehr, erzeugen aber typischerweise Nahtfehler und seltsame Körperteile. Workflow 08 ist daher nur ein konservatives Farb-/Stil-Experiment und kein 3D-Modellgenerator. Für neue Geometrie Workflow 14 verwenden.
 
 Er erzeugt **keine neue Geometrie**, kein neues Rig und keine zuverlässige Identitätsrekonstruktion. Körperform, Gesichtskontur, Haare als Geometrie, Finger, Morphs und UV-Inseln bleiben vom Basismodell. Die drei Bilder führen zu einer erscheinungs-/ähnlichkeitsgeführten Texturvariante.
 
@@ -229,3 +241,15 @@ powershell -ExecutionPolicy Bypass -File tools/start_live_voice_converter.ps1 -I
 Nur ein eigenes oder ausdrücklich lizenziertes kompatibles RVC-Modell verwenden. Das virtuelle Audiokabel ist nicht Bestandteil dieses Repositories. Das konvertierte Signal über ein separates Kabel in OBS aufnehmen und das Originalmikrofon im Mix stummschalten, um Doppelton, Originalstimmen-Leakage und Feedback zu vermeiden.
 
 Offene manuelle Abnahmen für diesen optionalen Audiopfad sind physische Mikrofon-/Kabel-Routingqualität, mindestens zehn Minuten Stabilität, hörbare Qualitätsprüfung, kein Feedback beziehungsweise Originalsignal und die gewünschte Ende-zu-Ende-Latenz. Details und gemessene DirectML-Werte: [docs/live-avatar-v072-voice-backend-evaluation.md](docs/live-avatar-v072-voice-backend-evaluation.md).
+
+## Workflow 12–14 · v0.8.1
+
+Die vollständige Sicherheits-, Supervisor-, Benchmark-, GPU- und Rollback-Anleitung steht in [`docs/LIVE_AVATAR_WORKFLOW_12_13.md`](docs/LIVE_AVATAR_WORKFLOW_12_13.md). Keine externe Face-Swap-App und kein Modell werden durch die Workflows installiert. Die ausgelieferte Beispielkonfiguration ist absichtlich widerrufen, abgelaufen und deaktiviert.
+
+Vor einem Start müssen die lokale Konfiguration unter `L:/ComfyUI/config/live-avatar-12.json`, getrennte Gesicht-/Stimmfreigaben, exakte Asset-/Modell-/Programm-Hashes, die sichtbare OBS-Kennzeichnung und die DirectML-Adapter-LUIDs eingetragen sein. `Start-LiveAvatar-Workflow12.bat` startet nach erfolgreicher Prüfung RVC → Video → OBS; `Stop-LiveAvatar-Workflow12.bat` ist der verifizierte Kill-Switch in Gegenrichtung. Ein öffentlicher Stream wird nie automatisch gestartet.
+
+Workflow 12-I ist nur der ComfyUI-Precheck und erzeugt absichtlich keinen Spout-Sender. Erst der konfigurierte externe Adapter darf den pro Lauf eindeutig benannten Sender öffnen; der Supervisor empfängt vor READY mehrere Frame-Sync-Präsentationen und verlangt neben der richtigen Auflösung auch wechselnde Pixel-Hashes. Jeden Kandidaten zehn Minuten bei 720p und danach 1080p testen. Transport-FPS enthalten Wiederholungen; als echter Erfolg gelten nur mindestens 24 unterschiedliche Frames/s und p95 höchstens 41,67 ms.
+
+Workflow 12-II schreibt getrennte AI-/Spout-/Duplikat-/Latenzmetriken nach `L:/ComfyUI/logs/live-avatar-12/quality-metrics.json`. Das neue geglättete Gesichts-Cropping erhöht die nutzbare Gesichtsauflösung, kann aber technisch keine Hände oder Oberkörperdeformation hinzufügen. Dafür Workflow 12-III mit einem geriggten VRM verwenden.
+
+Workflow 13 liefert sechs korrigierte Full-Body-/Turnaround-Ansichten und zwei Ausdrucksreferenzen. Workflow 14 konditioniert Hunyuan3D wirklich mit Front/Links/Hinten/Rechts und erzeugt neue GLB-Geometrie. Das GLB ist statisch, untexturiert und ungeriggt; automatisches lokales AMD-Rigging ist mit den aktuell installierten Komponenten nicht verfügbar.

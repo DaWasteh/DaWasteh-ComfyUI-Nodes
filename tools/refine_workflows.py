@@ -49,6 +49,9 @@ def graph_children(workflow: dict[str, Any]) -> Iterable[dict[str, Any]]:
 
 
 def fetch_object_info(url: str) -> dict[str, Any]:
+    local = Path(url)
+    if local.is_file():
+        return json.loads(local.read_text(encoding="utf-8"))
     with urllib.request.urlopen(url, timeout=30) as response:
         return json.load(response)
 

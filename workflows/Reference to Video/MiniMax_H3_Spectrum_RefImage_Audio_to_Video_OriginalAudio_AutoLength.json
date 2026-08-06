@@ -1,0 +1,1224 @@
+{
+  "id": "dawasteh-h3-refimage-audio-auto-original-20260805",
+  "revision": 0,
+  "last_node_id": 20,
+  "last_link_id": 25,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "MarkdownNote",
+      "pos": [
+        -2450.0,
+        -50.0
+      ],
+      "size": [
+        620.0,
+        1100.0
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "MarkdownNote"
+      },
+      "widgets_values": [
+        "# MiniMax H3 + Spectrum — REFERENCE IMAGE + AUDIO → VIDEO WITH ORIGINAL AUDIO (AUTO LENGTH)\n\nDieser Workflow übernimmt die **Länge automatisch aus der Audiodatei**.\n\n**Ablauf**\n1. Referenzbild laden (`<Picture 1>`).\n2. Audio über die DaWasteh-Auto-Length-Node laden (`<Audio 1>`).\n3. Die H3-Länge wird aus der dekodierten Samplezahl berechnet und auf das notwendige `17k+5`-Raster aufgerundet.\n4. H3 erzeugt Bildbewegung und intern auch Audio, aber die generierte H3-Tonspur wird nicht verwendet.\n5. Die finale Save-Node kodiert ausschließlich das Video und muxxt anschließend die **ursprüngliche Audiospur per `-c:a copy`** in die Datei.\n\n**Damit bleibt der Input-Sound unangetastet**\nKein Resampling, keine Normalisierung, kein Filter und keine erneute Audiokodierung im finalen Output. Standardausgabe ist MKV, weil MKV auch WAV/PCM, FLAC, MP3, AAC und Opus zuverlässig aufnehmen kann. MP4 funktioniert nur mit kompatiblen Quellcodecs.\n\n**Sicherheit**\n`max_seconds = 45` stoppt lange Dateien noch vor Modellladen und Volldecoding. Dein kompletter 5-Minuten-Song kann nicht als einzelner H3-Job laufen; dafür braucht es einen segmentierenden Musikvideo-Workflow.\n\n**Modelle**\n- `MiniMax H3\\minimax_h3_ref2va_pruned_int8_convrot.safetensors`\n- `MiniMax H3\\qwen3vl_32b_minimax_h3_int8_convrot.safetensors`\n- `MiniMax H3\\minimax_h3_video_vae_fp16.safetensors`\n- `MiniMax H3\\minimax_h3_audio_vae_fp32.safetensors`\n\nBenötigt den beiliegenden Custom-Node-Ordner `ComfyUI-DaWasteh-H3-AutoLength` und FFmpeg.\n"
+      ],
+      "title": "README — AUTO AUDIO LENGTH + ORIGINAL AUDIO",
+      "color": "#222",
+      "bgcolor": "#000"
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        -1780.0,
+        0.0
+      ],
+      "size": [
+        350.0,
+        420.0
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            9
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "13_profile_left_00001_.png",
+        "image"
+      ],
+      "title": "1 — REFERENCE IMAGE / IDENTITY"
+    },
+    {
+      "id": 3,
+      "type": "DaWH3LoadAudioAutoLength",
+      "pos": [
+        -1780.0,
+        500.0
+      ],
+      "size": [
+        470.0,
+        270.0
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "audio"
+          }
+        },
+        {
+          "name": "max_seconds",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "max_seconds"
+          }
+        },
+        {
+          "name": "overflow_mode",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "overflow_mode"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            10
+          ]
+        },
+        {
+          "name": "h3_length",
+          "type": "INT",
+          "links": [
+            14
+          ]
+        },
+        {
+          "name": "source_duration",
+          "type": "FLOAT",
+          "links": [
+            25
+          ]
+        },
+        {
+          "name": "h3_duration",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_audio_path",
+          "type": "STRING",
+          "links": [
+            24
+          ]
+        },
+        {
+          "name": "source_filename",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "info",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DaWH3LoadAudioAutoLength"
+      },
+      "widgets_values": [
+        "REFERENCE_AUDIO.wav",
+        45.0,
+        "error"
+      ],
+      "title": "AUDIO INPUT + AUTOMATIC H3 LENGTH",
+      "color": "#263238",
+      "bgcolor": "#37474f"
+    },
+    {
+      "id": 4,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -1260.0,
+        700.0
+      ],
+      "size": [
+        580.0,
+        370.0
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "Use <Picture 1> as the persistent identity, face, body, clothing, palette, and visual-style reference. Use <Audio 1> to control performance energy, movement rhythm, pacing, environmental motion, and camera intensity. Create a coherent cinematic music-video shot for the full requested duration. Keep identity stable, anatomy natural, and motion continuous. No subtitles, no logos, no random text, no duplicate subject, no abrupt unmotivated cuts."
+      ],
+      "title": "3 — PROMPT: <Picture 1> + <Audio 1>",
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 5,
+      "type": "ResolutionSelector",
+      "pos": [
+        -1260.0,
+        0.0
+      ],
+      "size": [
+        300.0,
+        180.0
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            12
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            13
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ResolutionSelector"
+      },
+      "widgets_values": [
+        "16:9 (Widescreen)",
+        0.4,
+        32
+      ],
+      "title": "2 — OUTPUT RESOLUTION",
+      "color": "#322",
+      "bgcolor": "#533",
+      "showAdvanced": false
+    },
+    {
+      "id": 6,
+      "type": "CLIPLoader",
+      "pos": [
+        -760.0,
+        480.0
+      ],
+      "size": [
+        570.0,
+        120.0
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            15
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "MiniMax H3\\qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+        "minimax",
+        "default"
+      ],
+      "title": "QWEN3-VL TEXT ENCODER — minimax"
+    },
+    {
+      "id": 7,
+      "type": "VAELoader",
+      "pos": [
+        -760.0,
+        640.0
+      ],
+      "size": [
+        570.0,
+        70.0
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            16,
+            21
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "MiniMax H3\\minimax_h3_video_vae_fp16.safetensors"
+      ],
+      "title": "VIDEO VAE"
+    },
+    {
+      "id": 8,
+      "type": "VAELoader",
+      "pos": [
+        -760.0,
+        750.0
+      ],
+      "size": [
+        570.0,
+        70.0
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            17
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "MiniMax H3\\minimax_h3_audio_vae_fp32.safetensors"
+      ],
+      "title": "AUDIO VAE"
+    },
+    {
+      "id": 9,
+      "type": "UNETLoader",
+      "pos": [
+        -760.0,
+        0.0
+      ],
+      "size": [
+        570.0,
+        90.0
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "MiniMax H3\\minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+        "default"
+      ],
+      "title": "H3 REF2VA DIFFUSION MODEL"
+    },
+    {
+      "id": 10,
+      "type": "MiniMaxH3SigmaShift",
+      "pos": [
+        -130.0,
+        0.0
+      ],
+      "size": [
+        320.0,
+        110.0
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxH3SigmaShift"
+      },
+      "widgets_values": [
+        12.0,
+        3.0
+      ],
+      "title": "MiniMax H3 Sigma Shift — 12 / 3"
+    },
+    {
+      "id": 11,
+      "type": "SpectrumApplyMiniMaxH3",
+      "pos": [
+        240.0,
+        0.0
+      ],
+      "size": [
+        390.0,
+        350.0
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            3,
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SpectrumApplyMiniMaxH3"
+      },
+      "widgets_values": [
+        true,
+        0.5,
+        4,
+        0.1,
+        2.0,
+        0.75,
+        5,
+        1,
+        8,
+        false,
+        "system_ram"
+      ],
+      "title": "Spectrum MiniMax H3 — CONSERVATIVE"
+    },
+    {
+      "id": 12,
+      "type": "RandomNoise",
+      "pos": [
+        700.0,
+        650.0
+      ],
+      "size": [
+        350.0,
+        90.0
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "NOISE",
+          "type": "NOISE",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RandomNoise"
+      },
+      "widgets_values": [
+        314159265358979,
+        "fixed"
+      ],
+      "title": "SEED / NOISE"
+    },
+    {
+      "id": 13,
+      "type": "BasicGuider",
+      "pos": [
+        700.0,
+        220.0
+      ],
+      "size": [
+        350.0,
+        70.0
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 3
+        },
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "GUIDER",
+          "type": "GUIDER",
+          "links": [
+            6
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "BasicGuider"
+      },
+      "widgets_values": [],
+      "title": "H3 GUIDER"
+    },
+    {
+      "id": 14,
+      "type": "KSamplerSelect",
+      "pos": [
+        700.0,
+        330.0
+      ],
+      "size": [
+        350.0,
+        70.0
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "links": [
+            7
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSamplerSelect"
+      },
+      "widgets_values": [
+        "res_multistep"
+      ],
+      "title": "SAMPLER — res_multistep"
+    },
+    {
+      "id": 15,
+      "type": "BasicScheduler",
+      "pos": [
+        700.0,
+        440.0
+      ],
+      "size": [
+        350.0,
+        130.0
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "BasicScheduler"
+      },
+      "widgets_values": [
+        "beta",
+        20,
+        1
+      ],
+      "title": "SCHEDULER — beta / 20 steps"
+    },
+    {
+      "id": 16,
+      "type": "MiniMaxH3ReferenceToVideo",
+      "pos": [
+        -130.0,
+        480.0
+      ],
+      "size": [
+        460.0,
+        450.0
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 15
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 16
+        },
+        {
+          "name": "audio_vae",
+          "type": "VAE",
+          "link": 17
+        },
+        {
+          "name": "ref_images.ref_image_0",
+          "type": "IMAGE",
+          "link": 9,
+          "label": "ref_image_0",
+          "shape": 7
+        },
+        {
+          "name": "ref_videos.ref_video_0",
+          "type": "IMAGE",
+          "link": null,
+          "label": "ref_video_0",
+          "shape": 7
+        },
+        {
+          "name": "ref_video_audios.ref_video_audio_0",
+          "type": "AUDIO",
+          "link": null,
+          "label": "ref_video_audio_0",
+          "shape": 7
+        },
+        {
+          "name": "ref_audios.ref_audio_0",
+          "type": "AUDIO",
+          "link": 10,
+          "label": "ref_audio_0",
+          "shape": 7
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 11,
+          "widget": {
+            "name": "prompt"
+          }
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 12,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 13,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "length",
+          "type": "INT",
+          "link": 14,
+          "widget": {
+            "name": "length"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            18
+          ]
+        },
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            19
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MiniMaxH3ReferenceToVideo"
+      },
+      "widgets_values": [
+        "Use <Picture 1> as the persistent identity, face, body, clothing, palette, and visual-style reference. Use <Audio 1> to control performance energy, movement rhythm, pacing, environmental motion, and camera intensity. Create a coherent cinematic music-video shot for the full requested duration. Keep identity stable, anatomy natural, and motion continuous. No subtitles, no logos, no random text, no duplicate subject, no abrupt unmotivated cuts.",
+        1344,
+        768,
+        124,
+        "match"
+      ],
+      "title": "H3 REF2VA — IMAGE + STANDALONE AUDIO / AUTO LENGTH"
+    },
+    {
+      "id": 17,
+      "type": "SamplerCustomAdvanced",
+      "pos": [
+        1110.0,
+        350.0
+      ],
+      "size": [
+        270.0,
+        160.0
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "noise",
+          "type": "NOISE",
+          "link": 5
+        },
+        {
+          "name": "guider",
+          "type": "GUIDER",
+          "link": 6
+        },
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 7
+        },
+        {
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "link": 8
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 19
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "LATENT",
+          "links": [
+            20
+          ]
+        },
+        {
+          "name": "denoised_output",
+          "type": "LATENT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SamplerCustomAdvanced"
+      },
+      "widgets_values": [],
+      "title": "SAMPLE MiniMax H3"
+    },
+    {
+      "id": 18,
+      "type": "VAEDecode",
+      "pos": [
+        1440.0,
+        330.0
+      ],
+      "size": [
+        250.0,
+        70.0
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 20
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 21
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            22
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": [],
+      "title": "DECODE GENERATED VIDEO"
+    },
+    {
+      "id": 19,
+      "type": "CreateVideo",
+      "pos": [
+        1750.0,
+        330.0
+      ],
+      "size": [
+        320.0,
+        115.0
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 22
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            23
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CreateVideo"
+      },
+      "widgets_values": [
+        24,
+        8
+      ],
+      "title": "CREATE VIDEO-ONLY — 24 FPS"
+    },
+    {
+      "id": 20,
+      "type": "DaWH3SaveVideoWithOriginalAudio",
+      "pos": [
+        2130.0,
+        280.0
+      ],
+      "size": [
+        600.0,
+        270.0
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 23
+        },
+        {
+          "name": "source_audio_path",
+          "type": "STRING",
+          "link": 24,
+          "widget": {
+            "name": "source_audio_path"
+          }
+        },
+        {
+          "name": "duration",
+          "type": "FLOAT",
+          "link": 25,
+          "widget": {
+            "name": "duration"
+          }
+        },
+        {
+          "name": "filename_prefix",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "filename_prefix"
+          }
+        },
+        {
+          "name": "container",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "container"
+          }
+        },
+        {
+          "name": "video_crf",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "video_crf"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "saved_file",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DaWH3SaveVideoWithOriginalAudio"
+      },
+      "widgets_values": [
+        "",
+        5.0,
+        "video/MiniMax_H3_Spectrum_RefImage_Audio_AutoLength_OriginalAudio",
+        "mkv",
+        18.0
+      ],
+      "title": "SAVE FINAL VIDEO + ORIGINAL AUDIO (NO AUDIO RE-ENCODE)",
+      "color": "#1b5e20",
+      "bgcolor": "#2e7d32"
+    }
+  ],
+  "links": [
+    [
+      1,
+      9,
+      0,
+      10,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      10,
+      0,
+      11,
+      0,
+      "MODEL"
+    ],
+    [
+      3,
+      11,
+      0,
+      13,
+      0,
+      "MODEL"
+    ],
+    [
+      4,
+      11,
+      0,
+      15,
+      0,
+      "MODEL"
+    ],
+    [
+      5,
+      12,
+      0,
+      17,
+      0,
+      "NOISE"
+    ],
+    [
+      6,
+      13,
+      0,
+      17,
+      1,
+      "GUIDER"
+    ],
+    [
+      7,
+      14,
+      0,
+      17,
+      2,
+      "SAMPLER"
+    ],
+    [
+      8,
+      15,
+      0,
+      17,
+      3,
+      "SIGMAS"
+    ],
+    [
+      9,
+      2,
+      0,
+      16,
+      3,
+      "IMAGE"
+    ],
+    [
+      10,
+      3,
+      0,
+      16,
+      6,
+      "AUDIO"
+    ],
+    [
+      11,
+      4,
+      0,
+      16,
+      7,
+      "STRING"
+    ],
+    [
+      12,
+      5,
+      0,
+      16,
+      8,
+      "INT"
+    ],
+    [
+      13,
+      5,
+      1,
+      16,
+      9,
+      "INT"
+    ],
+    [
+      14,
+      3,
+      1,
+      16,
+      10,
+      "INT"
+    ],
+    [
+      15,
+      6,
+      0,
+      16,
+      0,
+      "CLIP"
+    ],
+    [
+      16,
+      7,
+      0,
+      16,
+      1,
+      "VAE"
+    ],
+    [
+      17,
+      8,
+      0,
+      16,
+      2,
+      "VAE"
+    ],
+    [
+      18,
+      16,
+      0,
+      13,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      19,
+      16,
+      1,
+      17,
+      4,
+      "LATENT"
+    ],
+    [
+      20,
+      17,
+      0,
+      18,
+      0,
+      "LATENT"
+    ],
+    [
+      21,
+      7,
+      0,
+      18,
+      1,
+      "VAE"
+    ],
+    [
+      22,
+      18,
+      0,
+      19,
+      0,
+      "IMAGE"
+    ],
+    [
+      23,
+      19,
+      0,
+      20,
+      0,
+      "VIDEO"
+    ],
+    [
+      24,
+      3,
+      4,
+      20,
+      1,
+      "STRING"
+    ],
+    [
+      25,
+      3,
+      2,
+      20,
+      2,
+      "FLOAT"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "1. IMAGE + AUDIO INPUT / AUTO LENGTH",
+      "bounding": [
+        -1820,
+        -40,
+        1180,
+        1160
+      ],
+      "color": "#8b5cf6",
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "2. MODELS + H3 CONDITIONING",
+      "bounding": [
+        -800,
+        -40,
+        1170,
+        1010
+      ],
+      "color": "#3f789e",
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "3. SPECTRUM SAMPLING",
+      "bounding": [
+        200,
+        -40,
+        1210,
+        850
+      ],
+      "color": "#c68b31",
+      "flags": {}
+    },
+    {
+      "id": 4,
+      "title": "4. VIDEO DECODE + BITSTREAM-COPY ORIGINAL AUDIO",
+      "bounding": [
+        1400,
+        240,
+        1380,
+        390
+      ],
+      "color": "#3f9e6d",
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.75,
+      "offset": [
+        2100.0,
+        500.0
+      ]
+    }
+  },
+  "version": 0.4
+}

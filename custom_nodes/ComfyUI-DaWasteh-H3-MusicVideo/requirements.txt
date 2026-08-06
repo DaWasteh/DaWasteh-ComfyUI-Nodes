@@ -1,0 +1,2 @@
+# No extra pip packages are required beyond a current ComfyUI installation.
+# The extension uses ComfyUI's torch/numpy/Pillow stack and a working FFmpeg/ffprobe installation.

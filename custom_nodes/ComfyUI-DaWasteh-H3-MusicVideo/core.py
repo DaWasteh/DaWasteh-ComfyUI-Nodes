@@ -314,6 +314,24 @@ def encode_images_to_h264(
 
 
 def count_video_frames(ffmpeg: str, path: str) -> int:
+    """Count decoded frames, preferring PyAV so ffprobe is not required."""
+    class _NoVideoStreamError(ValueError):
+        pass
+
+    if av is not None:
+        try:
+            with av.open(path) as container:
+                video_streams = list(container.streams.video)
+                if not video_streams:
+                    raise _NoVideoStreamError(f"No video stream found in {path}")
+                return sum(1 for _ in container.decode(video=0))
+        except _NoVideoStreamError as exc:
+            raise ValueError(str(exc)) from exc
+        except Exception:
+            # Keep the command-line probe for unsupported/corrupt media. PyAV's
+            # FFmpeg errors inherit ValueError, so only our explicit no-stream
+            # sentinel may bypass this fallback.
+            pass
     ffprobe = find_ffprobe(ffmpeg)
     result = run_command([
         ffprobe, "-v", "error", "-count_frames", "-select_streams", "v:0",
@@ -322,7 +340,7 @@ def count_video_frames(ffmpeg: str, path: str) -> int:
     payload = json.loads(result.stdout.decode("utf-8", "replace"))
     streams = payload.get("streams") or []
     if not streams:
-        return 0
+        raise ValueError(f"No video stream found in {path}")
     for key in ("nb_read_frames", "nb_frames"):
         raw = streams[0].get(key)
         try:

@@ -318,7 +318,10 @@ class DaWH3LoadAudioAutoLength(io.ComfyNode):
                 "and derives an H3-safe generation length automatically."
             ),
             inputs=[
-                io.Combo.Input("audio", options=sorted(files), upload=io.UploadType.audio),
+                # AUDIOUPLOAD expects the core LoadAudio node's companion audioUI widget.
+                # This path node intentionally exposes a plain file combo because it also
+                # returns the original absolute path for stream-copy muxing.
+                io.Combo.Input("audio", options=sorted(files)),
                 io.Float.Input(
                     "max_seconds",
                     default=45.0,
@@ -445,7 +448,12 @@ class DaWH3SaveVideoWithOriginalAudio(io.ComfyNode):
             raise ValueError("duration must be greater than zero")
 
         ffmpeg = _find_ffmpeg()
-        width, height = video.get_dimensions()
+        trimmed_video = video.as_trimmed(0.0, float(duration), strict_duration=True)
+        if trimmed_video is None:
+            raise ValueError(
+                f"Generated video is shorter than the requested exact duration ({float(duration):.6f}s)"
+            )
+        width, height = trimmed_video.get_dimensions()
         prefix = _safe_filename_prefix(filename_prefix)
         output_dir = folder_paths.get_output_directory()
         full_output_folder, filename, counter, subfolder, _ = folder_paths.get_save_image_path(
@@ -460,13 +468,15 @@ class DaWH3SaveVideoWithOriginalAudio(io.ComfyNode):
         fd, temp_video_path = tempfile.mkstemp(prefix="daw_h3_video_", suffix=".mp4", dir=temp_dir)
         os.close(fd)
         try:
-            video.save_to(
+            trimmed_video.save_to(
                 temp_video_path,
                 format=Types.VideoContainer.MP4,
                 codec=Types.VideoCodec.H264,
                 metadata=None,
                 crf=float(video_crf),
             )
+            source_audio_duration = _probe_audio_duration(source_audio_path)
+            trim_source_audio = source_audio_duration > float(duration) + 0.1
             command = [
                 ffmpeg,
                 "-hide_banner",
@@ -487,13 +497,14 @@ class DaWH3SaveVideoWithOriginalAudio(io.ComfyNode):
                 "copy",
                 "-c:a",
                 "copy",
-                "-t",
-                f"{float(duration):.9f}",
-                "-shortest",
-                "-avoid_negative_ts",
-                "make_zero",
-                output_path,
             ]
+            # `trim_to_max` intentionally keeps only the selected beginning of a
+            # genuinely longer source. Do not apply this to normal codec/container
+            # padding (for example one final MP3 packet), because preserving every
+            # original packet is the default contract.
+            if trim_source_audio:
+                command.extend(["-t", f"{float(duration):.9f}", "-shortest"])
+            command.extend(["-avoid_negative_ts", "make_zero", output_path])
             completed = subprocess.run(command, capture_output=True, text=True, check=False)
             if completed.returncode != 0:
                 raise RuntimeError(

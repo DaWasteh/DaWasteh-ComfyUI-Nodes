@@ -1,4 +1,4 @@
-# DaWasteh – konsolidierte ComfyUI-Workflows · v0.8.1
+# DaWasteh – konsolidierte ComfyUI-Workflows · v0.8.3
 
 Dieser Ordner ist jetzt der **kuratierte Hauptordner** für die lokalen Workflows auf Windows 11 mit:
 
@@ -17,11 +17,11 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 
 ## Ergebnis
 
-- **211 kuratierte Workflow-Dateien** in 29 Kategorien
-- **122 Pixaroma Prompt**-Eingaben in 105 gezielt ausgewählten Workflows sowie **9 Pause Text**-Freigaben; insgesamt wurden 108 Workflows sinnvoll erweitert
-- 195 Nicht-Live-Workflows enthalten exakt einen `PixaromaRunTimer`; die 16 Live-Avatar-Workflows bleiben auf ausdrücklichen Nutzerwunsch timerfrei
+- **233 kuratierte Workflow-Dateien** in 29 Kategorien
+- **146 Pixaroma Prompt**-Eingaben in 117 gezielt ausgewählten Workflows sowie **9 Pause Text**-Freigaben; insgesamt wurden 120 Workflows sinnvoll erweitert
+- 216 Nicht-Live-Workflows enthalten exakt einen `PixaromaRunTimer`; die 17 Live-Avatar-Workflows bleiben auf ausdrücklichen Nutzerwunsch timerfrei
 - alle vorhandenen Workflows wurden mit deutlich größeren, nachvollziehbaren Abständen angeordnet
-- **2.898 automatisch zugeordnete Parameter-Notes** erklären jeden Nicht-Pixaroma-/Nicht-Dokumentations-Node einschließlich aktueller Werte, Schalterwirkung, Ein-/Ausgänge und höher-/niedriger-Auswirkung
+- **3.366 automatisch zugeordnete Parameter-Notes** erklären jeden Nicht-Pixaroma-/Nicht-Dokumentations-Node einschließlich aktueller Werte, Schalterwirkung, Ein-/Ausgänge und höher-/niedriger-Auswirkung
 - 59 vorhandene Workflows beibehalten
 - 114 funktional ergänzende Workflows übernommen:
   - 33 aus `DaWasteh`
@@ -40,6 +40,7 @@ Der maschinenlesbare Abschluss-Audit liegt hier:
 - 3 lokale YuE-/HeartMuLa-Musikworkflows: YuE CoT mit exakter 5–600-Sekunden-Planung, YuE ICL mit optionaler Vocal-/Songreferenz und HeartMuLa mit promptabhängig abgesicherter Dauer bis 600 Sekunden
 - 3 zusätzliche INT8-Musikworkflows: YuE 7B bitsandbytes INT8, ACE-Step 1.5 XL SFT INT8 ConvRot und ein lokal aus dem offiziellen Checkpoint erzeugtes Stable Audio 3 Medium INT8 ConvRot
 - 4 neue Idee-zu-Songtext-zu-Musik-Workflows: Qwen 3.5 4B und Gemma 4 e4B schreiben aus einer groben Idee strukturierte Lyrics und reichen sie direkt an ACE-Step 1.5 XL oder HeartMuLa weiter
+- 9 lokale MiniMax-H3-Workflows: FL2VA, Ref2VA, automatische Audio-/Videolänge sowie ein Complete-Song-Director, der lange Songs seriell in höchstens 15 Sekunden lange H3-Szenen zerlegt, Clips einzeln verifiziert und anschließend mit dem unveränderten Original-Audiostream zusammenfügt
 - 5 neue lokale Bild-LoRA-Trainingsworkflows mit offiziellen ComfyUI-Core-Trainingsnodes: Z-Image Base, Boogu Image Base, FLUX.1 Dev, FLUX.2 Klein 4B Base und SDXL
 - der ACE-Step-1.5-Workflow enthält zusätzlich einen ausführlichen Rank-Guide für Rank 16/32/64/128
 - exakte und funktionale Tutorial-Duplikate nicht erneut übernommen
@@ -239,13 +240,13 @@ Diese Dateien bleiben in ihren Quellordnern als Referenz, gehören aber nicht in
 
 ## Validierung
 
-Automatisch geprüft wurden alle 211 Workflows. Der `--against-head`-Modus prüft neue und geänderte Dateien vollständig, behandelt bereits eingecheckte Integrationen als unveränderte Baseline, normalisiert bei älteren Deltas ausschließlich die im 186-Dateien-Manifest erlaubten Prompt-/Pause-Transformationen und verwirft jede andere Änderung an bestehenden Nodes oder Links:
+Automatisch geprüft wurden alle 233 Workflows. Der `--against-head`-Modus prüft neue und geänderte Dateien vollständig, behandelt bereits eingecheckte Integrationen als unveränderte Baseline, normalisiert bei älteren Deltas ausschließlich die im 186-Dateien-Manifest erlaubten Prompt-/Pause-Transformationen und verwirft jede andere Änderung an bestehenden Nodes oder Links:
 
-- 211/211 gültige JSON-Dateien
-- 195 Nicht-Live-Workflows mit genau einem `PixaromaRunTimer`; 16/16 Live-Avatar-Workflows ohne Run-Timer
-- 257 Haupt- und Untergraphen rekursiv geprüft
-- 7.263 Nodes und 3.141 Dokumentations-/Parameter-Notes; die vorhandenen `PixaromaPrompt`-/`PixaromaPauseText`-Integrationen bleiben erhalten
-- 4.919 Graph-Links erfasst; die Workflow-12-Metrikpfade und alle acht Workflow-13-Ausgaben sind strukturell verbunden
+- 233/233 gültige JSON-Dateien
+- 216 Nicht-Live-Workflows mit genau einem `PixaromaRunTimer`; 17/17 Live-Avatar-Workflows ohne Run-Timer
+- 279 Haupt- und Untergraphen rekursiv geprüft
+- 8.126 Nodes und 3.366 Dokumentations-/Parameter-Notes; die vorhandenen `PixaromaPrompt`-/`PixaromaPauseText`-Integrationen bleiben erhalten
+- 5.667 Graph-Links erfasst; die Workflow-12-Metrikpfade und alle acht Workflow-13-Ausgaben sind strukturell verbunden
 - keine neuen doppelten IDs, fehlenden oder einseitigen Endpunkte, Note-Zuordnungs- oder Layoutfehler in den v0.8.1-Dateien
 - vorhandene `PixaromaNote`-Dictionaries einschließlich Position und Größe unverändert; ausschließlich die Qwen3-TTS-Trainingsnote dokumentiert zusätzlich das neue `_Text.txt`-Transkriptschema
 - Die automatisierte Testsuite prüft insgesamt die Workflow-Werkzeuge, den Continuous-LiveAvatar-Lebenszyklus und den Voice-LoRA-Adapterlebenszyklus; davon sichern die Integrationstests Manifest-Hashes gegen HEAD, exakte Prompttext-Migration, Formula+Idea-Trennung, Pause-Ancestry, wechselseitige Links, Kollisionsfreiheit, Korruptionserkennung, die drei INT8-Modellpfade, den AMD-sicheren Live-Avatar-Stack, echte PEFT-/Safetensors-Voice-LoRAs und wiederholte byteidentische Anwendung ab
@@ -257,7 +258,7 @@ Automatisch geprüft wurden alle 211 Workflows. Der `--against-head`-Modus prüf
 - keine NVIDIA-/CUDA-only-Risiko-Widgets und keine eingebetteten `Rh-Comfy-Auth`-Tokens/JWTs
 - Generator, Refinement und Validator sind reproduzierbar und idempotent; die fokussierte Unit-Test-Suite prüft dynamische Widgets, Seed-Kontrollen, VHS-Dictionary-Werte, Subgraphs und TrainLora-Widgetreihenfolge
 
-Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und RDNA4-Kompatibilität. Die fünf neuen Bild-LoRA-Trainer wurden lokal bis zum gespeicherten Adapter ausgeführt; Krea 2 RAW wurde nach dem OOM konsequent entfernt. Der Audio-to-Image-Workflow wurde vollständig mit Gemma 4 und FLUX.2 Klein 4B auf der lokalen ComfyUI-Installation ausgeführt. YuE CoT und YuE ICL wurden jeweils mit einer erzwungenen 10,00-Sekunden-Ausgabe vollständig auf der R9700 ausgeführt. HeartMuLa akzeptierte und dekodierte einen Lauf mit `duration_seconds=301` erfolgreich; das Modell setzte bei 193,68 Sekunden selbst Audio-EOS und bestätigt damit, dass der Wert eine Obergrenze statt einer garantierten Länge ist. Die neuen INT8-Varianten wurden zusätzlich live geprüft: Stable Audio 3 erzeugte 1,02 Sekunden endliches 44,1-kHz-Stereo-FLAC, ACE-Step 1.5 XL exakt 5,00 Sekunden endliches 48-kHz-Stereo-FLAC. YuE INT8 lud beide bitsandbytes-Stufen erfolgreich und erzeugte die 5-Sekunden-Stage-1-Tokens; der anschließende Stage-2-Lauf wurde auf Benutzerwunsch beendet und wird manuell geprüft. Ein vollständiger GPU-End-to-End-Lauf aller 211 Workflows wäre sehr rechen- und zeitintensiv; besonders große Musik-, WAN- und LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.
+Die Prüfung bestätigt Struktur, lokale Abhängigkeiten und RDNA4-Kompatibilität. Alle neun MiniMax-H3-Workflows wurden einzeln mit echter R9700-Inferenz bis zur Videoausgabe ausgeführt. Die Complete-Song-Finalvalidierung verwendete `Intro-Song.mp3` plus `Intro-Song.md`, plante 22 serielle Szenen mit maximal 14,875 Sekunden, erzeugte 7.200 Frames bei 864×480/24 FPS und muxte alle 12.501 MP3-Pakete payload-identisch in das 300,024-Sekunden-MKV. Die fünf neuen Bild-LoRA-Trainer wurden lokal bis zum gespeicherten Adapter ausgeführt; Krea 2 RAW wurde nach dem OOM konsequent entfernt. Der Audio-to-Image-Workflow wurde vollständig mit Gemma 4 und FLUX.2 Klein 4B auf der lokalen ComfyUI-Installation ausgeführt. YuE CoT und YuE ICL wurden jeweils mit einer erzwungenen 10,00-Sekunden-Ausgabe vollständig auf der R9700 ausgeführt. HeartMuLa akzeptierte und dekodierte einen Lauf mit `duration_seconds=301` erfolgreich; das Modell setzte bei 193,68 Sekunden selbst Audio-EOS und bestätigt damit, dass der Wert eine Obergrenze statt einer garantierten Länge ist. Die neuen INT8-Varianten wurden zusätzlich live geprüft: Stable Audio 3 erzeugte 1,02 Sekunden endliches 44,1-kHz-Stereo-FLAC, ACE-Step 1.5 XL exakt 5,00 Sekunden endliches 48-kHz-Stereo-FLAC. YuE INT8 lud beide bitsandbytes-Stufen erfolgreich und erzeugte die 5-Sekunden-Stage-1-Tokens; der anschließende Stage-2-Lauf wurde auf Benutzerwunsch beendet und wird manuell geprüft. Ein vollständiger GPU-End-to-End-Lauf aller 233 Workflows wäre sehr rechen- und zeitintensiv; besonders große Musik-, WAN- und LTX-Workflows sollten auf der R9700 mit dem vorhandenen sicheren Launcher-Profil ausgeführt werden.
 
 ## Live Avatar Workflow 12–15 (v0.8.2)
 See [Workflow 12–14 release notes](docs/LIVE_AVATAR_WORKFLOW_12_13.md) and the [local Blender VRM guide](docs/live-avatar-local-blender-vrm.md). Workflow 12-I is preflight-only and intentionally has no Spout sender. Workflow 12-II adds smoothed face/head tracking but remains face-only. Workflow 12-III is the body/hand-capable browser VRM path. Workflow 13 supplies references. Workflow 14 remains experimental multiview geometry; Workflow 15 uses a prepared RMBG A-pose front image, native Hunyuan3D 2.1 at latent 4096/octree 512, and avoids the confirmed fragmented multiview geometry route. Its GLB remains untextured and unrigged until the documented local Blender post-pipeline runs.

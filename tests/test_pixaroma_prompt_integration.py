@@ -52,6 +52,27 @@ class PixaromaIntegrationTests(unittest.TestCase):
                 "workflows/Music Generation/ACE-Step1_5_XL_SFT_INT8_ConvRot-Music-Generation.json",
                 "workflows/Music Generation/StableAudio3_Medium_INT8_ConvRot-Audio-Generation.json",
                 "workflows/Music Generation/YuE_7B-INT8_R9700-Music-Generation.json",
+                "workflows/Music Generation/ACE-Step1_5_XL_SFT_Gemma4_e4B-AutoSongwriter-CLUB-126-Fsharpminor.json",
+                "workflows/Music Generation/ACE-Step1_5_XL_SFT_Gemma4_e4B-AutoSongwriter-DRIVE-108-Aminor.json",
+                "workflows/Music Generation/ACE-Step1_5_XL_SFT_Gemma4_e4B-AutoSongwriter-GLOW-96-Gmajor.json",
+                "workflows/Music Generation/ACE-Step1_5_XL_SFT_Gemma4_e4B-AutoSongwriter-NIGHT-84-Eminor.json",
+                "workflows/Music Generation/ACE-Step1_5_XL_SFT_Gemma4_e4B-AutoSongwriter-POP-120-Cmajor.json",
+                "workflows/Music Generation/ACE-Step1_5_XL_SFT_Gemma4_e4B-AutoSongwriter-RUSH-138-Dmajor.json",
+                "workflows/Music Generation/ACE-Step1_5_XL_SFT_Qwen3_5_4B-AutoSongwriter-CLUB-126-Fsharpminor.json",
+                "workflows/Music Generation/ACE-Step1_5_XL_SFT_Qwen3_5_4B-AutoSongwriter-DRIVE-108-Aminor.json",
+                "workflows/Music Generation/ACE-Step1_5_XL_SFT_Qwen3_5_4B-AutoSongwriter-GLOW-96-Gmajor.json",
+                "workflows/Music Generation/ACE-Step1_5_XL_SFT_Qwen3_5_4B-AutoSongwriter-NIGHT-84-Eminor.json",
+                "workflows/Music Generation/ACE-Step1_5_XL_SFT_Qwen3_5_4B-AutoSongwriter-POP-120-Cmajor.json",
+                "workflows/Music Generation/ACE-Step1_5_XL_SFT_Qwen3_5_4B-AutoSongwriter-RUSH-138-Dmajor.json",
+                "workflows/Reference to Video/MiniMax_H3_Complete_Song_to_Music_Video_One_Click.json",
+                "workflows/Reference to Video/MiniMax_H3_Spectrum_FL2VA_All_Supported_Inputs.json",
+                "workflows/Reference to Video/MiniMax_H3_Spectrum_FL2VA_First_Last_Frame_to_Video_LOCAL.json",
+                "workflows/Reference to Video/MiniMax_H3_Spectrum_FL2VA_MAXIMUM_All_Supported_Inputs.json",
+                "workflows/Reference to Video/MiniMax_H3_Spectrum_Ref2VA_All_Reference_Inputs.json",
+                "workflows/Reference to Video/MiniMax_H3_Spectrum_Ref2VA_MAXIMUM_All_Reference_Inputs.json",
+                "workflows/Reference to Video/MiniMax_H3_Spectrum_Ref2VA_Picture_and_Video_to_Video_LOCAL.json",
+                "workflows/Reference to Video/MiniMax_H3_Spectrum_RefImage_Audio_to_Video_OriginalAudio_AutoLength.json",
+                "workflows/Reference to Video/MiniMax_H3_Spectrum_RefImage_RefVideo_to_Video_Audio_AutoLength.json",
                 "workflows/Live Avatar/LiveAvatar-01-SDXL-Avatar-Generation.json",
                 "workflows/Live Avatar/LiveAvatar-02-RMBG-Transparency.json",
                 "workflows/Live Avatar/LiveAvatar-03-LivePortrait-Webcam-Spout-OBS.json",
@@ -150,7 +171,7 @@ class PixaromaIntegrationTests(unittest.TestCase):
             for path in (ROOT / "workflows").rglob("*.json")
             for node in load(path)["nodes"]
         )
-        self.assertEqual(total_marked_prompts, 122)
+        self.assertEqual(total_marked_prompts, 146)
 
     def test_pause_gates_are_reciprocal_and_have_textgenerate_ancestry(self):
         pause_count = 0

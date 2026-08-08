@@ -35,6 +35,12 @@ AUTHORIZED_WIDGET_DELTAS: dict[str, dict[int, set[int]]] = {
     },
 }
 AUTHORIZED_NODE_REPLACEMENTS: dict[str, dict[int, str]] = {
+    # ComfyUI adds a control-after-generate widget immediately after integer
+    # seed widgets. Pin the repaired serialization so every following Director
+    # input maps to its real schema field instead of shifting by one position.
+    "workflows/Reference to Video/MiniMax_H3_Complete_Song_to_Music_Video_One_Click.json": {
+        1: "02c0d27a74d907046695f864790780703648e39e54b24738d3a8ba23b782c98c",
+    },
     # Persistent latest-frame Spout replaces the transient Jovi writer; hashes
     # pin both the runtime node and its synchronized generated documentation.
     "workflows/Live Avatar/LiveAvatar-03-LivePortrait-Webcam-Spout-OBS.json": {
@@ -564,7 +570,7 @@ def main() -> int:
                 errors.extend(path_errors)
         else:
             errors.extend(path_errors)
-    expected = {"files": 211, "graphs": 257, "nodes": 7263, "notes": 3141, "links": 4919, "timers": 195}
+    expected = {"files": 233, "graphs": 279, "nodes": 8126, "notes": 3366, "links": 5667, "timers": 216}
     actual = {"files": len(paths), **{k: totals[k] for k in ("graphs", "nodes", "notes", "links", "timers")}}
     if not args.skip_collection_totals:
         for key, value in expected.items():

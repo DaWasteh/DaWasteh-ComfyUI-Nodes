@@ -479,6 +479,7 @@
         480,
         20,
         314159265358979,
+        "fixed",
         "increment per scene",
         true,
         14.0,

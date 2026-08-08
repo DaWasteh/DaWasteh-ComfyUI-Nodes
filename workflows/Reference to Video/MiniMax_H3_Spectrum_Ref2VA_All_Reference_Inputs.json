@@ -1,8 +1,8 @@
 {
   "id": "0ae43b17-eb03-46ea-b095-f2a2896a814a",
   "revision": 0,
-  "last_node_id": 79,
-  "last_link_id": 46,
+  "last_node_id": 81,
+  "last_link_id": 54,
   "nodes": [
     {
       "id": 1,
@@ -24,7 +24,7 @@
         "Node name for S&R": "MarkdownNote"
       },
       "widgets_values": [
-        "# MiniMax H3 + Spectrum — Ref2VA MAXIMUM INPUT WORKFLOW\n\n## Every native reference socket is exposed and connected\n- **9 reference pictures**\n- **3 reference videos**\n- **3 paired video soundtracks** extracted from those videos\n- **3 standalone audio references**\n\n## Use\n1. Replace every placeholder picture, video and audio file you intend to use.\n2. Respect the model's documented combined limit of 12 uploaded files; leave unnecessary references out of the actual run.\n3. Reference inputs with exact tags: `<Picture N>`, `<Video N>`, `<Audio N>`.\n4. Give each reference one explicit job: identity, wardrobe, prop, environment, style, motion, camera, voice, music or ambience.\n5. Use 24 fps reference videos where possible. Ref videos and audio are documented for 2–15 s, with 15 s total per media type.\n\n## Memory / quality\n- `ref_image_size = match` is deliberately the safe default.\n- `max` retains up to a 2048 px short edge and can become several times slower because reference tokens remain active at every denoising step. With many pictures it can also explode RAM/VRAM use.\n- Start at 0.4 MP / 5 s; then increase one variable at a time.\n- Spectrum is enabled with the conservative preset. Disable it and keep the seed fixed for a reference-fidelity A/B comparison.\n\n## Local models\n- Diffusion: `MiniMax H3\\minimax_h3_ref2va_pruned_int8_convrot.safetensors`\n- Text Encoder: `MiniMax H3\\qwen3vl_32b_minimax_h3_int8_convrot.safetensors`\n- Video VAE: `MiniMax H3\\minimax_h3_video_vae_fp16.safetensors`\n- Audio VAE: `MiniMax H3\\minimax_h3_audio_vae_fp32.safetensors`\n"
+        "# MiniMax H3 + Spectrum — Ref2VA MAXIMUM INPUT WORKFLOW\n\n## Every native reference socket is exposed and connected\n- **9 reference pictures**\n- **3 reference videos**\n- **3 paired video soundtracks** extracted from those videos\n- **3 standalone audio references**\n\n## Use\n1. Replace every placeholder picture, video and audio file you intend to use.\n2. Respect the model's documented combined limit of 12 uploaded files; leave unnecessary references out of the actual run.\n3. Reference inputs with exact tags: `<Picture N>`, `<Video N>`, `<Audio N>`.\n4. Give each reference one explicit job: identity, wardrobe, prop, environment, style, motion, camera, voice, music or ambience.\n5. Use 24 fps reference videos where possible. Ref videos and audio are documented for 2–15 s, with 15 s total per media type.\n\n## Memory / quality\n- `ref_image_size = match` is deliberately the safe default.\n- `max` retains up to a 2048 px short edge and can become several times slower because reference tokens remain active at every denoising step. With many pictures it can also explode RAM/VRAM use.\n- Start at 0.4 MP / 5 s; then increase one variable at a time.\n- Spectrum is enabled with the conservative preset. Disable it and keep the seed fixed for a reference-fidelity A/B comparison.\n\n## Local models\n- Diffusion: `MiniMax H3\\minimax_h3_ref2va_pruned_int8_convrot.safetensors`\n- Text Encoder: `MiniMax H3\\qwen3vl_32b_minimax_h3_int8_convrot.safetensors`\n- Video VAE: `MiniMax H3\\minimax_h3_video_vae_fp16.safetensors`\n- Audio VAE: `MiniMax H3\\minimax_h3_audio_vae_fp32.safetensors`\n\n\n## Neue robuste Bildgröße / Referenzvorbereitung\n- **H3 SIZE A** übernimmt das Seitenverhältnis des primären Bildes, setzt die längste Seite und rundet beide Achsen auf **x32**.\n- **H3 SIZE B** ist die manuelle **Resolution Pixaroma**-Auswahl mit **Snap x32**.\n- Der **Switch WH Pixaroma** steht standardmäßig auf **B**; auf **A** klicken, um automatisch dem Bildformat zu folgen.\n- First/Last-Frame-Workflows schneiden beide Endpunkte vor H3 exakt auf denselben Canvas zu, statt den ersten Frame in H3 strecken zu lassen.\n- Referenzvideos laufen vor Ref2VA stabil mit **24 fps**, maximal 15 s und sauberem H3-Zeit­raster; längere Clips werden bewusst auf den Anfang gekürzt.\n\n\n**Spectrum-Kompatibilität:** Für aktuelles ComfyUI mit `ModelSamplingAV` wird `ComfyUI-Spectrum-MiniMax-H3` **v0.1.10 oder neuer** benötigt; ältere Versionen brechen mit `time_shift_slope` ab.\n"
       ],
       "title": "README — Ref2VA MAXIMUM / ALL NATIVE REFERENCE SOCKETS",
       "color": "#222",
@@ -50,7 +50,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            9
+            47
           ]
         },
         {
@@ -103,14 +103,14 @@
     },
     {
       "id": 4,
-      "type": "GetVideoComponents",
+      "type": "DaWH3PrepareReferenceVideo",
       "pos": [
         -5169.5,
         3548.5
       ],
       "size": [
-        330.0,
-        140.0
+        330,
+        210
       ],
       "flags": {},
       "order": 14,
@@ -120,39 +120,87 @@
           "name": "video",
           "type": "VIDEO",
           "link": 18
+        },
+        {
+          "name": "max_seconds",
+          "type": "FLOAT",
+          "widget": {
+            "name": "max_seconds"
+          },
+          "link": null
+        },
+        {
+          "name": "overflow_mode",
+          "type": "COMBO",
+          "widget": {
+            "name": "overflow_mode"
+          },
+          "link": null
+        },
+        {
+          "name": "require_audio",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "require_audio"
+          },
+          "link": null
         }
       ],
       "outputs": [
         {
-          "name": "images",
+          "name": "reference_frames_24fps",
           "type": "IMAGE",
           "links": [
             19
           ]
         },
         {
-          "name": "audio",
+          "name": "reference_audio",
           "type": "AUDIO",
           "links": [
             20
           ]
         },
         {
-          "name": "fps",
+          "name": "h3_length",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "source_duration",
           "type": "FLOAT",
           "links": null
         },
         {
-          "name": "bit_depth",
+          "name": "h3_duration",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_fps",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_frame_count",
           "type": "INT",
+          "links": null
+        },
+        {
+          "name": "info",
+          "type": "STRING",
           "links": null
         }
       ],
       "properties": {
-        "Node name for S&R": "GetVideoComponents"
+        "Node name for S&R": "DaWH3PrepareReferenceVideo"
       },
-      "widgets_values": [],
-      "title": "EXTRACT VIDEO 1 FRAMES + PAIRED SOUNDTRACK"
+      "widgets_values": [
+        15.0,
+        "trim_to_max",
+        false
+      ],
+      "title": "24 FPS + 15 s SAFE PREP VIDEO 1 FRAMES + PAIRED SOUNDTRACK"
     },
     {
       "id": 5,
@@ -190,14 +238,14 @@
     },
     {
       "id": 6,
-      "type": "ResolutionSelector",
+      "type": "PixaromaResolution",
       "pos": [
         -1445.5,
         47.0
       ],
       "size": [
-        300.0,
-        180.0
+        240,
+        435
       ],
       "flags": {},
       "order": 21,
@@ -208,26 +256,36 @@
           "name": "width",
           "type": "INT",
           "links": [
-            31
+            50
           ]
         },
         {
           "name": "height",
           "type": "INT",
           "links": [
-            32
+            51
           ]
         }
       ],
       "properties": {
-        "Node name for S&R": "ResolutionSelector"
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaResolution",
+        "resolutionState": "{\"mode\":\"preset\",\"ratio\":\"16:9\",\"w\":864,\"h\":480,\"custom_w\":864,\"custom_h\":480,\"custom_ratio_w\":16,\"custom_ratio_h\":9,\"snap\":32}"
       },
       "widgets_values": [
-        "16:9 (Widescreen)",
-        0.4,
-        32
+        {
+          "mode": "preset",
+          "ratio": "16:9",
+          "w": 864,
+          "h": 480,
+          "custom_w": 864,
+          "custom_h": 480,
+          "custom_ratio_w": 16,
+          "custom_ratio_h": 9,
+          "snap": 32
+        }
       ],
-      "title": "4 — OUTPUT RESOLUTION",
+      "title": "H3 SIZE B — MANUAL RESOLUTION (SNAP x32)",
       "color": "#322",
       "bgcolor": "#533",
       "showAdvanced": false
@@ -784,7 +842,7 @@
         {
           "name": "ref_images.ref_image_0",
           "type": "IMAGE",
-          "link": 9,
+          "link": 54,
           "label": "ref_image_0",
           "shape": 7
         },
@@ -918,7 +976,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 31,
+          "link": 52,
           "widget": {
             "name": "width"
           }
@@ -926,7 +984,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 32,
+          "link": 53,
           "widget": {
             "name": "height"
           }
@@ -1472,14 +1530,14 @@
     },
     {
       "id": 34,
-      "type": "GetVideoComponents",
+      "type": "DaWH3PrepareReferenceVideo",
       "pos": [
         -5169.5,
         4089.0
       ],
       "size": [
-        330.0,
-        140.0
+        330,
+        210
       ],
       "flags": {},
       "order": 15,
@@ -1489,39 +1547,87 @@
           "name": "video",
           "type": "VIDEO",
           "link": 21
+        },
+        {
+          "name": "max_seconds",
+          "type": "FLOAT",
+          "widget": {
+            "name": "max_seconds"
+          },
+          "link": null
+        },
+        {
+          "name": "overflow_mode",
+          "type": "COMBO",
+          "widget": {
+            "name": "overflow_mode"
+          },
+          "link": null
+        },
+        {
+          "name": "require_audio",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "require_audio"
+          },
+          "link": null
         }
       ],
       "outputs": [
         {
-          "name": "images",
+          "name": "reference_frames_24fps",
           "type": "IMAGE",
           "links": [
             22
           ]
         },
         {
-          "name": "audio",
+          "name": "reference_audio",
           "type": "AUDIO",
           "links": [
             23
           ]
         },
         {
-          "name": "fps",
+          "name": "h3_length",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "source_duration",
           "type": "FLOAT",
           "links": null
         },
         {
-          "name": "bit_depth",
+          "name": "h3_duration",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_fps",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_frame_count",
           "type": "INT",
+          "links": null
+        },
+        {
+          "name": "info",
+          "type": "STRING",
           "links": null
         }
       ],
       "properties": {
-        "Node name for S&R": "GetVideoComponents"
+        "Node name for S&R": "DaWH3PrepareReferenceVideo"
       },
-      "widgets_values": [],
-      "title": "EXTRACT VIDEO 2 FRAMES + PAIRED SOUNDTRACK"
+      "widgets_values": [
+        15.0,
+        "trim_to_max",
+        false
+      ],
+      "title": "24 FPS + 15 s SAFE PREP VIDEO 2 FRAMES + PAIRED SOUNDTRACK"
     },
     {
       "id": 35,
@@ -1558,14 +1664,14 @@
     },
     {
       "id": 36,
-      "type": "GetVideoComponents",
+      "type": "DaWH3PrepareReferenceVideo",
       "pos": [
         -5169.5,
         4629.5
       ],
       "size": [
-        330.0,
-        140.0
+        330,
+        210
       ],
       "flags": {},
       "order": 16,
@@ -1575,39 +1681,87 @@
           "name": "video",
           "type": "VIDEO",
           "link": 24
+        },
+        {
+          "name": "max_seconds",
+          "type": "FLOAT",
+          "widget": {
+            "name": "max_seconds"
+          },
+          "link": null
+        },
+        {
+          "name": "overflow_mode",
+          "type": "COMBO",
+          "widget": {
+            "name": "overflow_mode"
+          },
+          "link": null
+        },
+        {
+          "name": "require_audio",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "require_audio"
+          },
+          "link": null
         }
       ],
       "outputs": [
         {
-          "name": "images",
+          "name": "reference_frames_24fps",
           "type": "IMAGE",
           "links": [
             25
           ]
         },
         {
-          "name": "audio",
+          "name": "reference_audio",
           "type": "AUDIO",
           "links": [
             26
           ]
         },
         {
-          "name": "fps",
+          "name": "h3_length",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "source_duration",
           "type": "FLOAT",
           "links": null
         },
         {
-          "name": "bit_depth",
+          "name": "h3_duration",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_fps",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_frame_count",
           "type": "INT",
+          "links": null
+        },
+        {
+          "name": "info",
+          "type": "STRING",
           "links": null
         }
       ],
       "properties": {
-        "Node name for S&R": "GetVideoComponents"
+        "Node name for S&R": "DaWH3PrepareReferenceVideo"
       },
-      "widgets_values": [],
-      "title": "EXTRACT VIDEO 3 FRAMES + PAIRED SOUNDTRACK"
+      "widgets_values": [
+        15.0,
+        "trim_to_max",
+        false
+      ],
+      "title": "24 FPS + 15 s SAFE PREP VIDEO 3 FRAMES + PAIRED SOUNDTRACK"
     },
     {
       "id": 37,
@@ -1811,7 +1965,7 @@
       "mode": 0,
       "inputs": [],
       "outputs": [],
-      "title": "Erklärung · EXTRACT VIDEO 1 FRAMES + PAIRED SOUNDTRACK · Node 4",
+      "title": "Erklärung · 24 FPS + 15 s SAFE PREP VIDEO 1 FRAMES + PAIRED SOUNDTRACK · Node 4",
       "properties": {
         "Node name for S&R": "MarkdownNote",
         "cnr_id": "comfy-core",
@@ -1819,7 +1973,7 @@
         "dawasteh_generated_note": true
       },
       "widgets_values": [
-        "# Erklärung · EXTRACT VIDEO 1 FRAMES + PAIRED SOUNDTRACK · Node 4\n\n**Zweck:** Extracts all components from a video: frames, audio, framerate, and bit depth.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `video` (VIDEO, Link 18): The video to extract components from.\n\n**Ausgänge**\n- `images` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `audio` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `fps` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `bit_depth` (INT, nicht verbunden): Ergebnis dieses Nodes"
+        "# Erklärung · 24 FPS + 15 s SAFE PREP VIDEO 1 FRAMES + PAIRED SOUNDTRACK · Node 4\n\n**Zweck:** Reads source duration before model loading, converts motion to 24 fps, snaps the generation length upward to H3's 17k+5 grid, and pads only the final grid tail.\n\n**Einstellbare Werte**\n- `max_seconds` = `15.0` — Safety guard. H3 reference videos are officially intended for about 2-15 s; longer is experimental. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `overflow_mode` = `trim_to_max` — error stops before model loading; trim_to_max deliberately uses only the beginning. Die Auswahl bestimmt den Verarbeitungs- bzw. Dateimodus und dessen Kompatibilität.\n- `require_audio` = `False` — Raise a clear error when the reference video has no soundtrack. Disable only after removing <Audio 1> from the prompt. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `video` (VIDEO, Link 18): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `max_seconds` (FLOAT, nicht verbunden): Safety guard. H3 reference videos are officially intended for about 2-15 s; longer is experimental.\n- `overflow_mode` (COMBO, nicht verbunden): error stops before model loading; trim_to_max deliberately uses only the beginning.\n- `require_audio` (BOOLEAN, nicht verbunden): Raise a clear error when the reference video has no soundtrack. Disable only after removing <Audio 1> from the prompt.\n\n**Ausgänge**\n- `reference_frames_24fps` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `reference_audio` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `h3_length` (INT, nicht verbunden): Ergebnis dieses Nodes\n- `source_duration` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `h3_duration` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `source_fps` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `source_frame_count` (INT, nicht verbunden): Ergebnis dieses Nodes\n- `info` (STRING, nicht verbunden): Ergebnis dieses Nodes"
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
@@ -1849,35 +2003,6 @@
       },
       "widgets_values": [
         "# Erklärung · PROMPT — ALL PICTURE / VIDEO / AUDIO TAGS · Node 5\n\n**Zweck:** Stellt einen direkt einstellbaren Wert für verbundene Nodes bereit.\n\n**Einstellbare Werte**\n- `value` = `REFERENCE MAP — delete every unused line before rendering. ↵  ↵ Use <Picture 1>, <Picture 2>, and <Picture 3>…` — Steuert diesen Parameter. Höher gibt einen größeren Zahlenwert an verbundene Nodes weiter; niedriger einen kleineren, ohne eigene Zusatzwirkung.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `STRING` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes"
-      ],
-      "color": "#1b2638",
-      "bgcolor": "#101722"
-    },
-    {
-      "id": 45,
-      "type": "MarkdownNote",
-      "pos": [
-        -1099.5,
-        47.0
-      ],
-      "size": [
-        390,
-        345
-      ],
-      "flags": {},
-      "order": 44,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "title": "Erklärung · 4 — OUTPUT RESOLUTION · Node 6",
-      "properties": {
-        "Node name for S&R": "MarkdownNote",
-        "cnr_id": "comfy-core",
-        "dawasteh_note_for": 6,
-        "dawasteh_generated_note": true
-      },
-      "widgets_values": [
-        "# Erklärung · 4 — OUTPUT RESOLUTION · Node 6\n\n**Zweck:** Calculate width and height from aspect ratio and megapixel target. Useful for setting up Empty Latent Image dimensions.\n\n**Einstellbare Werte**\n- `aspect_ratio` = `16:9 (Widescreen)` — The aspect ratio for the output dimensions. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `megapixels` = `0.4` — Target total megapixels. 1.0 MP ≈ 1024x1024 for square. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `multiple` = `32` — Nearest multiple of the result to set the selected resolution to. Ändert Seitenverhältnis bzw. Rasterteilung; größere Vielfache erhöhen Kompatibilität, können Abmessungen aber stärker runden.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `width` (INT, 1 Verbindung(en)): Calculated width in pixels multiplied by the selected multiple.\n- `height` (INT, 1 Verbindung(en)): Calculated height in pixels multiplied by the selected multiple."
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
@@ -2138,7 +2263,7 @@
         "dawasteh_generated_note": true
       },
       "widgets_values": [
-        "# Erklärung · MiniMax H3 Ref2VA — MAXIMUM: 9P + 3V + 3 VIDEO AUDIO + 3 AUDIO · Node 15\n\n**Zweck:** /   /   reference conditioning for MiniMax H3. Use the same tags when prompting.\n\n**Einstellbare Werte**\n- `prompt` = `REFERENCE MAP — delete every unused line before rendering. ↵  ↵ Use <Picture 1>, <Picture 2>, and <Picture 3>…` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `width` = `1344` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `height` = `768` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `length` = `124` — Frame count at 24 fps, (124 = ~5s, trained range is ~124-362) Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `ref_image_size` = `match` — Reference image sizing. 'match' scales each ref (down only, keeping aspect) to the generation's pixel area; 'max' uses the reference pipeline's 2048px short edge for best identity… Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `clip` (CLIP, Link 35): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `vae` (VAE, Link 36): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audio_vae` (VAE, Link 37): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_0` (IMAGE, Link 9): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_1` (IMAGE, Link 10): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_2` (IMAGE, Link 11): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_3` (IMAGE, Link 12): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_4` (IMAGE, Link 13): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_5` (IMAGE, Link 14): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_6` (IMAGE, Link 15): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_7` (IMAGE, Link 16): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_8` (IMAGE, Link 17): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_videos.ref_video_0` (IMAGE, Link 19): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_videos.ref_video_1` (IMAGE, Link 22): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_videos.ref_video_2` (IMAGE, Link 25): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_video_audios.ref_video_audio_0` (AUDIO, Link 20): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_video_audios.ref_video_audio_1` (AUDIO, Link 23): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_video_audios.ref_video_audio_2` (AUDIO, Link 26): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_audios.ref_audio_0` (AUDIO, Link 27): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_audios.ref_audio_1` (AUDIO, Link 28): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_audios.ref_audio_2` (AUDIO, Link 29): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `prompt` (STRING, Link 30): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `width` (INT, Link 31): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `height` (INT, Link 32): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `length` (INT, Link 34): Frame count at 24 fps, (124 = ~5s, trained range is ~124-362)\n\n**Ausgänge**\n- `positive` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `LATENT` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+        "# Erklärung · MiniMax H3 Ref2VA — MAXIMUM: 9P + 3V + 3 VIDEO AUDIO + 3 AUDIO · Node 15\n\n**Zweck:** /   /   reference conditioning for MiniMax H3. Use the same tags when prompting.\n\n**Einstellbare Werte**\n- `prompt` = `REFERENCE MAP — delete every unused line before rendering. ↵  ↵ Use <Picture 1>, <Picture 2>, and <Picture 3>…` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `width` = `1344` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `height` = `768` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `length` = `124` — Frame count at 24 fps, (124 = ~5s, trained range is ~124-362) Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `ref_image_size` = `match` — Reference image sizing. 'match' scales each ref (down only, keeping aspect) to the generation's pixel area; 'max' uses the reference pipeline's 2048px short edge for best identity… Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `clip` (CLIP, Link 35): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `vae` (VAE, Link 36): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audio_vae` (VAE, Link 37): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_0` (IMAGE, Link 54): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_1` (IMAGE, Link 10): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_2` (IMAGE, Link 11): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_3` (IMAGE, Link 12): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_4` (IMAGE, Link 13): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_5` (IMAGE, Link 14): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_6` (IMAGE, Link 15): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_7` (IMAGE, Link 16): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_8` (IMAGE, Link 17): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_videos.ref_video_0` (IMAGE, Link 19): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_videos.ref_video_1` (IMAGE, Link 22): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_videos.ref_video_2` (IMAGE, Link 25): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_video_audios.ref_video_audio_0` (AUDIO, Link 20): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_video_audios.ref_video_audio_1` (AUDIO, Link 23): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_video_audios.ref_video_audio_2` (AUDIO, Link 26): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_audios.ref_audio_0` (AUDIO, Link 27): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_audios.ref_audio_1` (AUDIO, Link 28): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_audios.ref_audio_2` (AUDIO, Link 29): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `prompt` (STRING, Link 30): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `width` (INT, Link 52): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `height` (INT, Link 53): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `length` (INT, Link 34): Frame count at 24 fps, (124 = ~5s, trained range is ~124-362)\n\n**Ausgänge**\n- `positive` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `LATENT` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
@@ -2681,7 +2806,7 @@
       "mode": 0,
       "inputs": [],
       "outputs": [],
-      "title": "Erklärung · EXTRACT VIDEO 2 FRAMES + PAIRED SOUNDTRACK · Node 34",
+      "title": "Erklärung · 24 FPS + 15 s SAFE PREP VIDEO 2 FRAMES + PAIRED SOUNDTRACK · Node 34",
       "properties": {
         "Node name for S&R": "MarkdownNote",
         "cnr_id": "comfy-core",
@@ -2689,7 +2814,7 @@
         "dawasteh_generated_note": true
       },
       "widgets_values": [
-        "# Erklärung · EXTRACT VIDEO 2 FRAMES + PAIRED SOUNDTRACK · Node 34\n\n**Zweck:** Extracts all components from a video: frames, audio, framerate, and bit depth.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `video` (VIDEO, Link 21): The video to extract components from.\n\n**Ausgänge**\n- `images` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `audio` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `fps` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `bit_depth` (INT, nicht verbunden): Ergebnis dieses Nodes"
+        "# Erklärung · 24 FPS + 15 s SAFE PREP VIDEO 2 FRAMES + PAIRED SOUNDTRACK · Node 34\n\n**Zweck:** Reads source duration before model loading, converts motion to 24 fps, snaps the generation length upward to H3's 17k+5 grid, and pads only the final grid tail.\n\n**Einstellbare Werte**\n- `max_seconds` = `15.0` — Safety guard. H3 reference videos are officially intended for about 2-15 s; longer is experimental. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `overflow_mode` = `trim_to_max` — error stops before model loading; trim_to_max deliberately uses only the beginning. Die Auswahl bestimmt den Verarbeitungs- bzw. Dateimodus und dessen Kompatibilität.\n- `require_audio` = `False` — Raise a clear error when the reference video has no soundtrack. Disable only after removing <Audio 1> from the prompt. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `video` (VIDEO, Link 21): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `max_seconds` (FLOAT, nicht verbunden): Safety guard. H3 reference videos are officially intended for about 2-15 s; longer is experimental.\n- `overflow_mode` (COMBO, nicht verbunden): error stops before model loading; trim_to_max deliberately uses only the beginning.\n- `require_audio` (BOOLEAN, nicht verbunden): Raise a clear error when the reference video has no soundtrack. Disable only after removing <Audio 1> from the prompt.\n\n**Ausgänge**\n- `reference_frames_24fps` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `reference_audio` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `h3_length` (INT, nicht verbunden): Ergebnis dieses Nodes\n- `source_duration` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `h3_duration` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `source_fps` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `source_frame_count` (INT, nicht verbunden): Ergebnis dieses Nodes\n- `info` (STRING, nicht verbunden): Ergebnis dieses Nodes"
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
@@ -2739,7 +2864,7 @@
       "mode": 0,
       "inputs": [],
       "outputs": [],
-      "title": "Erklärung · EXTRACT VIDEO 3 FRAMES + PAIRED SOUNDTRACK · Node 36",
+      "title": "Erklärung · 24 FPS + 15 s SAFE PREP VIDEO 3 FRAMES + PAIRED SOUNDTRACK · Node 36",
       "properties": {
         "Node name for S&R": "MarkdownNote",
         "cnr_id": "comfy-core",
@@ -2747,7 +2872,7 @@
         "dawasteh_generated_note": true
       },
       "widgets_values": [
-        "# Erklärung · EXTRACT VIDEO 3 FRAMES + PAIRED SOUNDTRACK · Node 36\n\n**Zweck:** Extracts all components from a video: frames, audio, framerate, and bit depth.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `video` (VIDEO, Link 24): The video to extract components from.\n\n**Ausgänge**\n- `images` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `audio` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `fps` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `bit_depth` (INT, nicht verbunden): Ergebnis dieses Nodes"
+        "# Erklärung · 24 FPS + 15 s SAFE PREP VIDEO 3 FRAMES + PAIRED SOUNDTRACK · Node 36\n\n**Zweck:** Reads source duration before model loading, converts motion to 24 fps, snaps the generation length upward to H3's 17k+5 grid, and pads only the final grid tail.\n\n**Einstellbare Werte**\n- `max_seconds` = `15.0` — Safety guard. H3 reference videos are officially intended for about 2-15 s; longer is experimental. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `overflow_mode` = `trim_to_max` — error stops before model loading; trim_to_max deliberately uses only the beginning. Die Auswahl bestimmt den Verarbeitungs- bzw. Dateimodus und dessen Kompatibilität.\n- `require_audio` = `False` — Raise a clear error when the reference video has no soundtrack. Disable only after removing <Audio 1> from the prompt. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `video` (VIDEO, Link 24): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `max_seconds` (FLOAT, nicht verbunden): Safety guard. H3 reference videos are officially intended for about 2-15 s; longer is experimental.\n- `overflow_mode` (COMBO, nicht verbunden): error stops before model loading; trim_to_max deliberately uses only the beginning.\n- `require_audio` (BOOLEAN, nicht verbunden): Raise a clear error when the reference video has no soundtrack. Disable only after removing <Audio 1> from the prompt.\n\n**Ausgänge**\n- `reference_frames_24fps` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `reference_audio` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `h3_length` (INT, nicht verbunden): Ergebnis dieses Nodes\n- `source_duration` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `h3_duration` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `source_fps` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `source_frame_count` (INT, nicht verbunden): Ergebnis dieses Nodes\n- `info` (STRING, nicht verbunden): Ergebnis dieses Nodes"
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
@@ -2873,6 +2998,172 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 80,
+      "type": "PixaromaLongestSide",
+      "pos": [
+        -7060.5,
+        -470.0
+      ],
+      "size": [
+        300,
+        260
+      ],
+      "flags": {},
+      "order": 79,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 47
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            54
+          ]
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            48
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            49
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaLongestSide",
+        "longestSideState": {
+          "size": 864,
+          "sizes": [
+            864,
+            1024,
+            1216,
+            1344,
+            1536
+          ],
+          "ratio": "keep",
+          "ratios": [
+            "keep",
+            "1:1",
+            "16:9",
+            "9:16",
+            "2:3"
+          ],
+          "step": 32,
+          "anchor": "center",
+          "allow_upscale": true,
+          "resample": "auto"
+        }
+      },
+      "widgets_values": [
+        {
+          "size": 864,
+          "sizes": [
+            864,
+            1024,
+            1216,
+            1344,
+            1536
+          ],
+          "ratio": "keep",
+          "ratios": [
+            "keep",
+            "1:1",
+            "16:9",
+            "9:16",
+            "2:3"
+          ],
+          "step": 32,
+          "anchor": "center",
+          "allow_upscale": true,
+          "resample": "auto"
+        }
+      ],
+      "title": "H3 SIZE A — PRIMARY IMAGE LONGEST SIDE (SNAP x32)",
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 81,
+      "type": "PixaromaSwitchWH",
+      "pos": [
+        -6210.5,
+        -470.0
+      ],
+      "size": [
+        240,
+        140
+      ],
+      "flags": {},
+      "order": 80,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width_a",
+          "shape": 7,
+          "type": "INT",
+          "link": 48
+        },
+        {
+          "name": "height_a",
+          "shape": 7,
+          "type": "INT",
+          "link": 49
+        },
+        {
+          "name": "width_b",
+          "shape": 7,
+          "type": "INT",
+          "link": 50
+        },
+        {
+          "name": "height_b",
+          "shape": 7,
+          "type": "INT",
+          "link": 51
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            52
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            53
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaSwitchWH",
+        "switchWhState": "B"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "title": "H3 SIZE MODE — A IMAGE RATIO / B MANUAL (DEFAULT B)",
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
     }
   ],
   "links": [
@@ -2939,14 +3230,6 @@
       20,
       3,
       "SIGMAS"
-    ],
-    [
-      9,
-      2,
-      0,
-      15,
-      3,
-      "IMAGE"
     ],
     [
       10,
@@ -3117,22 +3400,6 @@
       "STRING"
     ],
     [
-      31,
-      6,
-      0,
-      15,
-      22,
-      "INT"
-    ],
-    [
-      32,
-      6,
-      1,
-      15,
-      23,
-      "INT"
-    ],
-    [
       33,
       7,
       0,
@@ -3243,6 +3510,70 @@
       24,
       0,
       "VIDEO"
+    ],
+    [
+      47,
+      2,
+      0,
+      80,
+      0,
+      "IMAGE"
+    ],
+    [
+      48,
+      80,
+      1,
+      81,
+      0,
+      "INT"
+    ],
+    [
+      49,
+      80,
+      2,
+      81,
+      1,
+      "INT"
+    ],
+    [
+      50,
+      6,
+      0,
+      81,
+      2,
+      "INT"
+    ],
+    [
+      51,
+      6,
+      1,
+      81,
+      3,
+      "INT"
+    ],
+    [
+      52,
+      81,
+      0,
+      15,
+      22,
+      "INT"
+    ],
+    [
+      53,
+      81,
+      1,
+      15,
+      23,
+      "INT"
+    ],
+    [
+      54,
+      80,
+      0,
+      15,
+      3,
+      "IMAGE"
     ]
   ],
   "groups": [
@@ -3354,7 +3685,7 @@
     },
     "dawasteh_workflow_refinement": {
       "version": 1,
-      "generated_notes": 38,
+      "generated_notes": 37,
       "x_scale": 2.45,
       "y_scale": 2.35,
       "gap": 34.0

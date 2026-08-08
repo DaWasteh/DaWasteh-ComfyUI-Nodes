@@ -1,8 +1,8 @@
 {
   "id": "abc5d39a-6598-4577-a7a8-c1f51b01a757",
   "revision": 0,
-  "last_node_id": 46,
-  "last_link_id": 26,
+  "last_node_id": 50,
+  "last_link_id": 41,
   "nodes": [
     {
       "id": 1,
@@ -24,7 +24,7 @@
         "Node name for S&R": "MarkdownNote"
       },
       "widgets_values": [
-        "# MiniMax H3 + Spectrum — FL2VA MAXIMUM\n\n## Alle vom FL-Modell unterstützten Referenzinputs sind angeschlossen\n- **FIRST FRAME**: Anfangs-Keyframe\n- **LAST FRAME**: End-Keyframe\n\nDas ist beim lokalen `minimax_h3_fl2va` bereits das vollständige Referenz-Maximum. Der native `MiniMaxH3ImageToVideo`-Node unterstützt für FL2VA **keine** zusätzlichen Referenzvideos oder externen Referenzaudios. Ohne Bild arbeitet dasselbe Modell als T2VA; mit einem Bild als First- oder Last-Frame-Modus; mit beiden Bildern als First+Last-Frame-Modus.\n\n## Benutzung\n1. FIRST FRAME und LAST FRAME auswählen.\n2. Im Prompt Bewegung, Kamerafahrt, Szenenübergang und gewünschten nativen Ton beschreiben.\n3. Dauer und Auflösung einstellen.\n4. Queue starten.\n\n## Technische Hinweise\n- Ausgabe: **24 fps**, gemeinsames Video-/Stereo-Audio-Latent.\n- Die Framezahl wird auf H3s gültiges Raster **17k+5** aufgerundet.\n- Das erste Bild wird geometrisch auf die Zielgröße gestreckt; das letzte Bild wird seitenverhältnistreu per Center-Cover-Crop angepasst. Gleiche Seitenverhältnisse liefern daher die saubersten Endpunkte.\n- H3 wurde ungefähr für **4–15 Sekunden** trainiert. Längere Clips können lokal zwar angenommen werden, sind aber außerhalb des dokumentierten Trainingsbereichs und verbrauchen sehr viel Speicher.\n- `0.4 MP / 5 s` bleibt absichtlich ein sicherer Startwert. Für ungefähr 1344×768 bei 16:9 `0.98 MP` wählen.\n- Spectrum ist konservativ aktiv. Für einen echten A/B-Test `enabled = false` und denselben Seed verwenden.\n\n## Lokale Modelle\n- Diffusion: `MiniMax H3\\minimax_h3_fl2va_pruned_int8_convrot.safetensors`\n- Text Encoder: `MiniMax H3\\qwen3vl_32b_minimax_h3_int8_convrot.safetensors`\n- Video VAE: `MiniMax H3\\minimax_h3_video_vae_fp16.safetensors`\n- Audio VAE: `MiniMax H3\\minimax_h3_audio_vae_fp32.safetensors`\n"
+        "# MiniMax H3 + Spectrum — FL2VA MAXIMUM\n\n## Alle vom FL-Modell unterstützten Referenzinputs sind angeschlossen\n- **FIRST FRAME**: Anfangs-Keyframe\n- **LAST FRAME**: End-Keyframe\n\nDas ist beim lokalen `minimax_h3_fl2va` bereits das vollständige Referenz-Maximum. Der native `MiniMaxH3ImageToVideo`-Node unterstützt für FL2VA **keine** zusätzlichen Referenzvideos oder externen Referenzaudios. Ohne Bild arbeitet dasselbe Modell als T2VA; mit einem Bild als First- oder Last-Frame-Modus; mit beiden Bildern als First+Last-Frame-Modus.\n\n## Benutzung\n1. FIRST FRAME und LAST FRAME auswählen.\n2. Im Prompt Bewegung, Kamerafahrt, Szenenübergang und gewünschten nativen Ton beschreiben.\n3. Dauer und Auflösung einstellen.\n4. Queue starten.\n\n## Technische Hinweise\n- Ausgabe: **24 fps**, gemeinsames Video-/Stereo-Audio-Latent.\n- Die Framezahl wird auf H3s gültiges Raster **17k+5** aufgerundet.\n- Das erste Bild wird geometrisch auf die Zielgröße gestreckt; das letzte Bild wird seitenverhältnistreu per Center-Cover-Crop angepasst. Gleiche Seitenverhältnisse liefern daher die saubersten Endpunkte.\n- H3 wurde ungefähr für **4–15 Sekunden** trainiert. Längere Clips können lokal zwar angenommen werden, sind aber außerhalb des dokumentierten Trainingsbereichs und verbrauchen sehr viel Speicher.\n- `0.4 MP / 5 s` bleibt absichtlich ein sicherer Startwert. Für ungefähr 1344×768 bei 16:9 `0.98 MP` wählen.\n- Spectrum ist konservativ aktiv. Für einen echten A/B-Test `enabled = false` und denselben Seed verwenden.\n\n## Lokale Modelle\n- Diffusion: `MiniMax H3\\minimax_h3_fl2va_pruned_int8_convrot.safetensors`\n- Text Encoder: `MiniMax H3\\qwen3vl_32b_minimax_h3_int8_convrot.safetensors`\n- Video VAE: `MiniMax H3\\minimax_h3_video_vae_fp16.safetensors`\n- Audio VAE: `MiniMax H3\\minimax_h3_audio_vae_fp32.safetensors`\n\n\n## Neue robuste Bildgröße / Referenzvorbereitung\n- **H3 SIZE A** übernimmt das Seitenverhältnis des primären Bildes, setzt die längste Seite und rundet beide Achsen auf **x32**.\n- **H3 SIZE B** ist die manuelle **Resolution Pixaroma**-Auswahl mit **Snap x32**.\n- Der **Switch WH Pixaroma** steht standardmäßig auf **B**; auf **A** klicken, um automatisch dem Bildformat zu folgen.\n- First/Last-Frame-Workflows schneiden beide Endpunkte vor H3 exakt auf denselben Canvas zu, statt den ersten Frame in H3 strecken zu lassen.\n- Referenzvideos laufen vor Ref2VA stabil mit **24 fps**, maximal 15 s und sauberem H3-Zeit­raster; längere Clips werden bewusst auf den Anfang gekürzt.\n\n\n**Spectrum-Kompatibilität:** Für aktuelles ComfyUI mit `ModelSamplingAV` wird `ComfyUI-Spectrum-MiniMax-H3` **v0.1.10 oder neuer** benötigt; ältere Versionen brechen mit `time_shift_slope` ab.\n"
       ],
       "title": "README — FL2VA MAXIMUM / ALL SUPPORTED INPUTS",
       "color": "#222",
@@ -50,7 +50,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            9
+            27,
+            34
           ]
         },
         {
@@ -88,7 +89,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            10
+            38
           ]
         },
         {
@@ -142,14 +143,14 @@
     },
     {
       "id": 5,
-      "type": "ResolutionSelector",
+      "type": "PixaromaResolution",
       "pos": [
         -3087.0,
         47.0
       ],
       "size": [
-        300.0,
-        180.0
+        240,
+        435
       ],
       "flags": {},
       "order": 4,
@@ -160,26 +161,36 @@
           "name": "width",
           "type": "INT",
           "links": [
-            12
+            30
           ]
         },
         {
           "name": "height",
           "type": "INT",
           "links": [
-            13
+            31
           ]
         }
       ],
       "properties": {
-        "Node name for S&R": "ResolutionSelector"
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaResolution",
+        "resolutionState": "{\"mode\":\"preset\",\"ratio\":\"16:9\",\"w\":864,\"h\":480,\"custom_w\":864,\"custom_h\":480,\"custom_ratio_w\":16,\"custom_ratio_h\":9,\"snap\":32}"
       },
       "widgets_values": [
-        "16:9 (Widescreen)",
-        0.4,
-        32
+        {
+          "mode": "preset",
+          "ratio": "16:9",
+          "w": 864,
+          "h": 480,
+          "custom_w": 864,
+          "custom_h": 480,
+          "custom_ratio_w": 16,
+          "custom_ratio_h": 9,
+          "snap": 32
+        }
       ],
-      "title": "4 — OUTPUT RESOLUTION",
+      "title": "H3 SIZE B — MANUAL RESOLUTION (SNAP x32)",
       "color": "#322",
       "bgcolor": "#533",
       "showAdvanced": false
@@ -732,13 +743,13 @@
         {
           "name": "first_frame",
           "type": "IMAGE",
-          "link": 9,
+          "link": 37,
           "shape": 7
         },
         {
           "name": "last_frame",
           "type": "IMAGE",
-          "link": 10,
+          "link": 41,
           "shape": 7
         },
         {
@@ -752,7 +763,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 12,
+          "link": 32,
           "widget": {
             "name": "width"
           }
@@ -760,7 +771,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 13,
+          "link": 33,
           "widget": {
             "name": "height"
           }
@@ -990,7 +1001,7 @@
         "dawasteh_generated_note": true
       },
       "widgets_values": [
-        "# Erklärung · 1 — FIRST FRAME / START ANCHOR · Node 2\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `13_profile_left_00001_.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+        "# Erklärung · 1 — FIRST FRAME / START ANCHOR · Node 2\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `13_profile_left_00001_.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 2 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
@@ -1049,35 +1060,6 @@
       },
       "widgets_values": [
         "# Erklärung · 3 — MAXIMUM FL PROMPT: ENDPOINTS / MOTION / CAMERA / AUDIO · Node 4\n\n**Zweck:** Stellt einen direkt einstellbaren Wert für verbundene Nodes bereit.\n\n**Einstellbare Werte**\n- `value` = `Create one continuous cinematic shot that begins exactly on the supplied first frame and arrives exactly on t…` — Steuert diesen Parameter. Höher gibt einen größeren Zahlenwert an verbundene Nodes weiter; niedriger einen kleineren, ohne eigene Zusatzwirkung.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `STRING` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes"
-      ],
-      "color": "#1b2638",
-      "bgcolor": "#101722"
-    },
-    {
-      "id": 27,
-      "type": "MarkdownNote",
-      "pos": [
-        -2741.0,
-        47.0
-      ],
-      "size": [
-        390,
-        345
-      ],
-      "flags": {},
-      "order": 26,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "title": "Erklärung · 4 — OUTPUT RESOLUTION · Node 5",
-      "properties": {
-        "Node name for S&R": "MarkdownNote",
-        "cnr_id": "comfy-core",
-        "dawasteh_note_for": 5,
-        "dawasteh_generated_note": true
-      },
-      "widgets_values": [
-        "# Erklärung · 4 — OUTPUT RESOLUTION · Node 5\n\n**Zweck:** Calculate width and height from aspect ratio and megapixel target. Useful for setting up Empty Latent Image dimensions.\n\n**Einstellbare Werte**\n- `aspect_ratio` = `16:9 (Widescreen)` — The aspect ratio for the output dimensions. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `megapixels` = `0.4` — Target total megapixels. 1.0 MP ≈ 1024x1024 for square. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `multiple` = `32` — Nearest multiple of the result to set the selected resolution to. Ändert Seitenverhältnis bzw. Rasterteilung; größere Vielfache erhöhen Kompatibilität, können Abmessungen aber stärker runden.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `width` (INT, 1 Verbindung(en)): Calculated width in pixels multiplied by the selected multiple.\n- `height` (INT, 1 Verbindung(en)): Calculated height in pixels multiplied by the selected multiple."
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
@@ -1338,7 +1320,7 @@
         "dawasteh_generated_note": true
       },
       "widgets_values": [
-        "# Erklärung · MiniMax H3 FL2VA — FIRST + LAST FRAME CONDITIONING (MAXIMUM) · Node 14\n\n**Zweck:** Lädt, erzeugt oder verarbeitet Videodaten und deren Frames.\n\n**Einstellbare Werte**\n- `prompt` = `Create one continuous cinematic shot that begins exactly on the supplied first frame and arrives exactly on t…` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `width` = `1344` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `height` = `768` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `length` = `124` — Frame count at 24 fps, snapped up to the model's 17k+5 grid (124 = ~5s; trained range is ~124-362, longer is untested) Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n\n**Eingänge**\n- `clip` (CLIP, Link 16): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `vae` (VAE, Link 17): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `first_frame` (IMAGE, Link 9): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `last_frame` (IMAGE, Link 10): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `prompt` (STRING, Link 11): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `width` (INT, Link 12): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `height` (INT, Link 13): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `length` (INT, Link 15): Frame count at 24 fps, snapped up to the model's 17k+5 grid (124 = ~5s; trained range is ~124-362, longer is untested)\n\n**Ausgänge**\n- `positive` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `LATENT` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+        "# Erklärung · MiniMax H3 FL2VA — FIRST + LAST FRAME CONDITIONING (MAXIMUM) · Node 14\n\n**Zweck:** Lädt, erzeugt oder verarbeitet Videodaten und deren Frames.\n\n**Einstellbare Werte**\n- `prompt` = `Create one continuous cinematic shot that begins exactly on the supplied first frame and arrives exactly on t…` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `width` = `1344` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `height` = `768` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `length` = `124` — Frame count at 24 fps, snapped up to the model's 17k+5 grid (124 = ~5s; trained range is ~124-362, longer is untested) Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n\n**Eingänge**\n- `clip` (CLIP, Link 16): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `vae` (VAE, Link 17): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `first_frame` (IMAGE, Link 37): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `last_frame` (IMAGE, Link 41): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `prompt` (STRING, Link 11): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `width` (INT, Link 32): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `height` (INT, Link 33): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `length` (INT, Link 15): Frame count at 24 fps, snapped up to the model's 17k+5 grid (124 = ~5s; trained range is ~124-362, longer is untested)\n\n**Ausgänge**\n- `positive` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `LATENT` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
       ],
       "color": "#1b2638",
       "bgcolor": "#101722"
@@ -1638,6 +1620,320 @@
       ],
       "color": "#1d1d1d",
       "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 47,
+      "type": "PixaromaLongestSide",
+      "pos": [
+        -4733.0,
+        -470.0
+      ],
+      "size": [
+        300,
+        260
+      ],
+      "flags": {},
+      "order": 46,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 27
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            28
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            29
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaLongestSide",
+        "longestSideState": {
+          "size": 864,
+          "sizes": [
+            864,
+            1024,
+            1216,
+            1344,
+            1536
+          ],
+          "ratio": "keep",
+          "ratios": [
+            "keep",
+            "1:1",
+            "16:9",
+            "9:16",
+            "2:3"
+          ],
+          "step": 32,
+          "anchor": "center",
+          "allow_upscale": true,
+          "resample": "auto"
+        }
+      },
+      "widgets_values": [
+        {
+          "size": 864,
+          "sizes": [
+            864,
+            1024,
+            1216,
+            1344,
+            1536
+          ],
+          "ratio": "keep",
+          "ratios": [
+            "keep",
+            "1:1",
+            "16:9",
+            "9:16",
+            "2:3"
+          ],
+          "step": 32,
+          "anchor": "center",
+          "allow_upscale": true,
+          "resample": "auto"
+        }
+      ],
+      "title": "H3 SIZE A — PRIMARY IMAGE LONGEST SIDE (SNAP x32)",
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 48,
+      "type": "PixaromaSwitchWH",
+      "pos": [
+        -3883.0,
+        -470.0
+      ],
+      "size": [
+        240,
+        140
+      ],
+      "flags": {},
+      "order": 47,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width_a",
+          "shape": 7,
+          "type": "INT",
+          "link": 28
+        },
+        {
+          "name": "height_a",
+          "shape": 7,
+          "type": "INT",
+          "link": 29
+        },
+        {
+          "name": "width_b",
+          "shape": 7,
+          "type": "INT",
+          "link": 30
+        },
+        {
+          "name": "height_b",
+          "shape": 7,
+          "type": "INT",
+          "link": 31
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            32,
+            35,
+            39
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            33,
+            36,
+            40
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaSwitchWH",
+        "switchWhState": "B"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "title": "H3 SIZE MODE — A IMAGE RATIO / B MANUAL (DEFAULT B)",
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 49,
+      "type": "PixaromaResizeCrop",
+      "pos": [
+        -3033.0,
+        -470.0
+      ],
+      "size": [
+        300,
+        160
+      ],
+      "flags": {},
+      "order": 48,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 34
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 35
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 36
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            37
+          ]
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaResizeCrop"
+      },
+      "widgets_values": [
+        864,
+        480
+      ],
+      "title": "FIRST FRAME — EXACT H3 CANVAS / NO STRETCH",
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 50,
+      "type": "PixaromaResizeCrop",
+      "pos": [
+        -2183.0,
+        -470.0
+      ],
+      "size": [
+        300,
+        160
+      ],
+      "flags": {},
+      "order": 49,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 38
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 39
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 40
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            41
+          ]
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaResizeCrop"
+      },
+      "widgets_values": [
+        864,
+        480
+      ],
+      "title": "LAST FRAME — EXACT H3 CANVAS / NO STRETCH",
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
     }
   ],
   "links": [
@@ -1706,44 +2002,12 @@
       "SIGMAS"
     ],
     [
-      9,
-      2,
-      0,
-      14,
-      2,
-      "IMAGE"
-    ],
-    [
-      10,
-      3,
-      0,
-      14,
-      3,
-      "IMAGE"
-    ],
-    [
       11,
       4,
       0,
       14,
       4,
       "STRING"
-    ],
-    [
-      12,
-      5,
-      0,
-      14,
-      5,
-      "INT"
-    ],
-    [
-      13,
-      5,
-      1,
-      14,
-      6,
-      "INT"
     ],
     [
       14,
@@ -1848,6 +2112,126 @@
       23,
       0,
       "VIDEO"
+    ],
+    [
+      27,
+      2,
+      0,
+      47,
+      0,
+      "IMAGE"
+    ],
+    [
+      28,
+      47,
+      1,
+      48,
+      0,
+      "INT"
+    ],
+    [
+      29,
+      47,
+      2,
+      48,
+      1,
+      "INT"
+    ],
+    [
+      30,
+      5,
+      0,
+      48,
+      2,
+      "INT"
+    ],
+    [
+      31,
+      5,
+      1,
+      48,
+      3,
+      "INT"
+    ],
+    [
+      32,
+      48,
+      0,
+      14,
+      5,
+      "INT"
+    ],
+    [
+      33,
+      48,
+      1,
+      14,
+      6,
+      "INT"
+    ],
+    [
+      34,
+      2,
+      0,
+      49,
+      0,
+      "IMAGE"
+    ],
+    [
+      35,
+      48,
+      0,
+      49,
+      1,
+      "INT"
+    ],
+    [
+      36,
+      48,
+      1,
+      49,
+      2,
+      "INT"
+    ],
+    [
+      37,
+      49,
+      0,
+      14,
+      2,
+      "IMAGE"
+    ],
+    [
+      38,
+      3,
+      0,
+      50,
+      0,
+      "IMAGE"
+    ],
+    [
+      39,
+      48,
+      0,
+      50,
+      1,
+      "INT"
+    ],
+    [
+      40,
+      48,
+      1,
+      50,
+      2,
+      "INT"
+    ],
+    [
+      41,
+      50,
+      0,
+      14,
+      3,
+      "IMAGE"
     ]
   ],
   "groups": [
@@ -1923,7 +2307,7 @@
     },
     "dawasteh_workflow_refinement": {
       "version": 1,
-      "generated_notes": 22,
+      "generated_notes": 21,
       "x_scale": 2.45,
       "y_scale": 2.35,
       "gap": 34.0

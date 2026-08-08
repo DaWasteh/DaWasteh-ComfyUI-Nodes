@@ -1,15 +1,15 @@
 {
   "id": "0ae43b17-eb03-46ea-b095-f2a2896a814a",
   "revision": 0,
-  "last_node_id": 40,
-  "last_link_id": 46,
+  "last_node_id": 80,
+  "last_link_id": 54,
   "nodes": [
     {
       "id": 1,
       "type": "MarkdownNote",
       "pos": [
-        -3290.0,
-        20.0
+        -8060.5,
+        47.0
       ],
       "size": [
         700.0,
@@ -24,7 +24,7 @@
         "Node name for S&R": "MarkdownNote"
       },
       "widgets_values": [
-        "# MiniMax H3 + Spectrum — Ref2VA MAXIMUM INPUT WORKFLOW\n\n## Every native reference socket is exposed and connected\n- **9 reference pictures**\n- **3 reference videos**\n- **3 paired video soundtracks** extracted from those videos\n- **3 standalone audio references**\n\n## Use\n1. Replace every placeholder picture, video and audio file you intend to use.\n2. Respect the model's documented combined limit of 12 uploaded files; leave unnecessary references out of the actual run.\n3. Reference inputs with exact tags: `<Picture N>`, `<Video N>`, `<Audio N>`.\n4. Give each reference one explicit job: identity, wardrobe, prop, environment, style, motion, camera, voice, music or ambience.\n5. Use 24 fps reference videos where possible. Ref videos and audio are documented for 2–15 s, with 15 s total per media type.\n\n## Memory / quality\n- `ref_image_size = match` is deliberately the safe default.\n- `max` retains up to a 2048 px short edge and can become several times slower because reference tokens remain active at every denoising step. With many pictures it can also explode RAM/VRAM use.\n- Start at 0.4 MP / 5 s; then increase one variable at a time.\n- Spectrum is enabled with the conservative preset. Disable it and keep the seed fixed for a reference-fidelity A/B comparison.\n\n## Local models\n- Diffusion: `MiniMax H3\\minimax_h3_ref2va_pruned_int8_convrot.safetensors`\n- Text Encoder: `MiniMax H3\\qwen3vl_32b_minimax_h3_int8_convrot.safetensors`\n- Video VAE: `MiniMax H3\\minimax_h3_video_vae_fp16.safetensors`\n- Audio VAE: `MiniMax H3\\minimax_h3_audio_vae_fp32.safetensors`\n"
+        "# MiniMax H3 + Spectrum — Ref2VA MAXIMUM INPUT WORKFLOW\n\n## Every native reference socket is exposed and connected\n- **9 reference pictures**\n- **3 reference videos**\n- **3 paired video soundtracks** extracted from those videos\n- **3 standalone audio references**\n\n## Use\n1. Replace every placeholder picture, video and audio file you intend to use.\n2. Respect the model's documented combined limit of 12 uploaded files; leave unnecessary references out of the actual run.\n3. Reference inputs with exact tags: `<Picture N>`, `<Video N>`, `<Audio N>`.\n4. Give each reference one explicit job: identity, wardrobe, prop, environment, style, motion, camera, voice, music or ambience.\n5. Use 24 fps reference videos where possible. Ref videos and audio are documented for 2–15 s, with 15 s total per media type.\n\n## Memory / quality\n- `ref_image_size = match` is deliberately the safe default.\n- `max` retains up to a 2048 px short edge and can become several times slower because reference tokens remain active at every denoising step. With many pictures it can also explode RAM/VRAM use.\n- Start at 0.4 MP / 5 s; then increase one variable at a time.\n- Spectrum is enabled with the conservative preset. Disable it and keep the seed fixed for a reference-fidelity A/B comparison.\n\n## Local models\n- Diffusion: `MiniMax H3\\minimax_h3_ref2va_pruned_int8_convrot.safetensors`\n- Text Encoder: `MiniMax H3\\qwen3vl_32b_minimax_h3_int8_convrot.safetensors`\n- Video VAE: `MiniMax H3\\minimax_h3_video_vae_fp16.safetensors`\n- Audio VAE: `MiniMax H3\\minimax_h3_audio_vae_fp32.safetensors`\n\n\n## Neue robuste Bildgröße / Referenzvorbereitung\n- **H3 SIZE A** übernimmt das Seitenverhältnis des primären Bildes, setzt die längste Seite und rundet beide Achsen auf **x32**.\n- **H3 SIZE B** ist die manuelle **Resolution Pixaroma**-Auswahl mit **Snap x32**.\n- Der **Switch WH Pixaroma** steht standardmäßig auf **B**; auf **A** klicken, um automatisch dem Bildformat zu folgen.\n- First/Last-Frame-Workflows schneiden beide Endpunkte vor H3 exakt auf denselben Canvas zu, statt den ersten Frame in H3 strecken zu lassen.\n- Referenzvideos laufen vor Ref2VA stabil mit **24 fps**, maximal 15 s und sauberem H3-Zeit­raster; längere Clips werden bewusst auf den Anfang gekürzt.\n\n\n**Spectrum-Kompatibilität:** Für aktuelles ComfyUI mit `ModelSamplingAV` wird `ComfyUI-Spectrum-MiniMax-H3` **v0.1.10 oder neuer** benötigt; ältere Versionen brechen mit `time_shift_slope` ab.\n"
       ],
       "title": "README — Ref2VA MAXIMUM / ALL NATIVE REFERENCE SOCKETS",
       "color": "#222",
@@ -34,8 +34,8 @@
       "id": 2,
       "type": "LoadImage",
       "pos": [
-        -2520.0,
-        20.0
+        -6174.0,
+        47.0
       ],
       "size": [
         350.0,
@@ -50,7 +50,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            9
+            47
           ]
         },
         {
@@ -72,8 +72,8 @@
       "id": 3,
       "type": "LoadVideo",
       "pos": [
-        -2520.0,
-        1510.0
+        -6174.0,
+        3548.5
       ],
       "size": [
         350.0,
@@ -103,14 +103,14 @@
     },
     {
       "id": 4,
-      "type": "GetVideoComponents",
+      "type": "DaWH3PrepareReferenceVideo",
       "pos": [
-        -2110.0,
-        1510.0
+        -5169.5,
+        3548.5
       ],
       "size": [
-        330.0,
-        140.0
+        330,
+        210
       ],
       "flags": {},
       "order": 14,
@@ -120,46 +120,94 @@
           "name": "video",
           "type": "VIDEO",
           "link": 18
+        },
+        {
+          "name": "max_seconds",
+          "type": "FLOAT",
+          "widget": {
+            "name": "max_seconds"
+          },
+          "link": null
+        },
+        {
+          "name": "overflow_mode",
+          "type": "COMBO",
+          "widget": {
+            "name": "overflow_mode"
+          },
+          "link": null
+        },
+        {
+          "name": "require_audio",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "require_audio"
+          },
+          "link": null
         }
       ],
       "outputs": [
         {
-          "name": "images",
+          "name": "reference_frames_24fps",
           "type": "IMAGE",
           "links": [
             19
           ]
         },
         {
-          "name": "audio",
+          "name": "reference_audio",
           "type": "AUDIO",
           "links": [
             20
           ]
         },
         {
-          "name": "fps",
+          "name": "h3_length",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "source_duration",
           "type": "FLOAT",
           "links": null
         },
         {
-          "name": "bit_depth",
+          "name": "h3_duration",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_fps",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_frame_count",
           "type": "INT",
+          "links": null
+        },
+        {
+          "name": "info",
+          "type": "STRING",
           "links": null
         }
       ],
       "properties": {
-        "Node name for S&R": "GetVideoComponents"
+        "Node name for S&R": "DaWH3PrepareReferenceVideo"
       },
-      "widgets_values": [],
-      "title": "EXTRACT VIDEO 1 FRAMES + PAIRED SOUNDTRACK"
+      "widgets_values": [
+        15.0,
+        "trim_to_max",
+        false
+      ],
+      "title": "24 FPS + 15 s SAFE PREP VIDEO 1 FRAMES + PAIRED SOUNDTRACK"
     },
     {
       "id": 5,
       "type": "PrimitiveStringMultiline",
       "pos": [
-        -1230.0,
-        20.0
+        -3013.5,
+        47.0
       ],
       "size": [
         610.0,
@@ -190,14 +238,14 @@
     },
     {
       "id": 6,
-      "type": "ResolutionSelector",
+      "type": "PixaromaResolution",
       "pos": [
-        -590.0,
-        20.0
+        -1445.5,
+        47.0
       ],
       "size": [
-        300.0,
-        180.0
+        240,
+        435
       ],
       "flags": {},
       "order": 21,
@@ -208,26 +256,36 @@
           "name": "width",
           "type": "INT",
           "links": [
-            31
+            50
           ]
         },
         {
           "name": "height",
           "type": "INT",
           "links": [
-            32
+            51
           ]
         }
       ],
       "properties": {
-        "Node name for S&R": "ResolutionSelector"
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaResolution",
+        "resolutionState": "{\"mode\":\"preset\",\"ratio\":\"16:9\",\"w\":864,\"h\":480,\"custom_w\":864,\"custom_h\":480,\"custom_ratio_w\":16,\"custom_ratio_h\":9,\"snap\":32}"
       },
       "widgets_values": [
-        "16:9 (Widescreen)",
-        0.4,
-        32
+        {
+          "mode": "preset",
+          "ratio": "16:9",
+          "w": 864,
+          "h": 480,
+          "custom_w": 864,
+          "custom_h": 480,
+          "custom_ratio_w": 16,
+          "custom_ratio_h": 9,
+          "snap": 32
+        }
       ],
-      "title": "4 — OUTPUT RESOLUTION",
+      "title": "H3 SIZE B — MANUAL RESOLUTION (SNAP x32)",
       "color": "#322",
       "bgcolor": "#533",
       "showAdvanced": false
@@ -236,8 +294,8 @@
       "id": 7,
       "type": "PrimitiveFloat",
       "pos": [
-        -590.0,
-        240.0
+        -1445.5,
+        564.0
       ],
       "size": [
         300.0,
@@ -270,8 +328,8 @@
       "id": 8,
       "type": "ComfyMathExpression",
       "pos": [
-        -250.0,
-        240.0
+        -612.5,
+        564.0
       ],
       "size": [
         280.0,
@@ -326,8 +384,8 @@
       "id": 12,
       "type": "CLIPLoader",
       "pos": [
-        -590.0,
-        550.0
+        -1445.5,
+        1292.5
       ],
       "size": [
         560.0,
@@ -360,8 +418,8 @@
       "id": 13,
       "type": "VAELoader",
       "pos": [
-        -590.0,
-        710.0
+        -1445.5,
+        1668.5
       ],
       "size": [
         560.0,
@@ -393,8 +451,8 @@
       "id": 14,
       "type": "VAELoader",
       "pos": [
-        -590.0,
-        810.0
+        -1445.5,
+        1903.5
       ],
       "size": [
         560.0,
@@ -426,8 +484,8 @@
       "id": 9,
       "type": "UNETLoader",
       "pos": [
-        -590.0,
-        420.0
+        -1445.5,
+        987.0
       ],
       "size": [
         560.0,
@@ -459,8 +517,8 @@
       "id": 10,
       "type": "MiniMaxH3SigmaShift",
       "pos": [
-        40.0,
-        420.0
+        98.0,
+        987.0
       ],
       "size": [
         320.0,
@@ -498,8 +556,8 @@
       "id": 11,
       "type": "SpectrumApplyMiniMaxH3",
       "pos": [
-        400.0,
-        420.0
+        980.0,
+        987.0
       ],
       "size": [
         390.0,
@@ -547,8 +605,8 @@
       "id": 16,
       "type": "RandomNoise",
       "pos": [
-        850.0,
-        1040.0
+        2082.5,
+        2444.0
       ],
       "size": [
         350.0,
@@ -580,8 +638,8 @@
       "id": 17,
       "type": "BasicGuider",
       "pos": [
-        850.0,
-        620.0
+        2082.5,
+        1457.0
       ],
       "size": [
         350.0,
@@ -621,8 +679,8 @@
       "id": 18,
       "type": "KSamplerSelect",
       "pos": [
-        850.0,
-        730.0
+        2082.5,
+        1715.5
       ],
       "size": [
         350.0,
@@ -653,8 +711,8 @@
       "id": 19,
       "type": "BasicScheduler",
       "pos": [
-        850.0,
-        830.0
+        2082.5,
+        1950.5
       ],
       "size": [
         350.0,
@@ -693,8 +751,8 @@
       "id": 20,
       "type": "SamplerCustomAdvanced",
       "pos": [
-        1260.0,
-        760.0
+        3087.0,
+        1786.0
       ],
       "size": [
         270.0,
@@ -755,8 +813,8 @@
       "id": 15,
       "type": "MiniMaxH3ReferenceToVideo",
       "pos": [
-        -250.0,
-        940.0
+        -612.5,
+        2209.0
       ],
       "size": [
         560.0,
@@ -784,7 +842,7 @@
         {
           "name": "ref_images.ref_image_0",
           "type": "IMAGE",
-          "link": 9,
+          "link": 54,
           "label": "ref_image_0",
           "shape": 7
         },
@@ -918,7 +976,7 @@
         {
           "name": "width",
           "type": "INT",
-          "link": 31,
+          "link": 52,
           "widget": {
             "name": "width"
           }
@@ -926,7 +984,7 @@
         {
           "name": "height",
           "type": "INT",
-          "link": 32,
+          "link": 53,
           "widget": {
             "name": "height"
           }
@@ -972,8 +1030,8 @@
       "id": 21,
       "type": "VAEDecode",
       "pos": [
-        1590.0,
-        700.0
+        3895.5,
+        1645.0
       ],
       "size": [
         250.0,
@@ -1013,8 +1071,8 @@
       "id": 22,
       "type": "VAEDecodeAudio",
       "pos": [
-        1590.0,
-        820.0
+        3895.5,
+        1927.0
       ],
       "size": [
         250.0,
@@ -1054,8 +1112,8 @@
       "id": 23,
       "type": "CreateVideo",
       "pos": [
-        1900.0,
-        740.0
+        4655.0,
+        1739.0
       ],
       "size": [
         300.0,
@@ -1099,8 +1157,8 @@
       "id": 24,
       "type": "SaveVideo",
       "pos": [
-        2260.0,
-        730.0
+        5537.0,
+        1715.5
       ],
       "size": [
         610.0,
@@ -1137,8 +1195,8 @@
       "id": 25,
       "type": "LoadImage",
       "pos": [
-        -2120.0,
-        20.0
+        -5194.0,
+        47.0
       ],
       "size": [
         350.0,
@@ -1175,8 +1233,8 @@
       "id": 26,
       "type": "LoadImage",
       "pos": [
-        -1720.0,
-        20.0
+        -4214.0,
+        47.0
       ],
       "size": [
         350.0,
@@ -1213,8 +1271,8 @@
       "id": 27,
       "type": "LoadImage",
       "pos": [
-        -2520.0,
-        490.0
+        -6174.0,
+        1151.5
       ],
       "size": [
         350.0,
@@ -1251,8 +1309,8 @@
       "id": 28,
       "type": "LoadImage",
       "pos": [
-        -2120.0,
-        490.0
+        -5194.0,
+        1151.5
       ],
       "size": [
         350.0,
@@ -1289,8 +1347,8 @@
       "id": 29,
       "type": "LoadImage",
       "pos": [
-        -1720.0,
-        490.0
+        -4214.0,
+        1151.5
       ],
       "size": [
         350.0,
@@ -1327,8 +1385,8 @@
       "id": 30,
       "type": "LoadImage",
       "pos": [
-        -2520.0,
-        960.0
+        -6174.0,
+        2256.0
       ],
       "size": [
         350.0,
@@ -1365,8 +1423,8 @@
       "id": 31,
       "type": "LoadImage",
       "pos": [
-        -2120.0,
-        960.0
+        -5194.0,
+        2256.0
       ],
       "size": [
         350.0,
@@ -1403,8 +1461,8 @@
       "id": 32,
       "type": "LoadImage",
       "pos": [
-        -1720.0,
-        960.0
+        -4214.0,
+        2256.0
       ],
       "size": [
         350.0,
@@ -1441,8 +1499,8 @@
       "id": 33,
       "type": "LoadVideo",
       "pos": [
-        -2520.0,
-        1740.0
+        -6174.0,
+        4089.0
       ],
       "size": [
         350.0,
@@ -1472,14 +1530,14 @@
     },
     {
       "id": 34,
-      "type": "GetVideoComponents",
+      "type": "DaWH3PrepareReferenceVideo",
       "pos": [
-        -2110.0,
-        1740.0
+        -5169.5,
+        4089.0
       ],
       "size": [
-        330.0,
-        140.0
+        330,
+        210
       ],
       "flags": {},
       "order": 15,
@@ -1489,46 +1547,94 @@
           "name": "video",
           "type": "VIDEO",
           "link": 21
+        },
+        {
+          "name": "max_seconds",
+          "type": "FLOAT",
+          "widget": {
+            "name": "max_seconds"
+          },
+          "link": null
+        },
+        {
+          "name": "overflow_mode",
+          "type": "COMBO",
+          "widget": {
+            "name": "overflow_mode"
+          },
+          "link": null
+        },
+        {
+          "name": "require_audio",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "require_audio"
+          },
+          "link": null
         }
       ],
       "outputs": [
         {
-          "name": "images",
+          "name": "reference_frames_24fps",
           "type": "IMAGE",
           "links": [
             22
           ]
         },
         {
-          "name": "audio",
+          "name": "reference_audio",
           "type": "AUDIO",
           "links": [
             23
           ]
         },
         {
-          "name": "fps",
+          "name": "h3_length",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "source_duration",
           "type": "FLOAT",
           "links": null
         },
         {
-          "name": "bit_depth",
+          "name": "h3_duration",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_fps",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_frame_count",
           "type": "INT",
+          "links": null
+        },
+        {
+          "name": "info",
+          "type": "STRING",
           "links": null
         }
       ],
       "properties": {
-        "Node name for S&R": "GetVideoComponents"
+        "Node name for S&R": "DaWH3PrepareReferenceVideo"
       },
-      "widgets_values": [],
-      "title": "EXTRACT VIDEO 2 FRAMES + PAIRED SOUNDTRACK"
+      "widgets_values": [
+        15.0,
+        "trim_to_max",
+        false
+      ],
+      "title": "24 FPS + 15 s SAFE PREP VIDEO 2 FRAMES + PAIRED SOUNDTRACK"
     },
     {
       "id": 35,
       "type": "LoadVideo",
       "pos": [
-        -2520.0,
-        1970.0
+        -6174.0,
+        4629.5
       ],
       "size": [
         350.0,
@@ -1558,14 +1664,14 @@
     },
     {
       "id": 36,
-      "type": "GetVideoComponents",
+      "type": "DaWH3PrepareReferenceVideo",
       "pos": [
-        -2110.0,
-        1970.0
+        -5169.5,
+        4629.5
       ],
       "size": [
-        330.0,
-        140.0
+        330,
+        210
       ],
       "flags": {},
       "order": 16,
@@ -1575,46 +1681,94 @@
           "name": "video",
           "type": "VIDEO",
           "link": 24
+        },
+        {
+          "name": "max_seconds",
+          "type": "FLOAT",
+          "widget": {
+            "name": "max_seconds"
+          },
+          "link": null
+        },
+        {
+          "name": "overflow_mode",
+          "type": "COMBO",
+          "widget": {
+            "name": "overflow_mode"
+          },
+          "link": null
+        },
+        {
+          "name": "require_audio",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "require_audio"
+          },
+          "link": null
         }
       ],
       "outputs": [
         {
-          "name": "images",
+          "name": "reference_frames_24fps",
           "type": "IMAGE",
           "links": [
             25
           ]
         },
         {
-          "name": "audio",
+          "name": "reference_audio",
           "type": "AUDIO",
           "links": [
             26
           ]
         },
         {
-          "name": "fps",
+          "name": "h3_length",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "source_duration",
           "type": "FLOAT",
           "links": null
         },
         {
-          "name": "bit_depth",
+          "name": "h3_duration",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_fps",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "source_frame_count",
           "type": "INT",
+          "links": null
+        },
+        {
+          "name": "info",
+          "type": "STRING",
           "links": null
         }
       ],
       "properties": {
-        "Node name for S&R": "GetVideoComponents"
+        "Node name for S&R": "DaWH3PrepareReferenceVideo"
       },
-      "widgets_values": [],
-      "title": "EXTRACT VIDEO 3 FRAMES + PAIRED SOUNDTRACK"
+      "widgets_values": [
+        15.0,
+        "trim_to_max",
+        false
+      ],
+      "title": "24 FPS + 15 s SAFE PREP VIDEO 3 FRAMES + PAIRED SOUNDTRACK"
     },
     {
       "id": 37,
       "type": "LoadAudio",
       "pos": [
-        -1690.0,
-        1510.0
+        -4140.5,
+        3548.5
       ],
       "size": [
         390.0,
@@ -1647,8 +1801,8 @@
       "id": 38,
       "type": "LoadAudio",
       "pos": [
-        -1690.0,
-        1740.0
+        -4140.5,
+        4089.0
       ],
       "size": [
         390.0,
@@ -1681,8 +1835,8 @@
       "id": 39,
       "type": "LoadAudio",
       "pos": [
-        -1690.0,
-        1970.0
+        -4140.5,
+        4629.5
       ],
       "size": [
         390.0,
@@ -1715,8 +1869,8 @@
       "id": 40,
       "type": "MarkdownNote",
       "pos": [
-        -1230.0,
-        820.0
+        -3013.5,
+        1927.0
       ],
       "size": [
         610.0,
@@ -1736,6 +1890,1281 @@
       "title": "REFERENCE TAG ORDER + 12-FILE LIMIT",
       "color": "#222",
       "bgcolor": "#000"
+    },
+    {
+      "id": 41,
+      "type": "PixaromaLongestSide",
+      "pos": [
+        -5610.5,
+        -963.5
+      ],
+      "size": [
+        300,
+        260
+      ],
+      "flags": {},
+      "order": 40,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 47
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            54
+          ]
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            48
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            49
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaLongestSide",
+        "longestSideState": {
+          "size": 864,
+          "sizes": [
+            864,
+            1024,
+            1216,
+            1344,
+            1536
+          ],
+          "ratio": "keep",
+          "ratios": [
+            "keep",
+            "1:1",
+            "16:9",
+            "9:16",
+            "2:3"
+          ],
+          "step": 32,
+          "anchor": "center",
+          "allow_upscale": true,
+          "resample": "auto"
+        }
+      },
+      "widgets_values": [
+        {
+          "size": 864,
+          "sizes": [
+            864,
+            1024,
+            1216,
+            1344,
+            1536
+          ],
+          "ratio": "keep",
+          "ratios": [
+            "keep",
+            "1:1",
+            "16:9",
+            "9:16",
+            "2:3"
+          ],
+          "step": 32,
+          "anchor": "center",
+          "allow_upscale": true,
+          "resample": "auto"
+        }
+      ],
+      "title": "H3 SIZE A — PRIMARY IMAGE LONGEST SIDE (SNAP x32)",
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 42,
+      "type": "PixaromaSwitchWH",
+      "pos": [
+        -3528.0,
+        -963.5
+      ],
+      "size": [
+        240,
+        140
+      ],
+      "flags": {},
+      "order": 41,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width_a",
+          "shape": 7,
+          "type": "INT",
+          "link": 48
+        },
+        {
+          "name": "height_a",
+          "shape": 7,
+          "type": "INT",
+          "link": 49
+        },
+        {
+          "name": "width_b",
+          "shape": 7,
+          "type": "INT",
+          "link": 50
+        },
+        {
+          "name": "height_b",
+          "shape": 7,
+          "type": "INT",
+          "link": 51
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            52
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            53
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaSwitchWH",
+        "switchWhState": "B"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "title": "H3 SIZE MODE — A IMAGE RATIO / B MANUAL (DEFAULT B)",
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 43,
+      "type": "PixaromaRunTimer",
+      "pos": [
+        -1445.5,
+        -963.5
+      ],
+      "size": [
+        226,
+        14
+      ],
+      "flags": {
+        "no_title": true
+      },
+      "order": 42,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "ComfyUI-Pixaroma",
+        "Node name for S&R": "PixaromaRunTimer"
+      },
+      "widgets_values": [
+        {
+          "version": 1,
+          "color": "#f66744",
+          "decimals": 0,
+          "chime": true,
+          "sound": "",
+          "volume": 70
+        }
+      ],
+      "title": "H3 RUN TIMER",
+      "color": "#1d1d1d",
+      "bgcolor": "#2a2a2a"
+    },
+    {
+      "id": 44,
+      "type": "MarkdownNote",
+      "pos": [
+        -5778.0,
+        47.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 43,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · PICTURE 1 — PRIMARY IDENTITY / APPEARANCE · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · PICTURE 1 — PRIMARY IDENTITY / APPEARANCE · Node 2\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `13_profile_left_00001_.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 45,
+      "type": "MarkdownNote",
+      "pos": [
+        -5778.0,
+        3548.5
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 44,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · VIDEO 1 — PRIMARY MOTION / PERFORMANCE · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 3,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · VIDEO 1 — PRIMARY MOTION / PERFORMANCE · Node 3\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `file` = `REFERENCE_VIDEO.mp4` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `VIDEO` (VIDEO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 46,
+      "type": "MarkdownNote",
+      "pos": [
+        -4793.5,
+        3548.5
+      ],
+      "size": [
+        390,
+        498
+      ],
+      "flags": {},
+      "order": 45,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 24 FPS + 15 s SAFE PREP VIDEO 1 FRAMES + PAIRED SOUNDTRACK · Node 4",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 4,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 24 FPS + 15 s SAFE PREP VIDEO 1 FRAMES + PAIRED SOUNDTRACK · Node 4\n\n**Zweck:** Reads source duration before model loading, converts motion to 24 fps, snaps the generation length upward to H3's 17k+5 grid, and pads only the final grid tail.\n\n**Einstellbare Werte**\n- `max_seconds` = `15.0` — Safety guard. H3 reference videos are officially intended for about 2-15 s; longer is experimental. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `overflow_mode` = `trim_to_max` — error stops before model loading; trim_to_max deliberately uses only the beginning. Die Auswahl bestimmt den Verarbeitungs- bzw. Dateimodus und dessen Kompatibilität.\n- `require_audio` = `False` — Raise a clear error when the reference video has no soundtrack. Disable only after removing <Audio 1> from the prompt. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `video` (VIDEO, Link 18): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `max_seconds` (FLOAT, nicht verbunden): Safety guard. H3 reference videos are officially intended for about 2-15 s; longer is experimental.\n- `overflow_mode` (COMBO, nicht verbunden): error stops before model loading; trim_to_max deliberately uses only the beginning.\n- `require_audio` (BOOLEAN, nicht verbunden): Raise a clear error when the reference video has no soundtrack. Disable only after removing <Audio 1> from the prompt.\n\n**Ausgänge**\n- `reference_frames_24fps` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `reference_audio` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `h3_length` (INT, nicht verbunden): Ergebnis dieses Nodes\n- `source_duration` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `h3_duration` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `source_fps` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `source_frame_count` (INT, nicht verbunden): Ergebnis dieses Nodes\n- `info` (STRING, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 47,
+      "type": "MarkdownNote",
+      "pos": [
+        -2357.5,
+        47.0
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 46,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · PROMPT — ALL PICTURE / VIDEO / AUDIO TAGS · Node 5",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 5,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · PROMPT — ALL PICTURE / VIDEO / AUDIO TAGS · Node 5\n\n**Zweck:** Stellt einen direkt einstellbaren Wert für verbundene Nodes bereit.\n\n**Einstellbare Werte**\n- `value` = `REFERENCE MAP — delete every unused line before rendering. ↵  ↵ Use <Picture 1>, <Picture 2>, and <Picture 3>…` — Steuert diesen Parameter. Höher gibt einen größeren Zahlenwert an verbundene Nodes weiter; niedriger einen kleineren, ohne eigene Zusatzwirkung.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `STRING` (STRING, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 48,
+      "type": "MarkdownNote",
+      "pos": [
+        -1099.5,
+        564.0
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 47,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 5 — OUTPUT DURATION (SECONDS) · Node 7",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 7,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 5 — OUTPUT DURATION (SECONDS) · Node 7\n\n**Zweck:** Stellt einen direkt einstellbaren Wert für verbundene Nodes bereit.\n\n**Einstellbare Werte**\n- `value` = `5.0` — Steuert diesen Parameter. Höher gibt einen größeren Zahlenwert an verbundene Nodes weiter; niedriger einen kleineren, ohne eigene Zusatzwirkung.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `FLOAT` (FLOAT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 49,
+      "type": "MarkdownNote",
+      "pos": [
+        -286.5,
+        564.0
+      ],
+      "size": [
+        390,
+        345
+      ],
+      "flags": {},
+      "order": 48,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · SECONDS → VALID H3 FRAME COUNT · Node 8",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 8,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · SECONDS → VALID H3 FRAME COUNT · Node 8\n\n**Zweck:** Berechnet oder konvertiert numerische Werte für nachfolgende Nodes.\n\n**Einstellbare Werte**\n- `expression` = `max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n\n**Eingänge**\n- `values.a` (FLOAT,INT,BOOLEAN, Link 33): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `values.b` (FLOAT,INT,BOOLEAN, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `FLOAT` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `INT` (INT, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `BOOL` (BOOLEAN, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 50,
+      "type": "MarkdownNote",
+      "pos": [
+        -839.5,
+        987.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 49,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · H3 DIFFUSION MODEL · Node 9",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 9,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · H3 DIFFUSION MODEL · Node 9\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `unet_name` = `MiniMax H3\\minimax_h3_ref2va_pruned_int8_convrot.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `weight_dtype` = `default` — Steuert diesen Parameter. Die Auswahl ändert Rechenpräzision, Speicherbedarf und Hardware-Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `MODEL` (MODEL, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 51,
+      "type": "MarkdownNote",
+      "pos": [
+        464.0,
+        987.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 50,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · MiniMax H3 Sigma Shift — video 12 / audio 3 · Node 10",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 10,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · MiniMax H3 Sigma Shift — video 12 / audio 3 · Node 10\n\n**Zweck:** Set the video/audio flow shifts.\n\n**Einstellbare Werte**\n- `shift_video` = `12.0` — Steuert diesen Parameter. Höher verschiebt den Rausch-/Sigma-Zeitplan und gewichtet andere Denoising-Phasen; zu starke Abweichungen können Qualität kosten.\n- `shift_audio` = `3.0` — Steuert diesen Parameter. Höher verschiebt den Rausch-/Sigma-Zeitplan und gewichtet andere Denoising-Phasen; zu starke Abweichungen können Qualität kosten.\n\n**Eingänge**\n- `model` (MODEL, Link 1): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `MODEL` (MODEL, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 52,
+      "type": "MarkdownNote",
+      "pos": [
+        1416.0,
+        987.0
+      ],
+      "size": [
+        390,
+        464
+      ],
+      "flags": {},
+      "order": 51,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Spectrum Apply MiniMax H3 — CONSERVATIVE · Node 11",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 11,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Spectrum Apply MiniMax H3 — CONSERVATIVE · Node 11\n\n**Zweck:** Verarbeitet die Ein- und Ausgaben des Node-Typs `SpectrumApplyMiniMaxH3` gemäß seiner Workflow-Funktion.\n\n**Einstellbare Werte**\n- `enabled` = `True` — Steuert diesen Parameter. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `blend_weight` = `0.5` — Steuert diesen Parameter. Höher verstärkt den Einfluss bzw. die Veränderung; niedriger bewahrt Eingang/Grundmodell stärker.\n- `degree` = `4` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `ridge_lambda` = `0.1` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `window_size` = `2.0` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `flex_window` = `0.75` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `warmup_steps` = `5` — Steuert diesen Parameter. Höher fährt die Lernrate länger sanft hoch und stabilisiert den Start, verkürzt aber die volle Lernphase; niedriger erreicht die Ziel-Lernrate früher.\n- `tail_actual_steps` = `1` — Steuert diesen Parameter. Höher erhöht Laufzeit und mögliche Ausarbeitung, kann aber übertrainieren; niedriger ist schneller.\n- `max_history` = `8` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `debug` = `False` — Steuert diesen Parameter. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `history_storage` = `system_ram` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `model` (MODEL, Link 2): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `model` (MODEL, 2 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 53,
+      "type": "MarkdownNote",
+      "pos": [
+        -839.5,
+        1336.5
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 52,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · QWEN3-VL TEXT ENCODER — type: minimax · Node 12",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 12,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · QWEN3-VL TEXT ENCODER — type: minimax · Node 12\n\n**Zweck:** Recipes: ↵ sd: clip-l ↵ stable cascade: clip-g ↵ sd3: t5 xxl / clip-g / clip-l ↵ stable audio: t5 base ↵ mochi: t5 xxl ↵ cogvideox: t5 xxl (226-token padding) ↵ cosmos: old t5 xxl ↵ lumina2: gemma 2 2B ↵ wan: umt5 xxl ↵ hidream: llama-3.1 (Recommend) or t5 ↵ omnigen2: qwen vl 2.5 3B ↵ joyimage: qwen3-vl 8B ↵ lens: gpt…\n\n**Einstellbare Werte**\n- `clip_name` = `MiniMax H3\\qwen3vl_32b_minimax_h3_int8_convrot.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n- `type` = `minimax` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `device` = `default` — Steuert diesen Parameter. Die Auswahl bestimmt das Rechen-Backend (z. B. GPU oder CPU) und damit Geschwindigkeit und Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `CLIP` (CLIP, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 54,
+      "type": "MarkdownNote",
+      "pos": [
+        -839.5,
+        1712.5
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 53,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · VIDEO VAE · Node 13",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 13,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · VIDEO VAE · Node 13\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `vae_name` = `MiniMax H3\\minimax_h3_video_vae_fp16.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `VAE` (VAE, 2 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 55,
+      "type": "MarkdownNote",
+      "pos": [
+        -1059.5,
+        2123.5
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 54,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · AUDIO VAE · Node 14",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 14,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · AUDIO VAE · Node 14\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `vae_name` = `MiniMax H3\\minimax_h3_audio_vae_fp32.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `VAE` (VAE, 2 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 56,
+      "type": "MarkdownNote",
+      "pos": [
+        -6.5,
+        2209.0
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 55,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · MiniMax H3 Ref2VA — MAXIMUM: 9P + 3V + 3 VIDEO AUDIO + 3 AUDIO · Node 15",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 15,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · MiniMax H3 Ref2VA — MAXIMUM: 9P + 3V + 3 VIDEO AUDIO + 3 AUDIO · Node 15\n\n**Zweck:** /   /   reference conditioning for MiniMax H3. Use the same tags when prompting.\n\n**Einstellbare Werte**\n- `prompt` = `REFERENCE MAP — delete every unused line before rendering. ↵  ↵ Use <Picture 1>, <Picture 2>, and <Picture 3>…` — Steuert diesen Parameter. Ändert den Text bzw. die Anweisung, die dieser Node verarbeitet.\n- `width` = `1344` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `height` = `768` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `length` = `124` — Frame count at 24 fps, (124 = ~5s, trained range is ~124-362) Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `ref_image_size` = `match` — Reference image sizing. 'match' scales each ref (down only, keeping aspect) to the generation's pixel area; 'max' uses the reference pipeline's 2048px short edge for best identity… Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `clip` (CLIP, Link 35): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `vae` (VAE, Link 36): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `audio_vae` (VAE, Link 37): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_0` (IMAGE, Link 54): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_1` (IMAGE, Link 10): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_2` (IMAGE, Link 11): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_3` (IMAGE, Link 12): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_4` (IMAGE, Link 13): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_5` (IMAGE, Link 14): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_6` (IMAGE, Link 15): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_7` (IMAGE, Link 16): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_images.ref_image_8` (IMAGE, Link 17): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_videos.ref_video_0` (IMAGE, Link 19): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_videos.ref_video_1` (IMAGE, Link 22): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_videos.ref_video_2` (IMAGE, Link 25): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_video_audios.ref_video_audio_0` (AUDIO, Link 20): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_video_audios.ref_video_audio_1` (AUDIO, Link 23): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_video_audios.ref_video_audio_2` (AUDIO, Link 26): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_audios.ref_audio_0` (AUDIO, Link 27): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_audios.ref_audio_1` (AUDIO, Link 28): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `ref_audios.ref_audio_2` (AUDIO, Link 29): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `prompt` (STRING, Link 30): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `width` (INT, Link 52): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `height` (INT, Link 53): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `length` (INT, Link 34): Frame count at 24 fps, (124 = ~5s, trained range is ~124-362)\n\n**Ausgänge**\n- `positive` (CONDITIONING, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `LATENT` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 57,
+      "type": "MarkdownNote",
+      "pos": [
+        2478.5,
+        2444.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 56,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · SEED / NOISE · Node 16",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 16,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · SEED / NOISE · Node 16\n\n**Zweck:** Erzeugt oder verändert das Start-Rauschen, das die Variation des generierten Ergebnisses bestimmt.\n\n**Einstellbare Werte**\n- `noise_seed` = `271828182845904` — Steuert diesen Parameter. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `noise_seed_control_after_generate` = `fixed` — Verhalten des Werts nach jedem Workflow-Lauf. `randomize` erzeugt pro Lauf eine neue Variation; `fixed` behält den Wert; andere Modi ändern ihn schrittweise.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `NOISE` (NOISE, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 58,
+      "type": "MarkdownNote",
+      "pos": [
+        2478.5,
+        1457.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 57,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · H3 GUIDER · Node 17",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 17,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · H3 GUIDER · Node 17\n\n**Zweck:** Erzeugt, kombiniert oder gewichtet Konditionierungen, die das generative Modell während des Samplings steuern.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `model` (MODEL, Link 3): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `conditioning` (CONDITIONING, Link 38): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `GUIDER` (GUIDER, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 59,
+      "type": "MarkdownNote",
+      "pos": [
+        2478.5,
+        1803.5
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 58,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · SAMPLER — res_multistep · Node 18",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 18,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · SAMPLER — res_multistep · Node 18\n\n**Zweck:** Steuert Sampling, Zeitplan oder Modell-Sampling für den schrittweisen Rauschabbau.\n\n**Einstellbare Werte**\n- `sampler_name` = `res_multistep` — Steuert diesen Parameter. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `SAMPLER` (SAMPLER, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 60,
+      "type": "MarkdownNote",
+      "pos": [
+        2918.5,
+        2390.5
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 59,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · SCHEDULER — beta / 20 steps · Node 19",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 19,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · SCHEDULER — beta / 20 steps · Node 19\n\n**Zweck:** Steuert Sampling, Zeitplan oder Modell-Sampling für den schrittweisen Rauschabbau.\n\n**Einstellbare Werte**\n- `scheduler` = `beta` — Steuert diesen Parameter. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n- `steps` = `20` — Steuert diesen Parameter. Höher erhöht Laufzeit und mögliche Ausarbeitung, kann aber übertrainieren; niedriger ist schneller.\n- `denoise` = `1` — Steuert diesen Parameter. Höher verstärkt den Einfluss bzw. die Veränderung; niedriger bewahrt Eingang/Grundmodell stärker.\n\n**Eingänge**\n- `model` (MODEL, Link 4): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `SIGMAS` (SIGMAS, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 61,
+      "type": "MarkdownNote",
+      "pos": [
+        3403.0,
+        1786.0
+      ],
+      "size": [
+        390,
+        379
+      ],
+      "flags": {},
+      "order": 60,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · SAMPLE MiniMax H3 · Node 20",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 20,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · SAMPLE MiniMax H3 · Node 20\n\n**Zweck:** Steuert Sampling, Zeitplan oder Modell-Sampling für den schrittweisen Rauschabbau.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `noise` (NOISE, Link 5): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `guider` (GUIDER, Link 6): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sampler` (SAMPLER, Link 7): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `sigmas` (SIGMAS, Link 8): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `latent_image` (LATENT, Link 39): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `output` (LATENT, 2 Verbindung(en)): Ergebnis dieses Nodes\n- `denoised_output` (LATENT, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 62,
+      "type": "MarkdownNote",
+      "pos": [
+        4191.5,
+        1645.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 61,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · DECODE VIDEO · Node 21",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 21,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · DECODE VIDEO · Node 21\n\n**Zweck:** Decodes latent images back into pixel space images.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `samples` (LATENT, Link 40): The latent to be decoded.\n- `vae` (VAE, Link 42): The VAE model used for decoding the latent.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): The decoded image."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 63,
+      "type": "MarkdownNote",
+      "pos": [
+        4191.5,
+        2015.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 62,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · DECODE NATIVE AUDIO · Node 22",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 22,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · DECODE NATIVE AUDIO · Node 22\n\n**Zweck:** Dekodiert Latents mit dem VAE zu sicht- oder hörbaren Mediendaten.\n\n**Einstellbare Werte**\n- Keine direkt einstellbaren Widgets; die Wirkung wird über Verbindungen bestimmt.\n\n**Eingänge**\n- `samples` (LATENT, Link 41): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `vae` (VAE, Link 43): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `AUDIO` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 64,
+      "type": "MarkdownNote",
+      "pos": [
+        5001.0,
+        1739.0
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 63,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · MUX VIDEO + AUDIO — 24 FPS · Node 23",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 23,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · MUX VIDEO + AUDIO — 24 FPS · Node 23\n\n**Zweck:** Create a video from images.\n\n**Einstellbare Werte**\n- `fps` = `24` — Steuert diesen Parameter. Höher wirkt flüssiger und erzeugt/verarbeitet mehr Frames pro Sekunde; niedriger spart Rechenzeit/Dateigröße.\n- `bit_depth` = `8` — Bit depth of the created video. 10-bit keeps smoother gradients with less banding, but some players and downstream nodes may not support it. Höher bewahrt feinere Farb-/Dynamikabstufungen, vergrößert aber Datenmenge und Datei; niedriger ist kompakter.\n\n**Eingänge**\n- `images` (IMAGE, Link 44): The images to create a video from.\n- `audio` (AUDIO, Link 45): The audio to add to the video.\n\n**Ausgänge**\n- `VIDEO` (VIDEO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 65,
+      "type": "MarkdownNote",
+      "pos": [
+        6193.0,
+        1715.5
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 64,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · SAVE — Ref2VA MAXIMUM FINAL VIDEO · Node 24",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 24,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · SAVE — Ref2VA MAXIMUM FINAL VIDEO · Node 24\n\n**Zweck:** Saves the input videos to your ComfyUI output directory.\n\n**Einstellbare Werte**\n- `filename_prefix` = `video/MiniMax_H3_Spectrum_Ref2VA_MAXIMUM_All_References` — The prefix for the file to save. This may include formatting information such as %date:yyyy-MM-dd% or %Empty Latent Image.width% to include values from nodes. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n- `format` = `auto` — The format to save the video as. Die Auswahl bestimmt den Verarbeitungs- bzw. Dateimodus und dessen Kompatibilität.\n- `codec` = `auto` — The codec to use for the video. Ändert die Verarbeitung dieses Nodes entsprechend dem angeschlossenen Datentyp.\n\n**Eingänge**\n- `video` (VIDEO, Link 46): The video to save.\n\n**Ausgänge**\n- `video` (VIDEO, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 66,
+      "type": "MarkdownNote",
+      "pos": [
+        -4798.0,
+        47.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 65,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · PICTURE 2 — REFERENCE IMAGE 1 · Node 25",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 25,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · PICTURE 2 — REFERENCE IMAGE 1 · Node 25\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `13_three_quarter_right_00001_.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 67,
+      "type": "MarkdownNote",
+      "pos": [
+        -3818.0,
+        47.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 66,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · PICTURE 3 — REFERENCE IMAGE 2 · Node 26",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 26,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · PICTURE 3 — REFERENCE IMAGE 2 · Node 26\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `REFERENCE_PICTURE_03.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 68,
+      "type": "MarkdownNote",
+      "pos": [
+        -5778.0,
+        1151.5
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 67,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · PICTURE 4 — REFERENCE IMAGE 3 · Node 27",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 27,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · PICTURE 4 — REFERENCE IMAGE 3 · Node 27\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `REFERENCE_PICTURE_04.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 69,
+      "type": "MarkdownNote",
+      "pos": [
+        -4798.0,
+        1151.5
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 68,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · PICTURE 5 — REFERENCE IMAGE 4 · Node 28",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 28,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · PICTURE 5 — REFERENCE IMAGE 4 · Node 28\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `REFERENCE_PICTURE_05.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 70,
+      "type": "MarkdownNote",
+      "pos": [
+        -3818.0,
+        1151.5
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 69,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · PICTURE 6 — REFERENCE IMAGE 5 · Node 29",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 29,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · PICTURE 6 — REFERENCE IMAGE 5 · Node 29\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `REFERENCE_PICTURE_06.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 71,
+      "type": "MarkdownNote",
+      "pos": [
+        -5778.0,
+        2256.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 70,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · PICTURE 7 — REFERENCE IMAGE 6 · Node 30",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 30,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · PICTURE 7 — REFERENCE IMAGE 6 · Node 30\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `REFERENCE_PICTURE_07.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 72,
+      "type": "MarkdownNote",
+      "pos": [
+        -4798.0,
+        2256.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 71,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · PICTURE 8 — REFERENCE IMAGE 7 · Node 31",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 31,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · PICTURE 8 — REFERENCE IMAGE 7 · Node 31\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `REFERENCE_PICTURE_08.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 73,
+      "type": "MarkdownNote",
+      "pos": [
+        -3818.0,
+        2256.0
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 72,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · PICTURE 9 — REFERENCE IMAGE 8 · Node 32",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 32,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · PICTURE 9 — REFERENCE IMAGE 8 · Node 32\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `image` = `REFERENCE_PICTURE_09.png` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `IMAGE` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `MASK` (MASK, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 74,
+      "type": "MarkdownNote",
+      "pos": [
+        -5778.0,
+        4089.0
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 73,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · VIDEO 2 — MOTION / CAMERA / TIMING REFERENCE · Node 33",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 33,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · VIDEO 2 — MOTION / CAMERA / TIMING REFERENCE · Node 33\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `file` = `REFERENCE_VIDEO_02.mp4` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `VIDEO` (VIDEO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 75,
+      "type": "MarkdownNote",
+      "pos": [
+        -4793.5,
+        4089.0
+      ],
+      "size": [
+        390,
+        498
+      ],
+      "flags": {},
+      "order": 74,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 24 FPS + 15 s SAFE PREP VIDEO 2 FRAMES + PAIRED SOUNDTRACK · Node 34",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 34,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 24 FPS + 15 s SAFE PREP VIDEO 2 FRAMES + PAIRED SOUNDTRACK · Node 34\n\n**Zweck:** Reads source duration before model loading, converts motion to 24 fps, snaps the generation length upward to H3's 17k+5 grid, and pads only the final grid tail.\n\n**Einstellbare Werte**\n- `max_seconds` = `15.0` — Safety guard. H3 reference videos are officially intended for about 2-15 s; longer is experimental. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `overflow_mode` = `trim_to_max` — error stops before model loading; trim_to_max deliberately uses only the beginning. Die Auswahl bestimmt den Verarbeitungs- bzw. Dateimodus und dessen Kompatibilität.\n- `require_audio` = `False` — Raise a clear error when the reference video has no soundtrack. Disable only after removing <Audio 1> from the prompt. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `video` (VIDEO, Link 21): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `max_seconds` (FLOAT, nicht verbunden): Safety guard. H3 reference videos are officially intended for about 2-15 s; longer is experimental.\n- `overflow_mode` (COMBO, nicht verbunden): error stops before model loading; trim_to_max deliberately uses only the beginning.\n- `require_audio` (BOOLEAN, nicht verbunden): Raise a clear error when the reference video has no soundtrack. Disable only after removing <Audio 1> from the prompt.\n\n**Ausgänge**\n- `reference_frames_24fps` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `reference_audio` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `h3_length` (INT, nicht verbunden): Ergebnis dieses Nodes\n- `source_duration` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `h3_duration` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `source_fps` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `source_frame_count` (INT, nicht verbunden): Ergebnis dieses Nodes\n- `info` (STRING, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 76,
+      "type": "MarkdownNote",
+      "pos": [
+        -5778.0,
+        4629.5
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 75,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · VIDEO 3 — MOTION / CAMERA / TIMING REFERENCE · Node 35",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 35,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · VIDEO 3 — MOTION / CAMERA / TIMING REFERENCE · Node 35\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `file` = `REFERENCE_VIDEO_03.mp4` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `VIDEO` (VIDEO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 77,
+      "type": "MarkdownNote",
+      "pos": [
+        -4793.5,
+        4629.5
+      ],
+      "size": [
+        390,
+        498
+      ],
+      "flags": {},
+      "order": 76,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · 24 FPS + 15 s SAFE PREP VIDEO 3 FRAMES + PAIRED SOUNDTRACK · Node 36",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 36,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · 24 FPS + 15 s SAFE PREP VIDEO 3 FRAMES + PAIRED SOUNDTRACK · Node 36\n\n**Zweck:** Reads source duration before model loading, converts motion to 24 fps, snaps the generation length upward to H3's 17k+5 grid, and pads only the final grid tail.\n\n**Einstellbare Werte**\n- `max_seconds` = `15.0` — Safety guard. H3 reference videos are officially intended for about 2-15 s; longer is experimental. Höher erzeugt/verarbeitet mehr bzw. längeren Inhalt und steigert Zeit/VRAM; niedriger verkürzt ihn.\n- `overflow_mode` = `trim_to_max` — error stops before model loading; trim_to_max deliberately uses only the beginning. Die Auswahl bestimmt den Verarbeitungs- bzw. Dateimodus und dessen Kompatibilität.\n- `require_audio` = `False` — Raise a clear error when the reference video has no soundtrack. Disable only after removing <Audio 1> from the prompt. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n\n**Eingänge**\n- `video` (VIDEO, Link 24): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `max_seconds` (FLOAT, nicht verbunden): Safety guard. H3 reference videos are officially intended for about 2-15 s; longer is experimental.\n- `overflow_mode` (COMBO, nicht verbunden): error stops before model loading; trim_to_max deliberately uses only the beginning.\n- `require_audio` (BOOLEAN, nicht verbunden): Raise a clear error when the reference video has no soundtrack. Disable only after removing <Audio 1> from the prompt.\n\n**Ausgänge**\n- `reference_frames_24fps` (IMAGE, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `reference_audio` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `h3_length` (INT, nicht verbunden): Ergebnis dieses Nodes\n- `source_duration` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `h3_duration` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `source_fps` (FLOAT, nicht verbunden): Ergebnis dieses Nodes\n- `source_frame_count` (INT, nicht verbunden): Ergebnis dieses Nodes\n- `info` (STRING, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 78,
+      "type": "MarkdownNote",
+      "pos": [
+        -3704.5,
+        3548.5
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 77,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · STANDALONE AUDIO 1 — VOICE / MUSIC / SFX REFERENCE · Node 37",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 37,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · STANDALONE AUDIO 1 — VOICE / MUSIC / SFX REFERENCE · Node 37\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `audio` = `REFERENCE_AUDIO_01.wav` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `AUDIO` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 79,
+      "type": "MarkdownNote",
+      "pos": [
+        -3704.5,
+        4089.0
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 78,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · STANDALONE AUDIO 2 — VOICE / MUSIC / SFX REFERENCE · Node 38",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 38,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · STANDALONE AUDIO 2 — VOICE / MUSIC / SFX REFERENCE · Node 38\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `audio` = `REFERENCE_AUDIO_02.wav` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `AUDIO` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 80,
+      "type": "MarkdownNote",
+      "pos": [
+        -3704.5,
+        4629.5
+      ],
+      "size": [
+        390,
+        294
+      ],
+      "flags": {},
+      "order": 79,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · STANDALONE AUDIO 3 — VOICE / MUSIC / SFX REFERENCE · Node 39",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 39,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · STANDALONE AUDIO 3 — VOICE / MUSIC / SFX REFERENCE · Node 39\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `audio` = `REFERENCE_AUDIO_03.wav` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- Keine Eingänge.\n\n**Ausgänge**\n- `AUDIO` (AUDIO, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
     }
   ],
   "links": [
@@ -1802,14 +3231,6 @@
       20,
       3,
       "SIGMAS"
-    ],
-    [
-      9,
-      2,
-      0,
-      15,
-      3,
-      "IMAGE"
     ],
     [
       10,
@@ -1980,22 +3401,6 @@
       "STRING"
     ],
     [
-      31,
-      6,
-      0,
-      15,
-      22,
-      "INT"
-    ],
-    [
-      32,
-      6,
-      1,
-      15,
-      23,
-      "INT"
-    ],
-    [
       33,
       7,
       0,
@@ -2106,6 +3511,70 @@
       24,
       0,
       "VIDEO"
+    ],
+    [
+      47,
+      2,
+      0,
+      41,
+      0,
+      "IMAGE"
+    ],
+    [
+      48,
+      41,
+      1,
+      42,
+      0,
+      "INT"
+    ],
+    [
+      49,
+      41,
+      2,
+      42,
+      1,
+      "INT"
+    ],
+    [
+      50,
+      6,
+      0,
+      42,
+      2,
+      "INT"
+    ],
+    [
+      51,
+      6,
+      1,
+      42,
+      3,
+      "INT"
+    ],
+    [
+      52,
+      42,
+      0,
+      15,
+      22,
+      "INT"
+    ],
+    [
+      53,
+      42,
+      1,
+      15,
+      23,
+      "INT"
+    ],
+    [
+      54,
+      41,
+      0,
+      15,
+      3,
+      "IMAGE"
     ]
   ],
   "groups": [
@@ -2113,10 +3582,10 @@
       "id": 1,
       "title": "README / HARD LIMITS",
       "bounding": [
-        -3330,
-        -20,
-        780,
-        1420
+        -8088.5,
+        -7.0,
+        756.0,
+        1422.0
       ],
       "color": "#555555",
       "flags": {}
@@ -2125,10 +3594,10 @@
       "id": 2,
       "title": "1. NINE PICTURE REFERENCES",
       "bounding": [
-        -2560,
-        -20,
-        1200,
-        1440
+        -6202.0,
+        -7.0,
+        2802.0,
+        2711.0
       ],
       "color": "#8b5cf6",
       "flags": {}
@@ -2137,10 +3606,10 @@
       "id": 3,
       "title": "2. THREE VIDEO REFERENCES + PAIRED SOUNDTRACKS",
       "bounding": [
-        -2560,
-        1460,
-        1220,
-        790
+        -6202.0,
+        3494.5,
+        2915.5,
+        1661.0
       ],
       "color": "#6d5bd0",
       "flags": {}
@@ -2149,10 +3618,10 @@
       "id": 4,
       "title": "3. THREE STANDALONE AUDIO REFERENCES",
       "bounding": [
-        -1730,
-        1460,
-        480,
-        790
+        -4168.5,
+        3494.5,
+        882.0,
+        1457.0
       ],
       "color": "#9b59b6",
       "flags": {}
@@ -2161,10 +3630,10 @@
       "id": 5,
       "title": "4. PROMPT + TAG MAP",
       "bounding": [
-        -1270,
-        -20,
-        690,
-        1900
+        -3041.5,
+        -7.0,
+        1102.0,
+        2982.0
       ],
       "color": "#a4554f",
       "flags": {}
@@ -2173,10 +3642,10 @@
       "id": 6,
       "title": "5. MODELS + MAXIMUM Ref2VA CONDITIONING",
       "bounding": [
-        -630,
-        -20,
-        1000,
-        1980
+        -1473.5,
+        -7.0,
+        2355.5,
+        3224.0
       ],
       "color": "#3f789e",
       "flags": {}
@@ -2185,10 +3654,10 @@
       "id": 7,
       "title": "6. SPECTRUM SAMPLING",
       "bounding": [
-        360,
-        380,
-        1190,
-        850
+        952.0,
+        933.0,
+        2869.0,
+        1850.0
       ],
       "color": "#c68b31",
       "flags": {}
@@ -2197,10 +3666,10 @@
       "id": 8,
       "title": "7. DECODE + SAVE",
       "bounding": [
-        1550,
-        650,
-        1360,
-        330
+        3867.5,
+        1591.0,
+        2743.5,
+        763.0
       ],
       "color": "#3f9e6d",
       "flags": {}
@@ -2214,6 +3683,13 @@
         1570.0,
         460.0
       ]
+    },
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 37,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
     }
   },
   "version": 0.4

@@ -68,6 +68,7 @@ class PixaromaIntegrationTests(unittest.TestCase):
                 "workflows/Live Avatar/LiveAvatar-12-III-Reliable-VRM-Mode.json",
                 "workflows/Live Avatar/LiveAvatar-13-Synthetic-Character-Sheet.json",
                 "workflows/Live Avatar/LiveAvatar-14-Local-Hunyuan3D-Multiview-Mesh-Unrigged.json",
+                "workflows/Live Avatar/LiveAvatar-15-Local-High-Realism-VRM.json",
                 "workflows/LoRA Generation/Qwen3-TTS_0.6B-Voice-LoRA-Training.json",
                 "workflows/Voice Design/Qwen3-TTS_LoRA-Low-Latency-Live-Voice.json",
             },

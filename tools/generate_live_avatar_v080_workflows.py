@@ -13,6 +13,7 @@ NAMES = (
     "LiveAvatar-12-III-Reliable-VRM-Mode.json",
     "LiveAvatar-13-Synthetic-Character-Sheet.json",
     "LiveAvatar-14-Local-Hunyuan3D-Multiview-Mesh-Unrigged.json",
+    "LiveAvatar-15-Local-High-Realism-VRM.json",
 )
 
 

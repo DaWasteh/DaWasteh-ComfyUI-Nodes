@@ -1,0 +1,1643 @@
+{
+  "id": "liveavatar-15-local-high-realism-vrm",
+  "revision": 0,
+  "last_node_id": 48,
+  "last_link_id": 16,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "ImageOnlyCheckpointLoader",
+      "pos": [
+        240.1,
+        -441.8
+      ],
+      "size": [
+        400,
+        128
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "ckpt_name",
+          "name": "ckpt_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "ckpt_name"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "MODEL",
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [
+            1
+          ]
+        },
+        {
+          "localized_name": "CLIP_VISION",
+          "name": "CLIP_VISION",
+          "type": "CLIP_VISION",
+          "slot_index": 1,
+          "links": [
+            2
+          ]
+        },
+        {
+          "localized_name": "VAE",
+          "name": "VAE",
+          "type": "VAE",
+          "slot_index": 2,
+          "links": [
+            3
+          ]
+        }
+      ],
+      "title": "Hunyuan3D 2.1 · installed local checkpoint",
+      "properties": {
+        "Node name for S&R": "ImageOnlyCheckpointLoader",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.68"
+      },
+      "widgets_values": [
+        "Hunyuan3D\\hunyuan_3d_v2.1.safetensors"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        147.0,
+        846.0
+      ],
+      "size": [
+        400,
+        372
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "choose file to upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            15
+          ]
+        },
+        {
+          "localized_name": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "title": "Prepared realistic A-pose front image",
+      "properties": {
+        "Node name for S&R": "LoadImage",
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3"
+      },
+      "widgets_values": [
+        "highrealism-a-pose-front.png",
+        "image"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "ModelSamplingAuraFlow",
+      "pos": [
+        2881.2,
+        -441.8
+      ],
+      "size": [
+        300,
+        90
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "model",
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        },
+        {
+          "localized_name": "shift",
+          "name": "shift",
+          "type": "FLOAT",
+          "widget": {
+            "name": "shift"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "MODEL",
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [
+            5
+          ]
+        }
+      ],
+      "title": "Model Sampling (shift 1)",
+      "properties": {
+        "Node name for S&R": "ModelSamplingAuraFlow",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.68"
+      },
+      "widgets_values": [
+        1
+      ]
+    },
+    {
+      "id": 4,
+      "type": "EmptyLatentHunyuan3Dv2",
+      "pos": [
+        2881.2,
+        551.35
+      ],
+      "size": [
+        300,
+        112
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "resolution",
+          "name": "resolution",
+          "type": "INT",
+          "widget": {
+            "name": "resolution"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "batch_size",
+          "name": "batch_size",
+          "type": "INT",
+          "widget": {
+            "name": "batch_size"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "LATENT",
+          "name": "LATENT",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": [
+            6
+          ]
+        }
+      ],
+      "title": "Hunyuan3D latent · 4096 shape tokens",
+      "properties": {
+        "Node name for S&R": "EmptyLatentHunyuan3Dv2",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.68"
+      },
+      "widgets_values": [
+        4096,
+        1
+      ]
+    },
+    {
+      "id": 5,
+      "type": "CLIPVisionEncode",
+      "pos": [
+        1470.0,
+        846.0
+      ],
+      "size": [
+        320,
+        110
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "clip_vision",
+          "name": "clip_vision",
+          "type": "CLIP_VISION",
+          "link": 2
+        },
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "IMAGE",
+          "link": 16
+        },
+        {
+          "localized_name": "crop",
+          "name": "crop",
+          "type": "COMBO",
+          "widget": {
+            "name": "crop"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "CLIP_VISION_OUTPUT",
+          "name": "CLIP_VISION_OUTPUT",
+          "type": "CLIP_VISION_OUTPUT",
+          "slot_index": 0,
+          "links": [
+            7
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPVisionEncode",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.68"
+      },
+      "widgets_values": [
+        "none"
+      ],
+      "title": "Encode front"
+    },
+    {
+      "id": 6,
+      "type": "Hunyuan3Dv2Conditioning",
+      "pos": [
+        4922.05,
+        331.35
+      ],
+      "size": [
+        320,
+        80
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip_vision_output",
+          "type": "CLIP_VISION_OUTPUT",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            8
+          ]
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "title": "Single-view conditioning (do not connect turntable views)",
+      "properties": {
+        "Node name for S&R": "Hunyuan3Dv2Conditioning",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.68"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 7,
+      "type": "KSampler",
+      "pos": [
+        7082.95,
+        -441.8
+      ],
+      "size": [
+        330,
+        312
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "model",
+          "name": "model",
+          "type": "MODEL",
+          "link": 5
+        },
+        {
+          "localized_name": "positive",
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 8
+        },
+        {
+          "localized_name": "negative",
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 9
+        },
+        {
+          "localized_name": "latent_image",
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 6
+        },
+        {
+          "localized_name": "seed",
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "steps",
+          "name": "steps",
+          "type": "INT",
+          "widget": {
+            "name": "steps"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "cfg",
+          "name": "cfg",
+          "type": "FLOAT",
+          "widget": {
+            "name": "cfg"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "sampler_name",
+          "name": "sampler_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "sampler_name"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "scheduler",
+          "name": "scheduler",
+          "type": "COMBO",
+          "widget": {
+            "name": "scheduler"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "denoise",
+          "name": "denoise",
+          "type": "FLOAT",
+          "widget": {
+            "name": "denoise"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "LATENT",
+          "name": "LATENT",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": [
+            10
+          ]
+        }
+      ],
+      "title": "Shape sampling · random seed really changes geometry",
+      "properties": {
+        "Node name for S&R": "KSampler",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.68"
+      },
+      "widgets_values": [
+        402209198829580,
+        "randomize",
+        40,
+        5,
+        "euler",
+        "normal",
+        1
+      ]
+    },
+    {
+      "id": 8,
+      "type": "VAEDecodeHunyuan3D",
+      "pos": [
+        7082.95,
+        1435.85
+      ],
+      "size": [
+        330,
+        130
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "samples",
+          "name": "samples",
+          "type": "LATENT",
+          "link": 13
+        },
+        {
+          "localized_name": "vae",
+          "name": "vae",
+          "type": "VAE",
+          "link": 3
+        },
+        {
+          "localized_name": "num_chunks",
+          "name": "num_chunks",
+          "type": "INT",
+          "widget": {
+            "name": "num_chunks"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "octree_resolution",
+          "name": "octree_resolution",
+          "type": "INT",
+          "widget": {
+            "name": "octree_resolution"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "VOXEL",
+          "name": "VOXEL",
+          "type": "VOXEL",
+          "slot_index": 0,
+          "links": [
+            11
+          ]
+        }
+      ],
+      "title": "VAE Decode -> Voxel",
+      "properties": {
+        "Node name for S&R": "VAEDecodeHunyuan3D",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.68"
+      },
+      "widgets_values": [
+        4000,
+        512
+      ]
+    },
+    {
+      "id": 9,
+      "type": "VoxelToMesh",
+      "pos": [
+        7082.95,
+        2374.675
+      ],
+      "size": [
+        330,
+        112
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "voxel",
+          "name": "voxel",
+          "type": "VOXEL",
+          "link": 11
+        },
+        {
+          "localized_name": "algorithm",
+          "name": "algorithm",
+          "type": "COMBO",
+          "widget": {
+            "name": "algorithm"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "threshold",
+          "name": "threshold",
+          "type": "FLOAT",
+          "widget": {
+            "name": "threshold"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "MESH",
+          "name": "MESH",
+          "type": "MESH",
+          "slot_index": 0,
+          "links": [
+            12
+          ]
+        }
+      ],
+      "title": "Voxel -> Mesh",
+      "properties": {
+        "Node name for S&R": "VoxelToMesh",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.68"
+      },
+      "widgets_values": [
+        "surface net",
+        0.6
+      ]
+    },
+    {
+      "id": 10,
+      "type": "SaveGLB",
+      "pos": [
+        9363.9,
+        -441.8
+      ],
+      "size": [
+        621.9000244140625,
+        413.5833435058594
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "mesh",
+          "name": "mesh",
+          "type": "MESH,FILE_3D_GLB,FILE_3D_GLTF,FILE_3D_OBJ,FILE_3D_FBX,FILE_3D_STL,FILE_3D_USDZ,FILE_3D_PLY,FILE_3D_SPLAT,FILE_3D_SPZ,FILE_3D_KSPLAT,FILE_3D_SPLAT_ANY,FILE_3D_POINT_CLOUD_ANY,FILE_3D",
+          "link": 14
+        },
+        {
+          "localized_name": "filename_prefix",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "PREVIEW_3D",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "title": "Save real GLB mesh · untextured and unrigged",
+      "properties": {
+        "Node name for S&R": "SaveGLB",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.68",
+        "Last Time Model File": "3D/hunyuan3d_00003_.glb",
+        "Last Time Model Folder": "output",
+        "Scene Config": {
+          "showGrid": true,
+          "backgroundColor": "#282828",
+          "backgroundImage": "",
+          "backgroundRenderMode": "tiled",
+          "models": []
+        },
+        "Camera Config": {
+          "cameraType": "perspective",
+          "fov": 35,
+          "state": {
+            "position": {
+              "x": 0.810548741356855,
+              "y": 1.1405581135718643,
+              "z": 3.8497469066734733
+            },
+            "target": {
+              "x": 0.003712266683578491,
+              "y": 0.003852754831314087,
+              "z": 0.00394633412361145
+            },
+            "zoom": 1,
+            "cameraType": "perspective"
+          }
+        },
+        "Light Config": {
+          "intensity": 3,
+          "hdri": {
+            "enabled": false,
+            "hdriPath": "",
+            "showAsBackground": false,
+            "intensity": 1
+          }
+        },
+        "Model Config": {
+          "upDirection": "original",
+          "materialMode": "original",
+          "showSkeleton": false,
+          "gizmo": {
+            "enabled": false,
+            "mode": "translate",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        }
+      },
+      "widgets_values": [
+        "LiveAvatar/15_hunyuan3d_high_realism_singleview_unrigged",
+        ""
+      ]
+    },
+    {
+      "id": 11,
+      "type": "Note",
+      "pos": [
+        9370.344,
+        2071.819
+      ],
+      "size": [
+        380,
+        420
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Workflow 15 · local high-realism single-view mesh",
+      "properties": {
+        "Node name for S&R": "Note",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.68"
+      },
+      "widgets_values": [
+        "=== LIVEAVATAR 15: LOCAL HIGH-REALISM SINGLE-VIEW GLB ===\nPrepare one realistic, level-camera, full-body A-pose FRONT image with separated arms, visible five-finger hands, feet and generous margins. The integrated RMBG node isolates the figure first. This workflow deliberately uses only one front image: tested multiview geometry fragmented on this local Hunyuan 2.1 path. It saves a high-resolution static GLB only; use tools/build_high_realism_local_vrm.py for the Blender rig, four-view texture projection, PBR roughness and VRM expression post-pipeline."
+      ],
+      "color": "#653",
+      "bgcolor": "#432"
+    },
+    {
+      "id": 12,
+      "type": "MarkdownNote",
+      "pos": [
+        2958.375,
+        1364.847
+      ],
+      "size": [
+        400,
+        280
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "AMD/RDNA4 capability boundary",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "ver": "0.3.68"
+      },
+      "widgets_values": [
+        "# Windows ROCm boundary\nNative ComfyUI Hunyuan3D 2.1 shape nodes work locally with 4096 latent resolution and octree 512. Do not add CUDA-only nvdiffrast, Hunyuan Paint or CUDA texture wrappers. The mesh remains an approximation: fingers, face, rear/side texture and deformation still require review."
+      ],
+      "color": "#222",
+      "bgcolor": "#111"
+    },
+    {
+      "id": 24,
+      "type": "VRAM_Debug",
+      "pos": [
+        7082.95,
+        497.025
+      ],
+      "size": [
+        320,
+        174
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "empty_cache",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "empty_cache"
+          },
+          "link": null
+        },
+        {
+          "name": "gc_collect",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "gc_collect"
+          },
+          "link": null
+        },
+        {
+          "name": "unload_all_models",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "unload_all_models"
+          },
+          "link": null
+        },
+        {
+          "name": "any_input",
+          "type": "*",
+          "link": 10
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "any_output",
+          "type": "*",
+          "links": [
+            13
+          ]
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "links": null
+        },
+        {
+          "name": "freemem_before",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "freemem_after",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VRAM_Debug",
+        "dawasteh_memory_cleanup": {
+          "version": 1,
+          "placement": "pre_decode",
+          "reason": "single final KSampler to VAEDecodeHunyuan3D phase boundary"
+        }
+      },
+      "widgets_values": [
+        true,
+        true,
+        true
+      ],
+      "color": "#3b1f2b",
+      "bgcolor": "#24131b"
+    },
+    {
+      "id": 25,
+      "type": "VRAM_Debug",
+      "pos": [
+        8311.625,
+        1032.237
+      ],
+      "size": [
+        320,
+        174
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "empty_cache",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "empty_cache"
+          },
+          "link": null
+        },
+        {
+          "name": "gc_collect",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "gc_collect"
+          },
+          "link": null
+        },
+        {
+          "name": "unload_all_models",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "unload_all_models"
+          },
+          "link": null
+        },
+        {
+          "name": "any_input",
+          "type": "*",
+          "link": 12
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "any_output",
+          "type": "*",
+          "links": [
+            14
+          ]
+        },
+        {
+          "name": "image_pass",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "model_pass",
+          "type": "MODEL",
+          "links": null
+        },
+        {
+          "name": "freemem_before",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "freemem_after",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VRAM_Debug",
+        "dawasteh_memory_cleanup": {
+          "version": 1,
+          "placement": "terminal",
+          "reason": "after final media barrier, before SaveGLB"
+        }
+      },
+      "widgets_values": [
+        true,
+        true,
+        true
+      ],
+      "color": "#3b1f2b",
+      "bgcolor": "#24131b"
+    },
+    {
+      "id": 32,
+      "type": "MarkdownNote",
+      "pos": [
+        2842.0,
+        141.0
+      ],
+      "size": [
+        760,
+        360
+      ],
+      "flags": {},
+      "order": 50,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Before Run · image consistency gate",
+      "properties": {
+        "Node name for S&R": "MarkdownNote"
+      },
+      "widgets_values": [
+        "# BEFORE RUN\n1. Create a realistic A-pose front reference: level camera, no cropped hands/feet, separated limbs.\n2. The integrated RMBG node isolates the figure; verify its alpha before sampling.\n3. Keep 4096 latent resolution and octree 512; wait for an empty queue and sufficient VRAM.\n4. Inspect the GLB. Reject fragmented/poor anatomy before Blender.\n5. No multiview geometry here: it was tested and fragmented."
+      ]
+    },
+    {
+      "id": 33,
+      "type": "MarkdownNote",
+      "pos": [
+        686.1,
+        -441.8
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 51,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Hunyuan3D 2.1 · installed local checkpoint · Node 1",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 1,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Hunyuan3D 2.1 · installed local checkpoint · Node 1\n\n**Zweck:** Lädt die angegebene Ressource und stellt sie für nachfolgende Verarbeitungsschritte bereit.\n\n**Einstellbare Werte**\n- `ckpt_name` = `Hunyuan3D\\hunyuan_3d_v2.1.safetensors` — Steuert diesen Parameter. Die Auswahl wechselt die geladene Ressource und beeinflusst VRAM-Bedarf, Qualität und Kompatibilität.\n\n**Eingänge**\n- `ckpt_name` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `MODEL` (MODEL, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `CLIP_VISION` (CLIP_VISION, 4 Verbindung(en)): Ergebnis dieses Nodes\n- `VAE` (VAE, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 35,
+      "type": "MarkdownNote",
+      "pos": [
+        3227.2,
+        -441.8
+      ],
+      "size": [
+        390,
+        311
+      ],
+      "flags": {},
+      "order": 53,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Model Sampling (shift 1) · Node 3",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 3,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Model Sampling (shift 1) · Node 3\n\n**Zweck:** Steuert Sampling, Zeitplan oder Modell-Sampling für den schrittweisen Rauschabbau.\n\n**Einstellbare Werte**\n- `shift` = `1` — Steuert diesen Parameter. Höher verschiebt den Rausch-/Sigma-Zeitplan und gewichtet andere Denoising-Phasen; zu starke Abweichungen können Qualität kosten.\n\n**Eingänge**\n- `model` (MODEL, Link 1): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `shift` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `MODEL` (MODEL, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 36,
+      "type": "MarkdownNote",
+      "pos": [
+        3227.2,
+        551.35
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 54,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Hunyuan3D latent · 4096 shape tokens · Node 4",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 4,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Hunyuan3D latent · 4096 shape tokens · Node 4\n\n**Zweck:** Erzeugt ein leeres Latent mit den vorgegebenen Abmessungen als Startpunkt der Generierung.\n\n**Einstellbare Werte**\n- `resolution` = `4096` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n- `batch_size` = `1` — The number of latent images in the batch. Höher verarbeitet mehr Beispiele parallel und braucht mehr VRAM; niedriger spart Speicher.\n\n**Eingänge**\n- `resolution` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `batch_size` (INT, nicht verbunden): The number of latent images in the batch.\n\n**Ausgänge**\n- `LATENT` (LATENT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 37,
+      "type": "MarkdownNote",
+      "pos": [
+        1836.0,
+        846.0
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 55,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Encode front · Node 5",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 5,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Encode front · Node 5\n\n**Zweck:** Kodiert visuelle Referenzen oder überträgt deren Merkmale per IP-Adapter auf die Generierung.\n\n**Einstellbare Werte**\n- `crop` = `none` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n\n**Eingänge**\n- `clip_vision` (CLIP_VISION, Link 2): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `image` (IMAGE, Link 4): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `crop` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `CLIP_VISION_OUTPUT` (CLIP_VISION_OUTPUT, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 39,
+      "type": "MarkdownNote",
+      "pos": [
+        7458.95,
+        -441.8
+      ],
+      "size": [
+        390,
+        540
+      ],
+      "flags": {},
+      "order": 57,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Shape sampling · random seed really changes geometry · Node 7",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 7,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Shape sampling · random seed really changes geometry · Node 7\n\n**Zweck:** Uses the provided model, positive and negative conditioning to denoise the latent image.\n\n**Einstellbare Werte**\n- `seed` = `402209198829580` — The random seed used for creating the noise. Ein anderer Seed erzeugt eine andere Variation; derselbe Seed unterstützt reproduzierbare Ergebnisse.\n- `seed_control_after_generate` = `randomize` — Verhalten des Werts nach jedem Workflow-Lauf. `randomize` erzeugt pro Lauf eine neue Variation; `fixed` behält den Wert; andere Modi ändern ihn schrittweise.\n- `steps` = `40` — The number of steps used in the denoising process. Höher erhöht Laufzeit und mögliche Ausarbeitung, kann aber übertrainieren; niedriger ist schneller.\n- `cfg` = `5` — The Classifier-Free Guidance scale balances creativity and adherence to the prompt. Higher values result in images more closely matching the prompt however too high values will ne… Höher folgt der Vorgabe stärker, kann unnatürlich/übersättigt wirken; niedriger lässt mehr Freiheit.\n- `sampler_name` = `euler` — The algorithm used when sampling, this can affect the quality, speed, and style of the generated output. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n- `scheduler` = `normal` — The scheduler controls how noise is gradually removed to form the image. Die Auswahl ändert den Rauschabbau und damit Stil, Laufzeit und Ergebnischarakter.\n- `denoise` = `1` — The amount of denoising applied, lower values will maintain the structure of the initial image allowing for image to image sampling. Höher verstärkt den Einfluss bzw. die Veränderung; niedriger bewahrt Eingang/Grundmodell stärker.\n\n**Eingänge**\n- `model` (MODEL, Link 5): The model used for denoising the input latent.\n- `positive` (CONDITIONING, Link 8): The conditioning describing the attributes you want to include in the image.\n- `negative` (CONDITIONING, Link 9): The conditioning describing the attributes you want to exclude from the image.\n- `latent_image` (LATENT, Link 6): The latent image to denoise.\n- `seed` (INT, nicht verbunden): The random seed used for creating the noise.\n- `steps` (INT, nicht verbunden): The number of steps used in the denoising process.\n- `cfg` (FLOAT, nicht verbunden): The Classifier-Free Guidance scale balances creativity and adherence to the prompt. Higher values result in images more closely matching the prompt h…\n- `sampler_name` (COMBO, nicht verbunden): The algorithm used when sampling, this can affect the quality, speed, and style of the generated output.\n- `scheduler` (COMBO, nicht verbunden): The scheduler controls how noise is gradually removed to form the image.\n- `denoise` (FLOAT, nicht verbunden): The amount of denoising applied, lower values will maintain the structure of the initial image allowing for image to image sampling.\n\n**Ausgänge**\n- `LATENT` (LATENT, 1 Verbindung(en)): The denoised latent."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 40,
+      "type": "MarkdownNote",
+      "pos": [
+        7458.95,
+        1435.85
+      ],
+      "size": [
+        390,
+        362
+      ],
+      "flags": {},
+      "order": 58,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · VAE Decode 512 · Node 8",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 8,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · VAE Decode 512 · Node 8\n\n**Zweck:** Dekodiert Latents mit dem VAE zu sicht- oder hörbaren Mediendaten.\n\n**Einstellbare Werte**\n- `num_chunks` = `4000` — Steuert diesen Parameter. Höher setzt einen größeren numerischen Steuerwert; niedriger einen kleineren. Die genaue Einheit ergibt sich aus Parametername und Node-Beschreibung.\n- `octree_resolution` = `512` — Steuert diesen Parameter. Höher liefert mehr Auflösung/Fläche, benötigt aber mehr VRAM und Zeit; niedriger ist schneller und sparsamer.\n\n**Eingänge**\n- `samples` (LATENT, Link 13): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `vae` (VAE, Link 3): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `num_chunks` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `octree_resolution` (INT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `VOXEL` (VOXEL, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 41,
+      "type": "MarkdownNote",
+      "pos": [
+        7458.95,
+        2374.675
+      ],
+      "size": [
+        390,
+        345
+      ],
+      "flags": {},
+      "order": 59,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Voxel -> Mesh · Node 9",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 9,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Voxel -> Mesh · Node 9\n\n**Zweck:** Converts a voxel grid to a mesh.\n\n**Einstellbare Werte**\n- `algorithm` = `surface net` — Steuert diesen Parameter. Die Auswahl wechselt Algorithmus/Modus und damit Qualität, Geschwindigkeit oder Kompatibilität.\n- `threshold` = `0.6` — Steuert diesen Parameter. Eine empfindlichere/niedrigere Schwelle erkennt mehr schwache Treffer, aber auch Fehlalarme; eine strengere/höhere Schwelle liefert weniger, sicherere Treffer.\n\n**Eingänge**\n- `voxel` (VOXEL, Link 11): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `algorithm` (COMBO, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `threshold` (FLOAT, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `MESH` (MESH, 1 Verbindung(en)): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 42,
+      "type": "MarkdownNote",
+      "pos": [
+        10031.8,
+        -441.8
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 60,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Save real GLB mesh · untextured and unrigged · Node 10",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 10,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Save real GLB mesh · untextured and unrigged · Node 10\n\n**Zweck:** Speichert das erzeugte Ergebnis mit den gewählten Ausgabeparametern.\n\n**Einstellbare Werte**\n- `filename_prefix` = `LiveAvatar/15_hunyuan3d_high_realism_singleview_unrigged` — Steuert diesen Parameter. Legt Quelle/Ziel oder Dateibenennung fest; ein anderer Wert ändert den verwendeten Speicherort.\n\n**Eingänge**\n- `mesh` (MESH,FILE_3D_GLB,FILE_3D_GLTF,FILE_3D_OBJ,FILE_3D_FBX,FILE_3D_STL,FILE_3D_USDZ,FILE_3D_PLY,FILE_3D_SPLAT,FILE_3D_SPZ,FILE_3D_KSPLAT,FILE_3D_SPLAT_ANY,FILE_3D_POINT_CLOUD_ANY,FILE_3D, Link 14): Mesh or 3D file to save\n- `filename_prefix` (STRING, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `image` (PREVIEW_3D, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- Keine Ausgänge."
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 43,
+      "type": "MarkdownNote",
+      "pos": [
+        7448.95,
+        497.025
+      ],
+      "size": [
+        390,
+        481
+      ],
+      "flags": {},
+      "order": 61,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · VRAM Debug · Node 24",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 24,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · VRAM Debug · Node 24\n\n**Zweck:** Returns the inputs unchanged, they are only used as triggers,   ↵ and performs comfy model management functions and garbage collection,   ↵ reports free VRAM before and after the operations.\n\n**Einstellbare Werte**\n- `empty_cache` = `True` — Steuert diesen Parameter. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `gc_collect` = `True` — Steuert diesen Parameter. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `unload_all_models` = `True` — Steuert diesen Parameter. AN gibt Modell-/VRAM-Speicher nach dem Lauf frei, macht den nächsten Lauf aber langsamer; AUS hält das Modell für Wiederholungen im Cache.\n\n**Eingänge**\n- `empty_cache` (BOOLEAN, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `gc_collect` (BOOLEAN, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `unload_all_models` (BOOLEAN, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `any_input` (*, Link 10): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `image_pass` (IMAGE, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `model_pass` (MODEL, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `any_output` (*, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `image_pass` (IMAGE, nicht verbunden): Ergebnis dieses Nodes\n- `model_pass` (MODEL, nicht verbunden): Ergebnis dieses Nodes\n- `freemem_before` (INT, nicht verbunden): Ergebnis dieses Nodes\n- `freemem_after` (INT, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 44,
+      "type": "MarkdownNote",
+      "pos": [
+        8677.625,
+        1032.237
+      ],
+      "size": [
+        390,
+        481
+      ],
+      "flags": {},
+      "order": 62,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · VRAM Debug · Node 25",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 25,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · VRAM Debug · Node 25\n\n**Zweck:** Returns the inputs unchanged, they are only used as triggers,   ↵ and performs comfy model management functions and garbage collection,   ↵ reports free VRAM before and after the operations.\n\n**Einstellbare Werte**\n- `empty_cache` = `True` — Steuert diesen Parameter. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `gc_collect` = `True` — Steuert diesen Parameter. AN aktiviert die Funktion; AUS deaktiviert sie bzw. verwendet den Standardpfad.\n- `unload_all_models` = `True` — Steuert diesen Parameter. AN gibt Modell-/VRAM-Speicher nach dem Lauf frei, macht den nächsten Lauf aber langsamer; AUS hält das Modell für Wiederholungen im Cache.\n\n**Eingänge**\n- `empty_cache` (BOOLEAN, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `gc_collect` (BOOLEAN, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `unload_all_models` (BOOLEAN, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `any_input` (*, Link 12): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `image_pass` (IMAGE, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n- `model_pass` (MODEL, nicht verbunden): liefert Eingabedaten für diesen Verarbeitungsschritt\n\n**Ausgänge**\n- `any_output` (*, 1 Verbindung(en)): Ergebnis dieses Nodes\n- `image_pass` (IMAGE, nicht verbunden): Ergebnis dieses Nodes\n- `model_pass` (MODEL, nicht verbunden): Ergebnis dieses Nodes\n- `freemem_before` (INT, nicht verbunden): Ergebnis dieses Nodes\n- `freemem_after` (INT, nicht verbunden): Ergebnis dieses Nodes"
+      ],
+      "color": "#1b2638",
+      "bgcolor": "#101722"
+    },
+    {
+      "id": 45,
+      "type": "RMBG",
+      "pos": [
+        700.0,
+        846.0
+      ],
+      "size": [
+        390,
+        390
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "IMAGE",
+          "link": 15
+        },
+        {
+          "localized_name": "model",
+          "name": "model",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "model"
+          }
+        },
+        {
+          "localized_name": "sensitivity",
+          "name": "sensitivity",
+          "type": "FLOAT",
+          "link": null,
+          "widget": {
+            "name": "sensitivity"
+          }
+        },
+        {
+          "localized_name": "process_res",
+          "name": "process_res",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "process_res"
+          }
+        },
+        {
+          "localized_name": "mask_blur",
+          "name": "mask_blur",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "mask_blur"
+          }
+        },
+        {
+          "localized_name": "mask_offset",
+          "name": "mask_offset",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "mask_offset"
+          }
+        },
+        {
+          "localized_name": "invert_output",
+          "name": "invert_output",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "invert_output"
+          }
+        },
+        {
+          "localized_name": "refine_foreground",
+          "name": "refine_foreground",
+          "type": "BOOLEAN",
+          "link": null,
+          "widget": {
+            "name": "refine_foreground"
+          }
+        },
+        {
+          "localized_name": "background",
+          "name": "background",
+          "type": "COMBO",
+          "link": null,
+          "widget": {
+            "name": "background"
+          }
+        },
+        {
+          "localized_name": "background_color",
+          "name": "background_color",
+          "type": "COLORCODE",
+          "link": null,
+          "widget": {
+            "name": "background_color"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            16
+          ]
+        },
+        {
+          "localized_name": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "localized_name": "MASK_IMAGE",
+          "name": "MASK_IMAGE",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RMBG",
+        "cnr_id": "comfyui-rmbg"
+      },
+      "widgets_values": [
+        "RMBG-2.0",
+        1.0,
+        1024,
+        0,
+        0,
+        false,
+        true,
+        "Alpha",
+        "#222222"
+      ],
+      "title": "RMBG-2.0 · isolate A-pose before Hunyuan",
+      "color": "#222e40",
+      "bgcolor": "#364254"
+    },
+    {
+      "id": 46,
+      "type": "MarkdownNote",
+      "pos": [
+        147.0,
+        1260.0
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · A-Pose laden · Node 2",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 2,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · A-Pose laden · Node 2\n\n**Zweck:** Lädt die manuell geprüfte realistische Ganzkörper-A-Pose. Hände und Füße müssen vollständig sichtbar und die Arme vom Torso getrennt sein.\n\n**Einstellbare Werte**\n- `image`: lokale Eingabedatei im ComfyUI-Input-Ordner.\n\n**Ausgänge**\n- `IMAGE`: wird an RMBG weitergegeben.\n- `MASK`: bleibt unbenutzt."
+      ]
+    },
+    {
+      "id": 47,
+      "type": "MarkdownNote",
+      "pos": [
+        700.0,
+        1300.0
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · RMBG-Isolation · Node 45",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 45,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · RMBG-Isolation · Node 45\n\n**Zweck:** Entfernt den Hintergrund vor Hunyuan3D und liefert eine Alpha-isolierte Figur. Dunkle Hintergründe ohne Isolation erzeugten leere Netze oder Hintergrundflächen.\n\n**Einstellbare Werte**\n- `model` = `RMBG-2.0`\n- `process_res` = `1024`\n- `background` = `Alpha`\n\n**Ausgänge**\n- `IMAGE`: isolierte A-Pose für CLIP Vision."
+      ]
+    },
+    {
+      "id": 48,
+      "type": "MarkdownNote",
+      "pos": [
+        4922.05,
+        450.0
+      ],
+      "size": [
+        390,
+        328
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Erklärung · Single-View Conditioning · Node 6",
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "cnr_id": "comfy-core",
+        "dawasteh_note_for": 6,
+        "dawasteh_generated_note": true
+      },
+      "widgets_values": [
+        "# Erklärung · Single-View Conditioning · Node 6\n\n**Zweck:** Konditioniert Hunyuan3D ausschließlich mit der geprüften Frontansicht. Multiview-Geometrie bleibt absichtlich unverbunden, weil sie in den lokalen Tests stark fragmentierte Netze erzeugte.\n\n**Eingang**\n- `clip_vision_output`: kodierte, RMBG-isolierte A-Pose.\n\n**Ausgänge**\n- positive und negative Hunyuan3D-Konditionierung."
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      3,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      1,
+      1,
+      5,
+      0,
+      "CLIP_VISION"
+    ],
+    [
+      3,
+      1,
+      2,
+      8,
+      1,
+      "VAE"
+    ],
+    [
+      5,
+      3,
+      0,
+      7,
+      0,
+      "MODEL"
+    ],
+    [
+      6,
+      4,
+      0,
+      7,
+      3,
+      "LATENT"
+    ],
+    [
+      7,
+      5,
+      0,
+      6,
+      0,
+      "CLIP_VISION_OUTPUT"
+    ],
+    [
+      8,
+      6,
+      0,
+      7,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      9,
+      6,
+      1,
+      7,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      10,
+      7,
+      0,
+      24,
+      3,
+      "LATENT"
+    ],
+    [
+      11,
+      8,
+      0,
+      9,
+      0,
+      "VOXEL"
+    ],
+    [
+      12,
+      9,
+      0,
+      25,
+      3,
+      "MESH"
+    ],
+    [
+      13,
+      24,
+      0,
+      8,
+      0,
+      "LATENT"
+    ],
+    [
+      14,
+      25,
+      0,
+      10,
+      0,
+      "MESH"
+    ],
+    [
+      15,
+      2,
+      0,
+      45,
+      0,
+      "IMAGE"
+    ],
+    [
+      16,
+      45,
+      0,
+      5,
+      1,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1.5005121670000026,
+      "offset": [
+        252.65078452122765,
+        -4.2948884809411885
+      ]
+    },
+    "dawasteh_workflow_refinement": {
+      "version": 1,
+      "generated_notes": 13,
+      "x_scale": 2.45,
+      "y_scale": 2.35,
+      "gap": 34.0
+    }
+  },
+  "version": 0.4
+}

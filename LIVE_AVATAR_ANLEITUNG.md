@@ -253,3 +253,10 @@ Workflow 12-I ist nur der ComfyUI-Precheck und erzeugt absichtlich keinen Spout-
 Workflow 12-II schreibt getrennte AI-/Spout-/Duplikat-/Latenzmetriken nach `L:/ComfyUI/logs/live-avatar-12/quality-metrics.json`. Das neue geglättete Gesichts-Cropping erhöht die nutzbare Gesichtsauflösung, kann aber technisch keine Hände oder Oberkörperdeformation hinzufügen. Dafür Workflow 12-III mit einem geriggten VRM verwenden.
 
 Workflow 13 liefert sechs korrigierte Full-Body-/Turnaround-Ansichten und zwei Ausdrucksreferenzen. Workflow 14 konditioniert Hunyuan3D wirklich mit Front/Links/Hinten/Rechts und erzeugt neue GLB-Geometrie. Das GLB ist statisch, untexturiert und ungeriggt; automatisches lokales AMD-Rigging ist mit den aktuell installierten Komponenten nicht verfügbar.
+
+
+## Workflow 15 · lokaler High-Realism-GLB→VRM-Pfad
+
+Workflow 15 nutzt **eine** manuell geprüfte, mit RMBG freigestellte, level-kamerierte vollständige A-Pose-Frontansicht mit getrennten Armen/Beinen und sichtbaren Händen. Der native Hunyuan3D-2.1-Pfad läuft mit latent `4096` und Octree `512`. Die getestete Multiview-Geometrie ist fragmentierungsanfällig und wird daher nicht für diesen Geometriepfad verwendet. Das GLB ist statisch, untexturiert und ungeriggt; danach `tools/build_high_realism_local_vrm.py` mit Blender-Postpipeline verwenden.
+
+Auf Windows-ROCm nicht Hunyuan Paint, nvdiffrast oder CUDA-Rasterizer nachinstallieren: sie sind kein unterstützter lokaler Texturpfad. Das ist kein fotorealistischer Einbild-Klon; Finger, Gesicht, Haare, Seiten/Rücken, Mund und Gelenkdeformation vor Freigabe sichtbar prüfen und bei Bedarf in Blender nacharbeiten.

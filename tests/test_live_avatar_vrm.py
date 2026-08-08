@@ -26,4 +26,24 @@ class VRMTests(unittest.TestCase):
   self.assertIn('./mediapipe/holistic.js',html);self.assertIn('./mediapipe/holistic.js',built)
  def test_vrm_command_uses_live_global_root(self):
   text=(ROOT/'custom_nodes/ComfyUI-DaWasteh-LiveAvatar/README.md').read_text();self.assertIn('--comfy-root L:/ComfyUI/ComfyUI',text)
+ def test_high_realism_workflow_and_tools_are_release_managed(self):
+  import json
+  name='LiveAvatar-15-Local-High-Realism-VRM.json';workflow=json.loads((ROOT/'workflows/Live Avatar'/name).read_text());template=(ROOT/'assets/live-avatar-v080'/name.replace('.json','.template.json')).read_bytes()
+  self.assertEqual((ROOT/'workflows/Live Avatar'/name).read_bytes(),template)
+  nodes={n['id']:n for n in workflow['nodes']};self.assertEqual(nodes[6]['type'],'Hunyuan3Dv2Conditioning');self.assertEqual(nodes[4]['widgets_values'][0],4096);self.assertEqual(nodes[8]['widgets_values'][1],512);self.assertIn('singleview',nodes[10]['widgets_values'][0])
+  self.assertEqual(nodes[2]['type'],'LoadImage');self.assertEqual([i['name'] for i in nodes[2]['inputs']],['image','upload']);self.assertEqual(len(nodes[2]['outputs']),2)
+  self.assertEqual(nodes[45]['type'],'RMBG');self.assertEqual(nodes[45]['widgets_values'][0],'RMBG-2.0');self.assertEqual(nodes[45]['widgets_values'][2],1024);self.assertEqual(nodes[45]['widgets_values'][7],'Alpha')
+  self.assertIn([15,2,0,45,0,'IMAGE'],workflow['links']);self.assertIn([16,45,0,5,1,'IMAGE'],workflow['links'])
+  self.assertNotIn('Hunyuan3Dv2ConditioningMultiView',[n['type'] for n in workflow['nodes']])
+  self.assertIn('Workflow 15',nodes[11]['title'])
+  for tool in ['rig_hunyuan_high_realism_vrm.py','bake_multiview_pbr_texture.py','add_pbr_roughness.py','downscale_pbr_images.py','add_vrm_face_shapes.py','inspect_glb.py','generate_pbr_roughness.py']:
+   self.assertTrue((ROOT/'tools/blender'/tool).is_file(),tool)
+  orchestrator=(ROOT/'tools/build_high_realism_local_vrm.py').read_text();self.assertIn('a.output_vrm.parent.mkdir(parents=True,exist_ok=True)',orchestrator)
+  rig=(ROOT/'tools/blender/rig_hunyuan_high_realism_vrm.py').read_text();face=(ROOT/'tools/blender/add_vrm_face_shapes.py').read_text();down=(ROOT/'tools/blender/downscale_pbr_images.py').read_text()
+  self.assertIn('for donor_mesh in donor_meshes',rig);self.assertNotIn('license_name = "CC0"',rig+face);self.assertIn('factor=2048.0/max(width,height)',down);self.assertNotIn('image.scale(2048,2048)',down)
+ def test_v080_generator_includes_high_realism_workflow(self):
+  import tempfile
+  with tempfile.TemporaryDirectory() as d:
+   out=Path(d);subprocess.run([sys.executable,str(ROOT/'tools/generate_live_avatar_v080_workflows.py'),'--destination',str(out)],check=True,stdout=subprocess.DEVNULL)
+   name='LiveAvatar-15-Local-High-Realism-VRM.json';self.assertEqual((out/name).read_bytes(),(ROOT/'workflows/Live Avatar'/name).read_bytes())
 if __name__=='__main__':unittest.main()

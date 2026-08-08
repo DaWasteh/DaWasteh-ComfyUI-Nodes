@@ -15,6 +15,9 @@ import comfy.model_management
 from comfy_api.latest import ComfyExtension, io, ui
 
 from .core import (
+    BOTH_REFERENCES,
+    IDENTITY_LOCK,
+    PREVIOUS_FRAME_CONTINUITY,
     analyze_song_and_plan_segments,
     atomic_write_json,
     build_deterministic_prompts,
@@ -33,6 +36,7 @@ from .core import (
     queue_prompt,
     read_json,
     sanitize_name,
+    save_canonical_reference_frame,
     save_reference_image_from_input,
     save_reference_tensor,
     segment_files_valid,
@@ -205,7 +209,7 @@ class DaWH3MusicVideoDirector(io.ComfyNode):
                 io.Int.Input("height", default=480, min=320, max=2048, step=32, advanced=True),
                 io.Int.Input("steps", default=20, min=1, max=100, advanced=True),
                 io.Int.Input("seed", default=314159265358979, min=0, max=0xFFFFFFFFFFFFFFFF, advanced=True),
-                io.Combo.Input("seed_mode", options=["increment per scene", "fixed", "deterministic hash"], default="increment per scene", advanced=True),
+                io.Combo.Input("seed_mode", options=["increment per scene", "fixed", "deterministic hash"], default="fixed", advanced=True),
                 io.Boolean.Input("spectrum_enabled", default=True, advanced=True),
                 io.Float.Input("segment_crf", default=14.0, min=0.0, max=35.0, step=1.0, advanced=True),
                 io.Float.Input("final_crf_fallback", default=18.0, min=0.0, max=35.0, step=1.0, advanced=True),
@@ -235,6 +239,22 @@ class DaWH3MusicVideoDirector(io.ComfyNode):
                 io.Int.Input("spectrum_max_history", default=8, min=2, max=64, advanced=True),
                 io.Combo.Input("spectrum_history_storage", options=["system_ram", "vram"], default="system_ram", advanced=True),
                 io.Boolean.Input("spectrum_debug", default=False, advanced=True),
+                # Keep new serialized widgets after every v0.8.3 widget. ComfyUI
+                # restores list-style widget values positionally, so insertion in
+                # the middle would corrupt existing user workflows.
+                io.Combo.Input(
+                    "reference_strategy",
+                    options=[IDENTITY_LOCK, PREVIOUS_FRAME_CONTINUITY, BOTH_REFERENCES],
+                    default=IDENTITY_LOCK,
+                    tooltip="Identity lock sends only the original reference to every scene and avoids recursive character drift.",
+                    advanced=True,
+                ),
+                io.Boolean.Input(
+                    "force_reference_as_first_frame",
+                    default=True,
+                    tooltip="For scene 1, replace the generated first frame with a contained, uncropped copy of the selected reference image.",
+                    advanced=True,
+                ),
             ],
             outputs=[io.String.Output("manifest_path"), io.String.Output("expected_final_file"), io.String.Output("status")],
             is_output_node=True,
@@ -250,7 +270,7 @@ class DaWH3MusicVideoDirector(io.ComfyNode):
         text_encoder, video_vae, audio_vae, shift_video, shift_audio, sampler_name, scheduler,
         spectrum_blend_weight, spectrum_degree, spectrum_ridge_lambda, spectrum_window_size,
         spectrum_flex_window, spectrum_warmup_steps, spectrum_tail_actual_steps, spectrum_max_history,
-        spectrum_history_storage, spectrum_debug,
+        spectrum_history_storage, spectrum_debug, reference_strategy, force_reference_as_first_frame,
     ) -> io.NodeOutput:
         _required_node_check(bool(spectrum_enabled))
         if int(width) % 32 or int(height) % 32:
@@ -268,7 +288,8 @@ class DaWH3MusicVideoDirector(io.ComfyNode):
 
         settings = {
             "width": int(width), "height": int(height), "steps": int(steps), "seed": int(seed), "seed_mode": str(seed_mode),
-            "continuity": bool(continuity_from_previous_last_frame), "spectrum_enabled": bool(spectrum_enabled),
+            "continuity": bool(continuity_from_previous_last_frame), "reference_strategy": str(reference_strategy),
+            "force_reference_as_first_frame": bool(force_reference_as_first_frame), "spectrum_enabled": bool(spectrum_enabled),
             "segment_crf": float(segment_crf), "final_crf": float(final_crf_fallback), "video_preset": str(video_preset),
             "output_container": str(output_container), "diffusion_model": str(diffusion_model), "text_encoder": str(text_encoder),
             "video_vae": str(video_vae), "audio_vae": str(audio_vae), "shift_video": float(shift_video),
@@ -310,9 +331,15 @@ class DaWH3MusicVideoDirector(io.ComfyNode):
             source_copy = project_dir / f"source_audio{source_suffix}"
             shutil.copy2(audio_path, source_copy)
             reference_copy: Path | None = None
+            first_frame_reference: Path | None = None
             if reference_source:
                 reference_copy = project_dir / "reference.png"
                 save_reference_image_from_input(reference_source, str(reference_copy))
+                if bool(force_reference_as_first_frame):
+                    first_frame_reference = project_dir / "first_frame_reference.png"
+                    save_canonical_reference_frame(
+                        str(reference_copy), str(first_frame_reference), int(width), int(height)
+                    )
 
             print(f"[DaWasteh H3 MusicVideo] Analyzing {Path(audio_path).name} ...")
             analysis = analyze_song_and_plan_segments(
@@ -327,7 +354,7 @@ class DaWH3MusicVideoDirector(io.ComfyNode):
             has_reference = reference_copy is not None
             prompts = build_deterministic_prompts(
                 segments, str(master_visual_concept), has_base_reference=has_reference,
-                continuity=bool(continuity_from_previous_last_frame),
+                continuity=bool(continuity_from_previous_last_frame), reference_strategy=str(reference_strategy),
             )
             planner_note = "deterministic rhythm/energy/structure planner"
             if scene_prompt_planner == "local OpenAI-compatible LLM":
@@ -336,7 +363,7 @@ class DaWH3MusicVideoDirector(io.ComfyNode):
                         base_url=str(local_llm_base_url), model=str(local_llm_model), timeout=float(local_llm_timeout),
                         segments=segments, master_visual_concept=str(master_visual_concept),
                         lyrics_or_story=str(lyrics_or_story_optional), has_base_reference=has_reference,
-                        continuity=bool(continuity_from_previous_last_frame),
+                        continuity=bool(continuity_from_previous_last_frame), reference_strategy=str(reference_strategy),
                     )
                     planner_note = "local LLM scene planner"
                 except Exception as exc:
@@ -368,6 +395,7 @@ class DaWH3MusicVideoDirector(io.ComfyNode):
                 "schema_version": 1, "project_id": project_id, "project_name": project_name,
                 "fingerprint": fingerprint, "created_at": time.time(), "updated_at": time.time(), "status": "planned",
                 "project_dir": str(project_dir), "reference_image_path": str(reference_copy) if reference_copy else None,
+                "first_frame_reference_path": str(first_frame_reference) if first_frame_reference else None,
                 "source_audio_copy": str(source_copy), "source_audio_original": audio_path,
                 "source_audio_sha256": sha256_file(str(source_copy)), "source_audio_duration": analysis["duration"],
                 "final_output_path": str(final_output), "server_address": str(server_address),
@@ -497,9 +525,13 @@ class DaWH3MusicVideoSaveSegment(io.ComfyNode):
         manifest = read_json(manifest_path)
         segment = manifest["segments"][int(segment_index)]
         output_path = str(segment["video_path"])
+        first_frame_path = None
+        if int(segment_index) == 0 and bool(manifest["settings"].get("force_reference_as_first_frame")):
+            first_frame_path = manifest.get("first_frame_reference_path")
         encode_images_to_h264(
             ffmpeg, images, int(target_frames), output_path,
             crf=float(manifest["settings"]["segment_crf"]), preset=str(manifest["settings"]["video_preset"]),
+            first_frame_path=str(first_frame_path) if first_frame_path else None,
         )
         save_reference_tensor(images[int(target_frames) - 1:int(target_frames)], str(segment["continuity_path"]))
         verified = count_video_frames(ffmpeg, output_path)
@@ -510,6 +542,7 @@ class DaWH3MusicVideoSaveSegment(io.ComfyNode):
             entry["status"] = "complete"
             entry["completed_at"] = time.time()
             entry["verified_frames"] = verified
+            entry["reference_first_frame_forced"] = bool(first_frame_path)
         update_manifest(manifest_path, mark_complete)
         print(f"[DaWasteh H3 MusicVideo] Saved scene {int(segment_index) + 1}: {output_path}")
         gc.collect()

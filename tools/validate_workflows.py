@@ -35,11 +35,13 @@ AUTHORIZED_WIDGET_DELTAS: dict[str, dict[int, set[int]]] = {
     },
 }
 AUTHORIZED_NODE_REPLACEMENTS: dict[str, dict[int, str]] = {
-    # ComfyUI adds a control-after-generate widget immediately after integer
-    # seed widgets. Pin the repaired serialization so every following Director
-    # input maps to its real schema field instead of shifting by one position.
+    # Pin the v0.8.4 Identity-Lock Director serialization, user-facing guide,
+    # and schema-generated parameter note. This includes ComfyUI's control-after-
+    # generate widget immediately after the integer seed.
     "workflows/Reference to Video/MiniMax_H3_Complete_Song_to_Music_Video_One_Click.json": {
-        1: "02c0d27a74d907046695f864790780703648e39e54b24738d3a8ba23b782c98c",
+        1: "31109d644802d5d7fea67f890802fec3bf3b5e6c5dda3d6979e7e09a91b85cbb",
+        2: "692d4b2a3dba7827b661f8560e0723f57a5a3e01e95a910d7ee4accd2741a042",
+        4: "8d1d238d1f26397d0458d6db5f9278878e67b3674b0a3eb3ecbb67e259813aaa",
     },
     # Persistent latest-frame Spout replaces the transient Jovi writer; hashes
     # pin both the runtime node and its synchronized generated documentation.

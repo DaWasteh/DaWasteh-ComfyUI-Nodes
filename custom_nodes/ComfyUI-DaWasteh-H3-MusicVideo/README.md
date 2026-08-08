@@ -28,10 +28,12 @@ Keine zusätzlichen Python-Pakete werden installiert.
 ## Bedienung
 
 1. `song`: Musikdatei auswählen/hochladen.
-2. `reference_image`: optional. Ohne Bild beginnt Szene 1 nur aus Text + Audio; bei aktivierter Kontinuität dient ab Szene 2 das letzte Bild der vorherigen Szene als Referenz.
-3. `master_visual_concept`: visuelle Welt, Hauptfigur, Verlauf und gewünschte Bildsprache beschreiben.
-4. `lyrics_or_story_optional`: optionaler semantischer Inhalt. Normale Zeilen werden zeitlich verteilt; LRC-artige Zeilen wie `[02:17.40] Text` werden zeitlich zugeordnet.
-5. Queue einmal starten.
+2. `reference_image`: für eine feste Sängerin auswählen.
+3. `reference_strategy = identity lock (recommended)`: übergibt in jeder Szene ausschließlich das unveränderte Originalbild als Identitäts-, Kleidungs- und Stilreferenz. So wird kein bereits gedriftetes Endbild als zweite Figur eingespeist. `previous-frame continuity` und `both references (experimental)` bleiben für Sonderfälle verfügbar.
+4. `force_reference_as_first_frame = true`: setzt eine uncropped Contain-Version des Referenzbilds deterministisch als Frame 1 der ersten Szene ein. Für ein 9:16-Bild empfiehlt sich 480×864.
+5. `master_visual_concept`: eine feste Location-Familie und Bildsprache beschreiben. Variationen auf Kamera und subtile Performance begrenzen.
+6. `lyrics_or_story_optional`: optionaler semantischer Inhalt. Normale Zeilen werden zeitlich verteilt; LRC-artige Zeilen wie `[02:17.40] Text` werden zeitlich zugeordnet.
+7. Queue einmal starten.
 
 Der Master-Job analysiert und startet die Job-Kette. Danach erzeugt jeder erfolgreiche Szenenjob automatisch den nächsten. Erst nachdem alle Clips als gültig bestätigt wurden, wird der Finalizer eingereiht.
 
@@ -43,7 +45,7 @@ Mit `scene_prompt_planner = local OpenAI-compatible LLM` kann ein lokales Modell
 
 ## Segmentierung und Audio
 
-- Standardziel: ungefähr 10 Sekunden, Grenzen 7–13 Sekunden.
+- Standardziel: ungefähr 10 Sekunden, Grenzen 7–13 Sekunden; für sichere H3-Läufe `max_scene_seconds` höchstens 15 Sekunden setzen.
 - Schnitte werden möglichst auf starke Beats/Taktanfänge oder Strukturwechsel gelegt.
 - Jede Szene wird für H3 auf das gültige `17k+5`-Raster bei 24 fps aufgerundet.
 - Nur die exakt benötigten Zielframes werden gespeichert; die Summe aller Szenenframes entspricht der Songdauer auf dem 24-fps-Raster.
@@ -60,22 +62,27 @@ ComfyUI/output/DaWasteh_H3_MusicVideo_Projects/<Projekt-ID>/
 ├── manifest.json
 ├── scene_plan.json
 ├── source_audio.<Original-Endung>
+├── first_frame_reference.png
+├── joined_video.<container>          # fertiger Film MIT Originalaudio
+├── joined_video_silent.mp4           # klar benannter interner Video-Zwischenstand
 ├── segment_audio/
 ├── segments/
 └── continuity/
 ```
 
-Finale Ausgabe:
+`joined_video.<container>` ist das direkt sichtbare Projekt-Deliverable mit Originalaudio. Der Finalizer kopiert es byte-identisch zusätzlich nach:
 
 ```text
 ComfyUI/output/video/MiniMax_H3_MusicVideo/<Projekt-ID>/<Projektname>.mkv
 ```
+
+Das Manifest nennt beide Pfade ausdrücklich als `joined_deliverable_path` und `final_output_path`; `silent_concat_path` bezeichnet nur den tonlosen internen Zwischenstand.
 
 Bei einem OOM oder sonstigen Fehler denselben Master-Workflow erneut starten. Gültige Clips werden erkannt. Mit Kontinuität werden ab dem ersten fehlenden Clip alle späteren Clips neu gerechnet, weil sie vom vorherigen Endbild abhängen. `force_rebuild = true` löscht das konkrete Projekt und beginnt vollständig neu.
 
 ## Grenzen
 
 - Das ist eine lokale Queue-Orchestrierung, kein einzelner fünf Minuten großer H3-Latent. Genau dadurch bleibt der VRAM-Bedarf pro Szene begrenzt.
-- Visuelle Kontinuität über viele unabhängige generative Shots ist nicht garantiert. Das feste Referenzbild plus vorheriges Endbild reduziert Drift, beseitigt sie aber nicht vollständig.
+- Visuelle Kontinuität über viele unabhängige generative Shots ist nicht garantiert. Der neue Identity-Lock vermeidet die besonders riskante Mischung aus Original und rekursiv gedriftetem Endframe, erzwingt eine Visual Bible und konservativere Anatomie-Prompts. Einzelne fehlerhafte Szenen können trotzdem einen gezielten Neulauf erfordern.
 - Ein vollständiges Musikvideo besteht standardmäßig aus ungefähr 25–40 H3-Renders. Es ist entsprechend rechenintensiv.
 - Der Master-Node zeigt den erwarteten Zielpfad sofort; die eigentliche Datei entsteht erst im automatisch eingereihten Finalizer.

@@ -263,6 +263,25 @@ def load_image_tensor(path: str) -> torch.Tensor:
     return torch.from_numpy(array).unsqueeze(0).contiguous()
 
 
+def canonical_reference_frame(path: str, width: int, height: int) -> np.ndarray:
+    """Contain a reference image without cropping and return an RGB uint8 video frame."""
+    if width <= 0 or height <= 0:
+        raise ValueError("Reference-frame dimensions must be positive")
+    with Image.open(path) as source:
+        image = ImageOps.exif_transpose(source).convert("RGB")
+        contained = ImageOps.contain(image, (int(width), int(height)), Image.Resampling.LANCZOS)
+    canvas = Image.new("RGB", (int(width), int(height)), (8, 8, 8))
+    offset = ((int(width) - contained.width) // 2, (int(height) - contained.height) // 2)
+    canvas.paste(contained, offset)
+    return np.asarray(canvas, dtype=np.uint8).copy()
+
+
+def save_canonical_reference_frame(path: str, destination: str, width: int, height: int) -> None:
+    frame = canonical_reference_frame(path, width, height)
+    Path(destination).parent.mkdir(parents=True, exist_ok=True)
+    Image.fromarray(frame, mode="RGB").save(destination, format="PNG", optimize=True)
+
+
 def encode_images_to_h264(
     ffmpeg: str,
     images: torch.Tensor,
@@ -271,6 +290,7 @@ def encode_images_to_h264(
     *,
     crf: float,
     preset: str,
+    first_frame_path: str | None = None,
 ) -> None:
     if not isinstance(images, torch.Tensor) or images.ndim != 4:
         raise ValueError("images must be [frames, height, width, channels]")
@@ -288,15 +308,20 @@ def encode_images_to_h264(
         "-preset", preset, "-crf", f"{float(crf):.3f}", "-pix_fmt", "yuv420p", "-movflags", "+faststart",
         "-video_track_timescale", "90000", str(temporary),
     ]
+    forced_first_frame = canonical_reference_frame(first_frame_path, width, height) if first_frame_path else None
     process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
     assert process.stdin is not None
     try:
         for start in range(0, frame_count, 8):
             chunk = images[start:min(frame_count, start + 8), ..., :3]
             array = chunk.detach().float().cpu().clamp(0.0, 1.0).mul(255.0).add(0.5).to(torch.uint8).contiguous().numpy()
+            if start == 0 and forced_first_frame is not None:
+                array[0] = forced_first_frame
             process.stdin.write(array.tobytes(order="C"))
         process.stdin.close()
         error = process.stderr.read() if process.stderr is not None else b""
+        if process.stderr is not None:
+            process.stderr.close()
         return_code = process.wait()
     except BaseException:
         process.kill()
@@ -617,26 +642,44 @@ ACTIONS_MID = [
     "a readable visual action that develops continuously across the shot",
 ]
 ACTIONS_HIGH = [
-    "strong performance gestures, rapid environmental reactions, and large synchronized motion",
-    "decisive movement, powerful wind and particles, and a visually legible climax",
-    "high-impact choreography with controlled debris, light streaks, and dynamic depth",
+    "controlled lead-vocal performance with one clear gesture and stable anatomy",
+    "decisive but restrained singer movement, rhythmic light response, and readable hands",
+    "an energetic facial performance with subtle hair and fabric motion while the body remains anatomically stable",
 ]
 LIGHTING = [
     "cinematic volumetric lighting with controlled contrast", "neon reflections and layered practical lights",
     "soft atmospheric backlight with moving highlights", "high-contrast stage lighting with rhythmic pulses",
     "moonlit haze with selective saturated accents",
 ]
+IDENTITY_LOCK = "identity lock (recommended)"
+PREVIOUS_FRAME_CONTINUITY = "previous-frame continuity"
+BOTH_REFERENCES = "both references (experimental)"
 
 
-def _reference_prefix(has_base_reference: bool, has_previous_reference: bool) -> str:
+def _reference_prefix(
+    has_base_reference: bool,
+    has_previous_reference: bool,
+    reference_strategy: str,
+) -> str:
     lines: list[str] = []
     picture = 1
     if has_base_reference:
-        lines.append(f"Use <Picture {picture}> as the persistent identity, face, body, clothing, color palette, and production-design reference.")
+        if reference_strategy == IDENTITY_LOCK:
+            lines.append(
+                f"<Picture {picture}> is the immutable cast, identity, wardrobe, hairstyle, color-palette, rendering-style, and production-design bible. "
+                "Reproduce the same adult singer and the same visible garment design in every shot; it is not loose inspiration."
+            )
+        else:
+            lines.append(f"Use <Picture {picture}> as the persistent identity, face, body, clothing, color palette, and production-design reference.")
         picture += 1
     if has_previous_reference:
         lines.append(f"Use <Picture {picture}> only as the immediate continuity anchor from the preceding shot; continue its pose, lighting direction, spatial logic, and screen direction without freezing the image.")
     lines.append("Use <Audio 1> as the exact temporal reference for performance energy, movement accents, environmental reactions, and camera rhythm.")
+    if reference_strategy == IDENTITY_LOCK and has_base_reference:
+        lines.append(
+            "Show exactly one adult singer, never a second person, clone, crowd, reflection-double, or body duplicate. "
+            "Keep one consistent photorealistic cinematic language and one coherent location family. Keep anatomy conservative and readable: exactly two arms and two hands, natural shoulders and fingers, no fused or extra limbs."
+        )
     return " ".join(lines)
 
 
@@ -646,6 +689,7 @@ def build_deterministic_prompts(
     *,
     has_base_reference: bool,
     continuity: bool,
+    reference_strategy: str = IDENTITY_LOCK,
 ) -> list[str]:
     master = " ".join((master_visual_concept or "").split()) or "A coherent cinematic performance-driven music video with an evolving visual story."
     prompts: list[str] = []
@@ -659,16 +703,21 @@ def build_deterministic_prompts(
             camera, action = CAMERAS_HIGH[index % len(CAMERAS_HIGH)], ACTIONS_HIGH[index % len(ACTIONS_HIGH)]
         else:
             camera, action = CAMERAS_MID[index % len(CAMERAS_MID)], ACTIONS_MID[index % len(ACTIONS_MID)]
-        previous = continuity and index > 0
+        if reference_strategy == IDENTITY_LOCK and has_base_reference:
+            previous = False
+        else:
+            previous = continuity and index > 0
+        base_for_shot = has_base_reference and not (reference_strategy == PREVIOUS_FRAME_CONTINUITY and index > 0)
         excerpt = str(segment.get("text_excerpt") or "").strip()
         lyric = f"Current lyrical or narrative cue: {excerpt}. Translate it into imagery without showing the words. " if excerpt else ""
         ending = "Resolve into a deliberate, memorable final composition." if index == total - 1 else "End on a clean composition that cuts naturally into the next shot."
+        lighting = LIGHTING[0] if reference_strategy == IDENTITY_LOCK and has_base_reference else LIGHTING[index % len(LIGHTING)]
         prompts.append(
-            _reference_prefix(has_base_reference, previous)
+            _reference_prefix(base_for_shot, previous, reference_strategy)
             + f" Global music-video concept: {master} Shot {index + 1} of {total}; musical function: {segment['role']}; relative energy {energy:.2f}. "
-            + f"Create one uninterrupted cinematic shot using {camera}. Show {action}. Lighting: {LIGHTING[index % len(LIGHTING)]}. "
+            + f"Create one uninterrupted cinematic shot using {camera}. Show {action}. Lighting: {lighting}. "
             + lyric + ending
-            + " Preserve anatomy and identity, maintain coherent motion, and avoid duplicate subjects, internal jump cuts, subtitles, captions, logos, watermarks, and random text."
+            + " Preserve anatomy and identity, maintain coherent motion, and avoid duplicate subjects, internal jump cuts, subtitles, captions, unrelated logos, watermarks, and random text. Preserve any intentional garment graphic already visible in the reference."
         )
     return prompts
 
@@ -697,6 +746,7 @@ def query_local_llm_scene_prompts(
     lyrics_or_story: str,
     has_base_reference: bool,
     continuity: bool,
+    reference_strategy: str = IDENTITY_LOCK,
 ) -> list[str]:
     base = (base_url or "http://127.0.0.1:8080/v1").rstrip("/")
     if not re.match(r"^https?://", base, flags=re.I):
@@ -753,9 +803,10 @@ def query_local_llm_scene_prompts(
         raise ValueError(f"The local LLM returned {len(by_index)} usable shots for {len(segments)} segments")
     prompts: list[str] = []
     for index, segment in enumerate(segments):
-        previous = continuity and index > 0
+        previous = continuity and index > 0 and reference_strategy != IDENTITY_LOCK
+        base_for_shot = has_base_reference and not (reference_strategy == PREVIOUS_FRAME_CONTINUITY and index > 0)
         prompts.append(
-            _reference_prefix(has_base_reference, previous)
+            _reference_prefix(base_for_shot, previous, reference_strategy)
             + f" Global concept: {master_visual_concept}. Shot {index + 1} of {len(segments)}, musical role {segment['role']}, relative energy {float(segment['energy']):.2f}. "
             + by_index[index]
             + " Preserve anatomy, stable identity and temporal coherence. No subtitles, captions, logos, watermarks, random text, duplicate subject, or internal jump cut."
@@ -788,11 +839,19 @@ def build_segment_api_prompt(manifest_path: str, segment_index: int, manifest: d
         "23": {"class_type": "DaWH3MusicVideoSaveSegment", "inputs": {"images": ["22", 0], "manifest_path": manifest_path, "segment_index": segment_index, "target_frames": ["1", 2]}},
     }
     image_input = 0
-    if manifest.get("reference_image_path"):
+    reference_strategy = settings.get("reference_strategy", BOTH_REFERENCES)
+    has_base_reference = bool(manifest.get("reference_image_path"))
+    use_base_reference = has_base_reference and not (
+        reference_strategy == PREVIOUS_FRAME_CONTINUITY and segment_index > 0
+    )
+    use_previous_reference = bool(settings["continuity"] and segment_index > 0) and (
+        not has_base_reference or reference_strategy in {PREVIOUS_FRAME_CONTINUITY, BOTH_REFERENCES}
+    )
+    if use_base_reference:
         prompt["2"] = {"class_type": "DaWH3MusicVideoLoadImagePath", "inputs": {"image_path": manifest["reference_image_path"]}}
         prompt["17"]["inputs"][f"ref_images.ref_image_{image_input}"] = ["2", 0]
         image_input += 1
-    if settings["continuity"] and segment_index > 0:
+    if use_previous_reference:
         previous = manifest["segments"][segment_index - 1]["continuity_path"]
         prompt["3"] = {"class_type": "DaWH3MusicVideoLoadImagePath", "inputs": {"image_path": previous}}
         prompt["17"]["inputs"][f"ref_images.ref_image_{image_input}"] = ["3", 0]
@@ -874,29 +933,30 @@ def concat_and_mux_project(ffmpeg: str, manifest_path: str) -> str:
         normalized = os.path.abspath(str(segment["video_path"])).replace("\\", "/").replace("'", "'\\''")
         lines.append(f"file '{normalized}'")
     concat_file.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    joined = project_dir / "joined_video.mp4"
+    silent_concat = project_dir / "joined_video_silent.mp4"
     try:
         run_command([
             ffmpeg, "-hide_banner", "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(concat_file),
-            "-an", "-c:v", "copy", "-avoid_negative_ts", "make_zero", str(joined),
+            "-an", "-c:v", "copy", "-avoid_negative_ts", "make_zero", str(silent_concat),
         ], timeout=7200)
     except Exception:
         settings = manifest["settings"]
         run_command([
             ffmpeg, "-hide_banner", "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(concat_file),
             "-an", "-r", "24", "-c:v", "libx264", "-preset", settings["video_preset"], "-crf", str(settings["final_crf"]),
-            "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(joined),
+            "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(silent_concat),
         ], timeout=14400)
     output = Path(manifest["final_output_path"])
     output.parent.mkdir(parents=True, exist_ok=True)
-    temporary = output.with_name(output.stem + ".tmp" + output.suffix)
+    joined_deliverable = project_dir / f"joined_video{output.suffix.lower()}"
+    joined_temporary = joined_deliverable.with_name(joined_deliverable.stem + ".tmp" + joined_deliverable.suffix)
     command = [
-        ffmpeg, "-hide_banner", "-loglevel", "error", "-y", "-i", str(joined), "-i", manifest["source_audio_copy"],
+        ffmpeg, "-hide_banner", "-loglevel", "error", "-y", "-i", str(silent_concat), "-i", manifest["source_audio_copy"],
         "-map", "0:v:0", "-map", "1:a:0", "-map_metadata", "1", "-c:v", "copy", "-c:a", "copy",
     ]
     if output.suffix.lower() == ".mp4":
         command += ["-movflags", "+faststart"]
-    command.append(str(temporary))
+    command.append(str(joined_temporary))
     try:
         run_command(command, timeout=7200)
     except Exception as exc:
@@ -905,7 +965,17 @@ def concat_and_mux_project(ffmpeg: str, manifest_path: str) -> str:
                 "MP4 rejected the original audio codec while -c:a copy was enforced. Use MKV to preserve WAV/PCM, FLAC, Opus or other codecs unchanged."
             ) from exc
         raise
-    if not temporary.exists() or temporary.stat().st_size < 1024:
-        raise RuntimeError("Final mux returned success but no valid output file was created")
+    if not joined_temporary.exists() or joined_temporary.stat().st_size < 1024:
+        raise RuntimeError("Final mux returned success but no joined deliverable was created")
+    os.replace(joined_temporary, joined_deliverable)
+
+    temporary = output.with_name(output.stem + ".tmp" + output.suffix)
+    shutil.copy2(joined_deliverable, temporary)
     os.replace(temporary, output)
+
+    def record_deliverables(value: dict[str, Any]) -> None:
+        value["silent_concat_path"] = str(silent_concat)
+        value["joined_deliverable_path"] = str(joined_deliverable)
+
+    update_manifest(manifest_path, record_deliverables)
     return str(output)
